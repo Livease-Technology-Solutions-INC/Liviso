@@ -1,0 +1,133 @@
+{% extends 'partials/layout-vertical.html.twig' %}
+
+{% block title %}Chartjs
+{% endblock %}
+
+{% block css %}{% endblock %}
+
+{% block pagetitle %}
+	{{ include('partials/page-title.html.twig', { sub_title: 'Charts', page_title: 'Chartjs' }) }}
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-xl-6">
+			<div class="card">
+				<div class="card-body">
+					<h4 class="header-title mb-4">Interpolation</h4>
+
+					<div dir="ltr">
+						<div class="mt-3 chartjs-chart" style="height: 320px;">
+							<canvas id="interpolation-example" data-colors="#4254ba,#17a497"></canvas>
+						</div>
+					</div>
+				</div>
+				<!-- end card body-->
+			</div>
+			<!-- end card -->
+		</div>
+		<!-- end col-->
+
+		<div class="col-xl-6">
+			<div class="card">
+				<div class="card-body">
+					<h4 class="header-title mb-4">Line</h4>
+
+					<div dir="ltr">
+						<div class="mt-3 chartjs-chart" style="height: 320px;">
+							<canvas id="line-example" data-colors="#4254ba,#17a497"></canvas>
+						</div>
+					</div>
+				</div>
+				<!-- end card body-->
+			</div>
+			<!-- end card -->
+		</div>
+		<!-- end col-->
+	</div>
+	<!-- end row-->
+
+
+	<div class="row">
+		<div class="col-xl-6">
+			<div class="card">
+				<div class="card-body">
+					<h4 class="header-title mb-4">Multi-Axes</h4>
+
+					<div dir="ltr">
+						<div class="mt-3 chartjs-chart" style="height: 320px;">
+							<canvas id="multi-axes-example" data-colors="#4254ba,#17a497"></canvas>
+						</div>
+					</div>
+				</div>
+				<!-- end card body-->
+			</div>
+			<!-- end card -->
+		</div>
+		<!-- end col-->
+
+		<div class="col-xl-6">
+			<div class="card">
+				<div class="card-body">
+					<h4 class="header-title mb-4">Point Styling</h4>
+
+					<div dir="ltr">
+						<div class="mt-3 chartjs-chart" style="height: 320px;">
+							<canvas id="point-styling-example" data-colors="#4254ba,#17a497"></canvas>
+						</div>
+					</div>
+				</div>
+				<!-- end card body-->
+			</div>
+			<!-- end card -->
+		</div>
+		<!-- end col-->
+	</div>
+	<!-- end row-->
+
+	<div class="row">
+		<div class="col-xl-6">
+			<div class="card">
+				<div class="card-body">
+					<h4 class="header-title mb-4">Line Segment</h4>
+
+					<div dir="ltr">
+						<div class="mt-3 chartjs-chart" style="height: 320px;">
+							<canvas id="line-segment-example" data-colors="#4254ba,#17a497"></canvas>
+						</div>
+					</div>
+				</div>
+				<!-- end card body-->
+			</div>
+			<!-- end card -->
+		</div>
+		<!-- end col-->
+
+		<div class="col-xl-6">
+			<div class="card">
+				<div class="card-body">
+					<h4 class="header-title mb-4">Stepped</h4>
+
+					<div dir="ltr">
+						<div class="mt-3 chartjs-chart" style="height: 320px;">
+							<canvas id="stepped-example" data-colors="#4254ba,#17a497"></canvas>
+						</div>
+					</div>
+				</div>
+				<!-- end card body-->
+			</div>
+			<!-- end card -->
+		</div>
+		<!-- end col-->
+	</div>
+	<!-- end row-->
+
+{% endblock %}
+
+{% block javascript %}
+	<!-- Chart.js-->
+	<script src="/vendor/chart.js/chart.min.js"></script>
+
+	<!-- Chart.js Line Demo js -->
+	<script src="/js/pages/demo.chartjs-line.js"></script>
+{% endblock %}

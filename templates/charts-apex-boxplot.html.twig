@@ -1,0 +1,69 @@
+{% extends 'partials/layout-vertical.html.twig' %}
+
+{% block title %}
+	Apex Boxplot Charts
+{% endblock %}
+
+
+{% block pagetitle %}
+	{{ include('partials/page-title.html.twig', { sub_title: 'Apex', page_title: 'Boxplot Charts' }) }}
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-xl-6">
+			<div class="card">
+				<div class="card-body">
+					<h4 class="header-title mb-4">Basic Boxplot</h4>
+					<div dir="ltr">
+						<div id="basic-boxplot" class="apex-charts" data-colors="#4254ba,#17a497"></div>
+					</div>
+				</div>
+				<!-- end card body-->
+			</div>
+			<!-- end card -->
+		</div>
+		<!-- end col-->
+
+		<div class="col-xl-6">
+			<div class="card">
+				<div class="card-body">
+					<h4 class="header-title mb-4">Scatter Boxplot
+					</h4>
+					<div dir="ltr">
+						<div id="scatter-boxplot" class="apex-charts" data-colors="#fa5c7c,#6c757d"></div>
+					</div>
+				</div>
+				<!-- end card body-->
+			</div>
+			<!-- end card -->
+		</div>
+		<!-- end col-->
+	</div>
+	<!-- end row-->
+
+	<div class="row">
+		<div class="col-xl-6">
+			<div class="card">
+				<div class="card-body">
+					<h4 class="header-title mb-4">Horizontal BoxPlot</h4>
+					<div dir="ltr">
+						<div id="horizontal-boxplot" class="apex-charts" data-colors="#4254ba,#17a497,#e3eaef"></div>
+					</div>
+				</div>
+				<!-- end card body-->
+			</div>
+			<!-- end card -->
+		</div>
+		<!-- end col-->
+	</div>
+	<!-- end row-->
+{% endblock %}
+
+{% block javascript %}
+	<!-- Apex Chart js -->
+	<script src="/vendor/apexcharts/apexcharts.min.js"></script>
+
+	<!-- Apex Chart Boxplot Demo js -->
+	<script src="/js/pages/demo.apex-boxplot.js"></script>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'partials/layout-vertical.html.twig' %}
+
+{% block title %}Bootstrap Icons
+{% endblock %}
+
+{% block css %}{% endblock %}
+
+{% block pagetitle %}
+	{{ include('partials/page-title.html.twig', { sub_title: 'Icons', page_title: 'Bootstrap Icons' }) }}
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="col">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">Icons</h5>
+					<p class="text-muted mb-2">Use class
+						<code>&lt;i class=&quot;bi bi-123&quot;&gt;&lt;/i&gt;</code>
+					</p>
+					<div class="row icons-list-demo" id="bootstrap-icons"></div>
+				</div>
+				<!-- end card body -->
+			</div>
+			<!-- end card -->
+		</div>
+		<!-- end col -->
+	</div>
+	<!-- end row -->
+
+{% endblock %}
+
+{% block javascript %}
+<!-- Remixicons Icons Demo js -->
+<script src="/js/pages/demo.bootstrapicons.js"></script>
+{% endblock %}

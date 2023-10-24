@@ -1,0 +1,52 @@
+{% extends 'partials/layout-vertical.html.twig' %}
+
+{% block title %}Apex Polar Area Charts
+{% endblock %}
+
+{% block css %}{% endblock %}
+
+{% block pagetitle %}
+	{{ include('partials/page-title.html.twig', { sub_title: 'Apex', page_title: 'Polar Area Charts' }) }}
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-xl-6">
+			<div class="card">
+				<div class="card-body">
+					<h4 class="header-title">Basic Polar Area Chart</h4>
+					<div dir="ltr">
+						<div id="basic-polar-area" class="apex-charts" data-colors="#4254ba,#6c757d,#17a497,#fa5c7c,#ffbc00,#39afd1"></div>
+					</div>
+				</div>
+				<!-- end card body-->
+			</div>
+			<!-- end card -->
+		</div>
+		<!-- end col-->
+
+		<div class="col-xl-6">
+			<div class="card">
+				<div class="card-body">
+					<h4 class="header-title">Monochrome Polar Area</h4>
+					<div dir="ltr">
+						<div id="monochrome-polar-area" class="apex-charts" data-colors="#6c757d"></div>
+					</div>
+				</div>
+				<!-- end card body-->
+			</div>
+			<!-- end card -->
+		</div>
+		<!-- end col-->
+	</div>
+	<!-- end row-->
+
+{% endblock %}
+
+{% block javascript %}
+	<!-- Apex Chart js -->
+	<script src="/vendor/apexcharts/apexcharts.min.js"></script>
+
+	<!-- Apex Chart Polar Area Demo js -->
+	<script src="/js/pages/demo.apex-polar-area.js"></script>
+{% endblock %}

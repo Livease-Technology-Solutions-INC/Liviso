@@ -1,0 +1,70 @@
+{% extends 'partials/layout-vertical.html.twig' %}
+
+{% block title %}Apex Scatter Charts
+{% endblock %}
+
+{% block css %}{% endblock %}
+
+{% block pagetitle %}
+	{{ include('partials/page-title.html.twig', { sub_title: 'Apex', page_title: 'Scatter Charts' }) }}
+{% endblock %}
+
+{% block body %}
+
+	<div class="row">
+		<div class="col-xl-6">
+			<div class="card">
+				<div class="card-body">
+					<h4 class="header-title">Scatter (XY) Chart</h4>
+					<div dir="ltr">
+						<div id="basic-scatter" class="apex-charts" data-colors="#39afd1,#ffbc00,#4254ba"></div>
+					</div>
+				</div>
+				<!-- end card body-->
+			</div>
+			<!-- end card -->
+		</div>
+		<!-- end col-->
+
+		<div class="col-xl-6">
+			<div class="card">
+				<div class="card-body">
+					<h4 class="header-title">Scatter Chart - Datetime</h4>
+					<div dir="ltr">
+						<div id="datetime-scatter" class="apex-charts" data-colors="#6c757d,#ffbc00,#4254ba,#17a497,#fa5c7c"></div>
+					</div>
+				</div>
+				<!-- end card body-->
+			</div>
+			<!-- end card -->
+		</div>
+		<!-- end col-->
+	</div>
+	<!-- end row-->
+
+	<div class="row">
+		<div class="col-xl-6">
+			<div class="card">
+				<div class="card-body">
+					<h4 class="header-title">Scatter - Images</h4>
+					<div dir="ltr">
+						<div id="scatter-images" class="apex-charts scatter-images-chart" data-colors="#3b5998,#e1306c"></div>
+					</div>
+				</div>
+				<!-- end card body-->
+			</div>
+			<!-- end card -->
+		</div>
+		<!-- end col-->
+	</div>
+	<!-- end row-->
+
+{% endblock %}
+
+{% block javascript %}
+	<!-- Apex CharFt js -->
+	<script src="/vendor/apexcharts/apexcharts.min.js"></script>
+
+	<!-- Apex Chart Scatter Demo js -->
+	<script src="/js/pages/demo.apex-scatter.js"></script>
+{% endblock %}

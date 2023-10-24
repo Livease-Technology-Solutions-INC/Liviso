@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{% block html %} {% endblock %}
+
+<head>
+    <meta charset="utf-8"/>
+    <title>{% block title %} {% endblock %} | Jidox - Material Design Admin & Dashboard Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description"/>
+    <meta content="Coderthemes" name="author"/>
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="/images/favicon.ico">
+
+    {% block css %} {% endblock %}
+    {{ include('partials/head-css.html.twig') }}
+</head>
+
+<body>
+<!-- Begin page -->
+<div class="wrapper">
+
+    {{ include('partials/menu.html.twig') }}
+
+
+    <div class="content-page">
+        <div class="content">
+
+            <div class="container-fluid">
+                {% block pagetitle %} {% endblock %}
+
+                {% block body %} {% endblock %}
+            </div>
+
+        </div>
+
+        {{ include('partials/footer.html.twig') }}
+
+    </div>
+
+
+</div>
+
+{{ include('partials/right-sidebar.html.twig') }}
+
+{{ include('partials/footer-scripts.html.twig') }}
+
+{% block javascript %} {% endblock %}
+
+<script src="/js/app.min.js"></script>
+
+</body>
+
+</html>

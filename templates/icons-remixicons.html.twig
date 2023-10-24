@@ -1,0 +1,23 @@
+{% extends 'partials/layout-vertical.html.twig' %}
+
+{% block title %}Remix Icons
+{% endblock %}
+
+{% block css %}{% endblock %}
+
+{% block pagetitle %}
+	{{ include('partials/page-title.html.twig', { sub_title: 'Icons', page_title: 'Remix Icons' }) }}
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-12" id="icons"></div>
+		<!-- end col-->
+	</div>
+	<!-- end row -->
+{% endblock %}
+
+{% block javascript %}
+	<!-- Remixicons Icons Demo js -->
+	<script src="/js/pages/demo.remixicons.js"></script>
+{% endblock %}
