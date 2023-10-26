@@ -51,15 +51,36 @@
 
         <!--- Sidemenu -->
         <ul class="side-nav">
-
            <br>
-
             <li class="side-nav-item">
-                <a href="/" class="side-nav-link">
+                <a data-bs-toggle="collapse" href="#dashboard" aria-expanded="false" aria-controls="dashboard" class="side-nav-link">
                     <i class="ri-dashboard-2-fill"></i>
                     <span class="menu-arrow"></span>
                     <span> Dashboard </span>
                 </a>
+                <div class="collapse" id="dashboard">
+                    <ul class="side-nav-second-level">
+                        <li>
+                            <a data-bs-toggle="collapse" href="#dashboardaccounting" aria-expanded="true" aria-controls="dashboardaccounting" class="side-nav-link">
+                                <span class="menu-arrow"></span>
+                                <span> Accounting </span>
+                            </a>
+                             <div class="collapse" id="dashboardaccounting">
+                                <ul class="side-nav-second-level">
+                                    <li>
+                                        <a href="apps-email-inbox">Inbox</a>
+                                    </li>
+                                    <li>
+                                        <a href="apps-email-read">Read Email</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="apps-email-read">HRM</a>
+                        </li>
+                    </ul>
+                </div>
             </li>
 
             <li class="side-nav-item">
@@ -81,7 +102,7 @@
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarEmail" aria-expanded="false" aria-controls="sidebarEmail" class="side-nav-link">
                     <i class="ri-survey-fill"></i>
-                    <span> CRM System</span>
+                    <span> CRM Sys`tem</span>
                     <span class="menu-arrow"></span>
                 </a>
                 <div class="collapse" id="sidebarEmail">
