@@ -51,14 +51,27 @@
                             </div>
 
                             <div class="card-body p-4">
-                                <div class="text-center">
-                                    <h1 class="text-error">4<i class="ri-emotion-sad-line"></i>4</h1>
-                                    <h4 class="text-uppercase text-danger mt-3">Page Not Found</h4>
-                                    <a class="btn btn-info mt-3" href="index"><i class="ri-home-4-line"></i> Back to Home</a>
+                                
+                                <div class="text-center m-auto">
+                                    <img src="/images/svg/mail_sent.svg" alt="mail sent image" height="64" />
+                                    <h4 class="text-dark-50 text-center mt-4">Please check your email</h4>
+                                    <p class="text-muted mb-4 mt-3">
+                                        A email has been send to <span class="fw-medium text-decoration-underline">youremail@domain.com</span>.
+                                        Please check for an email from Liviso and click on the link to
+                                        reset your password. 
+                                    </p>
                                 </div>
+
+                                <form action="index">
+                                    <div class="mb-0 text-center">
+                                        <button class="btn btn-primary" type="submit"><i class="ri-home-4-line me-1"></i> Back to Home</button>
+                                    </div>
+                                </form>
+
                             </div> <!-- end card-body-->
                         </div>
-                        <!-- end card -->
+                        <!-- end card-->
+                        
                     </div> <!-- end col -->
                 </div>
                 <!-- end row -->
@@ -66,10 +79,6 @@
             <!-- end container -->
         </div>
         <!-- end page -->
-
-        <footer class="footer footer-alt">
-            <span class="text-white-50"><script>document.write(new Date().getFullYear())</script> © Jidox - Coderthemes.com</span>
-        </footer>
         {{ include('partials/footer-scripts.html.twig') }}
 
     </body>

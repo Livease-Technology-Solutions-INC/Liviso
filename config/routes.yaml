@@ -3,3 +3,9 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+# Catch-all route for 404 errors
+# catch_all:
+# path: /{any}
+# controller: App\Controller\ErrorController::notFound
+# requirements:
+#     any: .+

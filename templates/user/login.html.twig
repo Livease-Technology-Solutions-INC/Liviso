@@ -1,13 +1,12 @@
 {{ include('partials/html.html.twig') }}
 
     <head>
-        {{ include('partials/title-meta.html.twig', {title: 'Confirm Email'}) }}
+        {{ include('partials/title-meta.html.twig', {title: 'Login'}) }}
 
         {{ include('partials/head-css.html.twig') }}
     </head>
-
-    <body class="authentication-bg">
-
+    
+    <body class="authentication-bg position-relative">
         <div class="position-absolute start-0 end-0 start-0 bottom-0 w-100 h-100">
             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 1920 1024">
                 <g mask="url(&quot;#SvgjsMask1046&quot;)" fill="none">
@@ -32,12 +31,12 @@
                 </defs>
             </svg>
         </div>
-
         <div class="account-pages pt-2 pt-sm-5 pb-4 pb-sm-5 position-relative">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-xxl-4 col-lg-5">
                         <div class="card">
+
                             <!-- Logo -->
                             <div class="card-header pt-4 text-center">
                                 <div class="auth-brand mb-0">
@@ -52,26 +51,51 @@
 
                             <div class="card-body p-4">
                                 
-                                <div class="text-center m-auto">
-                                    <img src="/images/svg/mail_sent.svg" alt="mail sent image" height="64" />
-                                    <h4 class="text-dark-50 text-center mt-4">Please check your email</h4>
-                                    <p class="text-muted mb-4 mt-3">
-                                        A email has been send to <span class="fw-medium text-decoration-underline">youremail@domain.com</span>.
-                                        Please check for an email from Liviso and click on the link to
-                                        reset your password. 
-                                    </p>
+                                <div class="text-center w-75 m-auto">
+                                    <h4 class="text-dark-50 text-center pb-0">Sign In</h4>
                                 </div>
 
-                                <form action="index">
-                                    <div class="mb-0 text-center">
-                                        <button class="btn btn-primary" type="submit"><i class="ri-home-4-line me-1"></i> Back to Home</button>
-                                    </div>
-                                </form>
+                                <form action="#">
 
-                            </div> <!-- end card-body-->
+                                    <div class="mb-3">
+                                        <label for="emailaddress" class="form-label">Email address</label>
+                                        <input class="form-control" type="email" id="emailaddress" required="" placeholder="Enter your email">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <a href="auth-recoverpw" class="text-muted float-end fs-12">Forgot your password?</a>
+                                        <label for="password" class="form-label">Password</label>
+                                        <div class="input-group input-group-merge">
+                                            <input type="password" id="password" class="form-control" placeholder="Enter your password">
+                                            <div class="input-group-text" data-password="false">
+                                                <span class="password-eye"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3 mb-3">
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="checkbox-signin" checked>
+                                            <label class="form-check-label" for="checkbox-signin">Remember me</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3 mb-0 text-center">
+                                        <button class="btn btn-primary" type="submit"> Log In </button>
+                                    </div>
+
+                                </form>
+                            </div> <!-- end card-body -->
                         </div>
-                        <!-- end card-->
-                        
+                        <!-- end card -->
+
+                        <div class="row mt-3">
+                            <div class="col-12 text-center">
+                                <p class="text-white-50">Don't have an account? <a href="auth-register" class="text-white ms-1 link-offset-3 text-decoration-underline"><b>Sign Up</b></a></p>
+                            </div> <!-- end col -->
+                        </div>
+                        <!-- end row -->
+
                     </div> <!-- end col -->
                 </div>
                 <!-- end row -->
@@ -79,10 +103,6 @@
             <!-- end container -->
         </div>
         <!-- end page -->
-
-        <footer class="footer footer-alt">
-            <span class="text-white-50"><script>document.write(new Date().getFullYear())</script> © Jidox - Coderthemes.com</span>
-        </footer>
         {{ include('partials/footer-scripts.html.twig') }}
 
     </body>
