@@ -716,22 +716,22 @@
 				<div class="collapse" id="sidebarpossystem">
 					<ul class="side-nav-second-level">
 						<li>
-							<a href="apps-tasks">Warehouse</a>
+							<a href="{{path("pos_system/warehouse")}}">Warehouse</a>
 						</li>
 						<li>
-							<a href="apps-tasks-details">Purchase</a>
+						<a href="{{path("pos_system/purchase")}}">Purchase</a>
 						</li>
 						<li>
-							<a href="apps-tasks-details">Add POS</a>
+							<a href="{{path("pos_system/add_pos")}}">Add POS</a>
 						</li>
 						<li>
-							<a href="apps-tasks-details">POS</a>
+							<a href="{{path("pos_system/pos")}}">POS</a>
 						</li>
 						<li>
-							<a href="apps-tasks-details">Print Barcode</a>
+							<a href="{{path("pos_system/print_barcode")}}">Print Barcode</a>
 						</li>
 						<li>
-							<a href="apps-tasks-details">Print Settings</a>
+							<a href="{{path("pos_system/print_setting")}}">Print Settings</a>
 						</li>
 					</ul>
 				</div>
@@ -810,7 +810,7 @@
 				</div>
 			</li>
 			<li class="side-nav-item">
-				<a href="#sidebarTasks" aria-expanded="false" aria-controls="sidebarTasks" class="side-nav-link">
+				<a href="{{path("support")}}" aria-expanded="false" aria-controls="sidebarTasks" class="side-nav-link">
 					<i class="ri-bubble-chart-fill"></i>
 					<span>
 						Support System
@@ -818,7 +818,7 @@
 				</a>
 			</li>
 			<li class="side-nav-item">
-				<a  href="#sidebarTasks" aria-expanded="false" aria-controls="sidebarTasks" class="side-nav-link">
+				<a  href="{{path("zoom")}}" aria-expanded="false" aria-controls="sidebarTasks" class="side-nav-link">
 					<i class="ri-user-settings-line fs-16 me-1"></i>
 
 					<span>
@@ -827,21 +827,21 @@
 				</a>
 			</li>
 			<li class="side-nav-item">
-				<a href="#sidebarTasks" aria-expanded="false" aria-controls="sidebarTasks" class="side-nav-link">
+				<a href="{{path("message")}}" aria-expanded="false" aria-controls="sidebarTasks" class="side-nav-link">
 					<i class="ri-chat-voice-fill"></i>
 					<span>
 						Messenger
 					</span>
 				</a>
 			</li>
-			<li class="side-nav-item">
+			{# <li class="side-nav-item">
 				<a href="#sidebarTasks" aria-expanded="false" aria-controls="sidebarTasks" class="side-nav-link">
 					<i class="ri-calendar-2-fill"></i>
 					<span>
 						Notification Template
 					</span>
 				</a>
-			</li>
+			</li> #}
 			<li class="side-nav-item">
 				<a data-bs-toggle="collapse" href="#sidebarsetting" aria-expanded="false" aria-controls="sidebarsetting" class="side-nav-link">
 					<i class="ri-settings-3-fill fs-22"></i>
