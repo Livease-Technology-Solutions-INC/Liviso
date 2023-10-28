@@ -1,6 +1,6 @@
 {% extends 'partials/layout-vertical.html.twig' %}
 
-{% block title %}POS
+{% block title %}Purchase & services
 {% endblock %}
 
 {% block css %}
@@ -26,24 +26,52 @@
 					<table id="basic-datatable" class="table table-striped dt-responsive nowrap w-100">
 						<thead>
 							<tr>
-								<th>POS ID</th>
-								<th>Date</th>
-								<th>Customer</th>
-								<th>Warehouse</th>
-								<th>Sub Total</th>
-								<th>Discount</th>
-								<th>Total</th>
+								<th>Purchase</th>
+								<th>SKU</th>
+								<th>Sales Price</th>
+								<th>Purchase Price</th>
+								<th>Tax</th>
+								<th>Category</th>
+								<th>Unit</th>
+								<th>Quantity</th>
+								<th>Type</th>
+								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
-							{# <tr>
-								<td>Cara Stevens</td>
-								<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-								<td>New York</td>
-								<td>46</td>
-								<td>2011/12/06</td>
-								<td>2011/12/06</td>
-							</tr> #}
+							<tr>
+								<td>PC</td>
+								<td>00BG102</td>
+								<td>$50,000.00</td>
+								<td>Vat(5%)</td>
+								<td>Skin</td>
+								<td>Kilo</td>
+								<td>100</td>
+								<td>Product</td>
+								<td>Kilo</td>
+							</tr>
+							<tr>
+								<td>PC</td>
+								<td>00BG102</td>
+								<td>$50,000.00</td>
+								<td>Vat(5%)</td>
+								<td>Skin</td>
+								<td>Kilo</td>
+								<td>100</td>
+								<td>Product</td>
+								<td>Kilo</td>
+							</tr>
+							<tr>
+								<td>PC</td>
+								<td>00BG102</td>
+								<td>$50,000.00</td>
+								<td>Vat(5%)</td>
+								<td>Skin</td>
+								<td>Kilo</td>
+								<td>100</td>
+								<td>Product</td>
+								<td>Kilo</td>
+							</tr>
 						</tbody>
 					</table>
 

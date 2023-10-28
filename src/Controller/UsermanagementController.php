@@ -8,10 +8,24 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UsermanagementController extends AbstractController
 {
-    #[Route('/usermanagement', name: 'app_usermanagement')]
-    public function index(): Response
+    #[Route('/user', name: 'user')]
+    public function user(): Response
     {
-        return $this->render('usermanagement/index.html.twig', [
+        return $this->render('usermanagement/user.html.twig', [
+            'controller_name' => 'UsermanagementController',
+        ]);
+    }
+    #[Route('/role', name: 'role')]
+    public function role(): Response
+    {
+        return $this->render('usermanagement/client.html.twig', [
+            'controller_name' => 'UsermanagementController',
+        ]);
+    }
+    #[Route('/client', name: 'client')]
+    public function client(): Response
+    {
+        return $this->render('usermanagement/role.html.twig', [
             'controller_name' => 'UsermanagementController',
         ]);
     }
