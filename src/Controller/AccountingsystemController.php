@@ -8,10 +8,143 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AccountingsystemController extends AbstractController
 {
-    #[Route('/accountingsystem', name: 'app_accountingsystem')]
-    public function index(): Response
+    #[Route('/accountingsystem/customer', name: 'accountingsystem/customer')]
+    public function customer(): Response
     {
-        return $this->render('accountingsystem/index.html.twig', [
+        return $this->render('accountingsystem/customer.html.twig', [
+            'controller_name' => 'AccountingsystemController',
+        ]);
+    }
+    #[Route('/accountingsystem/vendor', name: 'accountingsystem/vendor')]
+    public function vendor(): Response
+    {
+        return $this->render('accountingsystem/vendor.html.twig', [
+            'controller_name' => 'AccountingsystemController',
+        ]);
+    }
+    #[Route('/accountingsystem/proposal', name: 'accountingsystem/proposal')]
+    public function proposal(): Response
+    {
+        return $this->render('accountingsystem/proposal.html.twig', [
+            'controller_name' => 'AccountingsystemController',
+        ]);
+    }
+    #[Route('/accountingsystem/account', name: 'accountingsystem/account')]
+    public function account(): Response
+    {
+        return $this->render('accountingsystem/account.html.twig', [
+            'controller_name' => 'AccountingsystemController',
+        ]);
+    }
+    #[Route('/accountingsystem/transfer', name: 'accountingsystem/transfer')]
+    public function transfer(): Response
+    {
+        return $this->render('accountingsystem/transfer.html.twig', [
+            'controller_name' => 'AccountingsystemController',
+        ]);
+    }
+    #[Route('/accountingsystem/invoice', name: 'accountingsystem/invoice')]
+    public function invoice(): Response
+    {
+        return $this->render('accountingsystem/invoice.html.twig', [
+            'controller_name' => 'AccountingsystemController',
+        ]);
+    }
+    #[Route('/accountingsystem/revenue', name: 'accountingsystem/revenue')]
+    public function revenue(): Response
+    {
+        return $this->render('accountingsystem/revenue.html.twig', [
+            'controller_name' => 'AccountingsystemController',
+        ]);
+    }
+    #[Route('/accountingsystem/credit_note', name: 'accountingsystem/credit_note')]
+    public function creditNote(): Response
+    {
+        return $this->render('accountingsystem/creditNote.html.twig', [
+            'controller_name' => 'AccountingsystemController',
+        ]);
+    }
+    #[Route('/accountingsystem/bill', name: 'accountingsystem/bill')]
+    public function bill(): Response
+    {
+        return $this->render('accountingsystem/bill.html.twig', [
+            'controller_name' => 'AccountingsystemController',
+        ]);
+    }
+    #[Route('/accountingsystem/payment', name: 'accountingsystem/payment')]
+    public function payment(): Response
+    {
+        return $this->render('accountingsystem/payment.html.twig', [
+            'controller_name' => 'AccountingsystemController',
+        ]);
+    }
+    #[Route('/accountingsystem/debit_note', name: 'accountingsystem/debit_note')]
+    public function debitNote(): Response
+    {
+        return $this->render('accountingsystem/debitNote.html.twig', [
+            'controller_name' => 'AccountingsystemController',
+        ]);
+    }
+    #[Route('/accountingsystem/chart_of_accounts', name: 'accountingsystem/chart_of_accounts')]
+    public function chartOfAccounts(): Response
+    {
+        return $this->render('accountingsystem/chartOfAccounts.html.twig', [
+            'controller_name' => 'AccountingsystemController',
+        ]);
+    }
+    #[Route('/accountingsystem/journal_account', name: 'accountingsystem/journal_account')]
+    public function journalAccount(): Response
+    {
+        return $this->render('accountingsystem/journalAccount.html.twig', [
+            'controller_name' => 'AccountingsystemController',
+        ]);
+    }
+    #[Route('/accountingsystem/ledger_summary', name: 'accountingsystem/ledger_summary')]
+    public function ledgerSummary(): Response
+    {
+        return $this->render('accountingsystem/ledgerSummary.html.twig', [
+            'controller_name' => 'AccountingsystemController',
+        ]);
+    }
+    #[Route('/accountingsystem/balance_Sheet', name: 'accountingsystem/balance_sheet')]
+    public function balanceSheet(): Response
+    {
+        return $this->render('accountingsystem/balanceSheet.html.twig', [
+            'controller_name' => 'AccountingsystemController',
+        ]);
+    }
+    #[Route('/accountingsystem/trail_balance', name: 'accountingsystem/trail_balance')]
+    public function trialBalance(): Response
+    {
+        return $this->render('accountingsystem/trailBalance.html.twig', [
+            'controller_name' => 'AccountingsystemController',
+        ]);
+    }
+    #[Route('/accountingsystem/budget_planner', name: 'accountingsystem/budget_planner')]
+    public function budgetPlanner(): Response
+    {
+        return $this->render('accountingsystem/budgetPlanner.html.twig', [
+            'controller_name' => 'AccountingsystemController',
+        ]);
+    }
+    #[Route('/accountingsystem/financial_goal', name: 'accountingsystem/financial_goal')]
+    public function financialGoal(): Response
+    {
+        return $this->render('accountingsystem/financialGoal.html.twig', [
+            'controller_name' => 'AccountingsystemController',
+        ]);
+    }
+    #[Route('/accountingsystem/accounting_setup', name: 'accountingsystem/accounting_setup')]
+    public function accountingSetup(): Response
+    {
+        return $this->render('accountingsystem/accountSetup.html.twig', [
+            'controller_name' => 'AccountingsystemController',
+        ]);
+    }
+    #[Route('/accountingsystem/print_settings', name: 'accountingsystem/print_settings')]
+    public function printSettings(): Response
+    {
+        return $this->render('accountingsystem/printSettings.html.twig', [
             'controller_name' => 'AccountingsystemController',
         ]);
     }

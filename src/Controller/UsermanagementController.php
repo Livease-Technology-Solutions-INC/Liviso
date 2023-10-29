@@ -18,14 +18,14 @@ class UsermanagementController extends AbstractController
     #[Route('/role', name: 'role')]
     public function role(): Response
     {
-        return $this->render('usermanagement/client.html.twig', [
+        return $this->render('usermanagement/role.html.twig', [
             'controller_name' => 'UsermanagementController',
         ]);
     }
     #[Route('/client', name: 'client')]
     public function client(): Response
     {
-        return $this->render('usermanagement/role.html.twig', [
+        return $this->render('usermanagement/client.html.twig', [
             'controller_name' => 'UsermanagementController',
         ]);
     }

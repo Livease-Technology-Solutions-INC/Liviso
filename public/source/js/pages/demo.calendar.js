@@ -3,8 +3,6 @@
  * Author: Coderthemes
  * Component: Full-Calendar
  */
-
-
 !function ($) {
     "use strict";
 

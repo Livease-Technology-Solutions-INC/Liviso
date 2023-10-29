@@ -1,6 +1,6 @@
 {% extends 'partials/layout-vertical.html.twig' %}
 
-{% block title %}Role
+{% block title %}Project Tracker
 {% endblock %}
 
 {% block css %}
@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block pagetitle %}
-	{{ include('partials/page-title.html.twig', { sub_title: 'Role', page_title: 'Role' }) }}
+	{{ include('partials/page-title.html.twig', { sub_title: 'Project Tracker', page_title: 'Project Tracker' }) }}
 {% endblock %}
 
 {% block body %}
@@ -26,8 +26,12 @@
 					<table id="basic-datatable" class="table table-striped dt-responsive nowrap w-100">
 						<thead>
 							<tr>
-								<th>Role</th>
-								<th>Permission</th>
+								<th>Project</th>
+								<th>Start Date</th>
+								<th>Due Date</th>
+								<th>Project Members</th>
+								<th>Completion</th>
+								<th>Status</th>
 								<th>Action</th>
 							</tr>
 						</thead>
