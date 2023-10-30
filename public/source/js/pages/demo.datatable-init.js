@@ -15,10 +15,9 @@ $(document).ready(function () {
                     next: "<i class='ri-arrow-right-s-line'>",
                 },
                 emptyTable: "No data found",
-
             },
             drawCallback: function () {
-                $(".dataTables_paginate > .pagination").addClass("pagination-rounded");
+				$(".dataTables_paginate > .pagination").addClass("pagination-rounded");
             },
         });   
 	});

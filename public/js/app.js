@@ -366,7 +366,6 @@
         initFormValidation();
         initFormAdvance();
     }
-
     init();
 
 })(jQuery)

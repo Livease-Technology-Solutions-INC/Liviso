@@ -137,7 +137,7 @@ class AccountingsystemController extends AbstractController
     #[Route('/accountingsystem/accounting_setup', name: 'accountingsystem/accounting_setup')]
     public function accountingSetup(): Response
     {
-        return $this->render('accountingsystem/accountSetup.html.twig', [
+        return $this->render('accountingsystem/accountingSetup.html.twig', [
             'controller_name' => 'AccountingsystemController',
         ]);
     }

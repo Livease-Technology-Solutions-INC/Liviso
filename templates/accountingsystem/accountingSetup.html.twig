@@ -1,6 +1,6 @@
 {% extends 'partials/layout-vertical.html.twig' %}
 
-{% block title %}Customer
+{% block title %}Tax
 {% endblock %}
 
 {% block css %}
@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block pagetitle %}
-	{{ include('partials/page-title.html.twig', { sub_title: 'Customer', page_title: 'Customer' }) }}
+	{{ include('partials/page-title.html.twig', { sub_title: 'Tax', page_title: 'Taxes' }) }}
 {% endblock %}
 
 {% block body %}
@@ -26,11 +26,8 @@
 					<table id="basic-datatable" class="table table-striped dt-responsive nowrap w-100">
 						<thead>
 							<tr>
-								<th>Proposal</th>
-								<th>Category</th>
-								<th>Issue Date</th>
-								<th>Status</th>
-								<th>Balance</th>
+								<th>Tax Name</th>
+								<th>Rate %</th>
 								<th>Action</th>
 							</tr>
 						</thead>
