@@ -1,20 +1,78 @@
-{% extends 'base.html.twig' %}
+{% extends 'partials/layout-vertical.html.twig' %}
 
-{% block title %}Hello HrmsystemController!{% endblock %}
+{% block title %}Employee Setup
+{% endblock %}
+
+{% block css %}
+	<!-- Datatables css -->
+	<link href="/vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-fixedcolumns-bs5/css/fixedColumns.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-select-bs5/css/select.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block pagetitle %}
+	{{ include('partials/page-title.html.twig', { sub_title: 'Employee Setup', page_title: 'Employee Setup' }) }}
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+	<div class="row">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-body">
+					<table id="basic-datatable" class="table table-striped dt-responsive nowrap w-100">
+						<thead>
+							<tr>
+								<th>Subject</th>
+								<th>Client</th>
+								<th>Project</th>
+								<th>Contract Type</th>
+								<th>Contract Value</th>
+								<th>Start Date</th>
+								<th>End Date</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							{# <tr>
+								<td>Cara Stevens</td>
+								<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
+								<td>New York</td>
+								<td>46</td>
+								<td>2011/12/06</td>
+								<td>2011/12/06</td>
+							</tr> #}
+						</tbody>
+					</table>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/xampp/htdocs/LivisoTemplate/src/Controller/HrmsystemController.php'|file_link(0) }}">src/Controller/HrmsystemController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/LivisoTemplate/templates/hrmsystem/index.html.twig'|file_link(0) }}">templates/hrmsystem/index.html.twig</a></code></li>
-    </ul>
-</div>
+				</div>
+				<!-- end card body-->
+			</div>
+			<!-- end card -->
+		</div>
+		<!-- end col-->
+	</div>
+	<!-- end row-->
+{% endblock %}
+
+{% block javascript %}
+	<!-- Datatables js -->
+	<script src="/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script src="/vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+	<script src="/vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+	<script src="/vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+	<script src="/vendor/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
+	<script src="/vendor/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+	<script src="/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
+
+	<!-- Datatable Demo Aapp js -->
+	<script src="/js/pages/demo.datatable-init.js">
+	</script>
 {% endblock %}
