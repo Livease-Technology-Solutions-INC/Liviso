@@ -56,78 +56,84 @@
 
 							<div class="text-center w-75 m-auto">
 								<h4 class="text-dark-50 text-center mt-0">Sign Up</h4>
-								</p>
-							</div>
-
-							{{ form_errors(registrationForm) }}
-
-							{{ form_start(registrationForm) }}
-							{{ form_widget(registrationForm._token) }}
-
-							<div class="mb-3">
-								{{ form_label(registrationForm.fullName, 'Full Name', {'label_attr': {'for': 'fullName', 'class': 'form-label'}}) }}
-								{{ form_widget(registrationForm.fullName, { 'attr': {'class': 'form-control', 'placeholder': 'Enter your name', 'id': 'fullName'} }) }}
-							</div>
-
-							<div class="mb-3">
-								{{ form_label(registrationForm.email, null, {'label_attr': {'for': 'email', 'class': 'form-label'}}) }}
-								{{ form_widget(registrationForm.email, { 'attr': {'class': 'form-control', 'placeholder': 'Enter your email', 'id': 'email', 'required': 'required'} }) }}
-							</div>
-
-							<div class="mb-3">
-								{{ form_label(registrationForm.plainPassword, 'Password', {'label_attr': {'for': 'password', 'class': 'form-label'}}) }}
-								<div class="input-group input-group-merge">
-									{{ form_widget(registrationForm.plainPassword, { 'attr': {'class': 'form-control', 'placeholder': 'Enter your password', 'id': 'password'} }) }}
-									{{ form_errors(registrationForm.plainPassword) }}
-									{# <div class="input-group-text" data-password="false">
-										<span class="password-eye"></span>
-									</div> #}
-								</div>
-							</div>
-							<div class="Tocheck">
-								{{ form_row(registrationForm.agreeTerms) }}
-							</div>
-
-
-							<div class="mb-3 text-center">
-								<button class="btn btn-primary" type="submit">
-									Sign Up
-								</button>
-							</div>
-							{{ form_end(registrationForm) }}
-
-						</div>
-						<!-- end card-body -->
-					</div>
-					<!-- end card -->
-
-					<div class="row mt-3">
-						<div class="col-12 text-center">
-							<p class="text-white-50">Already have account?
-								<a href="{{path("login")}}" class="text-white ms-1 link-offset-3 text-decoration-underline">
-									<b>Log In</b>
-								</a>
 							</p>
 						</div>
-						<!-- end col-->
+
+						{{ form_errors(registrationForm) }}
+
+						{{ form_start(registrationForm) }}
+						{{ form_widget(registrationForm._token) }}
+
+						<div class="mb-3">
+							{{ form_label(registrationForm.fullName, 'Full Name', {'label_attr': {'for': 'fullName', 'class': 'form-label'}}) }}
+							{{ form_widget(registrationForm.fullName, { 'attr': {'class': 'form-control', 'placeholder': 'Enter your name', 'id': 'fullName'} }) }}
+						</div>
+
+						<div class="mb-3">
+							{{ form_label(registrationForm.email, null, {'label_attr': {'for': 'email', 'class': 'form-label'}}) }}
+							{{ form_widget(registrationForm.email, { 'attr': {'class': 'form-control', 'placeholder': 'Enter your email', 'id': 'email', 'required': 'required'} }) }}
+						</div>
+						<div class="error">
+							{{ form_errors(registrationForm.email) }}
+						</div>
+
+						<div class="mb-3">
+							{{ form_label(registrationForm.plainPassword, 'Password', {'label_attr': {'for': 'password', 'class': 'form-label'}}) }}
+							<div class="input-group input-group-merge">
+								{{ form_widget(registrationForm.plainPassword, { 'attr': {'class': 'form-control', 'placeholder': 'Enter your password', 'id': 'password'} }) }}
+								<br>
+								{# <div class="input-group-text" data-password="false">
+																										<span class="password-eye"></span>
+																									</div> #}
+							</div>
+							<div class="error">
+								{{ form_errors(registrationForm.plainPassword) }}
+							</div>
+						</div>
+						<div class="Tocheck">
+							{{ form_row(registrationForm.agreeTerms) }}
+						</div>
+
+
+						<div class="mb-3 text-center">
+							<button class="btn btn-primary" type="submit">
+								Sign Up
+							</button>
+						</div>
+						{{ form_end(registrationForm) }}
+
 					</div>
-					<!-- end row -->
-
+					<!-- end card-body -->
 				</div>
-				<!-- end col -->
+				<!-- end card -->
+
+				<div class="row mt-3">
+					<div class="col-12 text-center">
+						<p class="text-white-50">Already have account?
+							<a href="{{path("login")}}" class="text-white ms-1 link-offset-3 text-decoration-underline">
+								<b>Log In</b>
+							</a>
+						</p>
+					</div>
+					<!-- end col-->
+				</div>
+				<!-- end row -->
+
 			</div>
-			<!-- end row -->
+			<!-- end col -->
 		</div>
-		<!-- end container -->
-		<footer class="footer footer-alt">
-			<span class="text-white-50">
-				<script>
-					document.write(new Date().getFullYear())
-				</script>
-				© Liviso</span>
-		</footer>
+		<!-- end row -->
+	</div>
+	<!-- end container -->
+	<footer class="footer footer-alt">
+		<span class="text-white-50">
+			<script>
+				document.write(new Date().getFullYear())
+			</script>
+			© Liviso</span>
+	</footer>
 
-		{{ include('partials/footer-scripts.html.twig') }}
+	{{ include('partials/footer-scripts.html.twig') }}
 
 
-	</body><!-- end page --></body></html>
+</body><!-- end page --></body></html>

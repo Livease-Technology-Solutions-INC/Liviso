@@ -16851,6 +16851,12 @@ input.form-control[type=range] {
   min-height: 39px;
 }
 
+.error {
+  color: red;
+  list-style: none;
+  -moz-list-bullet: none;
+}
+
 .custom-select.is-invalid:focus,
 .form-control.is-invalid:focus,
 .custom-select:invalid:focus,

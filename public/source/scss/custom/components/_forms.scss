@@ -22,8 +22,13 @@ input.form-control[type="range"] {
 	min-height: 39px;
 }
 
+// form control error
+.error{
+	color: red;
+	list-style: none;
+	-moz-list-bullet: none;
+}
 // Custom select
-
 .custom-select.is-invalid,
 .form-control.is-invalid,
 .custom-select:invalid,
@@ -85,10 +90,10 @@ select.form-control-sm {
 	user-select: none;
 }
 .Tocheck input {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 15px;
-    width: 15px;
-    background-color: #eee;
-  }
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 15px;
+	width: 15px;
+	background-color: #eee;
+}
