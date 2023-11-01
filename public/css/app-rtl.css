@@ -16857,7 +16857,7 @@ select.form-control-sm:not([size]):not([multiple]) {
 .Tocheck {
   display: block;
   position: relative;
-  padding-right: 25px;
+  padding-right: 20px;
   margin-bottom: 12px;
   cursor: pointer;
   font-size: 12px;
@@ -16871,7 +16871,7 @@ select.form-control-sm:not([size]):not([multiple]) {
   position: absolute;
   top: 0;
   right: 0;
-  height: 25px;
+  height: 15px;
   width: 15px;
   background-color: #eee;
 }

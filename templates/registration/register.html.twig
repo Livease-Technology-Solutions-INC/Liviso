@@ -55,8 +55,7 @@
 						<div class="card-body p-4">
 
 							<div class="text-center w-75 m-auto">
-								<h4 class="text-dark-50 text-center mt-0">Free Sign Up</h4>
-								<p class="text-muted mb-4">Don't have an account? Create your account, it takes less than a minute
+								<h4 class="text-dark-50 text-center mt-0">Sign Up</h4>
 								</p>
 							</div>
 
@@ -79,21 +78,23 @@
 								{{ form_label(registrationForm.plainPassword, 'Password', {'label_attr': {'for': 'password', 'class': 'form-label'}}) }}
 								<div class="input-group input-group-merge">
 									{{ form_widget(registrationForm.plainPassword, { 'attr': {'class': 'form-control', 'placeholder': 'Enter your password', 'id': 'password'} }) }}
-                                    {{ form_errors(registrationForm.plainPassword) }}
-									<div class="input-group-text" data-password="false">
+									{{ form_errors(registrationForm.plainPassword) }}
+									{# <div class="input-group-text" data-password="false">
 										<span class="password-eye"></span>
-									</div>
+									</div> #}
 								</div>
 							</div>
+							<div class="Tocheck">
+								{{ form_row(registrationForm.agreeTerms) }}
+							</div>
+
 
 							<div class="mb-3 text-center">
 								<button class="btn btn-primary" type="submit">
 									Sign Up
 								</button>
 							</div>
-                            <div class="Tocheck">
 							{{ form_end(registrationForm) }}
-                            </div>
 
 						</div>
 						<!-- end card-body -->
@@ -118,11 +119,15 @@
 			<!-- end row -->
 		</div>
 		<!-- end container -->
-        <footer class="footer footer-alt">
-            <span class="text-white-50"><script>document.write(new Date().getFullYear())</script> © Liviso</span>
-        </footer>
+		<footer class="footer footer-alt">
+			<span class="text-white-50">
+				<script>
+					document.write(new Date().getFullYear())
+				</script>
+				© Liviso</span>
+		</footer>
 
-        {{ include('partials/footer-scripts.html.twig') }}
+		{{ include('partials/footer-scripts.html.twig') }}
 
 
-</body><!-- end page --></html>
+	</body><!-- end page --></body></html>
