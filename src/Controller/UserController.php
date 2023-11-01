@@ -15,13 +15,13 @@ class UserController extends AbstractController
             'controller_name' => 'UserController',
         ]);
     }
-    #[Route('/register', name: 'register', methods:["POST"])]
-    public function register(): Response
-    {
-        return $this->render('user/register.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
-    }
+    // #[Route('/register', name: 'register', methods:["POST"])]
+    // public function register(): Response
+    // {
+    //     return $this->render('user/register.html.twig', [
+    //         'controller_name' => 'UserController',
+    //     ]);
+    // }
     #[Route('/confirmmail', name: 'confirmmail', methods:["POST"])]
     public function confirmemail(): Response
     {

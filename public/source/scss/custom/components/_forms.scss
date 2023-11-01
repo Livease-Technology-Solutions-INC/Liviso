@@ -2,25 +2,24 @@
 // forms.scss
 //
 
-
 .form-check-label {
-    font-weight: normal;
+	font-weight: normal;
 }
 // Form-control light
 
 .form-control-light {
-    background-color: var(--#{$prefix}tertiary-bg) !important;
-    border-color: var(--#{$prefix}border-color) !important;
-    border-width: $card-border-width;
-    border-style: solid;
-    border-color: $card-border-color;
+	background-color: var(--#{$prefix}tertiary-bg) !important;
+	border-color: var(--#{$prefix}border-color) !important;
+	border-width: $card-border-width;
+	border-style: solid;
+	border-color: $card-border-color;
 }
 
 // Form elements (Color and Range)
 
 input.form-control[type="color"],
 input.form-control[type="range"] {
-    min-height: 39px;
+	min-height: 39px;
 }
 
 // Custom select
@@ -33,43 +32,63 @@ input.form-control[type="range"] {
 .form-control.is-valid,
 .custom-select:valid,
 .form-control:valid {
-    &:focus {
-        box-shadow: none !important;
-    }
+	&:focus {
+		box-shadow: none !important;
+	}
 }
 
 select.form-control {
-    &:not([size]):not([multiple]) {
-        height: $input-height;
-    }
+	&:not([size]):not([multiple]) {
+		height: $input-height;
+	}
 }
 
 select.form-control-sm {
-    &:not([size]):not([multiple]) {
-        height: $input-height-sm;
-    }
+	&:not([size]):not([multiple]) {
+		height: $input-height-sm;
+	}
 }
 
 // Show/Hide Password
 .password-eye {
-    cursor: pointer;
+	cursor: pointer;
 
-    &:before {
-        font-family: "remixicon";
-        content: "\ECB5";
-        font-style: normal;
-        font-weight: 400;
-        font-variant: normal;
-        vertical-align: middle;
-        line-height: 1.2;
-        font-size: 16px;
-    }
+	&:before {
+		font-family: "remixicon";
+		content: "\ECB5";
+		font-style: normal;
+		font-weight: 400;
+		font-variant: normal;
+		vertical-align: middle;
+		line-height: 1.2;
+		font-size: 16px;
+	}
 }
 
 .show-password {
-    .password-eye {
-        &:before {
-            content: "\ECB7";
-        }
-    }
+	.password-eye {
+		&:before {
+			content: "\ECB7";
+		}
+	}
 }
+.Tocheck {
+	display: block;
+	position: relative;
+	padding-left: 25px;
+	margin-bottom: 12px;
+	cursor: pointer;
+	font-size: 12px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+.Tocheck input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 15px;
+    background-color: #eee;
+  }

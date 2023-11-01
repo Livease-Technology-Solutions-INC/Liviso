@@ -16889,6 +16889,28 @@ select.form-control-sm:not([size]):not([multiple]) {
   content: "\ecb7";
 }
 
+.Tocheck {
+  display: block;
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 12px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.Tocheck input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 15px;
+  background-color: #eee;
+}
+
 .modal-dialog {
   -webkit-box-shadow: 0 2px 5px 0 rgba(27, 23, 30, 0.3);
           box-shadow: 0 2px 5px 0 rgba(27, 23, 30, 0.3);
