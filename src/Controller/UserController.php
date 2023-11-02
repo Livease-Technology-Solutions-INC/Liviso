@@ -8,13 +8,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
-    #[Route('/login', name: 'login', methods:["POST"])]
-    public function login(): Response
-    {
-        return $this->render('user/login.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
-    }
+    // #[Route('/login', name: 'login', methods:["POST"])]
+    // public function login(): Response
+    // {
+    //     return $this->render('user/login.html.twig', [
+    //         'controller_name' => 'UserController',
+    //     ]);
+    // }
     // #[Route('/register', name: 'register', methods:["POST"])]
     // public function register(): Response
     // {
@@ -29,7 +29,7 @@ class UserController extends AbstractController
             'controller_name' => 'UserController',
         ]);
     }
-    #[Route('/logout', name: 'logout', methods:["GET"])]
+    #[Route('/logout', name: 'logout',)]
     public function logout(): Response
     {
         return $this->render('user/logout.html.twig', [

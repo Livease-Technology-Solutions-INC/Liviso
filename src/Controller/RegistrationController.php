@@ -40,6 +40,8 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+            $userRepository = $entityManager->getRepository(User::class);
+            $userFromDB = $userRepository->findOneBy(['email' => $user->getEmail()]);
 
             $entityManager->persist($user);
             $entityManager->flush();
@@ -47,9 +49,18 @@ class RegistrationController extends AbstractController
 
             return $this->redirectToRoute('account-dashboard');
         }
+        // Pass the user's full name to the template
+        // Fetch user data from the database based on the email
+        $userFromDB = $entityManager->getRepository(User::class)->findOneBy(['email' => $user->getEmail()]);
+
+        dump($userFromDB); // Debugging statement to check the retrieved user
+        $fullName = $userFromDB ? $userFromDB->getFullName() : null;
+        dump($fullName); // Debugging statement to check the value of fullName
+        
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
+            'fullName' => $fullName,
         ]);
     }
 }
