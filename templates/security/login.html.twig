@@ -53,7 +53,7 @@
 						<div class="card-body p-4">
 
 							<div class="text-center w-75 m-auto">
-								<h4 class="text-dark-50 text-center pb-0">Sign In</h4>
+								<h1 class="h3 mb-3 font-weight-normal">Sign in</h1>
 							</div>
 
 							<form method="post">
@@ -61,15 +61,14 @@
 									<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 								{% endif %}
 
-								{% if app.user %}
+								{# {% if app.user %}
 									<div class="mb-3">
 										You are logged in as
 										{{ app.user.email }},
-										<a href="{{ path('app_logout') }}">Logout</a>
+										<a href="{{ path('Out') }}">Logout</a>
 									</div>
-								{% endif %}
+								{% endif %} #}
 
-								<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
 								<div class="mb-3">
 									<label for="inputEmail" class="form-label">Email</label>
 									<input type="email" value="{{ last_username }}" name="email" id="emailaddress" class="form-control" autocomplete="email" required autofocus>

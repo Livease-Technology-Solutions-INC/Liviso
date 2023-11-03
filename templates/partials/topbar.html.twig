@@ -275,7 +275,7 @@
                         <img src="/images/users/avatar-1.jpg" alt="user-image" width="32" class="rounded-circle">
                     </span>
                     <span class="d-lg-flex flex-column gap-1 d-none">
-                        <h5 class="my-0">Sabrish S</h5>
+                        <h5 class="my-0">{{app.user.fullName}}</h5>
                         <h6 class="my-0 fw-normal">Founder</h6>
                     </span>
                 </a>
@@ -298,19 +298,13 @@
                     </a>
 
                     <!-- item-->
-                    <a href="pages-faq" class="dropdown-item">
+                    <a href="{{path("support")}}" class="dropdown-item">
                         <i class="ri-customer-service-2-fill align-middle me-1"></i>
                         <span>Support</span>
                     </a>
 
                     <!-- item-->
-                    <a href="auth-lock-screen" class="dropdown-item">
-                        <i class="ri-lock-password-fill align-middle me-1"></i>
-                        <span>Lock Screen</span>
-                    </a>
-
-                    <!-- item-->
-                    <a href="auth-logout-2" class="dropdown-item">
+                    <a href="{{path("logout")}}" class="dropdown-item">
                         <i class="ri-logout-box-fill align-middle me-1"></i>
                         <span>Logout</span>
                     </a>
