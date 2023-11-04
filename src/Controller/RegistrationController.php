@@ -11,11 +11,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, SessionInterface $session): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -46,21 +47,19 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email
-
+            $session->set('fullName', $fullName);
             return $this->redirectToRoute('account-dashboard');
         }
         // Pass the user's full name to the template
         // Fetch user data from the database based on the email
-        $userFromDB = $entityManager->getRepository(User::class)->findOneBy(['email' => $user->getEmail()]);
+        // $userFromDB = $entityManager->getRepository(User::class)->findOneBy(['email' => $user->getEmail()]);
 
-        dump($userFromDB); // Debugging statement to check the retrieved user
-        $fullName = $userFromDB ? $userFromDB->getFullName() : null;
-        dump($fullName); // Debugging statement to check the value of fullName
-        
+        // $fullName = $userFromDB ? $userFromDB->getFullName() : null;
+
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
-            'fullName' => $fullName,
+            // 'fullName' => $fullName,
         ]);
     }
 }

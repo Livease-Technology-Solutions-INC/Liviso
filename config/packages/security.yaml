@@ -35,6 +35,8 @@ security:
     # - { path: ^/, roles: ROLE_USER}
     # - { path: ^/account_dashboard, roles: ROLE_USER}
     # - { path: ^/profile, roles: ROLE_USER }
+    - { path: ^/login, roles: PUBLIC_ACCESS }
+    - { path: ^/register, allow_if: "!is_authenticated()" }
 
 when@test:
   security:
@@ -57,8 +59,16 @@ when@test:
         # by default, the feature is enabled by checking a
         # checkbox in the login form (see below), uncomment the
         # following line to always enable it.
-        #always_remember_me: true
+        always_remember_me: true
+      # pattern: ^/
+      # anonymous: ~
+      # form_login:
+      #   login_path: login
+      #   check_path: login
       logout:
-      path: /logout
-      target: /Out
+        path: logout
+        target: /login
+        invalidate_session: true
+        delete_cookies:
+          REMEMBERME: { path: null, domain: null }
       # Where to redirect after logout

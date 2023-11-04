@@ -11,6 +11,7 @@ class AccountingsystemController extends AbstractController
     #[Route('/accountingsystem/customer', name: 'accountingsystem/customer')]
     public function customer(): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         return $this->render('accountingsystem/customer.html.twig', [
             'controller_name' => 'AccountingsystemController',
         ]);
@@ -18,6 +19,7 @@ class AccountingsystemController extends AbstractController
     #[Route('/accountingsystem/vendor', name: 'accountingsystem/vendor')]
     public function vendor(): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         return $this->render('accountingsystem/vendor.html.twig', [
             'controller_name' => 'AccountingsystemController',
         ]);
@@ -25,6 +27,7 @@ class AccountingsystemController extends AbstractController
     #[Route('/accountingsystem/proposal', name: 'accountingsystem/proposal')]
     public function proposal(): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         return $this->render('accountingsystem/proposal.html.twig', [
             'controller_name' => 'AccountingsystemController',
         ]);
@@ -32,6 +35,7 @@ class AccountingsystemController extends AbstractController
     #[Route('/accountingsystem/account', name: 'accountingsystem/account')]
     public function account(): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         return $this->render('accountingsystem/account.html.twig', [
             'controller_name' => 'AccountingsystemController',
         ]);
@@ -39,6 +43,7 @@ class AccountingsystemController extends AbstractController
     #[Route('/accountingsystem/transfer', name: 'accountingsystem/transfer')]
     public function transfer(): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         return $this->render('accountingsystem/transfer.html.twig', [
             'controller_name' => 'AccountingsystemController',
         ]);
@@ -46,6 +51,7 @@ class AccountingsystemController extends AbstractController
     #[Route('/accountingsystem/invoice', name: 'accountingsystem/invoice')]
     public function invoice(): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         return $this->render('accountingsystem/invoice.html.twig', [
             'controller_name' => 'AccountingsystemController',
         ]);
@@ -53,6 +59,7 @@ class AccountingsystemController extends AbstractController
     #[Route('/accountingsystem/revenue', name: 'accountingsystem/revenue')]
     public function revenue(): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         return $this->render('accountingsystem/revenue.html.twig', [
             'controller_name' => 'AccountingsystemController',
         ]);
@@ -60,6 +67,7 @@ class AccountingsystemController extends AbstractController
     #[Route('/accountingsystem/credit_note', name: 'accountingsystem/credit_note')]
     public function creditNote(): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         return $this->render('accountingsystem/creditNote.html.twig', [
             'controller_name' => 'AccountingsystemController',
         ]);
@@ -74,6 +82,7 @@ class AccountingsystemController extends AbstractController
     #[Route('/accountingsystem/payment', name: 'accountingsystem/payment')]
     public function payment(): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         return $this->render('accountingsystem/payment.html.twig', [
             'controller_name' => 'AccountingsystemController',
         ]);
@@ -81,6 +90,7 @@ class AccountingsystemController extends AbstractController
     #[Route('/accountingsystem/debit_note', name: 'accountingsystem/debit_note')]
     public function debitNote(): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         return $this->render('accountingsystem/debitNote.html.twig', [
             'controller_name' => 'AccountingsystemController',
         ]);
@@ -88,6 +98,7 @@ class AccountingsystemController extends AbstractController
     #[Route('/accountingsystem/chart_of_accounts', name: 'accountingsystem/chart_of_accounts')]
     public function chartOfAccounts(): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         return $this->render('accountingsystem/chartOfAccounts.html.twig', [
             'controller_name' => 'AccountingsystemController',
         ]);
@@ -95,6 +106,7 @@ class AccountingsystemController extends AbstractController
     #[Route('/accountingsystem/journal_account', name: 'accountingsystem/journal_account')]
     public function journalAccount(): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         return $this->render('accountingsystem/journalAccount.html.twig', [
             'controller_name' => 'AccountingsystemController',
         ]);
@@ -102,6 +114,7 @@ class AccountingsystemController extends AbstractController
     #[Route('/accountingsystem/ledger_summary', name: 'accountingsystem/ledger_summary')]
     public function ledgerSummary(): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         return $this->render('accountingsystem/ledgerSummary.html.twig', [
             'controller_name' => 'AccountingsystemController',
         ]);
@@ -109,6 +122,7 @@ class AccountingsystemController extends AbstractController
     #[Route('/accountingsystem/balance_Sheet', name: 'accountingsystem/balance_sheet')]
     public function balanceSheet(): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         return $this->render('accountingsystem/balanceSheet.html.twig', [
             'controller_name' => 'AccountingsystemController',
         ]);
@@ -116,6 +130,7 @@ class AccountingsystemController extends AbstractController
     #[Route('/accountingsystem/trail_balance', name: 'accountingsystem/trail_balance')]
     public function trialBalance(): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         return $this->render('accountingsystem/trailBalance.html.twig', [
             'controller_name' => 'AccountingsystemController',
         ]);
@@ -123,6 +138,7 @@ class AccountingsystemController extends AbstractController
     #[Route('/accountingsystem/budget_planner', name: 'accountingsystem/budget_planner')]
     public function budgetPlanner(): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         return $this->render('accountingsystem/budgetPlanner.html.twig', [
             'controller_name' => 'AccountingsystemController',
         ]);
@@ -130,6 +146,7 @@ class AccountingsystemController extends AbstractController
     #[Route('/accountingsystem/financial_goal', name: 'accountingsystem/financial_goal')]
     public function financialGoal(): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         return $this->render('accountingsystem/financialGoal.html.twig', [
             'controller_name' => 'AccountingsystemController',
         ]);
@@ -137,6 +154,7 @@ class AccountingsystemController extends AbstractController
     #[Route('/accountingsystem/accounting_setup', name: 'accountingsystem/accounting_setup')]
     public function accountingSetup(): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         return $this->render('accountingsystem/accountingSetup.html.twig', [
             'controller_name' => 'AccountingsystemController',
         ]);
@@ -144,6 +162,7 @@ class AccountingsystemController extends AbstractController
     #[Route('/accountingsystem/print_settings', name: 'accountingsystem/print_settings')]
     public function printSettings(): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         return $this->render('accountingsystem/printSettings.html.twig', [
             'controller_name' => 'AccountingsystemController',
         ]);

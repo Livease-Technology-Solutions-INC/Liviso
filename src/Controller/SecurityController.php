@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use phpDocumentor\Reflection\Types\Void_;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\Loader\Configurator\session;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
@@ -26,10 +29,12 @@ class SecurityController extends AbstractController
     }
 
     #[Route(path: '/logout', name: 'logout')]
-    public function logout(): Response
+    public function logout(SessionInterface $session): RedirectResponse
     {
+        // Clear the session
+        $session->invalidate();
         // This method is intentionally left blank.
         // Symfony will handle the logout process.
-        return new RedirectResponse($this->generateUrl('Out'));
+        return new RedirectResponse($this->generateUrl('login'));
     }
 }

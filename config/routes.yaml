@@ -8,13 +8,5 @@ controllers:
 # path: /{any}# controller: App\Controller\ErrorController::notFound
 # requirements:
 #     any: .+
-logout:
-    path: /logout
-    controller: App\Controller\SecurityController::logout
-# loggedOut:
-#     path: /Out
-#     controller: App\Controller\UserController::Out
-logout_redirect:
-    path: /Out
-    controller: App\Controller\UserController::Out
+
 

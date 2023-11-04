@@ -11,6 +11,7 @@ class UsermanagementController extends AbstractController
     #[Route('/user', name: 'user')]
     public function user(): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         return $this->render('usermanagement/user.html.twig', [
             'controller_name' => 'UsermanagementController',
         ]);
@@ -18,6 +19,7 @@ class UsermanagementController extends AbstractController
     #[Route('/role', name: 'role')]
     public function role(): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         return $this->render('usermanagement/role.html.twig', [
             'controller_name' => 'UsermanagementController',
         ]);
@@ -25,6 +27,7 @@ class UsermanagementController extends AbstractController
     #[Route('/client', name: 'client')]
     public function client(): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         return $this->render('usermanagement/client.html.twig', [
             'controller_name' => 'UsermanagementController',
         ]);
