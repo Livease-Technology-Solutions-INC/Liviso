@@ -3,10 +3,22 @@
 {% block title %}Project
 {% endblock %}
 
-{% block css %}{% endblock %}
+{% block css %}
+	<!-- Datatables css -->
+	<link href="/vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-fixedcolumns-bs5/css/fixedColumns.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-select-bs5/css/select.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+{% endblock %}
 
 {% block pagetitle %}
-	{{ include('partials/page-title.html.twig', { sub_title: 'Pages', page_title: 'Project' }) }}
+	{{ include('partials/page-title.html.twig', { sub_title: 'Project', page_title: 'Project' }) }}
+{% endblock %}
+
+{% block body %}
+	<div class="row min-750" id="project_view"></div>
 {% endblock %}
 
 {% block javascript %}{% endblock %}

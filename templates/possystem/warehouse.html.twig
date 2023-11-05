@@ -34,7 +34,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							
+
 							<tr>
 								<td>Cara Stevens</td>
 								<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
@@ -42,48 +42,35 @@
 								<td>46</td>
 								<td>2011/12/06</td>
 							</tr>
-							<tr>
-								<td>Hermione Butler</td>
-								<td>Regional Director</td>
-								<td>London</td>
-								<td>47</td>
-								<td>2011/03/21</td>
-							</tr>
-							<tr>
-								<td>Lael Greer</td>
-								<td>Systems Administrator</td>
-								<td>London</td>
-								<td>21</td>
-								<td>2009/02/27</td>
-							</tr>
-							<tr>
-								<td>Jonas Alexander</td>
-								<td>Developer</td>
-								<td>San Francisco</td>
-								<td>30</td>
-								<td>2010/07/14</td>
-							</tr>
-							<tr>
-								<td>Shad Decker</td>
-								<td>Regional Director</td>
-								<td>Edinburgh</td>
-								<td>51</td>
-								<td>2008/11/13</td>
-							</tr>
-							<tr>
-								<td>Michael Bruce</td>
-								<td>Javascript Developer</td>
-								<td>Singapore</td>
-								<td>29</td>
-								<td>2011/06/27</td>
-							</tr>
-							<tr>
-								<td>Donna Snider</td>
-								<td>Customer Support</td>
-								<td>New York</td>
-								<td>27</td>
-								<td>2011/01/25</td>
-							</tr>
+							{# @if(Gate::check('show warehouse') || Gate::check('edit warehouse') || Gate::check('delete warehouse'))
+							<td class="Action">
+								@can('show warehouse')
+								<div class="action-btn bg-warning ms-2">
+
+									<a href="#" class="mx-3 btn btn-sm d-inline-flex align-items-center" data-bs-toggle="tooltip" title="#">
+										<i class="ti ti-eye text-white"></i>
+									</a>
+
+								</div>
+								@endcan
+								                                            @can('edit warehouse')
+								<div class="action-btn bg-info ms-2">
+									<a href="#" class="mx-3 btn btn-sm  align-items-center" data-url="#" data-ajax-popup="true" data-size="lg " data-bs-toggle="tooltip" title="" data-title="">
+										<i class="ti ti-pencil text-white"></i>
+									</a>
+								</div>
+								@endcan
+								                                            @can('delete warehouse')
+								<div class="action-btn bg-danger ms-2">
+									{!! Form::open(['method' => 'DELETE', 'route' => ['warehouse.destroy', $warehouse->id],'id'=>'delete-form-'.$warehouse->id]) !!}
+									<a href="#" class="mx-3 btn btn-sm  align-items-center bs-pass-para" data-bs-toggle="tooltip" title="">
+										<i class="ti ti-trash text-white"></i>
+									</a>
+									{!! Form::close() !!}
+								</div>
+								@endcan
+							</td>
+							@endif #}
 						</tbody>
 					</table>
 

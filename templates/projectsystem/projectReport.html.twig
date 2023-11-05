@@ -18,6 +18,68 @@
 {% endblock %}
 
 {% block body %}
+	{# {% if app.user.type == 'company' %}
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="mt-2">
+					<div class="card">
+						<div class="card-body">
+							<form action="{{ path('project_report.index') }}" method="GET" id="project_report_submit">
+								<div class="row d-flex align-items-center justify-content-end">
+									<div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mr-2 mb-0">
+										<div class="btn-box">
+											<label for="users" class="form-label">{{ 'Users' }}</label>
+											<select class="select form-select" name="all_users" id="all_users">
+												<option value="" class="">{{ 'All Users' }}</option>
+												{% for user in users %}
+													<option value="{{ user.id }}" {% if app.request.get('all_users') is defined and app.request.get('all_users') == user.id %} selected {% endif %}>{{ user.name }}</option>
+												{% endfor %}
+											</select>
+										</div>
+									</div>
+									<div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12">
+										<div class="btn-box">
+											<label for="status" class="form-label">{{ 'Status' }}</label>
+											<select name="status" class="form-control select">
+												<option value="">{{ 'Select Status' }}</option>
+												{% for key, value in status %}
+													<option value="{{ key }}" {% if app.request.get('status') is defined and app.request.get('status') == key %} selected {% endif %}>{{ value }}</option>
+												{% endfor %}
+											</select>
+										</div>
+									</div>
+									<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mr-2">
+										<div class="btn-box">
+											<label for="start_date" class="form-label">{{ 'Start Date' }}</label>
+											<input type="date" name="start_date" value="{{ app.request.get('start_date') is defined ? app.request.get('start_date') : '' }}" class="form-control month-btn">
+										</div>
+									</div>
+									<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mr-2">
+										<div class="btn-box">
+											<label for="end_date" class="form-label">{{ 'End Date' }}</label>
+											<input type="date" name="end_date" value="{{ app.request.get('end_date') is defined ? app.request.get('end_date') : '' }}" class="form-control month-btn">
+										</div>
+									</div>
+									<div class="col-auto float-end ms-2 mt-4">
+										<a href="#" class="btn btn-sm btn-primary" onclick="document.getElementById('project_report_submit').submit(); return false;" data-toggle="tooltip" data-original-title="{{ 'Apply' }}">
+											<span class="btn-inner--icon">
+												<i class="ti ti-search"></i>
+											</span>
+										</a>
+										<a href="{{ path('project_report.index') }}" class="btn btn-sm btn-danger" data-toggle="tooltip" data-original-title="{{ 'Reset' }}">
+											<span class="btn-inner--icon">
+												<i class="ti ti-trash-off text-white-off"></i>
+											</span>
+										</a>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endif %} #}
 
 	<div class="row">
 		<div class="col-12">
@@ -37,13 +99,13 @@
 						</thead>
 						<tbody>
 							{# <tr>
-								<td>Cara Stevens</td>
-								<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-								<td>New York</td>
-								<td>46</td>
-								<td>2011/12/06</td>
-								<td>2011/12/06</td>
-							</tr> #}
+															<td>Cara Stevens</td>
+															<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
+															<td>New York</td>
+															<td>46</td>
+															<td>2011/12/06</td>
+															<td>2011/12/06</td>
+														</tr> #}
 						</tbody>
 					</table>
 
@@ -72,6 +134,5 @@
 	<script src="/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
 
 	<!-- Datatable Demo Aapp js -->
-	<script src="/js/pages/demo.datatable-init.js">
-	</script>
+	<script src="/js/pages/demo.datatable-init.js"></script>
 {% endblock %}

@@ -1,12 +1,54 @@
 {% extends 'partials/layout-vertical.html.twig' %}
 
-{% block title %}Tas
+{% block title %}Task
 {% endblock %}
 
-{% block css %}{% endblock %}
+{% block css %}
+	<!-- Datatables css -->
+	<link href="/vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-fixedcolumns-bs5/css/fixedColumns.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-select-bs5/css/select.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+{% endblock %}
 
 {% block pagetitle %}
-	{{ include('partials/page-title.html.twig', { sub_title: 'Pages', page_title: 'Task' }) }}
+	{{ include('partials/page-title.html.twig', { sub_title: 'Task', page_title: 'Task' }) }}
 {% endblock %}
 
-{% block javascript %}{% endblock %}
+{% block body %}
+
+	<div class="row">
+		<div class="col-xl">
+			<div class="card">
+				<div class="card-body">
+					<div class="table-responsive-sm">
+						<table class="table table-centered mb-0">
+							<thead class="bg-light">
+								<tr>
+									<th>Name</th>
+									<th>Stage</th>
+									<th>Priority</th>
+									<th>End Date</th>
+									<th>Assigned To</th>
+									<th>Completion</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									{# <td>Risa D. Pearson</td>
+									<td>336-508-2157</td>
+									<td>July 24, 1950</td>
+									<td>India</td> #}
+								</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascript %}
+{% endblock %}

@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block pagetitle %}
-	{{ include('partials/page-title.html.twig', { sub_title: 'Zoom meeting', page_title: 'Zoom meeting' }) }}
+	{{ include('partials/page-title.html.twig', { sub_title: 'Manage Zoom meeting', page_title: 'Manage Zoom meeting' }) }}
 {% endblock %}
 
 {% block body %}
@@ -26,12 +26,13 @@
 					<table id="basic-datatable" class="table table-striped dt-responsive nowrap w-100">
 						<thead>
 							<tr>
-								<th>Created By</th>
-								<th>Ticket</th>
-								<th>Code</th>
-								<th>Attachment</th>
+								<th>Title</th>
+								<th>Project</th>
+								<th>User</th>
+								<th>Meeting Time</th>
+								<th>Duration</th>
+								<th>Join URL</th>
 								<th>Status</th>
-								<th>Created At</th>
 								<th>Action</th>
 							</tr>
 						</thead>
