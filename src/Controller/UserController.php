@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
-    #[Route('/confirmmail', name: 'confirmmail', methods:["POST"])]
+    #[Route('/confirmmail', name: 'confirmmail')]
     public function confirmemail(): Response
     {
         return $this->render('user/confirm-mail.html.twig', [
@@ -22,7 +22,7 @@ class UserController extends AbstractController
     //         'controller_name' => 'UserController',
     //     ]);
     // }
-    #[Route('/recoverpassword', name: 'recoverpassword', methods:["POST"])]
+    #[Route('/recoverpassword', name: 'recoverpassword')]
     public function recoverpassword(): Response
     {
         return $this->render('user/recoverpw.html.twig', [
