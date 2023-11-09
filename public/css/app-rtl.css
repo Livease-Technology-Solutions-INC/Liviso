@@ -15516,10 +15516,11 @@ html[data-bs-theme=dark] #light-dark-mode .ri-moon-fill::before {
 .page-title-box .page-title {
   font-size: 18px;
   margin: 0;
-  line-height: 60px;
+  line-height: 40px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  padding: 0;
 }
 .page-title-box .breadcrumb {
   padding: 0;
@@ -15534,7 +15535,7 @@ html[data-bs-theme=dark] #light-dark-mode .ri-moon-fill::before {
   margin-top: 0;
 }
 .page-title-box-sm .breadcrumb {
-  padding-top: 0;
+  padding-top: 2;
   margin-top: -3px !important;
 }
 

@@ -6,10 +6,11 @@
     .page-title {
         font-size: 18px;
         margin: 0;
-        line-height: 60px;
+        line-height: 40px;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+        padding: 0;
         // color: $page-title-color;
     }
 
@@ -30,7 +31,7 @@
     }
 
     .breadcrumb {
-        padding-top: 0;
+        padding-top: 2;
         margin-top: -3px !important;
     }
 }
