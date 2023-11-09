@@ -18459,6 +18459,25 @@ html[data-bs-theme=dark] .auth-brand .logo-dark {
     display: none;
   }
 }
+.sys-container {
+  background-color: #e1e8ee;
+}
+
+.custom-height {
+  height: 100%;
+  overflow-x: hidden !important;
+}
+
+.img-holder {
+  width: 200px;
+  height: 200px;
+}
+
+.img-holder img {
+  width: 70%;
+  height: 70%;
+}
+
 .apex-charts {
   min-height: 10px !important;
 }
