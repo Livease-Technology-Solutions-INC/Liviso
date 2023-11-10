@@ -16355,6 +16355,10 @@ html[data-layout=topnav] #topnav-color {
   --ct-btn-hover-color: #fff;
 }
 
+.custom-button {
+  border: none;
+}
+
 .badge-outline-primary {
   --ct-badge-color: var(--ct-primary);
   border: 1px solid var(--ct-primary);

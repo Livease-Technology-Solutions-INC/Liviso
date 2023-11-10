@@ -3,7 +3,18 @@
 {% block title %}Settings
 {% endblock %}
 
-{% block css %}{% endblock %}
+{% block css %}
+	<!-- Quill css -->
+	<link href="/vendor/quill/quill.core.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/quill/quill.snow.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/quill/quill.bubble.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-fixedcolumns-bs5/css/fixedColumns.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-select-bs5/css/select.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+{% endblock %}
 
 {% block pagetitle %}
 	{{ include('partials/page-title.html.twig', { sub_title: 'Settings', page_title: 'Settings' }) }}
@@ -45,7 +56,7 @@
 										<h4 id="list-item-1">
 											<b class="text-dark">Brand Settings</b>
 										</h4>
-										<h6 id="list-item-1">Edit your brand settings</h6>
+										<h6 id="list-item-1 text-muted fs-6 p-0 m-0">Edit your brand settings</h6>
 										<hr>
 										<div class="col-xxl-10" id="list-item-1">
 
@@ -128,7 +139,7 @@
 										<h4 id="list-item-2">
 											<b class="text-dark">System Settings</b>
 										</h4>
-										<h6 id="list-item-2">Edit your brand settings</h6>
+										<h6 id="list-item-2 text-muted fs-6 p-0 m-0">Edit your brand settings</h6>
 										<hr>
 										<div class="col-xxl-10" id="list-item-2">
 											<div class="row">
@@ -137,7 +148,7 @@
 														<div class="mb-3">
 															<label for="title-text" class="form-label">Currency
 															</label>
-															<input type="text" id="title-text" class="form-control">
+															<input type="text" id="title-text" class="form-control" value="USD">
 														</div>
 													</form>
 												</div>
@@ -145,7 +156,7 @@
 													<form>
 														<div class="mb-3">
 															<label for="footer-text" class="form-label">Currency Symbol</label>
-															<input type="text" id="footer-text" class="form-control">
+															<input type="text" id="footer-text" class="form-control" value="$">
 														</div>
 													</form>
 												</div>
@@ -167,8 +178,365 @@
 												<div class="col-md-6">
 													<form>
 														<div class="mb-3">
-															<label for="footer-text" class="form-label">Decimal Number Format</label>
+															<label for="example-number" class="form-label">Decimal Number Format</label>
+															<input class="form-control" id="example-number" type="number" name="number">
+														</div>
+
+													</form>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-6">
+													<form>
+														<div class="mb-3">
+															<label for="example-select" class="form-label">Date Format</label>
+															<select class="form-select" id="example-select">
+																<option>dd-mm-yyyy</option>
+																<option>mm-dd-yyyy</option>
+																<option>yyyy-mm-dd</option>
+															</select>
+														</div>
+													</form>
+												</div>
+												<div class="col-md-6">
+													<form>
+														<div class="mb-3">
+															<label for="example-select" class="form-label">Time Format</label>
+															<select class="form-select" id="example-select">
+																<option>12 hour format</option>
+																<option>24 hour format</option>
+															</select>
+														</div>
+													</form>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-6">
+													<form>
+														<div class="mb-3">
+															<label for="title-text" class="form-label">Customer Prefix
+															</label>
+															<input type="text" id="title-text" class="form-control" value="#CUST">
+														</div>
+													</form>
+												</div>
+												<div class="col-md-6">
+													<form>
+														<div class="mb-3">
+															<label for="footer-text" class="form-label">Vendor Prefix</label>
+															<input type="text" id="footer-text" class="form-control" value="#VEND">
+														</div>
+													</form>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-6">
+													<form>
+														<div class="mb-3">
+															<label for="title-text" class="form-label">Proposal Prefix
+															</label>
+															<input type="text" id="title-text" class="form-control" value="#PROP">
+														</div>
+													</form>
+												</div>
+												<div class="col-md-6">
+													<form>
+														<div class="mb-3">
+															<label for="footer-text" class="form-label">Invoice Prefix</label>
+															<input type="text" id="footer-text" class="form-control" value="#INVO">
+														</div>
+													</form>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-6">
+													<form>
+														<div class="mb-3">
+															<label for="title-text" class="form-label">Bill Prefix
+															</label>
+															<input type="text" id="title-text" class="form-control" value="#BILL">
+														</div>
+													</form>
+												</div>
+												<div class="col-md-6">
+													<form>
+														<div class="mb-3">
+															<label for="footer-text" class="form-label">Purchase Prefix</label>
+															<input type="text" id="footer-text" class="form-control" value="#PUR">
+														</div>
+													</form>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-6">
+													<form>
+														<div class="mb-3">
+															<label for="title-text" class="form-label">Pos Prefix
+															</label>
+															<input type="text" id="title-text" class="form-control" value="#POS">
+														</div>
+													</form>
+												</div>
+												<div class="col-md-6">
+													<form>
+														<div class="mb-3">
+															<label for="footer-text" class="form-label">Journal Prefix</label>
+															<input type="text" id="footer-text" class="form-control" value="#JUR">
+														</div>
+													</form>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-6">
+													<form>
+														<div class="mb-3">
+															<label for="title-text" class="form-label">Display Shipping in Proposal / Invoice / Bill
+															</label>
+															<div class="form-check form-switch">
+																<input type="checkbox" class="form-check-input" id="customSwitch1">
+															</div>
+														</div>
+													</form>
+												</div>
+												<div class="col-md-6">
+													<form>
+														<div class="mb-3">
+															<label for="footer-text" class="form-label">Proposal/Invoice/Bill/Purchase/POS Footer Title</label>
 															<input type="text" id="footer-text" class="form-control">
+														</div>
+													</form>
+												</div>
+											</div>
+											<div class="row">
+												<li class="list-group-item">
+													<div class="mb-2">
+														<h4 class="header-title mt-2">Proposal/Invoice/Bill/Purchase/POS Footer Note</h4>
+
+														<div id="snow-editor" style="height: 300px;"></div>
+														<!-- end Snow-editor-->
+													</div>
+												</li>
+											</div>
+											<hr>
+											<div class="row">
+												<div class="col-md-12 text-end">
+													<button type="button" class="btn btn-info mt-2">Save Changes</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="container">
+										<h4 id="list-item-3">
+											<b class="text-dark">Company Settings</b>
+										</h4>
+										<h6 id="list-item-3 text-muted fs-6 p-0 m-0">Edit your company settings</h6>
+										<hr>
+										<div class="col-xxl-10" id="list-item-3">
+											<div class="row">
+												<div class="col-md-6">
+													<form>
+														<div class="mb-3">
+															<label for="title-text" class="form-label">Company Name
+															</label>
+															<input type="text" id="title-text" class="form-control">
+														</div>
+													</form>
+												</div>
+												<div class="col-md-6">
+													<form>
+														<div class="mb-3">
+															<label for="title-text" class="form-label">Address
+															</label>
+															<input type="text" id="title-text" class="form-control">
+														</div>
+													</form>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-6">
+													<form>
+														<div class="mb-3">
+															<label for="title-text" class="form-label">City
+															</label>
+															<input type="text" id="title-text" class="form-control">
+														</div>
+													</form>
+												</div>
+												<div class="col-md-6">
+													<form>
+														<div class="mb-3">
+															<label for="title-text" class="form-label">State
+															</label>
+															<input type="text" id="title-text" class="form-control">
+														</div>
+													</form>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-6">
+													<form>
+														<div class="mb-3">
+															<label for="title-text" class="form-label">Zip/Post Code
+															</label>
+															<input type="text" id="title-text" class="form-control">
+														</div>
+													</form>
+												</div>
+												<div class="col-md-6">
+													<form>
+														<div class="mb-3">
+															<label for="title-text" class="form-label">Country
+															</label>
+															<input type="text" id="title-text" class="form-control">
+														</div>
+													</form>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-6">
+													<form>
+														<div class="mb-3">
+															<label for="title-text" class="form-label">Telephone
+															</label>
+															<input type="text" id="title-text" class="form-control">
+														</div>
+													</form>
+												</div>
+												<div class="col-md-6">
+													<form>
+														<div class="mb-3">
+															<label for="title-text" class="form-label">System Email
+															</label>
+															<input type="text" id="title-text" class="form-control">
+														</div>
+													</form>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-6">
+													<form>
+														<div class="mb-3">
+															<label for="title-text" class="form-label">Email (From Name)
+															</label>
+															<input type="text" id="title-text" class="form-control">
+														</div>
+													</form>
+												</div>
+												<div class="col-md-6">
+													<form>
+														<div class="mb-3">
+															<label for="title-text" class="form-label">Company Registration Number
+															</label>
+															<input type="text" id="title-text" class="form-control">
+														</div>
+													</form>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-4">
+													<form>
+														<div class="mb-3">
+															<label for="example-time" class="form-label">Company Start Time</label>
+															<input class="form-control" id="example-time" type="time" name="time">
+														</div>
+													</form>
+												</div>
+												<div class="col-md-4">
+													<form>
+														<div class="mb-3">
+															<label for="example-time" class="form-label">Company End Time</label>
+															<input class="form-control" id="example-time" type="time" name="time">
+														</div>
+													</form>
+												</div>
+												<div class="col-md-4">
+													<form>
+														<div class="mb-3">
+															<label for="title-text" class="form-label">IP Restrict
+															</label>
+															<div class="form-check form-switch">
+																<input type="checkbox" class="form-check-input" id="customSwitch1">
+															</div>
+														</div>
+													</form>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-12">
+													<form>
+														<div class="mb-3">
+															<label for="floatingSelect" class="form-label">Timezone</label>
+															<select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+																<option value="GMT">Greenwich Mean Time (GMT)</option>
+																<option value="ECT">European Central Time (ECT)</option>
+																<option value="EET">Eastern European Time (EET)</option>
+																<option value="ART">Egypt Standard Time (ART)</option>
+																<option value="EAT">Eastern African Time (EAT)</option>
+																<option value="MET">Middle East Time (MET)</option>
+																<option value="NET">Near East Time (NET)</option>
+																<option value="PLT">Pakistan Lahore Time (PLT)</option>
+																<option value="IST">India Standard Time (IST)</option>
+																<option value="BST">Bangladesh Standard Time (BST)</option>
+																<option value="VST">Vietnam Standard Time (VST)</option>
+																<option value="CTT">China Taiwan Time (CTT)</option>
+																<option value="JST">Japan Standard Time (JST)</option>
+																<option value="ACT">Australia Central Time (ACT)</option>
+																<option value="AET">Australia Eastern Time (AET)</option>
+																<option value="SST">Solomon Standard Time (SST)</option>
+																<option value="NST">New Zealand Standard Time (NST)</option>
+																<!-- Add more options as needed -->
+															</select>
+														</div>
+													</form>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-6">
+													<form>
+														<div class="mb-3 d-flex gap-3">
+															<label for="title-text" class="form-label">Tax Number
+															</label>
+															<div class="form-check form-switch">
+																<input type="checkbox" class="form-check-input" id="customSwitch1">
+															</div>
+														</div>
+													</form>
+													<div class="col-md-6"></div>
+												</div>
+											</div>
+											<hr>
+											<div class="row">
+												<div class="col-md-12 text-end">
+													<button type="button" class="btn btn-info mt-2">Save Changes</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="container">
+										<h4 id="list-item-4">
+											<b class="text-dark">Time Tracker Settings</b>
+										</h4>
+										<h6 id="list-item-4 text-muted fs-6 p-0 m-0">Edit your Time Tracker settings</h6>
+										<hr>
+										<div class="col-xxl-10" id="list-item-4">
+											<div class="row mt-3">
+												<div class="col-md-6">
+													<form>
+														<div class="mb-3">
+															<label for="title-text" class="form-label p-0 m-0">Application Url
+															</label>
+															<p class="text-muted fs-6 p-0 m-0">Application URL to log into your app</p>
+															<input type="text" id="title-text" class="form-control">
+														</div>
+													</form>
+												</div>
+												<div class="col-md-6">
+													<form>
+														<div class="mb-3">
+															<label for="title-text" class="form-label p-0 m-0">Tracking Interval
+															</label>
+															<p class="text-muted fs-6 p-0 m-0">Image Screenshot Take Interval time ( 1 = 1 min)</p>
+															<input type="text" id="title-text" class="form-control">
 														</div>
 													</form>
 												</div>
@@ -181,40 +549,1860 @@
 											</div>
 										</div>
 									</div>
+									<div class="container">
+										<h4 id="list-item-5">
+											<b class="text-dark">Payment Settings</b>
+										</h4>
+										<h6 id="list-item-5 text-muted fs-6 p-0 m-0">These details will be used to collect invoice payments. Each invoice will have a payment button based on the below configuration.</h6>
+										<hr>
+										<div class="col-xl-12">
+											<div class="card">
+												<div class="card-body">
+													<div class="accordion accordion-flush" id="accordionFlushExample">
+														<div class="accordion-item">
+															<h2 class="accordion-header" id="flush-headingOne">
+																<button class="accordion-button fw-medium collapsed d-flex justify-content-center align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+																	<form>
+																		<div class="mb-3 text-center d-flex justify-content-center align-items-center gap-3">
+																			<label for="title-text" class="form-label">Enable Bank Transfer</label>
+																			<div class="form-check form-switch">
+																				<input type="checkbox" class="form-check-input" id="customSwitch1">
+																			</div>
+																		</div>
+																	</form>
+																</button>
+															</h2>
+															<div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+																<div class="mb-3">
+																	<label for="example-textarea" class="form-label">Bank Details</label>
+																	<textarea class="form-control" id="example-textarea" rows="5"></textarea>
+																</div>
+
+															</div>
+														</div>
+														<div class="accordion-item">
+															<h2 class="accordion-header" id="flush-headingTwo">
+																<button class="accordion-button fw-medium collapsed d-flex justify-content-center align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+																	<form>
+																		<div class="mb-3 text-center d-flex justify-content-center align-items-center gap-3">
+																			<label for="title-text" class="form-label">Enable Stripe</label>
+																			<div class="form-check form-switch">
+																				<input type="checkbox" class="form-check-input" id="customSwitch1">
+																			</div>
+																		</div>
+																	</form>
+																</button>
+															</h2>
+															<div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+																<div class="row">
+																	<div class="col-md-6">
+																		<form>
+																			<div class="mb-3">
+																				<label for="title-text" class="form-label">Stripe key
+																				</label>
+																				<input type="text" id="title-text" class="form-control">
+																			</div>
+																		</form>
+																	</div>
+																	<div class="col-md-6">
+																		<form>
+																			<div class="mb-3">
+																				<label for="title-text" class="form-label">Stripe Secret
+																				</label>
+																				<input type="text" id="title-text" class="form-control">
+																			</div>
+																		</form>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="accordion-item">
+															<h2 class="accordion-header" id="flush-headingThree">
+																<button class="accordion-button fw-medium collapsed d-flex justify-content-center align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+																	<form>
+																		<div class="mb-3 text-center d-flex justify-content-center align-items-center gap-3">
+																			<label for="title-text" class="form-label">Enable Paypal</label>
+																			<div class="form-check form-switch">
+																				<input type="checkbox" class="form-check-input" id="customSwitch1">
+																			</div>
+																		</div>
+																	</form>
+																</button>
+															</h2>
+															<div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+																<div class="row">
+																	<div class="col-xl-12">
+																		<div class="d-flex align-items-center mt-2">
+																			<div class="form-check form-check-inline">
+																				<input type="radio" id="customRadio3" name="customRadio1" class="form-check-input">
+																				<label class="form-check-label" for="customRadio3">Sandbox</label>
+																			</div>
+																			<div class="form-check form-check-inline">
+																				<input type="radio" id="customRadio4" name="customRadio1" class="form-check-input">
+																				<label class="form-check-label" for="customRadio4">Live</label>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+
+																<div class="row mt-3">
+																	<div class="col-md-6">
+																		<form>
+																			<div class="mb-3">
+																				<label for="stripe-key" class="form-label">Client ID</label>
+																				<input type="text" id="stripe-key" class="form-control">
+																			</div>
+																		</form>
+																	</div>
+																	<div class="col-md-6">
+																		<form>
+																			<div class="mb-3">
+																				<label for="stripe-secret" class="form-label">Secret Key</label>
+																				<input type="text" id="stripe-secret" class="form-control">
+																			</div>
+																		</form>
+																	</div>
+																</div>
+
+															</div>
+														</div>
+														<div class="accordion-item">
+															<h2 class="accordion-header" id="flush-headingFour">
+																<button class="accordion-button fw-medium collapsed d-flex justify-content-center align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+																	<form>
+																		<div class="mb-3 text-center d-flex justify-content-center align-items-center gap-3">
+																			<label for="title-text" class="form-label">Enable Paystack</label>
+																			<div class="form-check form-switch">
+																				<input type="checkbox" class="form-check-input" id="customSwitch1">
+																			</div>
+																		</div>
+																	</form>
+																</button>
+															</h2>
+															<div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+
+																<div class="row mt-3">
+																	<div class="col-md-6">
+																		<form>
+																			<div class="mb-3">
+																				<label for="stripe-key" class="form-label">Public Key</label>
+																				<input type="text" id="stripe-key" class="form-control">
+																			</div>
+																		</form>
+																	</div>
+																	<div class="col-md-6">
+																		<form>
+																			<div class="mb-3">
+																				<label for="stripe-secret" class="form-label">Secret Key</label>
+																				<input type="text" id="stripe-secret" class="form-control">
+																			</div>
+																		</form>
+																	</div>
+																</div>
+
+															</div>
+														</div>
+														<div class="accordion-item">
+															<h2 class="accordion-header" id="flush-headingFive">
+																<button class="accordion-button fw-medium collapsed d-flex justify-content-center align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+																	<form>
+																		<div class="mb-3 text-center d-flex justify-content-center align-items-center gap-3">
+																			<label for="title-text" class="form-label">Enable FlutterWave</label>
+																			<div class="form-check form-switch">
+																				<input type="checkbox" class="form-check-input" id="customSwitch1">
+																			</div>
+																		</div>
+																	</form>
+																</button>
+															</h2>
+															<div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+
+																<div class="row mt-3">
+																	<div class="col-md-6">
+																		<form>
+																			<div class="mb-3">
+																				<label for="stripe-key" class="form-label">Public Key</label>
+																				<input type="text" id="stripe-key" class="form-control">
+																			</div>
+																		</form>
+																	</div>
+																	<div class="col-md-6">
+																		<form>
+																			<div class="mb-3">
+																				<label for="stripe-secret" class="form-label">Secret Key</label>
+																				<input type="text" id="stripe-secret" class="form-control">
+																			</div>
+																		</form>
+																	</div>
+																</div>
+
+															</div>
+														</div>
+														<div class="accordion-item">
+															<h2 class="accordion-header" id="flush-headingSix">
+																<button class="accordion-button fw-medium collapsed d-flex justify-content-center align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
+																	<form>
+																		<div class="mb-3 text-center d-flex justify-content-center align-items-center gap-3">
+																			<label for="title-text" class="form-label">Enable Razorpay</label>
+																			<div class="form-check form-switch">
+																				<input type="checkbox" class="form-check-input" id="customSwitch1">
+																			</div>
+																		</div>
+																	</form>
+																</button>
+															</h2>
+															<div id="flush-collapseSix" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+
+																<div class="row mt-3">
+																	<div class="col-md-6">
+																		<form>
+																			<div class="mb-3">
+																				<label for="stripe-key" class="form-label">Public Key</label>
+																				<input type="text" id="stripe-key" class="form-control">
+																			</div>
+																		</form>
+																	</div>
+																	<div class="col-md-6">
+																		<form>
+																			<div class="mb-3">
+																				<label for="stripe-secret" class="form-label">Secret Key</label>
+																				<input type="text" id="stripe-secret" class="form-control">
+																			</div>
+																		</form>
+																	</div>
+																</div>
+
+															</div>
+														</div>
+														<div class="accordion-item">
+															<h2 class="accordion-header" id="flush-headingSeven">
+																<button class="accordion-button fw-medium collapsed d-flex justify-content-center align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSeven" aria-expanded="false" aria-controls="flush-collapseSeven">
+																	<form>
+																		<div class="mb-3 text-center d-flex justify-content-center align-items-center gap-3">
+																			<label for="title-text" class="form-label">Enable Paytm</label>
+																			<div class="form-check form-switch">
+																				<input type="checkbox" class="form-check-input" id="customSwitch1">
+																			</div>
+																		</div>
+																	</form>
+																</button>
+															</h2>
+															<div id="flush-collapseSeven" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+																<div class="row">
+																	<div class="col-xl-12">
+																		<label for="Paytm Environment">Paytm Environment</label>
+																		<div class="d-flex align-items-center mt-2">
+																			<div class="form-check form-check-inline">
+																				<input type="radio" id="customRadio3" name="customRadio1" class="form-check-input">
+																				<label class="form-check-label" for="customRadio3">Local</label>
+																			</div>
+																			<div class="form-check form-check-inline">
+																				<input type="radio" id="customRadio4" name="customRadio1" class="form-check-input">
+																				<label class="form-check-label" for="customRadio4">Production</label>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+
+																<div class="row mt-3">
+																	<div class="col-md-4">
+																		<form>
+																			<div class="mb-3">
+																				<label for="stripe-key" class="form-label">Merchant ID</label>
+																				<input type="text" id="stripe-key" class="form-control" placeholder="Merchant ID">
+																			</div>
+																		</form>
+																	</div>
+																	<div class="col-md-4">
+																		<form>
+																			<div class="mb-3">
+																				<label for="stripe-secret" class="form-label">Merchant Key</label>
+																				<input type="text" id="stripe-secret" class="form-control" placeholder="Merchant Key">
+																			</div>
+																		</form>
+																	</div>
+																	<div class="col-md-4">
+																		<form>
+																			<div class="mb-3">
+																				<label for="stripe-secret" class="form-label">Industry Type</label>
+																				<input type="text" id="stripe-secret" class="form-control" placeholder="Industry Type">
+																			</div>
+																		</form>
+																	</div>
+																</div>
+
+															</div>
+														</div>
+														<div class="accordion-item">
+															<h2 class="accordion-header" id="flush-headingEight">
+																<button class="accordion-button fw-medium collapsed d-flex justify-content-center align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseEight" aria-expanded="false" aria-controls="flush-collapseEight">
+																	<form>
+																		<div class="mb-3 text-center d-flex justify-content-center align-items-center gap-3">
+																			<label for="title-text" class="form-label">Enable Mercado Pago</label>
+																			<div class="form-check form-switch">
+																				<input type="checkbox" class="form-check-input" id="customSwitch1">
+																			</div>
+																		</div>
+																	</form>
+																</button>
+															</h2>
+															<div id="flush-collapseEight" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+																<div class="row">
+																	<div class="col-xl-12">
+																		<label for="Mercado">Mercado Move</label>
+																		<div class="d-flex align-items-center mt-2">
+																			<div class="form-check form-check-inline">
+																				<input type="radio" id="customRadio3" name="customRadio1" class="form-check-input">
+																				<label class="form-check-label" for="customRadio3">Sanbox</label>
+																			</div>
+																			<div class="form-check form-check-inline">
+																				<input type="radio" id="customRadio4" name="customRadio1" class="form-check-input">
+																				<label class="form-check-label" for="customRadio4">Live</label>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+
+																<div class="row mt-3">
+																	<div class="col-md-6">
+																		<form>
+																			<div class="mb-3">
+																				<label for="Access Token" class="form-label">Access Token</label>
+																				<input type="text" id="Access Token" class="form-control" placeholder="Access Token">
+																			</div>
+																		</form>
+																	</div>
+																</div>
+
+															</div>
+														</div>
+														<div class="accordion-item">
+															<h2 class="accordion-header" id="flush-headingNine">
+																<button class="accordion-button fw-medium collapsed d-flex justify-content-center align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseNine" aria-expanded="false" aria-controls="flush-collapseNine">
+																	<form>
+																		<div class="mb-3 text-center d-flex justify-content-center align-items-center gap-3">
+																			<label for="title-text" class="form-label">Enable Mollie</label>
+																			<div class="form-check form-switch">
+																				<input type="checkbox" class="form-check-input" id="customSwitch1">
+																			</div>
+																		</div>
+																	</form>
+																</button>
+															</h2>
+															<div id="flush-collapseNine" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+																<div class="row mt-3">
+																	<div class="col-md-4">
+																		<form>
+																			<div class="mb-3">
+																				<label for="Mollie Api Key" class="form-label">Mollie Api Key</label>
+																				<input type="text" id="Mollie Api Key" class="form-control" placeholder="Mollie Api Key">
+																			</div>
+																		</form>
+																	</div>
+																	<div class="col-md-4">
+																		<form>
+																			<div class="mb-3">
+																				<label for="Mollie profile Id" class="form-label">Mollie profile Id</label>
+																				<input type="text" id="Mollie profile Id" class="form-control" placeholder="Mollie profile Id">
+																			</div>
+																		</form>
+																	</div>
+																	<div class="col-md-4">
+																		<form>
+																			<div class="mb-3">
+																				<label for="Mollie partner Id" class="form-label">Mollie partner Id</label>
+																				<input type="text" id="Mollie partner Id" class="form-control" placeholder="Mollie partner Id">
+																			</div>
+																		</form>
+																	</div>
+																</div>
+
+															</div>
+														</div>
+														<div class="accordion-item">
+															<h2 class="accordion-header" id="flush-headingTen">
+																<button class="accordion-button fw-medium collapsed d-flex justify-content-center align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTen" aria-expanded="false" aria-controls="flush-collapseTen">
+																	<form>
+																		<div class="mb-3 text-center d-flex justify-content-center align-items-center gap-3">
+																			<label for="title-text" class="form-label">Enable Skrill</label>
+																			<div class="form-check form-switch">
+																				<input type="checkbox" class="form-check-input" id="customSwitch1">
+																			</div>
+																		</div>
+																	</form>
+																</button>
+															</h2>
+															<div id="flush-collapseTen" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+
+
+																<div class="row mt-3">
+																	<div class="col-xl-12">
+																		<form>
+																			<div class="mb-3">
+																				<label for="Skrill Email" class="form-label">Skrill Email</label>
+																				<input type="text" id="Skrill Email" class="form-control" placeholder="Enter Skrill Email">
+																			</div>
+																		</form>
+																	</div>
+
+																</div>
+
+															</div>
+														</div>
+														<div class="accordion-item">
+															<h2 class="accordion-header" id="flush-headingEleven">
+																<button class="accordion-button fw-medium collapsed d-flex justify-content-center align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseEleven" aria-expanded="false" aria-controls="flush-collapseEleven">
+																	<form>
+																		<div class="mb-3 text-center d-flex justify-content-center align-items-center gap-3">
+																			<label for="title-text" class="form-label">Enable CoinGate</label>
+																			<div class="form-check form-switch">
+																				<input type="checkbox" class="form-check-input" id="customSwitch1">
+																			</div>
+																		</div>
+																	</form>
+																</button>
+															</h2>
+															<div id="flush-collapseEleven" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+																<div class="row">
+																	<div class="col-xl-12">
+																		<label for="Coin Gate Mode">CoinGate Mode</label>
+																		<div class="d-flex align-items-center mt-2">
+																			<div class="form-check form-check-inline">
+																				<input type="radio" id="customRadio3" name="customRadio1" class="form-check-input">
+																				<label class="form-check-label" for="customRadio3">Sandbox</label>
+																			</div>
+																			<div class="form-check form-check-inline">
+																				<input type="radio" id="customRadio4" name="customRadio1" class="form-check-input">
+																				<label class="form-check-label" for="customRadio4">Live</label>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+
+																<div class="row mt-3">
+																	<div class="col-xl-12">
+																		<form>
+																			<div class="mb-3">
+																				<label for="CoinGate Auth Token" class="form-label">CoinGate Auth Token</label>
+																				<input type="text" id="CoinGate Auth Token" class="form-control" placeholder="CoinGate Auth Token">
+																			</div>
+																		</form>
+																	</div>
+
+																</div>
+
+															</div>
+														</div>
+														<div class="accordion-item">
+															<h2 class="accordion-header" id="flush-headingTweleve">
+																<button class="accordion-button fw-medium collapsed d-flex justify-content-center align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTweleve" aria-expanded="false" aria-controls="flush-collapseTweleve">
+																	<form>
+																		<div class="mb-3 text-center d-flex justify-content-center align-items-center gap-3">
+																			<label for="title-text" class="form-label">Enable PaymentWall</label>
+																			<div class="form-check form-switch">
+																				<input type="checkbox" class="form-check-input" id="customSwitch1">
+																			</div>
+																		</div>
+																	</form>
+																</button>
+															</h2>
+															<div id="flush-collapseTweleve" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+
+																<div class="row mt-3">
+																	<div class="col-md-6">
+																		<form>
+																			<div class="mb-3">
+																				<label for="Public Key" class="form-label">Public Key</label>
+																				<input type="text" id="Public Key" class="form-control" placeholder="Public Key">
+																			</div>
+																		</form>
+																	</div>
+																	<div class="col-md-6">
+																		<form>
+																			<div class="mb-3">
+																				<label for="Private Key<" class="form-label">Private Key</label>
+																				<input type="text" id="Private Key<" class="form-control" placeholder="Private Key">
+																			</div>
+																		</form>
+																	</div>
+
+																</div>
+
+															</div>
+														</div>
+														<div class="accordion-item">
+															<h2 class="accordion-header" id="flush-headingThirteen">
+																<button class="accordion-button fw-medium collapsed d-flex justify-content-center align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThirteen" aria-expanded="false" aria-controls="flush-collapseThirteen">
+																	<form>
+																		<div class="mb-3 text-center d-flex justify-content-center align-items-center gap-3">
+																			<label for="title-text" class="form-label">Enable ToyyibPay</label>
+																			<div class="form-check form-switch">
+																				<input type="checkbox" class="form-check-input" id="customSwitch1">
+																			</div>
+																		</div>
+																	</form>
+																</button>
+															</h2>
+															<div id="flush-collapseThirteen" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+
+																<div class="row mt-3">
+																	<div class="col-md-6">
+																		<form>
+																			<div class="mb-3">
+																				<label for="Category Key" class="form-label">Category Key</label>
+																				<input type="text" id="Category Key" class="form-control" placeholder="Category Key">
+																			</div>
+																		</form>
+																	</div>
+																	<div class="col-md-6">
+																		<form>
+																			<div class="mb-3">
+																				<label for="Secret Key" class="form-label">Secret Key</label>
+																				<input type="text" id="Secret Key" class="form-control" placeholder="Secret Key">
+																			</div>
+																		</form>
+																	</div>
+
+																</div>
+
+															</div>
+														</div>
+														<div class="accordion-item">
+															<h2 class="accordion-header" id="flush-headingFourteen">
+																<button class="accordion-button fw-medium collapsed d-flex justify-content-center align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFourteen" aria-expanded="false" aria-controls="flush-collapseFourteen">
+																	<form>
+																		<div class="mb-3 text-center d-flex justify-content-center align-items-center gap-3">
+																			<label for="title-text" class="form-label">Enable PayFast</label>
+																			<div class="form-check form-switch">
+																				<input type="checkbox" class="form-check-input" id="customSwitch1">
+																			</div>
+																		</div>
+																	</form>
+																</button>
+															</h2>
+															<div id="flush-collapseFourteen" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+																<div class="row">
+																	<div class="col-xl-12">
+																		<label for="Paytm Environment">Payfast Mode</label>
+																		<div class="d-flex align-items-center mt-2">
+																			<div class="form-check form-check-inline">
+																				<input type="radio" id="customRadio3" name="customRadio1" class="form-check-input">
+																				<label class="form-check-label" for="customRadio3">Sandbox</label>
+																			</div>
+																			<div class="form-check form-check-inline">
+																				<input type="radio" id="customRadio4" name="customRadio1" class="form-check-input">
+																				<label class="form-check-label" for="customRadio4">Live</label>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+
+																<div class="row mt-3">
+																	<div class="col-md-4">
+																		<form>
+																			<div class="mb-3">
+																				<label for="Merchant ID" class="form-label">Merchant ID</label>
+																				<input type="text" id="Merchant ID" class="form-control" placeholder="Merchant ID">
+																			</div>
+																		</form>
+																	</div>
+																	<div class="col-md-4">
+																		<form>
+																			<div class="mb-3">
+																				<label for="Merchant Key" class="form-label">Merchant Key</label>
+																				<input type="text" id="Merchant Key" class="form-control" placeholder="Merchant Key">
+																			</div>
+																		</form>
+																	</div>
+																	<div class="col-md-4">
+																		<form>
+																			<div class="mb-3">
+																				<label for="Salt PassPhrase" class="form-label">Salt PassPhrase</label>
+																				<input type="text" id="Salt PassPhrase" class="form-control" placeholder="Industry Type">
+																			</div>
+																		</form>
+																	</div>
+																</div>
+
+															</div>
+														</div>
+														<div class="accordion-item">
+															<h2 class="accordion-header" id="flush-headingFifteen">
+																<button class="accordion-button fw-medium collapsed d-flex justify-content-center align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFifteen" aria-expanded="false" aria-controls="flush-collapseFifteen">
+																	<form>
+																		<div class="mb-3 text-center d-flex justify-content-center align-items-center gap-3">
+																			<label for="title-text" class="form-label">Enable Iyzipay</label>
+																			<div class="form-check form-switch">
+																				<input type="checkbox" class="form-check-input" id="customSwitch1">
+																			</div>
+																		</div>
+																	</form>
+																</button>
+															</h2>
+															<div id="flush-collapseFifteen" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+																<div class="row">
+																	<div class="col-xl-12">
+																		<label for="Paytm Environment">Paytm Environment</label>
+																		<div class="d-flex align-items-center mt-2">
+																			<div class="form-check form-check-inline">
+																				<input type="radio" id="customRadio3" name="customRadio1" class="form-check-input">
+																				<label class="form-check-label" for="customRadio3">Sandbox</label>
+																			</div>
+																			<div class="form-check form-check-inline">
+																				<input type="radio" id="customRadio4" name="customRadio1" class="form-check-input">
+																				<label class="form-check-label" for="customRadio4">Live</label>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+
+																<div class="row mt-3">
+																	<div class="col-md-4">
+																		<form>
+																			<div class="mb-3">
+																				<label for="Public Key" class="form-label">Public Key</label>
+																				<input type="text" id="Public Key" class="form-control" placeholder="Public Key">
+																			</div>
+																		</form>
+																	</div>
+																	<div class="col-md-4">
+																		<form>
+																			<div class="mb-3">
+																				<label for="Secret Key" class="form-label">Secret Key</label>
+																				<input type="text" id="Secret Key" class="form-control" placeholder="Secret Key">
+																			</div>
+																		</form>
+																	</div>
+																</div>
+
+															</div>
+														</div>
+														<div class="accordion-item">
+															<h2 class="accordion-header" id="flush-headingSixteen">
+																<button class="accordion-button fw-medium collapsed d-flex justify-content-center align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSixteen" aria-expanded="false" aria-controls="flush-collapseSixteen">
+																	<form>
+																		<div class="mb-3 text-center d-flex justify-content-center align-items-center gap-3">
+																			<label for="title-text" class="form-label">Enable SSpay</label>
+																			<div class="form-check form-switch">
+																				<input type="checkbox" class="form-check-input" id="customSwitch1">
+																			</div>
+																		</div>
+																	</form>
+																</button>
+															</h2>
+															<div id="flush-collapseSixteen" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+																<div class="row mt-3">
+																	<div class="col-md-6">
+																		<form>
+																			<div class="mb-3">
+																				<label for="Category Code" class="form-label">Category Code</label>
+																				<input type="text" id="Category Code" class="form-control" placeholder="Category Code">
+																			</div>
+																		</form>
+																	</div>
+																	<div class="col-md-6">
+																		<form>
+																			<div class="mb-3">
+																				<label for="Secret Key" class="form-label">Secret Key</label>
+																				<input type="text" id="Secret Key" class="form-control" placeholder="Secret Key">
+																			</div>
+																		</form>
+																	</div>
+
+																</div>
+
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-md-12 text-end">
+																<button type="button" class="btn btn-info mt-2">Save Changes</button>
+															</div>
+														</div>
+													</div>
+													<!-- end card-body-->
+												</div>
+												<!-- end card-->
+											</div>
+										</div>
+									</div>
+									<div class="container">
+										<h4 id="list-item-6">
+											<b class="text-dark">Zoom Settings</b>
+										</h4>
+										<h6 id="list-item-6">Edit your zoom settings</h6>
+										<hr>
+										<div class="col-xxl-10" id="list-item-6">
+											<div class="row mt-3">
+												<div class="col-md-6">
+													<form>
+														<div class="mb-3">
+															<label for="title-text" class="form-label p-0 m-0">Zoom Api Key
+															</label>
+															<input type="text" id="title-text" class="form-control" placeholder="Enter Zoom API Key">
+														</div>
+													</form>
+												</div>
+												<div class="col-md-6">
+													<form>
+														<div class="mb-3">
+															<label for="title-text" class="form-label p-0 m-0">Zoom Api Secret
+															</label>
+															<input type="text" id="title-text" class="form-control" placeholder="Enter Zoom API Secret">
+														</div>
+													</form>
+												</div>
+											</div>
+											<hr>
+											<div class="row">
+												<div class="col-md-12 text-end">
+													<button type="button" class="btn btn-info mt-2">Save Changes</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="container">
+										<h4 id="list-item-7">
+											<b class="text-dark">Slack Settings</b>
+										</h4>
+										<hr>
+										<div class="col-xxl-10" id="list-item-7">
+											<div class="row mt-3">
+												<div class="col-md-12">
+													<form>
+														<div class="mb-3">
+															<label for="title-text" class="form-label p-0 m-0">Slack Webhook URL
+															</label>
+															<input type="text" id="title-text" class="form-control" placeholder="Enter Slack Webhook URL">
+														</div>
+													</form>
+												</div>
+												<h5 class="text-dark">Module Settings</h5>
+												<div class="col-md-3">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">New Lead</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+															<hr class="m-1">
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3">
+																<label for="title-text" class="form-label">New Deal</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">Lead To Deal Conversion</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+															<hr class="m-1">
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3">
+																<label for="title-text" class="form-label">New Contract</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">New Project</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+															<hr class="m-1">
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3">
+																<label for="title-text" class="form-label">New Task</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">Task Stage Updated</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+															<hr class="m-1">
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3">
+																<label for="title-text" class="form-label">New Task Comment</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3 mt-3">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">New Monthly Pay Slip</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+															<hr class="m-1">
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3">
+																<label for="title-text" class="form-label">New Award</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3 mt-3">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">New Announcement</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+															<hr class="m-1">
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3">
+																<label for="title-text" class="form-label">New Holiday</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3 mt-3">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">New Support Ticket</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+															<hr class="m-1">
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3">
+																<label for="title-text" class="form-label">New Event</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3 mt-3">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">New Meeting</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+															<hr class="m-1">
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3">
+																<label for="title-text" class="form-label">New Company policy</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3 mt-3">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">New Invoice</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+															<hr class="m-1">
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3">
+																<label for="title-text" class="form-label">New Revenue</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3 mt-3">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">New Bill</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+															<hr class="m-1">
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3">
+																<label for="title-text" class="form-label">New Invoice Payment</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3 mt-3">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">New Bill</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+											</div>
+											<hr>
+											<div class="row">
+												<div class="col-md-12 text-end">
+													<button type="button" class="btn btn-info mt-2">Save Changes</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="container">
+										<h4 id="list-item-8">
+											<b class="text-dark">Telegram Settings</b>
+										</h4>
+										<h6 id="list-item-8">Edit your Telegram settings</h6>
+
+										<hr>
+										<div class="col-xxl-10" id="list-item-8">
+											<div class="row mt-3">
+												<div class="col-md-6 mb-3">
+													<form>
+														<div class="mb-3">
+															<label for="title-text" class="form-label p-0 m-0">Telegram Access Token
+															</label>
+															<input type="text" id="title-text" class="form-control" placeholder="Enter Telegram Access Token">
+														</div>
+													</form>
+												</div>
+												<div class="col-md-6 mb-3">
+													<form>
+														<div class="mb-3">
+															<label for="title-text" class="form-label p-0 m-0">Telegram ChatID
+															</label>
+															<input type="text" id="title-text" class="form-control" placeholder="Enter Telegram ChatID">
+														</div>
+													</form>
+												</div>
+												<h5 class="text-dark">Module Settings</h5>
+												<div class="col-md-3">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">New Lead</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+															<hr class="m-1">
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3">
+																<label for="title-text" class="form-label">New Deal</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">Lead To Deal Conversion</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+															<hr class="m-1">
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3">
+																<label for="title-text" class="form-label">New Contract</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">New Project</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+															<hr class="m-1">
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3">
+																<label for="title-text" class="form-label">New Task</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">Task Stage Updated</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+															<hr class="m-1">
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3">
+																<label for="title-text" class="form-label">New Task Comment</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3 mt-3">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">New Monthly Pay Slip</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+															<hr class="m-1">
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3">
+																<label for="title-text" class="form-label">New Award</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3 mt-3">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">New Announcement</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+															<hr class="m-1">
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3">
+																<label for="title-text" class="form-label">New Holiday</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3 mt-3">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">New Support Ticket</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+															<hr class="m-1">
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3">
+																<label for="title-text" class="form-label">New Event</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3 mt-3">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">New Meeting</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+															<hr class="m-1">
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3">
+																<label for="title-text" class="form-label">New Company policy</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3 mt-3">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">New Invoice</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+															<hr class="m-1">
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3">
+																<label for="title-text" class="form-label">New Revenue</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3 mt-3">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">New Bill</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+															<hr class="m-1">
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3">
+																<label for="title-text" class="form-label">New Invoice Payment</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3 mt-3">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">New Bill</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+											</div>
+											<hr>
+											<div class="row">
+												<div class="col-md-12 text-end">
+													<button type="button" class="btn btn-info mt-2">Save Changes</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="container">
+										<h4 id="list-item-9">
+											<b class="text-dark">Twilo Settings</b>
+										</h4>
+										<h6 id="list-item-9">Edit your Twilo settings</h6>
+
+										<hr>
+										<div class="col-xxl-10" id="list-item-9">
+											<div class="row mt-3">
+												<div class="col-md-4 mb-3">
+													<form>
+														<div class="mb-3">
+															<label for="title-text" class="form-label p-0 m-0">Twilo SID
+															</label>
+															<input type="text" id="title-text" class="form-control" placeholder="Enter Twilo SID">
+														</div>
+													</form>
+												</div>
+												<div class="col-md-4 mb-3">
+													<form>
+														<div class="mb-3">
+															<label for="title-text" class="form-label p-0 m-0">Twilo Token
+															</label>
+															<input type="text" id="title-text" class="form-control" placeholder="Enter Twilo Token">
+														</div>
+													</form>
+												</div>
+												<div class="col-md-4 mb-3">
+													<form>
+														<div class="mb-3">
+															<label for="title-text" class="form-label p-0 m-0">Twilo from
+															</label>
+															<input type="text" id="title-text" class="form-control" placeholder="Enter Twilo From">
+														</div>
+													</form>
+												</div>
+												<h5 class="text-dark">Module Settings</h5>
+												<div class="col-md-3">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">New Customer</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+															<hr class="m-1">
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3">
+																<label for="title-text" class="form-label">New Vendor</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">New Invoice</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+															<hr class="m-1">
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3">
+																<label for="title-text" class="form-label">New Revenue</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">New Bill</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+															<hr class="m-1">
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3">
+																<label for="title-text" class="form-label">New Proposal</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">New Payment</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+															<hr class="m-1">
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3">
+																<label for="title-text" class="form-label">Invoice Remainder</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+											</div>
+											<hr>
+											<div class="row">
+												<div class="col-md-12 text-end">
+													<button type="button" class="btn btn-info mt-2">Save Changes</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="container">
+										<h4 id="list-item-10">
+											<b class="text-dark">Email Settings</b>
+										</h4>
+										<h6 id="list-item-10">Edit your Email notification settings</h6>
+
+										<hr>
+										<div class="col-xxl-10" id="list-item-10">
+											<div class="row mt-3">
+
+												<div class="col-md-3">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">New User</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">New Client</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">New Support Ticket</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">Lead Assigned</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3 mt-2">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">Deal Assigned</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3 mt-2">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">New Award</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3 mt-2">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">Custome Invoice Sent</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3 mt-2">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">New Invoice Payment</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3 mt-2">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">New Payment Remainder</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3 mt-2">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">New Bill Payment</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3 mt-2">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">Bill Resent</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3 mt-2">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">Proposal Sent</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3 mt-2">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">Complaint Resent</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3 mt-2">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">Leave Action Sent</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3 mt-2">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">Payslip Sent</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3 mt-2">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">Promotion Sent</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3 mt-2">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">Resignation Sent</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3 mt-2">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">Termination Sent</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3 mt-2">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">Transfer Sent</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3 mt-2">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">Trip Sent</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3 mt-2">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">Vendor Bill Sent</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3 mt-2">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">Warning Sent</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="col-md-3 mt-2">
+													<div class="container border border-muted rounded-3">
+														<form>
+															<div class="mb-1 text-center d-flex justify-content-center align-items-center gap-3 pt-2">
+																<label for="title-text" class="form-label ">New Contract</label>
+																<div class="form-check form-switch">
+																	<input type="checkbox" class="form-check-input" id="customSwitch1">
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+
+											</div>
+											<hr>
+											<div class="row">
+												<div class="col-md-12 text-end">
+													<button type="button" class="btn btn-info mt-2">Save Changes</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="container">
+										<h4 id="list-item-11">
+											<b class="text-dark">Email Settings</b>
+										</h4>
+										<h6 id="list-item-11">Edit your Email notification settings</h6>
+
+										<hr>
+										<div class="col-xxl-10" id="list-item-11">
+											<div class="row">
+												<li class="list-group-item">
+													<div class="mb-2">
+														<h4 class="header-title mt-2">Format</h4>
+
+														<div id="format-editor" style="height: 300px;"></div>
+													</div>
+												</li>
+											</div>
+											<hr>
+											<div class="row">
+												<div class="col-md-12 text-end">
+													<button type="button" class="btn btn-info mt-2">Save Changes</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="container">
+										<h4 id="list-item-12">
+											<b class="text-dark">Email Settings</b>
+										</h4>
+										<h6 id="list-item-12">Edit your Email notification settings</h6>
+
+										<hr>
+										<div class="col-xxl-10" id="list-item-12">
+											<div class="row">
+												<li class="list-group-item">
+													<div class="mb-2">
+														<h4 class="header-title mt-2">Format</h4>
+
+														<div id="format-editor" style="height: 300px;"></div>
+														<!-- end Snow-editor-->
+													</div>
+												</li>
+											</div>
+											<hr>
+											<div class="row">
+												<div class="col-md-12 text-end">
+													<button type="button" class="btn btn-info mt-2">Save Changes</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="container">
+										<h4 id="list-item-13">
+											<b class="text-dark">Email Settings</b>
+										</h4>
+										<h6 id="list-item-13">Edit your Email notification settings</h6>
+
+										<hr>
+										<div class="col-xxl-10" id="list-item-13">
+											<div class="row">
+												<li class="list-group-item">
+													<div class="mb-2">
+														<h4 class="header-title mt-2">Format</h4>
+
+														<div id="format-editor" style="height: 300px;"></div>
+														<!-- end Snow-editor-->
+													</div>
+												</li>
+											</div>
+											<hr>
+											<div class="row">
+												<div class="col-md-12 text-end">
+													<button type="button" class="btn btn-info mt-2">Save Changes</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="container">
+										<h4 id="list-item-14">
+											<b class="text-dark">Email Settings</b>
+										</h4>
+										<h6 id="list-item-14">Edit your Email notification settings</h6>
+
+										<hr>
+										<div class="col-xxl-10" id="list-item-14">
+											<div class="row">
+												<li class="list-group-item">
+													<div class="mb-2">
+														<h4 class="header-title mt-2">Format</h4>
+
+														<div id="format-editor" style="height: 300px;"></div>
+														<!-- end Snow-editor-->
+													</div>
+												</li>
+											</div>
+											<hr>
+											<div class="row">
+												<div class="col-md-12 text-end">
+													<button type="button" class="btn btn-info mt-2">Save Changes</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="container">
+										<h4 id="list-item-15">
+											<b class="text-dark">Google Calendar Settings</b>
+										</h4>
+
+										<hr>
+										<div class="col-xxl-10" id="list-item-15">
+											<div class="row">
+												<div class="col-md-6">
+													<form>
+														<div class="mb-3">
+															<label for="title-text" class="form-label">Google Calendar ID
+															</label>
+															<input type="text" id="title-text" class="form-control" value="Enter you Google Calendar Id">
+														</div>
+													</form>
+												</div>
+												<div class="col-md-6">
+													<form>
+														<div class="mb-3">
+															<label for="example-fileinput" class="form-label">Google Calendar Json File</label>
+															<input type="file" id="example-fileinput" class="form-control">
+														</div>
+													</form>
+												</div>
+											</div>
+											<hr>
+											<div class="row">
+												<div class="col-md-12 text-end">
+													<button type="button" class="btn btn-info mt-2">Save Changes</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="container mt-2">
+										<div class="row justify-content-between align-items-center">
+											<div class="col-auto">
+												<h4 id="list-item-15" class="d-flex justify-content-evenly">
+													<b class="text-dark">Webhook Settings</b>
+												</h4>
+											</div>
+											<div class="col-auto">
+												<button class="container rounded-2 bg-info custom-button">
+													<i class="ri-add-line text-white"></i>
+												</button>
+											</div>
+										</div>
+
+										<hr>
+										<div class="col-xxl-10" id="list-item-15">
+											<div class="table-responsive-sm">
+												<table class="table mb-0">
+													<thead class="table-active">
+														<tr>
+															<th>Module</th>
+															<th>URL</th>
+															<th>Method</th>
+															<th>Action</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															{# <td>Paul J. Friend</td>
+																																													<td>281-308-0793</td>
+																																													<td>September 1, 1939</td>
+																																													<td>India</td> #}
+														</tr>
+													</tbody>
+												</table>
+											</div>
+											<hr>
+											<div class="row">
+												<div class="col-md-12 text-end">
+													<button type="button" class="btn btn-info mt-2">Save Changes</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="container mt-2">
+										<div class="row justify-content-between align-items-center">
+											<div class="col-auto">
+												<h4 id="list-item-16" class="d-flex justify-content-evenly">
+													<b class="text-dark">IP Restriction Settings</b>
+												</h4>
+											</div>
+											<div class="col-auto">
+												<button class="container rounded-2 bg-info custom-button">
+													<i class="ri-add-line text-white"></i>
+												</button>
+											</div>
+										</div>
+
+										<hr>
+										<div class="col-xxl-10" id="list-item-16">
+											<div class="table-responsive-sm">
+												<table class="table mb-0">
+													<thead class="table-active">
+														<tr>
+															<th>IP</th>
+
+															<th>Action</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															{# <td>Paul J. Friend</td>
+																																													<td>281-308-0793</td>
+																																													<td>September 1, 1939</td>
+																																													<td>India</td> #}
+														</tr>
+													</tbody>
+												</table>
+											</div>
+											<hr>
+											<div class="row">
+												<div class="col-md-12 text-end">
+													<button type="button" class="btn btn-info mt-2">Save Changes</button>
+												</div>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
-							{# <h4 id="list-item-3">Item 3</h4>
-																																																				<p>Quis anim sit do amet fugiat dolor velit sit ea ea do
-																																																																																																																																																																																																								                                                        reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim
-																																																																																																																																																																																																								                                                        proident occaecat excepteur aliquip culpa aute tempor
-																																																																																																																																																																																																								                                                        reprehenderit. Deserunt tempor mollit elit ex pariatur
-																																																																																																																																																																																																								                                                        dolore velit fugiat mollit culpa irure ullamco est ex
-																																																																																																																																																																																																								                                                        ullamco excepteur.</p>
-																																																				<h4 id="list-item-4">Item 4</h4>
-																																																				<p>Quis anim sit do amet fugiat dolor velit sit ea ea do
-																																																					<h4 id="list-item-5">Item 3</h4>
-																																																				</p>
-																																																				<p>Quis anim sit do amet fugiat dolor velit sit ea ea do
-																																																																																																																																																																																																								                                                        reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim
-																																																																																																																																																																																																								                                                        proident occaecat excepteur aliquip culpa aute tempor
-																																																																																																																																																																																																								                                                        reprehenderit. Deserunt tempor mollit elit ex pariatur
-																																																																																																																																																																																																								                                                        dolore velit fugiat mollit culpa irure ullamco est ex
-																																																																																																																																																																																																								                                                        ullamco excepteur.</p>
-																																																				<h4 id="list-item-6">Item 4</h4>
-																																																				<p>Quis anim sit do amet fugiat dolor velit sit ea ea do
-																																																																																																																																																																																																								                                                        reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim
-																																																																																																																																																																																																								                                                        proident occaecat excepteur aliquip culpa aute tempor
-																																																																																																																																																																																																								                                                        reprehenderit. Deserunt tempor mollit elit ex pariatur
-																																																																																																																																																																																																								                                                        dolore velit fugiat mollit culpa irure ullamco est ex
-																																																																																																																																																																																																								                                                        ullamco excepteur.</p> #}
 						</div>
 					</div>
 				</div>
+				<!-- end card-body -->
 			</div>
-			<!-- end card-body -->
+			<!-- end card-->
 		</div>
-		<!-- end card-->
+		<!-- end col -->
 	</div>
-	<!-- end col -->
-</div>
-<!-- end row -->{% endblock %}
+	<!-- end row -->
+{% endblock %}
+{% block javascript %}
+	<!-- Quill Editor js -->
+	<script src="/vendor/quill/quill.min.js"></script>
+
+	<!-- Quill Demo js -->
+	<script src="/js/pages/demo.quilljs.js"></script>
+
+	<!-- App js -->
+	<script src="/js/app.min.js"></script>
+	<script src="/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script src="/vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+	<script src="/vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+	<script src="/vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+	<script src="/vendor/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
+	<script src="/vendor/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+	<script src="/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
+
+	<!-- Datatable Demo Aapp js -->
+	<script src="/js/pages/demo.datatable-init.js"></script>
+{% endblock %}
