@@ -4,37 +4,43 @@
  * Module/App: Data tables
  */
 
-$(document).ready(function () {
-	"use strict";
-        // Default Datatable
-        $("#basic-datatable").DataTable({
+document.addEventListener("DOMContentLoaded", () => {
+    "use strict";
+
+    // Default Datatable
+    const basicDatatable = document.querySelector("#basic-datatable");
+    if (basicDatatable) {
+        const basicDatatableInstance = new DataTable(basicDatatable, {
             keys: true,
             language: {
                 paginate: {
-                    previous: "<i class='ri-arrow-left-s-line'>",
-                    next: "<i class='ri-arrow-right-s-line'>",
+                    previous: "<i class='ri-arrow-left-s-line'></i>",
+                    next: "<i class='ri-arrow-right-s-line'></i>",
                 },
                 emptyTable: "No data found",
             },
-            drawCallback: function () {
-				$(".dataTables_paginate > .pagination").addClass("pagination-rounded");
+            drawCallback: () => {
+                document.querySelector(".dataTables_paginate > .pagination").classList.add("pagination-rounded");
             },
-        });   
-	});
+        });
+    }
 
-$(document).ready(function () {
-	var table = $("#fixed-header-datatable").DataTable({
-		responsive: true,
-		language: {
-			paginate: {
-				previous: "<i class='ri-arrow-left-s-line'>",
-				next: "<i class='ri-arrow-right-s-line'>",
-			},
-		},
-		drawCallback: function () {
-			$(".dataTables_paginate > .pagination").addClass("pagination-rounded");
-		},
-	});
+    // Fixed Header Datatable
+    const fixedHeaderDatatable = document.querySelector("#fixed-header-datatable");
+    if (fixedHeaderDatatable) {
+        const fixedHeaderDatatableInstance = new DataTable(fixedHeaderDatatable, {
+            responsive: true,
+            language: {
+                paginate: {
+                    previous: "<i class='ri-arrow-left-s-line'></i>",
+                    next: "<i class='ri-arrow-right-s-line'></i>",
+                },
+            },
+            drawCallback: () => {
+                document.querySelector(".dataTables_paginate > .pagination").classList.add("pagination-rounded");
+            },
+        });
 
-	new $.fn.dataTable.FixedHeader(table);
+        new DataTable.FixedHeader(fixedHeaderDatatableInstance);
+    }
 });

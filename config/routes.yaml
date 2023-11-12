@@ -7,3 +7,6 @@ catch_all:
     controller: 'App\Controller\ErrorController::showException'
     requirements:
         any: '.+'
+error_404:
+    path: /{any}
+    controller: 'App\Controller\ErrorController::showException'

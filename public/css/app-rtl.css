@@ -17185,12 +17185,15 @@ strong {
   vertical-align: middle !important;
 }
 
+.table {
+  --ct-table-striped-bg: transparent !important;
+}
 .table .table-user img {
   height: 30px;
   width: 30px;
 }
 .table > :not(caption) > * > * {
-  background-color: var(--ct-table-bg) !important;
+  background-color: transparent !important;
 }
 .table.table-bordered tbody {
   border-top: 1px solid;
@@ -18836,6 +18839,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr th.dtr-control:before {
   background-color: var(--ct-primary);
   -webkit-box-shadow: 0px 0px 2px 0px var(--ct-primary);
           box-shadow: 0px 0px 2px 0px var(--ct-primary);
+  text-wrap: wrap;
 }
 table.dataTable thead:not.table-light th {
   background-color: transparent;
@@ -18843,13 +18847,15 @@ table.dataTable thead:not.table-light th {
 }
 table.dataTable tbody tr.even td,
 table.dataTable tbody tr.odd td {
-  background-color: transparent;
+  background-color: transparent !important;
+  text-wrap: wrap;
 }
 table.dataTable tbody > tr.selected td {
   background-color: var(--ct-primary);
 }
 table.dataTable.table-striped > tbody > tr.selected:nth-of-type(odd) > * {
-  --ct-table-accent-bg: $primary !important;
+  --ct-table-accent-bg: transparent !important;
+  --ct-table-striped-bg: transparent !important;
 }
 table.dataTable thead .sorting:before,
 table.dataTable thead .sorting_asc:before,
@@ -18885,10 +18891,12 @@ table.dataTable tbody > tr > .selected {
 }
 table.dataTable tbody > tr.selected td,
 table.dataTable tbody > tr > .selected td {
-  border-color: var(--ct-primary);
+  border-color: transparent;
+  text-wrap: wrap;
 }
 table.dataTable tbody td:focus {
   outline: none !important;
+  text-wrap: wrap;
 }
 table.dataTable tbody th.focus,
 table.dataTable tbody td.focus {
@@ -18912,6 +18920,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr[role=row] > th:first-child:bef
   background-color: #17a497;
   top: auto;
   bottom: auto;
+  text-wrap: wrap;
 }
 table.dataTable.dtr-inline.collapsed > tbody > tr.parent > td:first-child:before,
 table.dataTable.dtr-inline.collapsed > tbody > tr.parent > th:first-child:before {

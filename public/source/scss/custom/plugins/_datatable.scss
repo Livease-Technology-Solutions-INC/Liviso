@@ -22,6 +22,7 @@ table.dataTable {
                             &:before {
                                 background-color: var(--#{$prefix}primary);
                                 box-shadow: 0px 0px 2px 0px var(--#{$prefix}primary);
+                                text-wrap: wrap;
                             }
                         }
                     }
@@ -39,7 +40,8 @@ table.dataTable {
         tr.even,
         tr.odd {
             td {
-                background-color: transparent;
+                background-color: transparent !important;
+                text-wrap: wrap;
             }
         }
     }
@@ -55,7 +57,8 @@ table.dataTable {
     }
 
     &.table-striped > tbody > tr.selected:nth-of-type(odd) > * {
-        --ct-table-accent-bg: $primary !important;
+        --ct-table-accent-bg: transparent !important;
+        --ct-table-striped-bg: transparent !important;
     }
 
     // Change icons view
@@ -102,12 +105,14 @@ table.dataTable {
             background-color: var(--#{$prefix}primary);
 
             td {
-                border-color: var(--#{$prefix}primary);
+                border-color: transparent;
+                text-wrap: wrap;
             }
         }
         td {
             &:focus {
                 outline: none !important;
+                text-wrap: wrap;
             }
         }
         // Key Tables
@@ -140,6 +145,7 @@ table.dataTable.dtr-inline.collapsed {
                         background-color: $success;
                         top: auto;
                         bottom: auto;
+                        text-wrap: wrap;
                     }
                 }
             }

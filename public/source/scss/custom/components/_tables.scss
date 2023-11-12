@@ -19,9 +19,10 @@
             width: 30px;
         }
     }
+    --ct-table-striped-bg: transparent !important;
 
     > :not(caption)>*>* {
-        background-color: var(--#{$prefix}table-bg) !important;
+        background-color: transparent !important;
     }
 
     &.table-bordered {
