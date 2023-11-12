@@ -18,37 +18,63 @@
 {% endblock %}
 
 {% block body %}
-
-	<div class="row">
-		<div class="col-12">
-			<div class="card">
-				<div class="card-body">
-					<table id="basic-datatable" class="table table-striped dt-responsive nowrap w-100">
-						<thead>
-							<tr>
-								<th>Date</th>
-								<th>Amount</th>
-								<th>Description</th>
-							</tr>
-						</thead>
-						<tbody>
-							{# <tr>
-								<td>Cara Stevens</td>
-								<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-								<td>New York</td>
-								<td>46</td>
-								<td>2011/12/06</td>
-								<td>2011/12/06</td>
-							</tr> #}
-						</tbody>
-					</table>
-
-				</div>
-				<!-- end card body-->
+	<div>
+		<div class="container d-flex p-3 g-3">
+			<div class="mb-3">
+				<label for="example-month" class="form-label">Start Month</label>
+				<input class="form-control" id="example-month" type="month" name="month">
 			</div>
-			<!-- end card -->
+			<div class="mb-3">
+				<label for="example-month" class="form-label">End Month</label>
+				<input class="form-control" id="example-month" type="month" name="month">
+			</div>
+			<div>
+				<label for="example-month" class="form-label">Account</label>
+				<select class="form-select mb-3" id="example-month">
+					<option selected>Select Account</option>
+					<option value="1">Cash</option>
+				</select>
+			</div>
+			<div>
+			<label for="example-month" class="form-label">Category</label>
+				<select class="form-select mb-3" id="example-month">
+					<option selected>Select Category</option>
+					<option value="1">Revenue</option>
+					<option value="2">Payment</option>
+				</select>
+			</div>
 		</div>
-		<!-- end col-->
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-body">
+						<table id="basic-datatable" class="table table-striped dt-responsive nowrap w-100">
+							<thead>
+								<tr>
+									<th>Date</th>
+									<th>Amount</th>
+									<th>Description</th>
+								</tr>
+							</thead>
+							<tbody>
+								{# <tr>
+																																																																<td>Cara Stevens</td>
+																																																																<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
+																																																																<td>New York</td>
+																																																																<td>46</td>
+																																																																<td>2011/12/06</td>
+																																																																<td>2011/12/06</td>
+																																																															</tr> #}
+							</tbody>
+						</table>
+
+					</div>
+					<!-- end card body-->
+				</div>
+				<!-- end card -->
+			</div>
+			<!-- end col-->
+		</div>
 	</div>
 	<!-- end row-->
 {% endblock %}
@@ -68,6 +94,5 @@
 	<script src="/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
 
 	<!-- Datatable Demo Aapp js -->
-	<script src="/js/pages/demo.datatable-init.js">
-	</script>
+	<script src="/js/pages/demo.datatable-init.js"></script>
 {% endblock %}
