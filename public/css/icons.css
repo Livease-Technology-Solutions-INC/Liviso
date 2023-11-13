@@ -9984,12 +9984,6 @@ File: Icons Css File
   font-family: "bootstrap-icons";
   src: url("../fonts/bootstrap-icons.woff2?1fa40e8900654d2863d011707b9fb6f2") format("woff2"), url("../fonts/bootstrap-icons.woff?1fa40e8900654d2863d011707b9fb6f2") format("woff");
 }
-.search {
-  width: 10px;
-  height: 10px;
-  border-radius: 3px;
-}
-
 .bi::before,
 [class^=bi-]::before,
 [class*=" bi-"]::before {

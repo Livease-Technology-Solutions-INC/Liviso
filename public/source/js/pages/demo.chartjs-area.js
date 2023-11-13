@@ -23,9 +23,9 @@
         var ctx = chartElement.getContext('2d');
         var chart = new Chart(ctx, {
             type: 'line', data: {
-                labels: ['Jan', 'Feb', 'March', 'April', 'May', 'June'], datasets: [{
+                labels: ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri'], datasets: [{
                     label: 'Fully Rounded',
-                    data: [12.5, -19.4, 14.3, -15.0, 10.8, -10.5],
+                    data: [9.00, 8.00, 9.00, 8.00, 9.00, 8.00],
                     borderColor: colors[0],
                     backgroundColor: hexToRGB(colors[0], .3),
                     fill: false
