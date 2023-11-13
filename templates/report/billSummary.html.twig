@@ -3,46 +3,143 @@
 {% block title %}Role
 {% endblock %}
 
-{% block css %}
-	<!-- Datatables css -->
-	<link href="/vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
-	<link href="/vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
-	<link href="/vendor/datatables.net-fixedcolumns-bs5/css/fixedColumns.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
-	<link href="/vendor/datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
-	<link href="/vendor/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
-	<link href="/vendor/datatables.net-select-bs5/css/select.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
-{% endblock %}
+{% block css %}{% endblock %}
 
 {% block pagetitle %}
-	{{ include('partials/page-title.html.twig', { sub_title: 'Role', page_title: 'Role' }) }}
+	<div class"row align-items-center d-flex">
+		<div class="col mt-2">
+			<div class="float-end mt-3">
+				<a href="#" class="btn btn-sm btn-primary" onclick="saveAsPDF()" data-bs-toggle="tooltip" title="" data-original-title="Download" data-bs-original-title="Download">
+					<span class="btn-inner--icon">
+						<i class="bi bi-download"></i>
+					</span>
+				</a>
+			</div>
+		</div>
+		<div class="col auto">
+			{{ include('partials/page-title.html.twig', { sub_title: 'Bill Summary', page_title: 'Bill Summary' }) }}
+		</div>
+	</div>
 {% endblock %}
 
 {% block body %}
+	<div class="card">
+		<div class="card-body">
+			<form method="GET" action="http://localhost/other/report/Bill-summary" accept-charset="UTF-8" id="report_Bill_summary">
+				<div class="row align-items-center justify-content-end">
+					<div class="col-xl-10">
+						<div class="row">
+							<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+								<div class="btn-box">
+									<label for="start_month" class="form-label">Start Month</label>
 
+									<input class="month-btn form-control" name="start_month" type="month" value="2023-06" id="start_month">
+
+								</div>
+							</div>
+							<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+								<div class="btn-box">
+									<label for="end_month" class="form-label">End Month</label>
+
+									<input class="month-btn form-control" name="end_month" type="month" value="2023-11" id="end_month">
+
+								</div>
+							</div>
+							<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+								<div class="btn-box">
+									<label for="customer" class="form-label">Customer</label>
+
+									<select class="form-control select" id="customer" name="customer">
+										<option value="" selected="selected">Select Customer</option>
+										<option value="10">Habeebi</option>
+										<option value="11">Saleem Shahzad</option>
+										<option value="12">Billy ban</option>
+									</select>
+
+								</div>
+							</div>
+							<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+								<div class="btn-box">
+									<label for="Status" class="form-label">Status</label>
+
+									<select class="form-control select" id="Status" name="Status">
+										<option value="" selected="selected">Select Status</option>
+										<option value="10">Draft</option>
+										<option value="11">Spent</option>
+										<option value="12">Unpaid</option>
+										<option value="12">Partially Paid</option>
+										<option value="12">Paid</option>
+									</select>
+
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<div class="col-auto">
+						<div class="row">
+							<div class="col-auto mt-4">
+								<a href="#" class="btn btn-sm btn-primary" onclick="document.getElementById('report_Bill_summary').submit(); return false;" data-bs-toggle="tooltip" title="" data-original-title="apply" data-bs-original-title="Apply">
+									<span class="btn-inner--icon">
+										<i class="bi bi-search"></i>
+									</span>
+								</a>
+								<a href="http://localhost/other/report/Bill-summary" class="btn btn-sm btn-danger " data-bs-toggle="tooltip" title="" data-original-title="Reset" data-bs-original-title="Reset">
+									<span class="btn-inner--icon">
+										<i class="bi bi-trash"></i>
+									</span>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+
+	</div>
+	<div class="row mt-3">
+		<div class="col">
+			<input type="hidden" value="All Bill Report of Jan-2023 to Dec-2023 of All" id="filename">
+			<div class="card p-4 mb-4">
+				<h7 class="report-text gray-text mb-0">Report :</h7>
+				<h6 class="report-text mb-0">Bill Summary</h6>
+			</div>
+		</div>
+		<div class="col">
+			<div class="card p-4 mb-4">
+				<h7 class="report-text gray-text mb-0">Duration :</h7>
+				<h6 class="report-text mb-0">--</h6>
+			</div>
+		</div>
+	</div>
 	<div class="row">
-		<div class="col-12">
+		<div class="col-xl-4 col-md-6 col-lg-4">
+			<div class="card p-4 mb-4">
+				<h7 class="report-text gray-text mb-0">Total Bill</h7>
+				<h6 class="report-text mb-0">$0.00</h6>
+			</div>
+		</div>
+		<div class="col-xl-4 col-md-6 col-lg-4">
+			<div class="card p-4 mb-4">
+				<h7 class="report-text gray-text mb-0">Total Paid</h7>
+				<h6 class="report-text mb-0">$0.00</h6>
+			</div>
+		</div>
+		<div class="col-xl-4 col-md-6 col-lg-4">
+			<div class="card p-4 mb-4">
+				<h7 class="report-text gray-text mb-0">Total Due</h7>
+				<h6 class="report-text mb-0">$0.00</h6>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
 			<div class="card">
 				<div class="card-body">
-					<table id="basic-datatable" class="table table-striped dt-responsive nowrap w-100">
-						<thead>
-							<tr>
-								<th>Role</th>
-								<th>Permission</th>
-								<th>Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							{# <tr>
-								<td>Cara Stevens</td>
-								<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-								<td>New York</td>
-								<td>46</td>
-								<td>2011/12/06</td>
-								<td>2011/12/06</td>
-							</tr> #}
-						</tbody>
-					</table>
-
+					<h4 class="header-title">Summary</h4>
+					<div dir="ltr">
+						<div id="basic-bar" class="apex-charts" data-colors="#39afd1"></div>
+					</div>
 				</div>
 				<!-- end card body-->
 			</div>
@@ -50,24 +147,11 @@
 		</div>
 		<!-- end col-->
 	</div>
-	<!-- end row-->
 {% endblock %}
 
 {% block javascript %}
-	<!-- Datatables js -->
-	<script src="/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
-	<script src="/vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
-	<script src="/vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-	<script src="/vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
-	<script src="/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-	<script src="/vendor/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js"></script>
-	<script src="/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
-	<script src="/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
-	<script src="/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
-	<script src="/vendor/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-	<script src="/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
-
-	<!-- Datatable Demo Aapp js -->
-	<script src="/js/pages/demo.datatable-init.js">
-	</script>
+	<!-- Apex Chart js -->
+	<script src="/vendor/apexcharts/apexcharts.min.js"></script>
+	<!-- Apex Chart Bar Demo js -->
+	<script src="/js/pages/demo.apex-bar.js"></script>
 {% endblock %}

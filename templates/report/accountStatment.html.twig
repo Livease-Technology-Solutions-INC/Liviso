@@ -14,34 +14,117 @@
 {% endblock %}
 
 {% block pagetitle %}
-	{{ include('partials/page-title.html.twig', { sub_title: 'Account Statment', page_title: 'Account Statment' }) }}
+	<div class"row align-items-center d-flex">
+		<div class="col mt-2">
+			<div class="float-end mt-3">
+				<a href="http://localhost/other/export/accountstatement" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary" data-bs-original-title="Export">
+					<i class="bi bi-box-arrow-up"></i>
+				</a>
+				<a href="#" class="btn btn-sm btn-primary" onclick="saveAsPDF()" data-bs-toggle="tooltip" title="" data-original-title="Download" data-bs-original-title="Download">
+					<span class="btn-inner--icon">
+						<i class="bi bi-download"></i>
+					</span>
+				</a>
+			</div>
+		</div>
+		<div class="col auto">
+			{{ include('partials/page-title.html.twig', { sub_title: 'Account Statment', page_title: 'Account Statment' }) }}
+		</div>
+	</div>
 {% endblock %}
 
 {% block body %}
 	<div>
-		<div class="container d-flex p-3 g-3">
-			<div class="mb-3">
-				<label for="example-month" class="form-label">Start Month</label>
-				<input class="form-control" id="example-month" type="month" name="month">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="mt-2 " id="multiCollapseExample1">
+					<div class="card">
+						<div class="card-body">
+							<form method="GET" action="http://localhost/other/report/account-statement-report" accept-charset="UTF-8" id="report_account">
+								<div class="row align-items-center justify-content-end">
+									<div class="col-xl-10">
+										<div class="row">
+
+											<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+												<div class="btn-box">
+													<label for="start_month" class="form-label">Start Month</label>
+													<input class="month-btn form-control" name="start_month" type="month" value="2023-06" id="start_month">
+												</div>
+											</div>
+											<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+												<div class="btn-box">
+													<label for="end_month" class="form-label">End Month</label>
+													<input class="month-btn form-control" name="end_month" type="month" value="2023-11" id="end_month">
+												</div>
+											</div>
+
+											<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+												<div class="btn-box">
+													<label for="account" class="form-label">Account</label>
+													<select class="form-control select" id="account" name="account">
+														<option value="" selected="selected">Select Account</option>
+														<option value="51">cash</option>
+														<option value="71">ramu</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+												<div class="btn-box">
+													<label for="type" class="form-label">Category</label>
+													<select class="form-control select" id="type" name="type">
+														<option selected="selected" value="">Select Category</option>
+														<option value="revenue">Revenue</option>
+														<option value="payment">Payment</option>
+													</select>
+												</div>
+											</div>
+
+										</div>
+									</div>
+									<div class="col-auto">
+										<div class="row">
+											<div class="col-auto mt-4">
+												<a href="#" class="btn btn-sm btn-primary" onclick="document.getElementById('report_account').submit(); return false;" data-bs-toggle="tooltip" title="" data-original-title="apply" data-bs-original-title="Apply">
+													<span class="btn-inner--icon">
+														<i class="bi bi-search"></i>
+													</span>
+												</a>
+												<a href="http://localhost/other/report/account-statement-report" class="btn btn-sm btn-danger " data-bs-toggle="tooltip" title="" data-original-title="Reset" data-bs-original-title="Reset">
+													<span class="btn-inner--icon">
+														<i class="bi bi-trash"></i>
+													</span>
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+
+					</div>
+				</div>
 			</div>
-			<div class="mb-3">
-				<label for="example-month" class="form-label">End Month</label>
-				<input class="form-control" id="example-month" type="month" name="month">
-			</div>
-			<div>
-				<label for="example-month" class="form-label">Account</label>
-				<select class="form-select mb-3" id="example-month">
-					<option selected>Select Account</option>
-					<option value="1">Cash</option>
-				</select>
-			</div>
-			<div>
-			<label for="example-month" class="form-label">Category</label>
-				<select class="form-select mb-3" id="example-month">
-					<option selected>Select Category</option>
-					<option value="1">Revenue</option>
-					<option value="2">Payment</option>
-				</select>
+		</div>
+		<div class="container" id="printable">
+			<div class="row mt-3">
+				<div class="col">
+					<div class="card p-4 mb-4">
+						<h7 class="report-text gray-text mb-0">Report :</h7>
+						<h6 class="report-text mb-0">Account Statement Summary</h6>
+					</div>
+				</div>
+				<div class="col">
+					<div class="card p-4 mb-4">
+						<h7 class="report-text gray-text mb-0">Type :</h7>
+						<h6 class="report-text mb-0">Revenue</h6>
+					</div>
+				</div>
+				<div class="col">
+					<div class="card p-4 mb-4">
+						<h7 class="report-text gray-text mb-0">Duration :</h7>
+						<h6 class="report-text mb-0">Nov-2023 to Jun-2023</h6>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="row">
@@ -58,13 +141,13 @@
 							</thead>
 							<tbody>
 								{# <tr>
-																																																																<td>Cara Stevens</td>
-																																																																<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-																																																																<td>New York</td>
-																																																																<td>46</td>
-																																																																<td>2011/12/06</td>
-																																																																<td>2011/12/06</td>
-																																																															</tr> #}
+																																																																																																																																																																									<td>Cara Stevens</td>
+																																																																																																																																																																									<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
+																																																																																																																																																																									<td>New York</td>
+																																																																																																																																																																									<td>46</td>
+																																																																																																																																																																									<td>2011/12/06</td>
+																																																																																																																																																																									<td>2011/12/06</td>
+																																																																																																																																																																								</tr> #}
 							</tbody>
 						</table>
 

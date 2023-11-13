@@ -1,6 +1,6 @@
 {% extends 'partials/layout-vertical.html.twig' %}
 
-{% block title %}Income Summary
+{% block title %}Expense Summary
 {% endblock %}
 
 {% block css %}
@@ -25,7 +25,7 @@
 			</div>
 		</div>
 		<div class="col auto">
-			{{ include('partials/page-title.html.twig', { sub_title: 'Income Summary', page_title: 'Income Summary' }) }}
+			{{ include('partials/page-title.html.twig', { sub_title: 'Expense Summary', page_title: 'Expense Summary' }) }}
 		</div>
 	</div>
 {% endblock %}
@@ -36,7 +36,7 @@
 			<div class=" mt-2 " id="multiCollapseExample1">
 				<div class="card">
 					<div class="card-body">
-						<form method="GET" action="http://localhost/other/report/income-summary" accept-charset="UTF-8" id="report_income_summary">
+						<form method="GET" action="http://localhost/other/report/Expense-summary" accept-charset="UTF-8" id="report_Expense_summary">
 							<div class="row align-items-center justify-content-end">
 								<div class="col-xl-10">
 									<div class="row">
@@ -68,12 +68,10 @@
 
 										<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
 											<div class="btn-box">
-												<label for="customer" class="form-label">Customer</label>
-												<select class="form-control select" id="customer" name="customer">
-													<option value="" selected="selected">Select Customer</option>
-													<option value="10">Habeebi</option>
-													<option value="11">Saleem Shahzad</option>
-													<option value="12">Billy ban</option>
+												<label for="customer" class="form-label">Vendor</label>
+												<select class="form-control select" id="Vendor" name="Vendor">
+													<option value="" selected="selected">Select Vendor</option>
+													<option value="10">Supplier 1</option>
 												</select>
 											</div>
 										</div>
@@ -84,12 +82,12 @@
 								<div class="col-auto">
 									<div class="row">
 										<div class="col-auto mt-4">
-											<a href="#" class="btn btn-sm btn-primary" onclick="document.getElementById('report_income_summary').submit(); return false;" data-bs-toggle="tooltip" title="" data-original-title="apply" data-bs-original-title="Apply">
+											<a href="#" class="btn btn-sm btn-primary" onclick="document.getElementById('report_Expense_summary').submit(); return false;" data-bs-toggle="tooltip" title="" data-original-title="apply" data-bs-original-title="Apply">
 												<span class="btn-inner--icon">
 													<i class="bi bi-search"></i>
 												</span>
 											</a>
-											<a href="http://localhost/other/report/income-summary" class="btn btn-sm btn-danger " data-bs-toggle="tooltip" title="" data-original-title="Reset" data-bs-original-title="Reset">
+											<a href="http://localhost/other/report/Expense-summary" class="btn btn-sm btn-danger " data-bs-toggle="tooltip" title="" data-original-title="Reset" data-bs-original-title="Reset">
 												<span class="btn-inner--icon">
 													<i class="bi bi-trash"></i>
 												</span>
@@ -110,7 +108,7 @@
 			<input type="hidden" value="All Income Summary Report of Jan-2023 to Dec-2023" id="filename">
 			<div class="card p-4 mb-4">
 				<h7 class="report-text gray-text mb-0">Report :</h7>
-				<h6 class="report-text mb-0">Income Summary</h6>
+				<h6 class="report-text mb-0">Expense Summary</h6>
 			</div>
 		</div>
 		<div class="col">
@@ -170,7 +168,7 @@
 							</tr>
 							<tr>
 								<td colspan="13" class="text-dark">
-									<span>Income = Revenue + Invoice :</span>
+									<span>Expense = Revenue + Invoice :</span>
 								</td>
 							</tr>
 							<tr>

@@ -28,7 +28,7 @@ class ReportController extends AbstractController
     public function billSummary(): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        return $this->render('report/billSummaryhtml.twig', [
+        return $this->render('report/billSummary.html.twig', [
             'controller_name' => 'ReportController',
         ]);
     }

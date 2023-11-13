@@ -14,41 +14,269 @@
 {% endblock %}
 
 {% block pagetitle %}
-	{{ include('partials/page-title.html.twig', { sub_title: 'Leave', page_title: 'Leave' }) }}
+	<div class"row align-items-center d-flex">
+		<div class="col mt-2">
+			<div class="float-end mt-3">
+				<a href="http://localhost/other/export/accountstatement" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary" data-bs-original-title="Export">
+					<i class="bi bi-box-arrow-up"></i>
+				</a>
+			</div>
+		</div>
+		<div class="col auto">
+			{{ include('partials/page-title.html.twig', { sub_title: 'Leave', page_title: 'Leave' }) }}
+		</div>
+	</div>
 {% endblock %}
 
 {% block body %}
-
 	<div class="row">
-		<div class="col-12">
-			<div class="card">
-				<div class="card-body">
-					<table id="basic-datatable" class="table table-striped dt-responsive nowrap w-100">
-						<thead>
-							<tr>
-								<th>Role</th>
-								<th>Permission</th>
-								<th>Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							{# <tr>
-								<td>Cara Stevens</td>
-								<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-								<td>New York</td>
-								<td>46</td>
-								<td>2011/12/06</td>
-								<td>2011/12/06</td>
-							</tr> #}
-						</tbody>
-					</table>
+		<div class="col-sm-12">
+			<div class=" mt-2 " id="multiCollapseExample1">
+				<div class="card">
+					<div class="card-body">
+						<form method="GET" action="http://localhost/other/reports-leave" accept-charset="UTF-8" id="report_leave">
+							<div class="row align-items-center justify-content-end">
+								<div class="col-xl-10">
+									<div class="row">
+										<div class="col-3 mt-2">
+											<label class="form-label">Type</label>
+											<br>
+											<div class="form-check form-check-inline form-group">
+												<input type="radio" id="monthly" value="monthly" name="type" class="form-check-input" checked="">
+												<label class="form-check-label" for="monthly">Monthly</label>
+											</div>
+											<div class="form-check form-check-inline form-group">
+												<input type="radio" id="daily" value="daily" name="type" class="form-check-input">
+												<label class="form-check-label" for="daily">Daily</label>
+											</div>
+										</div>
+										<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 month d-block">
+											<div class="btn-box">
+												<label for="month" class="form-label">Month</label>
+												<input class="month-btn form-control" name="month" type="month" value="2023-11" id="month">
+											</div>
+										</div>
+										<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 year d-none">
+											<div class="btn-box">
+												<label for="year" class="form-label">Year</label>
+												<select class="form-control select" id="year" name="year" tabindex="-1" aria-hidden="true">
+													<option value="2018">2018</option>
+													<option value="2019">2019</option>
+													<option value="2020">2020</option>
+													<option value="2021">2021</option>
+													<option value="2022">2022</option>
+													<option selected="" value="2023">2023</option>
+													<option value="2024">2024</option>
+													<option value="2025">2025</option>
+													<option value="2026">2026</option>
+													<option value="2027">2027</option>
+													<option value="2028">2028</option>
+												</select>
+											</div>
+										</div>
+										<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+											<div class="btn-box">
+												<label for="branch" class="form-label">Branch</label>
+												<select class="form-control select" id="branch" name="branch">
+													<option value="" selected="selected">Select Branch</option>
+												</select>
+											</div>
+										</div>
+										<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+											<div class="btn-box">
+												<label for="department" class="form-label">Department</label>
+												<select class="form-control select" id="department" name="department">
+													<option value="" selected="selected">Select Department</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-auto mt-4">
+									<div class="row">
+										<div class="col-auto">
+											<a href="#" class="btn btn-sm btn-primary" onclick="document.getElementById('report_leave').submit(); return false;" data-bs-toggle="tooltip" title="" data-original-title="apply" data-bs-original-title="Apply">
+												<span class="btn-inner--icon">
+													<i class="bi bi-search"></i>
+												</span>
+											</a>
+											<a href="http://localhost/other/reports-leave" class="btn btn-sm btn-danger " data-bs-toggle="tooltip" title="" data-original-title="Reset" data-bs-original-title="Reset">
+												<span class="btn-inner--icon">
+													<i class="bi bi-trash"></i>
+												</span>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
 
 				</div>
-				<!-- end card body-->
 			</div>
-			<!-- end card -->
 		</div>
-		<!-- end col-->
+	</div>
+	<div class="row">
+		<div class="col">
+			<div class="card">
+				<div class="card-body p-3">
+					<div class="d-flex align-items-center justify-content-between">
+						<div class="d-flex align-items-center">
+							<div class="theme-avtar bg-primary text-white p-2 rounded-3">
+								<i class="bi bi-report"></i>
+							</div>
+							<div class="ms-3">
+								<input type="hidden" value="All Branch Nov-2023 Monthly Leave Report of All Department" id="filename">
+								<h5 class="mb-0">Report</h5>
+								<div>
+									<p class="text-muted text-sm mb-0">
+										Monthly Leave Summary</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="card">
+				<div class="card-body p-3">
+					<div class="d-flex align-items-center justify-content-between">
+						<div class="d-flex align-items-center">
+							<div class="theme-avtar bg-primary text-white p-2 rounded-3">
+								<i class="bi bi-calendar"></i>
+							</div>
+							<div class="ms-3">
+								<h5 class="mb-0">Duration</h5>
+								<p class="text-muted text-sm mb-0">Nov-2023
+								</p>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-4 col-md-6">
+			<div class="card">
+				<div class="card-body p-3">
+					<div class="d-flex align-items-center justify-content-between">
+						<div class="d-flex align-items-center">
+							<div class="theme-avtar bg-primary text-white p-2 rounded-3">
+								<i class="bi bi-circle-check"></i>
+							</div>
+							<div class="ms-3">
+								<h5 class="mb-0">Approved Leaves
+								</h5>
+								<p class="text-muted text-sm mb-0">0</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4 col-md-6">
+			<div class="card">
+				<div class="card-body p-3">
+					<div class="d-flex align-items-center justify-content-between">
+						<div class="d-flex align-items-center">
+							<div class="theme-avtar bg-primary text-white p-2 rounded-3">
+								<i class="bi bi-circle-x"></i>
+							</div>
+							<div class="ms-3">
+								<h5 class="mb-0">Rejected Leave</h5>
+								<p class="text-muted text-sm mb-0">0</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4 col-md-6">
+			<div class="card">
+				<div class="card-body p-3">
+					<div class="d-flex align-items-center justify-content-between">
+						<div class="d-flex align-items-center">
+							<div class="theme-avtar bg-primary text-white p-2 rounded-3">
+								<i class="bi bi-circle-minus"></i>
+							</div>
+							<div class="ms-3">
+								<h5 class="mb-0">Pending Leaves</h5>
+								<p class="text-muted text-sm mb-0">0</p>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<div class="card">
+				<div class="card-body table-border-style">
+					<div class="table-responsive py-4">
+						<table class="table mb-0" id="report-dataTable">
+							<thead>
+								<tr>
+									<th>Employee ID</th>
+									<th>Employee</th>
+									<th>Approved Leaves</th>
+									<th>Rejected Leaves</th>
+									<th>Pending Leaves</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<a href="#" class="btn btn-sm btn-primary">#EMP0000001</a>
+									</td>
+									<td>Saleem Shahzad</td>
+									<td>
+										<div class="m-view-btn badge bg-info p-2 px-3 rounded">0
+											<a href="#" class="text-white" data-url="http://localhost/other/employee/32/leave/Approved/no/2023-11/2023" data-ajax-popup="true" data-title="Approved Leave Detail" data-bs-toggle="tooltip" title="" data-original-title="View" data-bs-original-title="View">View</a>
+										</div>
+									</td>
+									<td>
+										<div class="m-view-btn badge bg-danger p-2 px-3 rounded">0
+											<a href="#" class="text-white" data-url="http://localhost/other/employee/32/leave/Reject/no/2023-11/2023" data-ajax-popup="true" data-title="Rejected Leave Detail" data-bs-toggle="tooltip" title="" data-original-title="View" data-bs-original-title="View">View</a>
+										</div>
+									</td>
+									<td>
+										<div class="m-view-btn badge bg-warning p-2 px-3 rounded">0
+											<a href="#" class="text-white" data-url="http://localhost/other/employee/32/leave/Pending/no/2023-11/2023" data-ajax-popup="true" data-title="Pending Leave Detail" data-bs-toggle="tooltip" title="" data-original-title="View" data-bs-original-title="View">View</a>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<a href="#" class="btn btn-sm btn-primary">#EMP0000002</a>
+									</td>
+									<td>William Ndubuisi</td>
+									<td>
+										<div class="m-view-btn badge bg-info p-2 px-3 rounded">0
+											<a href="#" class="text-white" data-url="http://localhost/other/employee/33/leave/Approved/no/2023-11/2023" data-ajax-popup="true" data-title="Approved Leave Detail" data-bs-toggle="tooltip" title="" data-original-title="View" data-bs-original-title="View">View</a>
+										</div>
+									</td>
+									<td>
+										<div class="m-view-btn badge bg-danger p-2 px-3 rounded">0
+											<a href="#" class="text-white" data-url="http://localhost/other/employee/33/leave/Reject/no/2023-11/2023" data-ajax-popup="true" data-title="Rejected Leave Detail" data-bs-toggle="tooltip" title="" data-original-title="View" data-bs-original-title="View">View</a>
+										</div>
+									</td>
+									<td>
+										<div class="m-view-btn badge bg-warning p-2 px-3 rounded">0
+											<a href="#" class="text-white" data-url="http://localhost/other/employee/33/leave/Pending/no/2023-11/2023" data-ajax-popup="true" data-title="Pending Leave Detail" data-bs-toggle="tooltip" title="" data-original-title="View" data-bs-original-title="View">View</a>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 	<!-- end row-->
 {% endblock %}
@@ -68,6 +296,5 @@
 	<script src="/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
 
 	<!-- Datatable Demo Aapp js -->
-	<script src="/js/pages/demo.datatable-init.js">
-	</script>
+	<script src="/js/pages/demo.datatable-init.js"></script>
 {% endblock %}

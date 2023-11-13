@@ -10,3 +10,7 @@ catch_all:
 error_404:
     path: /{any}
     controller: 'App\Controller\ErrorController::showException'
+checkout:
+    path: '/checkout/{plan}'
+    controller: 'App\Controller\PaymentController::checkout'
+

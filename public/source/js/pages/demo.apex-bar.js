@@ -23,19 +23,19 @@ var options = {
     },
     plotOptions: {
         bar: {
-            horizontal: true,
+            horizontal: false,
         }
     },
     dataLabels: {
         enabled: false
     },
-    series: [{
-        data: [400, 430, 448, 470, 540, 580, 690, 1100, 1200, 1380]
-    }],
     colors: colors,
     xaxis: {
-        categories: ['South Korea', 'Canada', 'United Kingdom', 'Netherlands', 'Italy', 'France', 'Japan', 'United States', 'China', 'Germany'],
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     },
+    series: [{
+        data: [400, 430, 448, 470, 540, 580, 690, 1100, 1200, 1380, 150, 200]
+    }],
     states: {
         hover: {
             filter: 'none'

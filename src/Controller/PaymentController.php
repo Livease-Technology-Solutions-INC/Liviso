@@ -18,18 +18,21 @@ class PaymentController extends AbstractController
             'controller_name' => 'PaymentController',
         ]);
     }
-    #[Route('/checkout', name: 'checkout')]
-    public function checkout($stripeSk): Response
+    #[Route('/checkout/{$plan}', name: 'checkout')]
+    public function checkout($stripeSk, $plan): Response
     {
+        // Your logic to determine unit_amount based on $plan
+        $unitAmount = $this->getUnitAmountForPlan($plan);
+
         $stripe = new \Stripe\StripeClient($stripeSk);
         $checkout_session = $stripe->checkout->sessions->create([
             'line_items' => [[
                 'price_data' => [
                     'currency' => 'usd',
                     'product_data' => [
-                        'name' => 'T-shirt',
+                        'name' => $unitAmount['product'],
                     ],
-                    'unit_amount' => 2000,
+                    'unit_amount' => $unitAmount['price'],
                 ],
                 'quantity' => 1,
             ]],
@@ -38,8 +41,23 @@ class PaymentController extends AbstractController
             'cancel_url' => $this->generateUrl('paymentFailure', [], UrlGeneratorInterface::ABSOLUTE_URL),
         ]);
 
-        // Instead of using header manipulation, return a Symfony Response with a redirect
         return $this->redirect($checkout_session->url);
+        // dd($checkout_session);
+
+    }
+    private function getUnitAmountForPlan($plan)
+    {
+        // Your logic to determine unit_amount based on $plan
+        // This is just a placeholder, replace it with your actual logic
+        if ($plan === 'small') {
+            return ["price" => 49, "product" => "small"]; 
+        } if($plan === "medium") {
+            return ["price" => 99, "product" => "medium"]; 
+        } if($plan === "enterprice"){
+            return ["price" => 199, "product" => "enterprice"];
+        }if($plan === "ultra"){
+            return ["price" => 299, "product" => "ultra"];
+        }
     }
     #[Route('/payment-successful', name: 'paymentSuccessful')]
     public function paymentSuccessful(): Response
