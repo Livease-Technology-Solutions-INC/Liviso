@@ -18,7 +18,54 @@
 {% endblock %}
 
 {% block body %}
-
+	<div class="col-sm-12 col-lg-12 col-xl-12 col-md-12 mt-4">
+		<div class="card">
+			<div class="card-body">
+				<form method="POST" action="http://localhost/other/payslip" accept-charset="UTF-8" id="payslip_form"><input name="_token" type="hidden" value="J5IhAIgIAnSTQhejusX2KxMOqfLyarh5NTsG2vu9">
+					<div class="d-flex align-items-center justify-content-end">
+						<div class="col-xl-2 col-lg-3 col-md-6 col-sm-12 col-12 mx-2">
+							<div class="btn-box">
+								<label for="month" class="form-label">Select Month</label>
+								<select class="form-control select" id="month" name="month">
+									<option value="01">JAN</option>
+									<option value="02">FEB</option>
+									<option value="03">MAR</option>
+									<option value="04">APR</option>
+									<option value="05">MAY</option>
+									<option value="06">JUN</option>
+									<option value="07">JUL</option>
+									<option value="08">AUG</option>
+									<option value="09">SEP</option>
+									<option value="10">OCT</option>
+									<option value="11" selected="selected">NOV</option>
+									<option value="12">DEC</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-xl-2 col-lg-3 col-md-6 col-sm-12 col-12 mx-2">
+							<div class="btn-box">
+								<label for="year" class="form-label">Select Year</label>
+								<select class="form-control select" id="year" name="year">
+									<option value="2023">2023</option>
+									<option value="2024">2024</option>
+									<option value="2025">2025</option>
+									<option value="2026">2026</option>
+									<option value="2027">2027</option>
+									<option value="2028">2028</option>
+									<option value="2029">2029</option>
+									<option value="2030">2030</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-auto float-end ms-2 mt-4">
+							<a href="#" class="btn  btn-primary" onclick="document.getElementById('payslip_form').submit(); return false;" data-bs-toggle="tooltip" title="" data-original-title="payslip" data-bs-original-title="payslip">Generate Payslip
+							</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 	<div class="row">
 		<div class="col-12">
 			<div class="card">
@@ -26,25 +73,24 @@
 					<table id="basic-datatable" class="table table-striped dt-responsive nowrap w-100">
 						<thead>
 							<tr>
-								<th>Subject</th>
-								<th>Client</th>
-								<th>Project</th>
-								<th>Contract Type</th>
-								<th>Contract Value</th>
-								<th>Start Date</th>
-								<th>End Date</th>
+								<th>Employee Id</th>
+								<th>Name</th>
+								<th>Payroll Type</th>
+								<th>Salary</th>
+								<th>Net Salary</th>
+								<th>Status</th>
 								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
 							{# <tr>
-								<td>Cara Stevens</td>
-								<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-								<td>New York</td>
-								<td>46</td>
-								<td>2011/12/06</td>
-								<td>2011/12/06</td>
-							</tr> #}
+															<td>Cara Stevens</td>
+															<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
+															<td>New York</td>
+															<td>46</td>
+															<td>2011/12/06</td>
+															<td>2011/12/06</td>
+														</tr> #}
 						</tbody>
 					</table>
 
@@ -73,6 +119,5 @@
 	<script src="/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
 
 	<!-- Datatable Demo Aapp js -->
-	<script src="/js/pages/demo.datatable-init.js">
-	</script>
+	<script src="/js/pages/demo.datatable-init.js"></script>
 {% endblock %}

@@ -315,8 +315,23 @@
 									<li>
 										<a href="{{path("hrmsystem/manage_leave")}}">Manage Leave</a>
 									</li>
-									<li>
-										<a href="{{path("hrmsystem/mark_attendance")}}">Bulk Attendance</a>
+									<li class="side-nav-item">
+										<a data-bs-toggle="collapse" href="#sidebarhrmattendance" aria-expanded="false" aria-controls="sidebarhrmattendance">
+											<span>
+												Attendance
+											</span>
+											<span class="menu-arrow"></span>
+										</a>
+										<div class="collapse" id="sidebarhrmattendance">
+											<ul class="side-nav-third-level">
+												<li>
+													<a href="{{path("hrmsystem/mark_attendance")}}">Mark Attendance</a>
+												</li>
+												<li>
+													<a href="{{path("hrmsystem/bulk_attendance")}}">Bulk Attendance</a>
+												</li>
+											</ul>
+										</div>
 									</li>
 								</ul>
 							</div>
@@ -836,13 +851,13 @@
 				</a>
 			</li>
 			{# <li class="side-nav-item">
-													<a href="#sidebarTasks" aria-expanded="false" aria-controls="sidebarTasks" class="side-nav-link">
-														<i class="ri-calendar-2-fill"></i>
-														<span>
-															Notification Template
-														</span>
-													</a>
-												</li> #}
+																			<a href="#sidebarTasks" aria-expanded="false" aria-controls="sidebarTasks" class="side-nav-link">
+																				<i class="ri-calendar-2-fill"></i>
+																				<span>
+																					Notification Template
+																				</span>
+																			</a>
+																		</li> #}
 			<li class="side-nav-item">
 				<a data-bs-toggle="collapse" href="#sidebarsetting" aria-expanded="false" aria-controls="sidebarsetting" class="side-nav-link">
 					<i class="ri-settings-3-fill fs-22"></i>

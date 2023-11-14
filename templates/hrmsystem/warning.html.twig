@@ -14,7 +14,20 @@
 {% endblock %}
 
 {% block pagetitle %}
+	<div class"row align-items-center d-flex">
+		<div class="col mt-2">
+			<div class="float-end mt-3">
+				<a href="#" class="btn btn-sm btn-primary" onclick="saveAsPDF()" data-bs-toggle="tooltip" title="" data-original-title="Download" data-bs-original-title="Create">
+					<span class="btn-inner--icon">
+						<i class="bi bi-plus"></i>
+					</span>
+				</a>
+			</div>
+		</div>
+		<div class="col auto">
 	{{ include('partials/page-title.html.twig', { sub_title: 'Warning', page_title: 'Warning' }) }}
+		</div>
+	</div>
 {% endblock %}
 
 {% block body %}
@@ -26,13 +39,11 @@
 					<table id="basic-datatable" class="table table-striped dt-responsive nowrap w-100">
 						<thead>
 							<tr>
+								<th>Warning By</th>
+								<th>Warning To</th>
 								<th>Subject</th>
-								<th>Client</th>
-								<th>Project</th>
-								<th>Contract Type</th>
-								<th>Contract Value</th>
-								<th>Start Date</th>
-								<th>End Date</th>
+								<th>Warning Date</th>
+								<th>Description</th>
 								<th>Action</th>
 							</tr>
 						</thead>

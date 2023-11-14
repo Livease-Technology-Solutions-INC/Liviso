@@ -1,6 +1,6 @@
 {% extends 'partials/layout-vertical.html.twig' %}
 
-{% block title %}Holidays
+{% block title %}Bulk Attendance
 {% endblock %}
 
 {% block css %}
@@ -14,72 +14,57 @@
 {% endblock %}
 
 {% block pagetitle %}
-	<div class"row align-items-center d-flex">
-		<div class="col mt-2">
-			<div class="float-end mt-3">
-				<a href="#" class="btn btn-sm btn-primary" onclick="saveAsPDF()" data-bs-toggle="tooltip" title="" data-original-title="Download" data-bs-original-title="Calendar View">
-					<span class="btn-inner--icon">
-						<i class="bi bi-calendar-check"></i>
-					</span>
-				</a>
-				<a href="#" class="btn btn-sm btn-primary" onclick="saveAsPDF()" data-bs-toggle="tooltip" title="" data-original-title="Download" data-bs-original-title="Create">
-					<span class="btn-inner--icon">
-						<i class="bi bi-plus"></i>
-					</span>
-				</a>
-			</div>
-		</div>
-		<div class="col auto">
-			{{ include('partials/page-title.html.twig', { sub_title: 'Holidays', page_title: 'Holidays' }) }}
-		</div>
-	</div>
+	{{ include('partials/page-title.html.twig', { sub_title: 'Bulk Attendance', page_title: 'Bulk Attendance' }) }}
 {% endblock %}
 
 {% block body %}
 	<div class="row">
 		<div class="col-sm-12">
-			<div class=" mt-2 " id="multiCollapseExample1">
+			<div class=" " id="multiCollapseExample1">
 				<div class="card">
 					<div class="card-body">
-						<form method="GET" action="http://localhost/other/holiday-calender" accept-charset="UTF-8" id="holiday_filter">
+						<form method="GET" action="#" accept-charset="UTF-8" id="bulkattendance_filter">
 							<div class="row align-items-center justify-content-end">
 								<div class="col-xl-10">
 									<div class="row">
 										<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
 											<div class="btn-box"></div>
 										</div>
-										<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
-											<div class="btn-box"></div>
-										</div>
+
 										<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
 											<div class="btn-box">
-												<label for="start_date" class="form-label">Start Date</label>
-												<input class="month-btn form-control" name="start_date" type="date" value="" id="start_date">
+												<label for="date" class="form-label">Date</label>
+												<input class="form-control" name="date" type="date" value="" id="date">
+
 											</div>
 										</div>
 										<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
 											<div class="btn-box">
-												<label for="end_date" class="form-label">End Date</label>
-												<input class="month-btn form-control " name="end_date" type="date" value="" id="end_date">
+												<label for="branch" class="form-label">Branch</label>
+												<select class="form-control select" required="" id="branch" name="branch">
+													<option value="" selected="selected">Select Branch</option>
+												</select>
 											</div>
 										</div>
+
+										<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+											<div class="btn-box">
+												<label for="department" class="form-label">Department</label>
+												<select class="form-control select" required="" id="department" name="department">
+													<option value="" selected="selected">Select Department</option>
+												</select>
+											</div>
+										</div>
+
+
 									</div>
 								</div>
-								<div class="col-auto">
-									<div class="row">
-										<div class="col-auto mt-4">
-											<a href="#" class="btn btn-sm btn-primary" onclick="document.getElementById('holiday_filter').submit(); return false;" data-bs-toggle="tooltip" title="" data-original-title="apply" data-bs-original-title="Apply">
-												<span class="btn-inner--icon">
-													<i class="bi bi-search"></i>
-												</span>
-											</a>
-											<a href="http://localhost/other/holiday-calender" class="btn btn-sm btn-danger " data-bs-toggle="tooltip" title="" data-original-title="Reset" data-bs-original-title="Reset">
-												<span class="btn-inner--icon">
-													<i class="bi bi-trash"></i>
-												</span>
-											</a>
-										</div>
-									</div>
+								<div class="col-auto float-end ms-2 mt-4">
+									<a href="#" class="btn btn-sm btn-primary" onclick="document.getElementById('bulkattendance_filter').submit(); return false;" data-bs-toggle="tooltip" title="" data-original-title="apply" data-bs-original-title="Apply">
+										<span class="btn-inner--icon">
+											<i class="bi bi-search"></i>
+										</span>
+									</a>
 								</div>
 							</div>
 						</form>
@@ -96,21 +81,22 @@
 					<table id="basic-datatable" class="table table-striped dt-responsive nowrap w-100">
 						<thead>
 							<tr>
-								<th>Occasion</th>
-								<th>Start Date</th>
-								<th>End Date</th>
-								<th>Action</th>
+								<th>Employee Id</th>
+								<th>Employee</th>
+								<th>Branch</th>
+								<th>Department</th>
+								<th>Attendance</th>
 							</tr>
 						</thead>
 						<tbody>
 							{# <tr>
-								<td>Cara Stevens</td>
-								<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-								<td>New York</td>
-								<td>46</td>
-								<td>2011/12/06</td>
-								<td>2011/12/06</td>
-							</tr> #}
+                                <td>Cara Stevens</td>
+                                <td>723 N. Tillamook Street Portland, OR Portland, United States</td>
+                                <td>New York</td>
+                                <td>46</td>
+                                <td>2011/12/06</td>
+                                <td>2011/12/06</td>
+                            </tr> #}
 						</tbody>
 					</table>
 

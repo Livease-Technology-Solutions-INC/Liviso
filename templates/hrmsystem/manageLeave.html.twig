@@ -14,7 +14,20 @@
 {% endblock %}
 
 {% block pagetitle %}
-	{{ include('partials/page-title.html.twig', { sub_title: 'Manage Leave', page_title: 'Manage Leave' }) }}
+	<div class"row align-items-center d-flex">
+		<div class="col mt-2">
+			<div class="float-end mt-3">
+				<a href="#" class="btn btn-sm btn-primary" onclick="saveAsPDF()" data-bs-toggle="tooltip" title="" data-original-title="Download" data-bs-original-title="Create">
+					<span class="btn-inner--icon">
+						<i class="bi bi-plus"></i>
+					</span>
+				</a>
+			</div>
+		</div>
+		<div class="col auto">
+			{{ include('partials/page-title.html.twig', { sub_title: 'Manage Leave', page_title: 'Manage Leave' }) }}
+		</div>
+	</div>
 {% endblock %}
 
 {% block body %}
@@ -26,25 +39,26 @@
 					<table id="basic-datatable" class="table table-striped dt-responsive nowrap w-100">
 						<thead>
 							<tr>
-								<th>Subject</th>
-								<th>Client</th>
-								<th>Project</th>
-								<th>Contract Type</th>
-								<th>Contract Value</th>
+								<th>Employee</th>
+								<th>Leave Type</th>
+								<th>Applied ON</th>
 								<th>Start Date</th>
 								<th>End Date</th>
+								<th>Total Days</th>
+								<th>Leave Reason</th>
+								<th>Status</th>
 								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
 							{# <tr>
-								<td>Cara Stevens</td>
-								<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-								<td>New York</td>
-								<td>46</td>
-								<td>2011/12/06</td>
-								<td>2011/12/06</td>
-							</tr> #}
+															<td>Cara Stevens</td>
+															<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
+															<td>New York</td>
+															<td>46</td>
+															<td>2011/12/06</td>
+															<td>2011/12/06</td>
+														</tr> #}
 						</tbody>
 					</table>
 
@@ -73,6 +87,5 @@
 	<script src="/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
 
 	<!-- Datatable Demo Aapp js -->
-	<script src="/js/pages/demo.datatable-init.js">
-	</script>
+	<script src="/js/pages/demo.datatable-init.js"></script>
 {% endblock %}

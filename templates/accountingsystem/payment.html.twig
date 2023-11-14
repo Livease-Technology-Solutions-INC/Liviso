@@ -1,6 +1,6 @@
 {% extends 'partials/layout-vertical.html.twig' %}
 
-{% block title %}Customer
+{% block title %}Payment
 {% endblock %}
 
 {% block css %}
@@ -14,11 +14,92 @@
 {% endblock %}
 
 {% block pagetitle %}
-	{{ include('partials/page-title.html.twig', { sub_title: 'Customer', page_title: 'Customer' }) }}
+	<div class"row align-items-center d-flex">
+		<div class="col mt-2">
+			<div class="float-end mt-3">
+				<a href="#" class="btn btn-sm btn-primary" onclick="saveAsPDF()" data-bs-toggle="tooltip" title="" data-original-title="Download" data-bs-original-title="Create">
+					<span class="btn-inner--icon">
+						<i class="bi bi-plus"></i>
+					</span>
+				</a>
+			</div>
+		</div>
+		<div class="col auto">
+			{{ include('partials/page-title.html.twig', { sub_title: 'Payment', page_title: 'Payment' }) }}
+		</div>
+	</div>
 {% endblock %}
 
 {% block body %}
+	<div class="row">
+		<div class="col-sm-12">
+			<div class=" mt-2 " id="multiCollapseExample1">
+				<div class="card">
+					<div class="card-body">
+						<form method="GET" action="http://localhost/other/payment" accept-charset="UTF-8" id="payment_form">
+							<div class="row align-items-center justify-content-end">
+								<div class="col-xl-10">
+									<div class="row">
+										<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+											<div class="btn-box">
+												<label for="date" class="form-label">Date</label>
+												<input class="form-control month-btn flatpickr-input" id="pc-daterangepicker-1" name="date" type="text" value="" readonly="readonly">
+											</div>
+										</div>
+										<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+											<div class="btn-box">
+												<label for="account" class="form-label">Account</label>
+												<select class="form-control select" id="choices-multiple" name="account">
+													<option value="" selected="selected">Select Account</option>
+													<option value="51">cash</option>
+													<option value="71">ramu</option>
+												</select>
+											</div>
+										</div>
+										<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+											<div class="btn-box">
+												<label for="vender" class="form-label">Vendor</label>
+												<select class="form-control select" id="choices-multiple1" name="vender">
+													<option value="" selected="selected">Select Vendor</option>
+													<option value="8">Supplier 1</option>
+												</select>
+											</div>
+										</div>
+										<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+											<div class="btn-box">
+												<label for="category" class="form-label">Category</label>
+												<select class="form-control select" id="choices-multiple2" name="category">
+													<option value="" selected="selected">Select Category</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-auto mt-4">
+									<div class="row">
+										<div clas="col-auto">
+											<a href="#" class="btn btn-sm btn-primary" onclick="document.getElementById('payment_form').submit(); return false;" data-toggle="tooltip" title="Apply" data-original-title="apply">
+												<span class="btn-inner--icon">
+													<i class="bi bi-search"></i>
+												</span>
+											</a>
 
+											<a href="http://localhost/other/productservice" class="btn btn-sm btn-danger" data-bs-toggle="tooltip" title="" data-bs-original-title="Reset">
+												<span class="btn-inner--icon">
+													<i class="bi bi-trash"></i>
+												</span>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="row">
 		<div class="col-12">
 			<div class="card">
@@ -39,13 +120,13 @@
 						</thead>
 						<tbody>
 							{# <tr>
-								<td>Cara Stevens</td>
-								<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-								<td>New York</td>
-								<td>46</td>
-								<td>2011/12/06</td>
-								<td>2011/12/06</td>
-							</tr> #}
+																													<td>Cara Stevens</td>
+																													<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
+																													<td>New York</td>
+																													<td>46</td>
+																													<td>2011/12/06</td>
+																													<td>2011/12/06</td>
+																												</tr> #}
 						</tbody>
 					</table>
 
@@ -74,6 +155,5 @@
 	<script src="/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
 
 	<!-- Datatable Demo Aapp js -->
-	<script src="/js/pages/demo.datatable-init.js">
-	</script>
+	<script src="/js/pages/demo.datatable-init.js"></script>
 {% endblock %}

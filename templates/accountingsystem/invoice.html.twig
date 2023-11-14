@@ -14,11 +14,95 @@
 {% endblock %}
 
 {% block pagetitle %}
-	{{ include('partials/page-title.html.twig', { sub_title: 'Customer', page_title: 'Customer' }) }}
+	<div class"row align-items-center d-flex">
+		<div class="col mt-2">
+			<div class="float-end mt-3">
+				<a href="#" class="btn btn-sm btn-primary" onclick="saveAsPDF()" data-bs-toggle="tooltip" title="" data-original-title="Download" data-bs-original-title="Export">
+					<span class="btn-inner--icon">
+						<i class="bi bi-file-earmark-arrow-up"></i>
+					</span>
+				</a>
+				<a href="#" class="btn btn-sm btn-primary" onclick="saveAsPDF()" data-bs-toggle="tooltip" title="" data-original-title="Download" data-bs-original-title="Create">
+					<span class="btn-inner--icon">
+						<i class="bi bi-plus"></i>
+					</span>
+				</a>
+			</div>
+		</div>
+		<div class="col auto">
+			{{ include('partials/page-title.html.twig', { sub_title: 'Customer', page_title: 'Customer' }) }}
+		</div>
+	</div>
 {% endblock %}
 
 {% block body %}
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="mt-2 " id="multiCollapseExample1">
+				<div class="card">
+					<div class="card-body">
 
+						<form method="GET" action="http://localhost/other/invoice" accept-charset="UTF-8" id="customer_submit">
+
+
+							<div class="row d-flex align-items-center justify-content-end">
+								<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mr-2">
+									<div class="btn-box">
+										<label for="issue_date" class="form-label">Issue Date</label>
+										<input class="form-control month-btn flatpickr-input" id="pc-daterangepicker-1" name="issue_date" type="text" value="" readonly="readonly">
+
+
+									</div>
+								</div>
+
+								<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mr-2">
+									<div class="btn-box">
+										<label for="customer" class="form-label">Customer</label>
+										<select class="form-control select" id="customer" name="customer">
+											<option value="" selected="selected">Select Customer</option>
+											<option value="10">Habeebi</option>
+											<option value="11">Saleem Shahzad</option>
+											<option value="12">Billy ban</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+									<div class="btn-box">
+										<label for="status" class="form-label">Status</label>
+										<select class="form-control select" id="status" name="status">
+											<option value="" selected="selected">Select Status</option>
+											<option value="0">Draft</option>
+											<option value="1">Sent</option>
+											<option value="2">Unpaid</option>
+											<option value="3">Partialy Paid</option>
+											<option value="4">Paid</option>
+										</select>
+
+									</div>
+								</div>
+								<div class="col-auto float-end ms-2 mt-4">
+
+									<a href="#" class="btn btn-sm btn-primary" onclick="document.getElementById('customer_submit').submit(); return false;" data-toggle="tooltip" data-original-title="apply">
+										<span class="btn-inner--icon">
+											<i class="bi bi-search"></i>
+										</span>
+									</a>
+
+									<a href="http://localhost/other/invoice" class="btn btn-sm btn-danger" data-toggle="tooltip" data-original-title="Reset">
+										<span class="btn-inner--icon">
+											<i class="bi bi-trash"></i>
+										</span>
+									</a>
+								</div>
+
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="row">
 		<div class="col-12">
 			<div class="card">
@@ -36,13 +120,13 @@
 						</thead>
 						<tbody>
 							{# <tr>
-								<td>Cara Stevens</td>
-								<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-								<td>New York</td>
-								<td>46</td>
-								<td>2011/12/06</td>
-								<td>2011/12/06</td>
-							</tr> #}
+																						<td>Cara Stevens</td>
+																						<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
+																						<td>New York</td>
+																						<td>46</td>
+																						<td>2011/12/06</td>
+																						<td>2011/12/06</td>
+																					</tr> #}
 						</tbody>
 					</table>
 
@@ -71,6 +155,5 @@
 	<script src="/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
 
 	<!-- Datatable Demo Aapp js -->
-	<script src="/js/pages/demo.datatable-init.js">
-	</script>
+	<script src="/js/pages/demo.datatable-init.js"></script>
 {% endblock %}

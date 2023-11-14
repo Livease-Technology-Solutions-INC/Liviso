@@ -39,6 +39,14 @@ class HrmsystemController extends AbstractController
             'controller_name' => 'HrmsystemController',
         ]);
     }
+    #[Route('/hrmsystem/bulk_attendance', name: 'hrmsystem/bulk_attendance')]
+    public function bulkAttendance(): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        return $this->render('hrmsystem/bulkAttendance.html.twig', [
+            'controller_name' => 'HrmsystemController',
+        ]);
+    }
     #[Route('/hrmsystem/mark_attendance', name: 'hrmsystem/mark_attendance')]
     public function markAttendance(): Response
     {

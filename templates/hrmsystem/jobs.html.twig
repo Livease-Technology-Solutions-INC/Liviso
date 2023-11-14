@@ -1,6 +1,6 @@
 {% extends 'partials/layout-vertical.html.twig' %}
 
-{% block title %}Customer
+{% block title %}Job
 {% endblock %}
 
 {% block css %}
@@ -17,16 +17,6 @@
 	<div class"row align-items-center d-flex">
 		<div class="col mt-2">
 			<div class="float-end mt-3">
-				<a href="#" class="btn btn-sm btn-primary" onclick="saveAsPDF()" data-bs-toggle="tooltip" title="" data-original-title="Download" data-bs-original-title="Import">
-					<span class="btn-inner--icon">
-						<i class="bi bi-file-earmark-arrow-down"></i>
-					</span>
-				</a>
-				<a href="#" class="btn btn-sm btn-primary" onclick="saveAsPDF()" data-bs-toggle="tooltip" title="" data-original-title="Download" data-bs-original-title="Export">
-					<span class="btn-inner--icon">
-						<i class="bi bi-file-earmark-arrow-up"></i>
-					</span>
-				</a>
 				<a href="#" class="btn btn-sm btn-primary" onclick="saveAsPDF()" data-bs-toggle="tooltip" title="" data-original-title="Download" data-bs-original-title="Create">
 					<span class="btn-inner--icon">
 						<i class="bi bi-plus"></i>
@@ -35,13 +25,80 @@
 			</div>
 		</div>
 		<div class="col auto">
-			{{ include('partials/page-title.html.twig', { sub_title: 'Customer', page_title: 'Customer' }) }}
+			{{ include('partials/page-title.html.twig', { sub_title: 'Job', page_title: 'Job' }) }}
 		</div>
 	</div>
 {% endblock %}
 
 {% block body %}
-
+	<div class="row">
+		<div class="col-lg-4 col-md-6">
+			<div class="card">
+				<div class="card-body">
+					<div class="row align-items-center justify-content-between">
+						<div class="col-auto mb-3 mb-sm-0">
+							<div class="d-flex align-items-center">
+								<div class="theme-avtar bg-primary text-white p-2 rounded-3">
+									<i class="ri ri-cast-line" style="font-size:18px"></i>
+								</div>
+								<div class="ms-3">
+									<h6 class="text-muted">Total</h6>
+									<h5 class="m-0 text-dark">Jobs</h5>
+								</div>
+							</div>
+						</div>
+						<div class="col-auto text-end">
+							<h4 class="m-0 text-dark">0</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4 col-md-6">
+			<div class="card">
+				<div class="card-body">
+					<div class="row align-items-center justify-content-between">
+						<div class="col-auto mb-3 mb-sm-0">
+							<div class="d-flex align-items-center">
+								<div class="theme-avtar bg-info text-white p-2 rounded-3">
+									<i class="ri ri-cast-line" style="font-size:18px"></i>
+								</div>
+								<div class="ms-3">
+									<h6 class="text-muted">Active</h6>
+									<h5 class="m-0 text-dark">Jobs</h5>
+								</div>
+							</div>
+						</div>
+						<div class="col-auto text-end">
+							<h4 class="m-0 text-dark">0</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4 col-md-6">
+			<div class="card">
+				<div class="card-body">
+					<div class="row align-items-center justify-content-between">
+						<div class="col-auto mb-3 mb-sm-0">
+							<div class="d-flex align-items-center">
+								<div class="theme-avtar bg-warning text-white p-2 rounded-3">
+									<i class="ri ri-cast-line" style="font-size:18px"></i>
+								</div>
+								<div class="ms-3">
+									<h6 class="text-muted">Inactive</h6>
+									<h5 class="m-0 text-dark">Jobs</h5>
+								</div>
+							</div>
+						</div>
+						<div class="col-auto text-end">
+							<h4 class="m-0 text-dark">0</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="row">
 		<div class="col-12">
 			<div class="card">
@@ -49,23 +106,24 @@
 					<table id="basic-datatable" class="table table-striped dt-responsive nowrap w-100">
 						<thead>
 							<tr>
-								<th>#</th>
-								<th>Name</th>
-								<th>Contract</th>
-								<th>Email</th>
-								<th>Balance</th>
+								<th>Branch</th>
+								<th>Title</th>
+								<th>Start Date</th>
+								<th>End Date</th>
+								<th>Status</th>
+								<th>Created At</th>
 								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
 							{# <tr>
-															<td>Cara Stevens</td>
-															<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-															<td>New York</td>
-															<td>46</td>
-															<td>2011/12/06</td>
-															<td>2011/12/06</td>
-														</tr> #}
+																						<td>Cara Stevens</td>
+																						<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
+																						<td>New York</td>
+																						<td>46</td>
+																						<td>2011/12/06</td>
+																						<td>2011/12/06</td>
+																					</tr> #}
 						</tbody>
 					</table>
 

@@ -14,7 +14,20 @@
 {% endblock %}
 
 {% block pagetitle %}
-	{{ include('partials/page-title.html.twig', { sub_title: 'Goal Tracking', page_title: 'Goal Tracking' }) }}
+	<div class"row align-items-center d-flex">
+		<div class="col mt-2">
+			<div class="float-end mt-3">
+				<a href="#" class="btn btn-sm btn-primary" onclick="saveAsPDF()" data-bs-toggle="tooltip" title="" data-original-title="Download" data-bs-original-title="Create">
+					<span class="btn-inner--icon">
+						<i class="bi bi-plus"></i>
+					</span>
+				</a>
+			</div>
+		</div>
+		<div class="col auto">
+			{{ include('partials/page-title.html.twig', { sub_title: 'Goal Tracking', page_title: 'Goal Tracking' }) }}
+		</div>
+	</div>
 {% endblock %}
 
 {% block body %}
@@ -26,13 +39,14 @@
 					<table id="basic-datatable" class="table table-striped dt-responsive nowrap w-100">
 						<thead>
 							<tr>
+								<th>Goal Type</th>
 								<th>Subject</th>
-								<th>Client</th>
-								<th>Project</th>
-								<th>Contract Type</th>
-								<th>Contract Value</th>
+								<th>Branch</th>
+								<th>Target Achievement</th>
 								<th>Start Date</th>
 								<th>End Date</th>
+								<th>Rating</th>
+								<th>Progress</th>
 								<th>Action</th>
 							</tr>
 						</thead>
@@ -73,6 +87,5 @@
 	<script src="/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
 
 	<!-- Datatable Demo Aapp js -->
-	<script src="/js/pages/demo.datatable-init.js">
-	</script>
+	<script src="/js/pages/demo.datatable-init.js"></script>
 {% endblock %}
