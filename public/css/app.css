@@ -14720,6 +14720,8 @@ html[data-sidenav-user=true] .leftbar-user {
   transition: all 0.25s ease-in-out;
   font-size: calc(var(--ct-menu-item-font-size) * 0.95);
   padding: calc(var(--ct-menu-item-padding-y) * 0.6) calc(var(--ct-menu-item-padding-x) * 1.25);
+  word-wrap: break-word;
+  text-wrap: wrap;
 }
 .side-nav-second-level li a:hover, .side-nav-second-level li a:focus, .side-nav-second-level li a:active,
 .side-nav-second-level li .side-nav-link:hover,
@@ -14783,11 +14785,15 @@ html[data-sidenav-user=true] .leftbar-user {
 .side-nav-forth-level .side-nav-item.active > a:focus,
 .side-nav-forth-level .side-nav-item.active > a:active {
   color: var(--ct-menu-item-active-color);
+  word-wrap: break-word;
+  text-wrap: wrap;
 }
 
 .side-nav-second-level {
   margin-top: calc(var(--ct-menu-item-padding-y) * -0.5);
   padding-left: var(--ct-menu-item-icon-width);
+  word-wrap: break-word;
+  text-wrap: wrap;
 }
 
 .side-nav-third-level, .side-nav-forth-level {

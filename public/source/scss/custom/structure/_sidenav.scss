@@ -267,6 +267,8 @@ html[data-sidenav-user="true"] {
             transition: $transition-base;
             font-size: calc($menu-item-font-size * 0.95);
             padding: calc($menu-item-padding-y * 0.6) calc($menu-item-padding-x * 1.25);
+            word-wrap: break-word;
+            text-wrap: wrap;
 
             &:hover,
             &:focus,
@@ -284,6 +286,8 @@ html[data-sidenav-user="true"] {
                 &:focus,
                 &:active {
                     color: $menu-item-active-color;
+                    word-wrap: break-word;
+                    text-wrap: wrap;
                 }
             }
         }
@@ -293,6 +297,8 @@ html[data-sidenav-user="true"] {
 .side-nav-second-level {
     margin-top: calc($menu-item-padding-y * -0.5);
     padding-left: $menu-item-icon-width;
+    word-wrap: break-word;
+    text-wrap: wrap;
 }
 
 .side-nav-third-level,.side-nav-forth-level {

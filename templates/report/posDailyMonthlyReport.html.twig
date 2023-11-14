@@ -3,71 +3,126 @@
 {% block title %}POS Daily Monthly Report
 {% endblock %}
 
-{% block css %}
-	<!-- Datatables css -->
-	<link href="/vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
-	<link href="/vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
-	<link href="/vendor/datatables.net-fixedcolumns-bs5/css/fixedColumns.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
-	<link href="/vendor/datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
-	<link href="/vendor/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
-	<link href="/vendor/datatables.net-select-bs5/css/select.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
-{% endblock %}
+{% block css %}{% endblock %}
 
 {% block pagetitle %}
-	{{ include('partials/page-title.html.twig', { sub_title: 'POS Daily Monthly Report', page_title: 'POS Daily Monthly Report' }) }}
+	<div class"row align-items-center d-flex">
+		<div class="col mt-2">
+			<div class="float-end mt-3">
+				<a href="http://localhost/other/export/accountstatement" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary" data-bs-original-title="Export">
+					<i class="bi bi-box-arrow-up"></i>
+				</a>
+			</div>
+		</div>
+		<div class="col auto">
+			{{ include('partials/page-title.html.twig', { sub_title: 'POS Daily Monthly Report', page_title: 'POS Daily Monthly Report' }) }}
+		</div>
+	</div>
 {% endblock %}
 
 {% block body %}
-
+	<ul class="nav nav-pills my-3" id="pills-tab" role="tablist">
+		<li class="nav-item">
+			<a class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" href="#" role="tab" aria-controls="pills-home" aria-selected="true">Daily</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" href="#" onclick="window.location.href = '#'" role="tab" aria-controls="pills-profile" aria-selected="false">Monthly</a>
+		</li>
+	</ul>
 	<div class="row">
-		<div class="col-12">
-			<div class="card">
-				<div class="card-body">
-					<table id="basic-datatable" class="table table-striped dt-responsive nowrap w-100">
-						<thead>
-							<tr>
-								<th>Role</th>
-								<th>Permission</th>
-								<th>Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							{# <tr>
-								<td>Cara Stevens</td>
-								<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-								<td>New York</td>
-								<td>46</td>
-								<td>2011/12/06</td>
-								<td>2011/12/06</td>
-							</tr> #}
-						</tbody>
-					</table>
+		<div class="col-sm-12">
+			<div class="mt-2 ">
+				<div class="card">
+					<div class="card-body">
+						<form method="GET" action="http://localhost/other/reports-daily-purchase" accept-charset="UTF-8" id="daily_purchase_report_submit">
+							<div class="row d-flex align-items-center justify-content-end">
+								<div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12">
+									<div class="btn-box">
+										<label for="start_date" class="form-label">Start Date</label>
+										<input class="form-control month-btn" name="start_date" type="date" value="" id="start_date">
+									</div>
+								</div>
+								<div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mr-2">
+									<div class="btn-box">
+										<label for="end_date" class="form-label">End Date</label>
+										<input class="form-control month-btn" name="end_date" type="date" value="" id="end_date">
 
+									</div>
+								</div>
+								<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mr-2">
+									<div class="btn-box">
+										<label for="warehouse" class="form-label">Warehouse</label>
+										<select class="form-control select" id="warehouse" name="warehouse">
+											<option value="0">All Warehouse</option>
+											<option value="47">North Warehouse</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mr-2">
+									<div class="btn-box">
+										<label for="vendor" class="form-label">Vendor</label>
+										<select class="form-control select" id="vendor" name="vendor">
+											<option value="0">All Vendor</option>
+											<option value="8">Supplier 1</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="col-auto float-end ms-2 mt-4">
+									<a href="#" class="btn btn-sm btn-primary" onclick="document.getElementById('daily_purchase_report_submit').submit(); return false;" data-toggle="tooltip" data-original-title="apply">
+										<span class="btn-inner--icon">
+											<i class="bi bi-search"></i>
+										</span>
+									</a>
+									<a href="http://localhost/other/reports-daily-purchase" class="btn btn-sm btn-danger" data-toggle="tooltip" data-original-title="Reset">
+										<span class="btn-inner--icon">
+											<i class="bi bi-trash"></i>
+										</span>
+									</a>
+								</div>
+							</div>
+						</form>
+					</div>
 				</div>
-				<!-- end card body-->
 			</div>
-			<!-- end card -->
 		</div>
-		<!-- end col-->
+	</div>
+	<div class="row mt-0">
+		<div class="col">
+			<input type="hidden" value=" Daily Purchase Report of 2023-10-15 to 2023-11-13" id="filename">
+			<div class="card p-4 mb-4">
+				<h6 class="report-text gray-text mb-0">Report :</h6>
+				<h5 class="report-text mb-0 text-dark">Daily POS Report</h5>
+			</div>
+		</div>
+		<div class="col">
+			<div class="card p-4 mb-4">
+				<h6 class="report-text gray-text mb-0">Duration :</h6>
+				<h5 class="report-text mb-0 text-dark">2023-10-15 to 2023-11-13</h5>
+			</div>
+		</div>
+	</div>
+	<div class="col">
+		<div class="card">
+			<div class="card-body">
+				<h4 class="header-title">Daily Report</h4>
+				<div dir="ltr">
+					<div id="rotate-labels-column" class="apex-charts" data-colors="#fa5c7c"></div>
+				</div>
+			</div>
+			<!-- end card body-->
+		</div>
+		<!-- end card -->
 	</div>
 	<!-- end row-->
 {% endblock %}
 
 {% block javascript %}
-	<!-- Datatables js -->
-	<script src="/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
-	<script src="/vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
-	<script src="/vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-	<script src="/vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
-	<script src="/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-	<script src="/vendor/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js"></script>
-	<script src="/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
-	<script src="/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
-	<script src="/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
-	<script src="/vendor/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-	<script src="/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
+	<!-- Apex Chart js -->
+	<script src="/vendor/apexcharts/apexcharts.min.js"></script>
 
-	<!-- Datatable Demo Aapp js -->
-	<script src="/js/pages/demo.datatable-init.js">
-	</script>
+	<!-- Apex Chart Column Demo js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.0/dayjs.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.0/plugin/quarterOfYear.min.js"></script>
+	<script src="/js/pages/demo.apex-column.js"></script>
 {% endblock %}
