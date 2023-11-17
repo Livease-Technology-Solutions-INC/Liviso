@@ -14,43 +14,109 @@
 {% endblock %}
 
 {% block pagetitle %}
-	{{ include('partials/page-title.html.twig', { sub_title: 'Tax', page_title: 'Taxes' }) }}
+	<div class"row align-items-center d-flex">
+		<div class="col mt-2">
+			<div class="float-end mt-3">
+				<a href="#" class="btn btn-sm btn-primary" onclick="saveAsPDF()" data-bs-toggle="tooltip" title="" data-original-title="Download" data-bs-original-title="Export">
+					<span class="btn-inner--icon">
+						<i class="bi bi-plus"></i>
+					</span>
+				</a>
+			</div>
+		</div>
+		<div class="col auto">
+			{{ include('partials/page-title.html.twig', { sub_title: 'Tax', page_title: 'Taxes' }) }}
+		</div>
+	</div>
 {% endblock %}
 
 {% block body %}
 
 	<div class="row">
-		<div class="col-12">
-			<div class="card">
-				<div class="card-body">
-					<table id="basic-datatable" class="table table-striped dt-responsive nowrap w-100">
-						<thead>
-							<tr>
-								<th>Tax Name</th>
-								<th>Rate %</th>
-								<th>Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							{# <tr>
-								<td>Cara Stevens</td>
-								<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-								<td>New York</td>
-								<td>46</td>
-								<td>2011/12/06</td>
-								<td>2011/12/06</td>
-							</tr> #}
-						</tbody>
-					</table>
+		<div class="col-3">
+			<div class="card sticky-top" style="top:30px">
+				<div class="list-group list-group-flush" id="useradd-sidenav">
+					<a href="#" class="list-group-item list-group-item-action border-0  active">Taxes
+						<div class="float-end">
+							<i class="ti ti-chevron-right"></i>
+						</div>
+					</a>
+
+					<a href="#" class="list-group-item list-group-item-action border-0 ">Category<div class="float-end">
+							<i class="ti ti-chevron-right"></i>
+						</div>
+					</a>
+
+					<a href="#" class="list-group-item list-group-item-action border-0 ">Unit<div class="float-end">
+							<i class="ti ti-chevron-right"></i>
+						</div>
+					</a>
+
+					<a href="#" class="list-group-item list-group-item-action border-0    ">Custom Field<div class="float-end">
+							<i class="ti ti-chevron-right"></i>
+						</div>
+					</a>
 
 				</div>
-				<!-- end card body-->
 			</div>
-			<!-- end card -->
 		</div>
-		<!-- end col-->
+		<div class="col-9">
+			<div class="card">
+				<div class="card-body table-border-style">
+					<div class="table-responsive">
+						<div class="dataTable-wrapper dataTable-loading dataTable-empty no-footer sortable searchable fixed-columns">
+							<div class="dataTable-top">
+								<div class="dataTable-dropdown">
+									<label>
+										<select class="dataTable-selector">
+											<option value="5">5</option>
+											<option value="10" selected="">10</option>
+											<option value="15">15</option>
+											<option value="20">20</option>
+											<option value="25">25</option>
+										</select>
+										entries per page</label>
+								</div>
+								<div class="dataTable-search"><input class="dataTable-input" placeholder="Search..." type="text"></div>
+							</div>
+							<div class="dataTable-container">
+								<table class="table datatable dataTable-table">
+									<thead>
+										<tr>
+											<th data-sortable="" style="width: 53.696%;">
+												<a href="#" class="dataTable-sorter">
+													Tax Name</a>
+											</th>
+											<th data-sortable="" style="width: 36.2622%;">
+												<a href="#" class="dataTable-sorter">
+													Rate %</a>
+											</th>
+											<th width="10%" data-sortable="" style="width: 10.0418%;">
+												<a href="#" class="dataTable-sorter">
+													Action</a>
+											</th>
+										</tr>
+									</thead>
+
+									<tbody>
+										<tr>
+											<td class="dataTables-empty" colspan="3">No entries found</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="dataTable-bottom">
+								<div class="dataTable-info"></div>
+								<nav class="dataTable-pagination">
+									<ul class="dataTable-pagination-list"></ul>
+								</nav>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-	<!-- end row-->
 {% endblock %}
 
 {% block javascript %}
@@ -68,6 +134,5 @@
 	<script src="/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
 
 	<!-- Datatable Demo Aapp js -->
-	<script src="/js/pages/demo.datatable-init.js">
-	</script>
+	<script src="/js/pages/demo.datatable-init.js"></script>
 {% endblock %}

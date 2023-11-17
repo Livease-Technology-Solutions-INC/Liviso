@@ -14,109 +14,97 @@
 {% endblock %}
 
 {% block pagetitle %}
-	{{ include('partials/page-title.html.twig', { sub_title: 'Manage Client', page_title: 'Manage Client' }) }}
+	<div class"row align-items-center d-flex">
+		<div class="col mt-2">
+			<div class="float-end mt-3">
+				<a href="#" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary" data-bs-original-title="Import">
+					<i class="bi bi-plus"></i>
+				</a>
+			</div>
+		</div>
+		<div class="col auto">
+			{{ include('partials/page-title.html.twig', { sub_title: 'Manage Client', page_title: 'Manage Client' }) }}
+		</div>
+	</div>
 {% endblock %}
 
 {% block body %}
-
-	{# <div class="row">
+	<div class="row">
 		<div class="col-xxl-12">
 			<div class="row">
-				{% for client in app.client %}
-					<div class="col-md-3">
-						<div class="card text-center">
-							<div class="card-header border-0 pb-0">
+				<div class="col-md-3">
+					<div class="card text-center">
+						<div class="card-header border-0 pb-0">
 
-								<div class="card-header-right">
-									<div class="btn-group card-option">
-										<button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											<i class="ti ti-dots-vertical"></i>
-										</button>
+							<div class="card-header-right">
+								<div class="btn-group card-option">
+									<button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<i class="ti ti-dots-vertical"></i>
+									</button>
 
-										<div
-											class="dropdown-menu dropdown-menu-end">
-											{# <a href="{{ path('clients.show', {'id': client.id}) }}" class="dropdown-item" data-bs-original-title="{{ 'View' }}">
-											                                            <i class="ti ti-eye"></i>
-											                                            <span>{{ 'Show' }}</span>
-											                                        </a> #}
+									<div class="dropdown-menu dropdown-menu-end">
 
-											{# {% if is_granted('edit client') %}
-												<a href="#!" data-size="md" data-url="{{ path('clients.edit', {'id': client.id}) }}" data-ajax-popup="true" class="dropdown-item" data-bs-original-title="{{ 'Edit User' }}">
-													<i class="ti ti-pencil"></i>
-													<span>{{ 'Edit' }}</span>
-												</a>
-											{% endif %}
 
-											{% if is_granted('delete client') %}
-												{% set delete_form_id = 'delete-form-' ~ client.id %}
-												<form method="POST" action="{{ path('clients.destroy', {'id': client.id}) }}" id="{{ delete_form_id }}">
-													<a href="#!" class="dropdown-item bs-pass-para">
-														<i class="ti ti-archive"></i>
-														<span>
-															{% if client.delete_status != 0 %}
-																{{ 'Delete' }}
-															{% else %}
-																{{ 'Restore' }}
-															{% endif %}
-														</span>
-													</a>
-												</form>
-											{% endif %}
+										<a href="#!" data-size="md" data-url="http://localhost/other/clients/135/edit" data-ajax-popup="true" class="dropdown-item" data-bs-original-title="Edit User">
+											<i class="ti ti-pencil"></i>
+											<span>Edit</span>
+										</a>
 
-											<a href="#!" data-url="{{ path('clients.reset', {'id': client.id}) }}" data-ajax-popup="true" class="dropdown-item" data-bs-original-title="{{ 'Reset Password' }}">
-												<i class="ti ti-adjustments"></i>
+										<form method="POST" action="http://localhost/other/clients/135" accept-charset="UTF-8" id="delete-form-135"><input name="_method" type="hidden" value="DELETE"><input name="_token" type="hidden" value="q4UTQ0S1spGLbp1qFl5N9vDcE8eW1YX3XkMwbbbv">
+											<a href="#!" class="dropdown-item bs-pass-para">
+												<i class="ti ti-archive"></i>
 												<span>
-													{{ 'Reset Password' }}</span>
+													Delete
+												</span>
 											</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="card-body full-card">
-								<div class="img-fluid rounded-circle card-avatar">
-									<img src="" class="img-user wid-80 rounded-circle">
-								</div>
-								<h4 class="mt-2 text-primary">{{ client.name }}</h4>
-								<p></p>
-								<div class="row">
-									<div class="col-12 col-sm-12">
-										<div class="d-grid text-primary">
-											{{ client.email }}
-										</div>
-									</div>
-								</div>
-								<div class="align-items-center h6 mt-2" data-bs-toggle="tooltip" title="{{ 'Last Login' }}">
-									{{ client.last_login_at is not empty ? client.last_login_at : '' }}
-								</div>
-							</div>
-							<div class="card-footer p-3">
-								<div class="row">
-									<div class="col-6">
-										<h6 class="mb-0">
-											{% if client.clientDeals %}
-												{{ client.clientDeals|length }}
-											{% endif %}
-										</h6>
-										<p class="text-muted text-sm mb-0">{{ 'Deals' }}</p>
-									</div>
-									<div class="col-6">
-										<h6 class="mb-0">
-											{% if client.clientProjects %}
-												{{ client.clientProjects|length }}
-											{% endif %}
-										</h6>
-										<p class="text-muted text-sm mb-0">{{ 'Projects' }}</p>
+
+										</form>
+
+										<a href="#!" data-url="http://localhost/other/client-reset-password/eyJpdiI6IkZlN1BKekw2aHpJdVVMTDVTTHVWc2c9PSIsInZhbHVlIjoiS3h4dGNQOWY3TzljMFYrUUc0Mlc4UT09IiwibWFjIjoiM2E3ZDhlZjM1YmU4YTc1YmE1NTc5ZWY0YWZhMDA5YjE4NjIxM2I1OTFmNjI4YmFiNWExNjc4NzdmYWIwYWRhMiIsInRhZyI6IiJ9" data-ajax-popup="true" class="dropdown-item" data-bs-original-title="Reset Password">
+											<i class="ti ti-adjustments"></i>
+											<span>
+												Reset Password</span>
+										</a>
 									</div>
 								</div>
 							</div>
 						</div>
+						<div class="card-body full-card">
+							<div class="img-fluid rounded-circle card-avatar">
+								<img src="https://liviso.net/storage/uploads/avatar/avatar.png" class="img-user wid-80 rounded-circle">
+							</div>
+							<h4 class="mt-2 text-primary">Uk Giveaways</h4>
+							<p></p>
+							<div class="row">
+								<div class="col-12 col-sm-12">
+									<div class="d-grid text-primary">
+										abc@gmail.com
+									</div>
+								</div>
+							</div>
+							<div class="align-items-center h6 mt-2" data-bs-toggle="tooltip" title="" data-bs-original-title="Last Login"></div>
+						</div>
+						<div class="card-footer p-3">
+							<div class="row">
+								<div class="col-6">
+									<h6 class="mb-0">
+										0
+									</h6>
+									<p class="text-muted text-sm mb-0">Deals</p>
+								</div>
+								<div class="col-6">
+									<h6 class="mb-0">
+										1
+									</h6>
+									<p class="text-muted text-sm mb-0">Projects</p>
+								</div>
+							</div>
+						</div>
 					</div>
-				{% endfor %}
+				</div>
 			</div>
 		</div>
-	</div> #} 
-
-	<!-- end row-->
+	</div>
 {% endblock %}
 
 {% block javascript %}{% endblock %}

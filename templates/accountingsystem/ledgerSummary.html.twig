@@ -1,6 +1,6 @@
 {% extends 'partials/layout-vertical.html.twig' %}
 
-{% block title %}Customer
+{% block title %}Ledger Summary
 {% endblock %}
 
 {% block css %}
@@ -14,11 +14,196 @@
 {% endblock %}
 
 {% block pagetitle %}
-	{{ include('partials/page-title.html.twig', { sub_title: 'Customer', page_title: 'Customer' }) }}
+	<div class"row align-items-center d-flex">
+		<div class="col mt-2">
+			<div class="float-end mt-3">
+
+				<a href="#" class="btn btn-sm btn-primary" onclick="saveAsPDF()" data-bs-toggle="tooltip" title="" data-original-title="Download" data-bs-original-title="Export">
+					<span class="btn-inner--icon">
+						<i class="bi bi-file-earmark-arrow-up"></i>
+					</span>
+				</a>
+			</div>
+		</div>
+		<div class="col auto">
+			{{ include('partials/page-title.html.twig', { sub_title: 'Ledger Summary', page_title: 'Ledger Summary' }) }}
+		</div>
+	</div>
 {% endblock %}
 
 {% block body %}
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="mt-2 " id="multiCollapseExample1">
+				<div class="card">
+					<div class="card-body">
+						<form method="GET" action="#" accept-charset="UTF-8" id="report_ledger">
+							<div class="row align-items-center justify-content-end">
+								<div class="col-xl-10">
+									<div class="row">
+										<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+											<div class="btn-box"></div>
+										</div>
+										<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+											<div class="btn-box">
+												<label for="start_date" class="form-label">Start Date</label>
+												<input class="month-btn form-control" name="start_date" type="date" value="2023-11-01" id="start_date">
+											</div>
+										</div>
+										<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+											<div class="btn-box">
+												<label for="end_date" class="form-label">End Date</label>
+												<input class="month-btn form-control" name="end_date" type="date" value="2023-11-30" id="end_date">
+											</div>
+										</div>
+										<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+											<div class="btn-box">
+												<label for="account" class="form-label">Account</label>
+												<select class="form-control select" id="account" name="account">
+													<option value="" selected="selected">Select Account</option>
+													<option value="2913">Accounts Receivable</option>
+													<option value="2914">Computer Equipment</option>
+													<option value="2915">Office Equipment</option>
+													<option value="2916">Inventory</option>
+													<option value="2917">Budget - Finance Staff</option>
+													<option value="2918">Accumulated Depreciation</option>
+													<option value="2919">Accounts Payable</option>
+													<option value="2920">Accruals</option>
+													<option value="2921">Office Equipment</option>
+													<option value="2922">Clearing Account</option>
+													<option value="2923">Employee Benefits Payable</option>
+													<option value="2924">Employee Deductions payable</option>
+													<option value="2925">Historical Adjustments</option>
+													<option value="2926">Revenue Received in Advance</option>
+													<option value="2927">Rounding</option>
+													<option value="2928">Costs of Goods Sold</option>
+													<option value="2929">Advertising</option>
+													<option value="2930">Automobile Expenses</option>
+													<option value="2931">Bad Debts</option>
+													<option value="2932">Bank Revaluations</option>
+													<option value="2933">Bank Service Charges</option>
+													<option value="2934">Consulting &amp; Accounting</option>
+													<option value="2935">Depreciation</option>
+													<option value="2936">General Expenses</option>
+													<option value="2937">Interest Income</option>
+													<option value="2938">Other Revenue</option>
+													<option value="2939">Purchase Discount</option>
+													<option value="2940">Sales</option>
+													<option value="2941">Common Stock</option>
+													<option value="2942">Owners Contribution</option>
+													<option value="2943">Owners Draw</option>
+													<option value="2944">Retained Earnings</option>
+													<option value="2945">Accounts Receivable</option>
+													<option value="2946">Computer Equipment</option>
+													<option value="2947">Office Equipment</option>
+													<option value="2948">Inventory</option>
+													<option value="2949">Budget - Finance Staff</option>
+													<option value="2950">Accumulated Depreciation</option>
+													<option value="2951">Accounts Payable</option>
+													<option value="2952">Accruals</option>
+													<option value="2953">Office Equipment</option>
+													<option value="2954">Clearing Account</option>
+													<option value="2955">Employee Benefits Payable</option>
+													<option value="2956">Employee Deductions payable</option>
+													<option value="2957">Historical Adjustments</option>
+													<option value="2958">Revenue Received in Advance</option>
+													<option value="2959">Rounding</option>
+													<option value="2960">Costs of Goods Sold</option>
+													<option value="2961">Advertising</option>
+													<option value="2962">Automobile Expenses</option>
+													<option value="2963">Bad Debts</option>
+													<option value="2964">Bank Revaluations</option>
+													<option value="2965">Bank Service Charges</option>
+													<option value="2966">Consulting &amp; Accounting</option>
+													<option value="2967">Depreciation</option>
+													<option value="2968">General Expenses</option>
+													<option value="2969">Interest Income</option>
+													<option value="2970">Other Revenue</option>
+													<option value="2971">Purchase Discount</option>
+													<option value="2972">Sales</option>
+													<option value="2973">Common Stock</option>
+													<option value="2974">Owners Contribution</option>
+													<option value="2975">Owners Draw</option>
+													<option value="2976">Retained Earnings</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-auto">
+									<div class="row">
+										<div class="col-auto mt-4">
+											<a href="#" class="btn btn-sm btn-primary" onclick="document.getElementById('report_ledger').submit(); return false;" data-bs-toggle="tooltip" title="" data-original-title="apply" data-bs-original-title="Apply">
+												<span class="btn-inner--icon">
+													<i class="bi bi-search"></i>
+												</span>
+											</a>
+											<a href="#" class="btn btn-sm btn-danger " data-bs-toggle="tooltip" title="" data-original-title="Reset" data-bs-original-title="Reset">
+												<span class="btn-inner--icon">
+													<i class="bi bi-trash"></i>
+												</span>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
 
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row mt-2">
+		<div class="col">
+			<input type="hidden" value="Ledger Report of 2023-11-01 to 2023-11-30" id="filename">
+			<div class="card p-4 mb-4">
+				<h5 class="mb-0 text-dark">Report :</h5>
+				<h6 class="text-sm mb-0">Ledger Summary</h6>
+			</div>
+		</div>
+
+		<div class="col">
+			<div class="card p-4 mb-4">
+				<h5 class="mb-0 text-dark">Duration :</h5>
+				<h6 class="text-sm mb-0">2023-11-01 to 2023-11-30</h6>
+			</div>
+		</div>
+	</div>
+	<div class="row mt-2">
+		<div class="col">
+			<div class="card p-4 mb-4">
+				<h5 class="mb-0 text-dark">Account Name :</h5>
+				<h6 class="text-sm mb-0">Accounts Receivable</h6>
+			</div>
+		</div>
+
+		<div class="col">
+			<div class="card p-4 mb-4">
+				<h5 class="mb-0 text-dark">Account Code :</h5>
+				<h6 class="text-sm mb-0">120</h6>
+			</div>
+		</div>
+		<div class="col">
+			<div class="card p-4 mb-4">
+				<h5 class="mb-0 text-dark">Total Debit :</h5>
+				<h6 class="text-sm mb-0">$0.00</h6>
+			</div>
+		</div>
+		<div class="col">
+			<div class="card p-4 mb-4">
+				<h5 class="mb-0 text-dark">Total Credit :</h5>
+				<h6 class="text-sm mb-0">$0.00</h6>
+			</div>
+		</div>
+
+		<div class="col">
+			<div class="card p-4 mb-4">
+				<h5 class="mb-0 text-dark">Balance :</h5>
+				<h6 class="text-sm mb-0">Dr. $0.00</h6>
+			</div>
+		</div>
+	</div>
 	<div class="row">
 		<div class="col-12">
 			<div class="card">
@@ -26,22 +211,24 @@
 					<table id="basic-datatable" class="table table-striped dt-responsive nowrap w-100">
 						<thead>
 							<tr>
-								<th>Journal ID</th>
-								<th>Date</th>
-								<th>Amount</th>
+								<th>#</th>
+								<th>Transaction Date</th>
+								<th>Create At</th>
 								<th>Description</th>
-								<th>Action</th>
+								<th>Debit</th>
+								<th>Credit</th>
+								<th>Balance</th>
 							</tr>
 						</thead>
 						<tbody>
 							{# <tr>
-								<td>Cara Stevens</td>
-								<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-								<td>New York</td>
-								<td>46</td>
-								<td>2011/12/06</td>
-								<td>2011/12/06</td>
-							</tr> #}
+																																																		<td>Cara Stevens</td>
+																																																		<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
+																																																		<td>New York</td>
+																																																		<td>46</td>
+																																																		<td>2011/12/06</td>
+																																																		<td>2011/12/06</td>
+																																																	</tr> #}
 						</tbody>
 					</table>
 
@@ -70,6 +257,5 @@
 	<script src="/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
 
 	<!-- Datatable Demo Aapp js -->
-	<script src="/js/pages/demo.datatable-init.js">
-	</script>
+	<script src="/js/pages/demo.datatable-init.js"></script>
 {% endblock %}

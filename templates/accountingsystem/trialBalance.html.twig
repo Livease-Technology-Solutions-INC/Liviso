@@ -1,0 +1,151 @@
+{% extends 'partials/layout-vertical.html.twig' %}
+
+{% block title %}Trial Balance
+{% endblock %}
+
+{% block css %}
+	<!-- Datatables css -->
+	<link href="/vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-fixedcolumns-bs5/css/fixedColumns.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-select-bs5/css/select.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block pagetitle %}
+	<div class"row align-items-center d-flex">
+		<div class="col mt-2">
+			<div class="float-end mt-3">
+				<a href="#" class="btn btn-sm btn-primary" onclick="saveAsPDF()" data-bs-toggle="tooltip" title="" data-original-title="Download" data-bs-original-title="Export">
+					<span class="btn-inner--icon">
+						<i class="bi bi-file-earmark-arrow-up"></i>
+					</span>
+				</a>
+			</div>
+		</div>
+		<div class="col auto">
+			{{ include('partials/page-title.html.twig', { sub_title: 'Trial Balance', page_title: 'Trial Balance' }) }}
+		</div>
+	</div>
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="mt-2 " id="multiCollapseExample1">
+				<div class="card">
+					<div class="card-body">
+						<form method="GET" action="#" accept-charset="UTF-8" id="report_ledger">
+							<div class="row align-items-center justify-content-end">
+								<div class="col-xl-10">
+									<div class="row">
+										<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+											<div class="btn-box"></div>
+										</div>
+										<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+											<div class="btn-box">
+												<label for="start_date" class="form-label">Start Date</label>
+												<input class="month-btn form-control" name="start_date" type="date" value="2023-11-01" id="start_date">
+											</div>
+										</div>
+										<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+											<div class="btn-box">
+												<label for="end_date" class="form-label">End Date</label>
+												<input class="month-btn form-control" name="end_date" type="date" value="2023-11-30" id="end_date">
+											</div>
+										</div>
+										
+									</div>
+								</div>
+								<div class="col-auto">
+									<div class="row">
+										<div class="col-auto mt-4">
+											<a href="#" class="btn btn-sm btn-primary" onclick="document.getElementById('report_ledger').submit(); return false;" data-bs-toggle="tooltip" title="" data-original-title="apply" data-bs-original-title="Apply">
+												<span class="btn-inner--icon">
+													<i class="bi bi-search"></i>
+												</span>
+											</a>
+											<a href="#" class="btn btn-sm btn-danger " data-bs-toggle="tooltip" title="" data-original-title="Reset" data-bs-original-title="Reset">
+												<span class="btn-inner--icon">
+													<i class="bi bi-trash"></i>
+												</span>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row mt-2">
+		<div class="col">
+			<input type="hidden" value="Ledger Report of 2023-11-01 to 2023-11-30" id="filename">
+			<div class="card p-4 mb-4">
+				<h5 class="mb-0 text-dark">Report :</h5>
+				<h6 class="text-sm mb-0">Ledger Summary</h6>
+			</div>
+		</div>
+
+		<div class="col">
+			<div class="card p-4 mb-4">
+				<h5 class="mb-0 text-dark">Duration :</h5>
+				<h6 class="text-sm mb-0">2023-11-01 to 2023-11-30</h6>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-body">
+					<table id="basic-datatable" class="table table-striped dt-responsive nowrap w-100">
+						<thead>
+							<tr>
+								<th>Account Name</th>
+								<th>Debit Total</th>
+								<th>Credit Total</th>
+							</tr>
+						</thead>
+						<tbody>
+							{# <tr>
+																																																									<td>Cara Stevens</td>
+																																																									<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
+																																																									<td>New York</td>
+																																																									<td>46</td>
+																																																									<td>2011/12/06</td>
+																																																									<td>2011/12/06</td>
+																																																								</tr> #}
+						</tbody>
+					</table>
+
+				</div>
+				<!-- end card body-->
+			</div>
+			<!-- end card -->
+		</div>
+		<!-- end col-->
+	</div>
+	<!-- end row-->
+{% endblock %}
+
+{% block javascript %}
+	<!-- Datatables js -->
+	<script src="/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script src="/vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+	<script src="/vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+	<script src="/vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+	<script src="/vendor/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
+	<script src="/vendor/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+	<script src="/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
+
+	<!-- Datatable Demo Aapp js -->
+	<script src="/js/pages/demo.datatable-init.js"></script>
+{% endblock %}

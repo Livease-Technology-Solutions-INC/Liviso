@@ -1,6 +1,6 @@
 {% extends 'partials/layout-vertical.html.twig' %}
 
-{% block title %}Purchase
+{% block title %}Manage Product Stock
 {% endblock %}
 
 {% block css %}
@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block pagetitle %}
-	{{ include('partials/page-title.html.twig', { sub_title: 'purchase', page_title: 'Purchase' }) }}
+	{{ include('partials/page-title.html.twig', { sub_title: 'Manage Product Stock', page_title: 'Manage Product Stock' }) }}
 {% endblock %}
 
 {% block body %}
@@ -30,34 +30,17 @@
 								<th>SKU</th>
 								<th>Current Quantity</th>
 								<th>Action</th>
-
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>PC</td>
-								<td>00BG102</td>
-								<td>100</td>
-								{# <td class="Action">
-									<div class="action-btn bg-info ms-2">
-										<a data-size="md" href="#" class="mx-3 btn btn-sm d-inline-flex align-items-center" data-url="" data-ajax-popup="true" data-size="xl" data-bs-toggle="tooltip" title="">
-											<i class="ti ti-plus text-white"></i>
-										</a>
-									</div>
-								</td> #}
-							</tr>
-							<tr>
-								<td>PC</td>
-								<td>00BG102</td>
-								<td>100</td>
-								{# <td class="Action">
-									<div class="action-btn bg-info ms-2">
-										<a data-size="md" href="#" class="mx-3 btn btn-sm d-inline-flex align-items-center" data-url="" data-ajax-popup="true" data-size="xl" data-bs-toggle="tooltip" title="">
-											<i class="ti ti-plus text-white"></i>
-										</a>
-									</div>
-								</td> #}
-							</tr>
+							{# <tr>
+								<td>Cara Stevens</td>
+								<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
+								<td>New York</td>
+								<td>46</td>
+								<td>2011/12/06</td>
+								<td>2011/12/06</td>
+							</tr> #}
 						</tbody>
 					</table>
 

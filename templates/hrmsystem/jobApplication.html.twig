@@ -3,76 +3,167 @@
 {% block title %}Job Application
 {% endblock %}
 
-{% block css %}
-	<!-- Datatables css -->
-	<link href="/vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
-	<link href="/vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
-	<link href="/vendor/datatables.net-fixedcolumns-bs5/css/fixedColumns.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
-	<link href="/vendor/datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
-	<link href="/vendor/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
-	<link href="/vendor/datatables.net-select-bs5/css/select.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
-{% endblock %}
+{% block css %}{% endblock %}
 
 {% block pagetitle %}
-	{{ include('partials/page-title.html.twig', { sub_title: 'Job Application', page_title: 'Job Application' }) }}
+	<div class"row align-items-center d-flex">
+		<div class="col mt-2">
+			<div class="float-end mt-3">
+				<a href="#" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary" data-bs-original-title="Export">
+					<i class="bi bi-plus"></i>
+				</a>
+			</div>
+		</div>
+		<div class="col auto">
+			{{ include('partials/page-title.html.twig', { sub_title: 'Job Application', page_title: 'Job Application' }) }}
+		</div>
+	</div>
 {% endblock %}
 
 {% block body %}
-
 	<div class="row">
-		<div class="col-12">
-			<div class="card">
-				<div class="card-body">
-					<table id="basic-datatable" class="table table-striped dt-responsive nowrap w-100">
-						<thead>
-							<tr>
-								<th>Subject</th>
-								<th>Client</th>
-								<th>Project</th>
-								<th>Contract Type</th>
-								<th>Contract Value</th>
-								<th>Start Date</th>
-								<th>End Date</th>
-								<th>Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							{# <tr>
-								<td>Cara Stevens</td>
-								<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-								<td>New York</td>
-								<td>46</td>
-								<td>2011/12/06</td>
-								<td>2011/12/06</td>
-							</tr> #}
-						</tbody>
-					</table>
+		<div class="col-sm-12">
+			<div class="mt-2 " id="multiCollapseExample1">
+				<div class="card">
+					<div class="card-body">
+						<form method="GET" action="#" accept-charset="UTF-8" id="applicarion_filter">
 
+							<div class="row d-flex align-items-center justify-content-end">
+
+								<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mr-2">
+									<div class="btn-box">
+										<label for="start_date" class="form-label">Start Date</label>
+										<input class="month-btn form-control " name="start_date" type="date" value="2023-10-15" id="start_date">
+									</div>
+								</div>
+
+								<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mr-2">
+									<div class="btn-box">
+										<label for="end_date" class="form-label">End Date</label>
+										<input class="month-btn form-control " name="end_date" type="date" value="2023-11-15 14:50:31" id="end_date">
+									</div>
+								</div>
+								<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+									<div class="btn-box">
+										<label for="job" class="form-label">Job</label>
+										<select class="form-control select" id="job" name="job">
+											<option value="" selected="selected">All</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-auto float-end ms-2 mt-4">
+
+									<a href="#" class="btn btn-sm btn-primary" onclick="document.getElementById('applicarion_filter').submit(); return false;" data-bs-toggle="tooltip" data-original-title="apply" data-bs-original-title="" title="">
+										<span class="btn-inner--icon">
+											<i class="bi bi-search"></i>
+										</span>
+									</a>
+									<a href="#" class="btn btn-sm btn-danger" data-bs-toggle="tooltip" title="" data-bs-original-title="Reset">
+										<span class="btn-inner--icon">
+											<i class="bi bi-trash"></i>
+										</span>
+									</a>
+								</div>
+
+							</div>
+						</form>
+					</div>
 				</div>
-				<!-- end card body-->
 			</div>
-			<!-- end card -->
 		</div>
-		<!-- end col-->
+	</div>
+	<div class="card overflow-hidden mt-0">
+		<div class="container-kanban">
+			<div class="row kanban-wrapper horizontal-scroll-cards" data-plugin="dragula" data-containers="[&quot;task-list-231&quot;,&quot;task-list-232&quot;,&quot;task-list-233&quot;,&quot;task-list-234&quot;,&quot;task-list-235&quot;]">
+
+				<div class="col">
+					<div class="card">
+
+						<div class="card-header">
+							<div class="float-end">
+								<span class="btn btn-sm btn-primary btn-icon count">
+									0
+								</span>
+							</div>
+							<h4 class="mb-0">Applied</h4>
+						</div>
+
+						<div class="card-body kanban-box" id="task-list-231" data-id="231"></div>
+						<span class="empty-container" data-placeholder="Empty"></span>
+					</div>
+				</div>
+
+				<div class="col">
+					<div class="card">
+
+						<div class="card-header">
+							<div class="float-end">
+								<span class="btn btn-sm btn-primary btn-icon count">
+									0
+								</span>
+							</div>
+							<h4 class="mb-0">Phone Screen</h4>
+						</div>
+
+						<div class="card-body kanban-box" id="task-list-232" data-id="232"></div>
+						<span class="empty-container" data-placeholder="Empty"></span>
+					</div>
+				</div>
+
+				<div class="col">
+					<div class="card">
+
+						<div class="card-header">
+							<div class="float-end">
+								<span class="btn btn-sm btn-primary btn-icon count">
+									0
+								</span>
+							</div>
+							<h4 class="mb-0">Interview</h4>
+						</div>
+
+						<div class="card-body kanban-box" id="task-list-233" data-id="233"></div>
+						<span class="empty-container" data-placeholder="Empty"></span>
+					</div>
+				</div>
+
+				<div class="col">
+					<div class="card">
+
+						<div class="card-header">
+							<div class="float-end">
+								<span class="btn btn-sm btn-primary btn-icon count">
+									0
+								</span>
+							</div>
+							<h4 class="mb-0">Hired</h4>
+						</div>
+
+						<div class="card-body kanban-box" id="task-list-234" data-id="234"></div>
+						<span class="empty-container" data-placeholder="Empty"></span>
+					</div>
+				</div>
+
+				<div class="col">
+					<div class="card">
+
+						<div class="card-header">
+							<div class="float-end">
+								<span class="btn btn-sm btn-primary btn-icon count">
+									0
+								</span>
+							</div>
+							<h4 class="mb-0">Rejected</h4>
+						</div>
+
+						<div class="card-body kanban-box" id="task-list-235" data-id="235"></div>
+						<span class="empty-container" data-placeholder="Empty"></span>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 	<!-- end row-->
 {% endblock %}
 
-{% block javascript %}
-	<!-- Datatables js -->
-	<script src="/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
-	<script src="/vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
-	<script src="/vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-	<script src="/vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
-	<script src="/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-	<script src="/vendor/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js"></script>
-	<script src="/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
-	<script src="/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
-	<script src="/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
-	<script src="/vendor/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-	<script src="/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
-
-	<!-- Datatable Demo Aapp js -->
-	<script src="/js/pages/demo.datatable-init.js">
-	</script>
-{% endblock %}
+{% block javascript %}{% endblock %}

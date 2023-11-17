@@ -1,0 +1,511 @@
+{% extends 'partials/layout-vertical.html.twig' %}
+
+{% block title %}Project Task Stages
+{% endblock %}
+
+{% block css %}{% endblock %}
+
+{% block pagetitle %}
+	<div class"row align-items-center d-flex">
+		<div class="col mt-2">
+			<div class="float-end mt-3">
+				<a href="#" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary" data-bs-original-title="Import">
+					<i class="bi bi-plus"></i>
+				</a>
+			</div>
+		</div>
+		<div class="col auto">
+			{{ include('partials/page-title.html.twig', { sub_title: 'Project Task Stages', page_title: 'Project Task Stages' }) }}
+		</div>
+	</div>
+{% endblock %}
+{% block body %}
+	<div class="row justify-content-center">
+		<div class="col-sm-12 col-md-10 col-xxl-8">
+
+			<div class="card mt-5">
+				<div class="card-body">
+					<div class="tab-content" id="pills-tabContent">
+
+						<div class="tab-pane fade show   active " role="tabpanel">
+							<ul class="list-unstyled list-group sortable stage ui-sortable">
+								<li class="d-flex align-items-center justify-content-between list-group-item ui-sortable-handle" data-id="185">
+									<h6 class="mb-0">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-move me-3 ti ti-arrows-maximize ">
+											<polyline points="5 9 2 12 5 15"></polyline>
+											<polyline points="9 5 12 2 15 5"></polyline>
+											<polyline points="15 19 12 22 9 19"></polyline>
+											<polyline points="19 9 22 12 19 15"></polyline>
+											<line x1="2" y1="12" x2="22" y2="12"></line>
+											<line x1="12" y1="2" x2="12" y2="22"></line>
+										</svg>
+										<span>To Do</span>
+									</h6>
+									<span class="float-end">
+										<div class="action-btn bg-info ms-2">
+											<a href="#" data-url="http://localhost/other/project-task-stages/185/edit" data-ajax-popup="true" data-bs-toggle="tooltip" title="" data-title="Edit Bug Status" class="mx-3 btn btn-sm d-inline-flex align-items-center" data-bs-original-title="Edit">
+												<i class="bi bi-pencil text-white"></i>
+											</a>
+										</div>
+										<div class="action-btn bg-danger ms-2">
+											<form method="POST" action="http://localhost/other/project-task-stages/185" accept-charset="UTF-8" id="delete-form-185"><input name="_method" type="hidden" value="DELETE"><input name="_token" type="hidden" value="q4UTQ0S1spGLbp1qFl5N9vDcE8eW1YX3XkMwbbbv">
+												<a href="#!" class="mx-3 btn btn-sm align-items-center bs-pass-para" data-bs-toggle="tooltip" title="" data-original-title="Delete" data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?" data-confirm-yes="document.getElementById('delete-form-185').submit();" data-bs-original-title="Delete">
+													<i class="bi bi-trash text-white"></i>
+												</a>
+											</form>
+										</div>
+
+									</span>
+								</li>
+								<li class="d-flex align-items-center justify-content-between list-group-item ui-sortable-handle" data-id="186">
+									<h6 class="mb-0">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-move me-3 ti ti-arrows-maximize ">
+											<polyline points="5 9 2 12 5 15"></polyline>
+											<polyline points="9 5 12 2 15 5"></polyline>
+											<polyline points="15 19 12 22 9 19"></polyline>
+											<polyline points="19 9 22 12 19 15"></polyline>
+											<line x1="2" y1="12" x2="22" y2="12"></line>
+											<line x1="12" y1="2" x2="12" y2="22"></line>
+										</svg>
+										<span>In Progress</span>
+									</h6>
+									<span class="float-end">
+										<div class="action-btn bg-info ms-2">
+											<a href="#" data-url="http://localhost/other/project-task-stages/186/edit" data-ajax-popup="true" data-bs-toggle="tooltip" title="" data-title="Edit Bug Status" class="mx-3 btn btn-sm d-inline-flex align-items-center" data-bs-original-title="Edit">
+												<i class="bi bi-pencil text-white"></i>
+											</a>
+										</div>
+										<div class="action-btn bg-danger ms-2">
+											<form method="POST" action="http://localhost/other/project-task-stages/186" accept-charset="UTF-8" id="delete-form-186"><input name="_method" type="hidden" value="DELETE"><input name="_token" type="hidden" value="q4UTQ0S1spGLbp1qFl5N9vDcE8eW1YX3XkMwbbbv">
+												<a href="#!" class="mx-3 btn btn-sm align-items-center bs-pass-para" data-bs-toggle="tooltip" title="" data-original-title="Delete" data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?" data-confirm-yes="document.getElementById('delete-form-186').submit();" data-bs-original-title="Delete">
+													<i class="bi bi-trash text-white"></i>
+												</a>
+											</form>
+										</div>
+
+									</span>
+								</li>
+								<li class="d-flex align-items-center justify-content-between list-group-item ui-sortable-handle" data-id="187">
+									<h6 class="mb-0">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-move me-3 ti ti-arrows-maximize ">
+											<polyline points="5 9 2 12 5 15"></polyline>
+											<polyline points="9 5 12 2 15 5"></polyline>
+											<polyline points="15 19 12 22 9 19"></polyline>
+											<polyline points="19 9 22 12 19 15"></polyline>
+											<line x1="2" y1="12" x2="22" y2="12"></line>
+											<line x1="12" y1="2" x2="12" y2="22"></line>
+										</svg>
+										<span>Review</span>
+									</h6>
+									<span class="float-end">
+										<div class="action-btn bg-info ms-2">
+											<a href="#" data-url="http://localhost/other/project-task-stages/187/edit" data-ajax-popup="true" data-bs-toggle="tooltip" title="" data-title="Edit Bug Status" class="mx-3 btn btn-sm d-inline-flex align-items-center" data-bs-original-title="Edit">
+												<i class="bi bi-pencil text-white"></i>
+											</a>
+										</div>
+										<div class="action-btn bg-danger ms-2">
+											<form method="POST" action="http://localhost/other/project-task-stages/187" accept-charset="UTF-8" id="delete-form-187"><input name="_method" type="hidden" value="DELETE"><input name="_token" type="hidden" value="q4UTQ0S1spGLbp1qFl5N9vDcE8eW1YX3XkMwbbbv">
+												<a href="#!" class="mx-3 btn btn-sm align-items-center bs-pass-para" data-bs-toggle="tooltip" title="" data-original-title="Delete" data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?" data-confirm-yes="document.getElementById('delete-form-187').submit();" data-bs-original-title="Delete">
+													<i class="bi bi-trash text-white"></i>
+												</a>
+											</form>
+										</div>
+
+									</span>
+								</li>
+								<li class="d-flex align-items-center justify-content-between list-group-item ui-sortable-handle" data-id="188">
+									<h6 class="mb-0">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-move me-3 ti ti-arrows-maximize ">
+											<polyline points="5 9 2 12 5 15"></polyline>
+											<polyline points="9 5 12 2 15 5"></polyline>
+											<polyline points="15 19 12 22 9 19"></polyline>
+											<polyline points="19 9 22 12 19 15"></polyline>
+											<line x1="2" y1="12" x2="22" y2="12"></line>
+											<line x1="12" y1="2" x2="12" y2="22"></line>
+										</svg>
+										<span>Done</span>
+									</h6>
+									<span class="float-end">
+										<div class="action-btn bg-info ms-2">
+											<a href="#" data-url="http://localhost/other/project-task-stages/188/edit" data-ajax-popup="true" data-bs-toggle="tooltip" title="" data-title="Edit Bug Status" class="mx-3 btn btn-sm d-inline-flex align-items-center" data-bs-original-title="Edit">
+												<i class="bi bi-pencil text-white"></i>
+											</a>
+										</div>
+										<div class="action-btn bg-danger ms-2">
+											<form method="POST" action="http://localhost/other/project-task-stages/188" accept-charset="UTF-8" id="delete-form-188"><input name="_method" type="hidden" value="DELETE"><input name="_token" type="hidden" value="q4UTQ0S1spGLbp1qFl5N9vDcE8eW1YX3XkMwbbbv">
+												<a href="#!" class="mx-3 btn btn-sm align-items-center bs-pass-para" data-bs-toggle="tooltip" title="" data-original-title="Delete" data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?" data-confirm-yes="document.getElementById('delete-form-188').submit();" data-bs-original-title="Delete">
+													<i class="bi bi-trash text-white"></i>
+												</a>
+											</form>
+										</div>
+
+									</span>
+								</li>
+							</ul>
+						</div>
+
+						<div class="tab-pane fade show  " role="tabpanel">
+							<ul class="list-unstyled list-group sortable stage ui-sortable">
+								<li class="d-flex align-items-center justify-content-between list-group-item ui-sortable-handle" data-id="185">
+									<h6 class="mb-0">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-move me-3 ti ti-arrows-maximize ">
+											<polyline points="5 9 2 12 5 15"></polyline>
+											<polyline points="9 5 12 2 15 5"></polyline>
+											<polyline points="15 19 12 22 9 19"></polyline>
+											<polyline points="19 9 22 12 19 15"></polyline>
+											<line x1="2" y1="12" x2="22" y2="12"></line>
+											<line x1="12" y1="2" x2="12" y2="22"></line>
+										</svg>
+										<span>To Do</span>
+									</h6>
+									<span class="float-end">
+										<div class="action-btn bg-info ms-2">
+											<a href="#" data-url="http://localhost/other/project-task-stages/185/edit" data-ajax-popup="true" data-bs-toggle="tooltip" title="" data-title="Edit Bug Status" class="mx-3 btn btn-sm d-inline-flex align-items-center" data-bs-original-title="Edit">
+												<i class="ti ti-pencil text-white"></i>
+											</a>
+										</div>
+										<div class="action-btn bg-danger ms-2">
+											<form method="POST" action="http://localhost/other/project-task-stages/185" accept-charset="UTF-8" id="delete-form-185"><input name="_method" type="hidden" value="DELETE"><input name="_token" type="hidden" value="q4UTQ0S1spGLbp1qFl5N9vDcE8eW1YX3XkMwbbbv">
+												<a href="#!" class="mx-3 btn btn-sm align-items-center bs-pass-para" data-bs-toggle="tooltip" title="" data-original-title="Delete" data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?" data-confirm-yes="document.getElementById('delete-form-185').submit();" data-bs-original-title="Delete">
+													<i class="ti ti-trash text-white"></i>
+												</a>
+											</form>
+										</div>
+
+									</span>
+								</li>
+								<li class="d-flex align-items-center justify-content-between list-group-item ui-sortable-handle" data-id="186">
+									<h6 class="mb-0">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-move me-3 ti ti-arrows-maximize ">
+											<polyline points="5 9 2 12 5 15"></polyline>
+											<polyline points="9 5 12 2 15 5"></polyline>
+											<polyline points="15 19 12 22 9 19"></polyline>
+											<polyline points="19 9 22 12 19 15"></polyline>
+											<line x1="2" y1="12" x2="22" y2="12"></line>
+											<line x1="12" y1="2" x2="12" y2="22"></line>
+										</svg>
+										<span>In Progress</span>
+									</h6>
+									<span class="float-end">
+										<div class="action-btn bg-info ms-2">
+											<a href="#" data-url="http://localhost/other/project-task-stages/186/edit" data-ajax-popup="true" data-bs-toggle="tooltip" title="" data-title="Edit Bug Status" class="mx-3 btn btn-sm d-inline-flex align-items-center" data-bs-original-title="Edit">
+												<i class="ti ti-pencil text-white"></i>
+											</a>
+										</div>
+										<div class="action-btn bg-danger ms-2">
+											<form method="POST" action="http://localhost/other/project-task-stages/186" accept-charset="UTF-8" id="delete-form-186"><input name="_method" type="hidden" value="DELETE"><input name="_token" type="hidden" value="q4UTQ0S1spGLbp1qFl5N9vDcE8eW1YX3XkMwbbbv">
+												<a href="#!" class="mx-3 btn btn-sm align-items-center bs-pass-para" data-bs-toggle="tooltip" title="" data-original-title="Delete" data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?" data-confirm-yes="document.getElementById('delete-form-186').submit();" data-bs-original-title="Delete">
+													<i class="ti ti-trash text-white"></i>
+												</a>
+											</form>
+										</div>
+
+									</span>
+								</li>
+								<li class="d-flex align-items-center justify-content-between list-group-item ui-sortable-handle" data-id="187">
+									<h6 class="mb-0">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-move me-3 ti ti-arrows-maximize ">
+											<polyline points="5 9 2 12 5 15"></polyline>
+											<polyline points="9 5 12 2 15 5"></polyline>
+											<polyline points="15 19 12 22 9 19"></polyline>
+											<polyline points="19 9 22 12 19 15"></polyline>
+											<line x1="2" y1="12" x2="22" y2="12"></line>
+											<line x1="12" y1="2" x2="12" y2="22"></line>
+										</svg>
+										<span>Review</span>
+									</h6>
+									<span class="float-end">
+										<div class="action-btn bg-info ms-2">
+											<a href="#" data-url="http://localhost/other/project-task-stages/187/edit" data-ajax-popup="true" data-bs-toggle="tooltip" title="" data-title="Edit Bug Status" class="mx-3 btn btn-sm d-inline-flex align-items-center" data-bs-original-title="Edit">
+												<i class="ti ti-pencil text-white"></i>
+											</a>
+										</div>
+										<div class="action-btn bg-danger ms-2">
+											<form method="POST" action="http://localhost/other/project-task-stages/187" accept-charset="UTF-8" id="delete-form-187"><input name="_method" type="hidden" value="DELETE"><input name="_token" type="hidden" value="q4UTQ0S1spGLbp1qFl5N9vDcE8eW1YX3XkMwbbbv">
+												<a href="#!" class="mx-3 btn btn-sm align-items-center bs-pass-para" data-bs-toggle="tooltip" title="" data-original-title="Delete" data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?" data-confirm-yes="document.getElementById('delete-form-187').submit();" data-bs-original-title="Delete">
+													<i class="ti ti-trash text-white"></i>
+												</a>
+											</form>
+										</div>
+
+									</span>
+								</li>
+								<li class="d-flex align-items-center justify-content-between list-group-item ui-sortable-handle" data-id="188">
+									<h6 class="mb-0">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-move me-3 ti ti-arrows-maximize ">
+											<polyline points="5 9 2 12 5 15"></polyline>
+											<polyline points="9 5 12 2 15 5"></polyline>
+											<polyline points="15 19 12 22 9 19"></polyline>
+											<polyline points="19 9 22 12 19 15"></polyline>
+											<line x1="2" y1="12" x2="22" y2="12"></line>
+											<line x1="12" y1="2" x2="12" y2="22"></line>
+										</svg>
+										<span>Done</span>
+									</h6>
+									<span class="float-end">
+										<div class="action-btn bg-info ms-2">
+											<a href="#" data-url="http://localhost/other/project-task-stages/188/edit" data-ajax-popup="true" data-bs-toggle="tooltip" title="" data-title="Edit Bug Status" class="mx-3 btn btn-sm d-inline-flex align-items-center" data-bs-original-title="Edit">
+												<i class="ti ti-pencil text-white"></i>
+											</a>
+										</div>
+										<div class="action-btn bg-danger ms-2">
+											<form method="POST" action="http://localhost/other/project-task-stages/188" accept-charset="UTF-8" id="delete-form-188"><input name="_method" type="hidden" value="DELETE"><input name="_token" type="hidden" value="q4UTQ0S1spGLbp1qFl5N9vDcE8eW1YX3XkMwbbbv">
+												<a href="#!" class="mx-3 btn btn-sm align-items-center bs-pass-para" data-bs-toggle="tooltip" title="" data-original-title="Delete" data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?" data-confirm-yes="document.getElementById('delete-form-188').submit();" data-bs-original-title="Delete">
+													<i class="ti ti-trash text-white"></i>
+												</a>
+											</form>
+										</div>
+
+									</span>
+								</li>
+							</ul>
+						</div>
+
+						<div class="tab-pane fade show  " role="tabpanel">
+							<ul class="list-unstyled list-group sortable stage ui-sortable">
+								<li class="d-flex align-items-center justify-content-between list-group-item ui-sortable-handle" data-id="185">
+									<h6 class="mb-0">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-move me-3 ti ti-arrows-maximize ">
+											<polyline points="5 9 2 12 5 15"></polyline>
+											<polyline points="9 5 12 2 15 5"></polyline>
+											<polyline points="15 19 12 22 9 19"></polyline>
+											<polyline points="19 9 22 12 19 15"></polyline>
+											<line x1="2" y1="12" x2="22" y2="12"></line>
+											<line x1="12" y1="2" x2="12" y2="22"></line>
+										</svg>
+										<span>To Do</span>
+									</h6>
+									<span class="float-end">
+										<div class="action-btn bg-info ms-2">
+											<a href="#" data-url="http://localhost/other/project-task-stages/185/edit" data-ajax-popup="true" data-bs-toggle="tooltip" title="" data-title="Edit Bug Status" class="mx-3 btn btn-sm d-inline-flex align-items-center" data-bs-original-title="Edit">
+												<i class="ti ti-pencil text-white"></i>
+											</a>
+										</div>
+										<div class="action-btn bg-danger ms-2">
+											<form method="POST" action="http://localhost/other/project-task-stages/185" accept-charset="UTF-8" id="delete-form-185"><input name="_method" type="hidden" value="DELETE"><input name="_token" type="hidden" value="q4UTQ0S1spGLbp1qFl5N9vDcE8eW1YX3XkMwbbbv">
+												<a href="#!" class="mx-3 btn btn-sm align-items-center bs-pass-para" data-bs-toggle="tooltip" title="" data-original-title="Delete" data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?" data-confirm-yes="document.getElementById('delete-form-185').submit();" data-bs-original-title="Delete">
+													<i class="ti ti-trash text-white"></i>
+												</a>
+											</form>
+										</div>
+
+									</span>
+								</li>
+								<li class="d-flex align-items-center justify-content-between list-group-item ui-sortable-handle" data-id="186">
+									<h6 class="mb-0">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-move me-3 ti ti-arrows-maximize ">
+											<polyline points="5 9 2 12 5 15"></polyline>
+											<polyline points="9 5 12 2 15 5"></polyline>
+											<polyline points="15 19 12 22 9 19"></polyline>
+											<polyline points="19 9 22 12 19 15"></polyline>
+											<line x1="2" y1="12" x2="22" y2="12"></line>
+											<line x1="12" y1="2" x2="12" y2="22"></line>
+										</svg>
+										<span>In Progress</span>
+									</h6>
+									<span class="float-end">
+										<div class="action-btn bg-info ms-2">
+											<a href="#" data-url="http://localhost/other/project-task-stages/186/edit" data-ajax-popup="true" data-bs-toggle="tooltip" title="" data-title="Edit Bug Status" class="mx-3 btn btn-sm d-inline-flex align-items-center" data-bs-original-title="Edit">
+												<i class="ti ti-pencil text-white"></i>
+											</a>
+										</div>
+										<div class="action-btn bg-danger ms-2">
+											<form method="POST" action="http://localhost/other/project-task-stages/186" accept-charset="UTF-8" id="delete-form-186"><input name="_method" type="hidden" value="DELETE"><input name="_token" type="hidden" value="q4UTQ0S1spGLbp1qFl5N9vDcE8eW1YX3XkMwbbbv">
+												<a href="#!" class="mx-3 btn btn-sm align-items-center bs-pass-para" data-bs-toggle="tooltip" title="" data-original-title="Delete" data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?" data-confirm-yes="document.getElementById('delete-form-186').submit();" data-bs-original-title="Delete">
+													<i class="ti ti-trash text-white"></i>
+												</a>
+											</form>
+										</div>
+
+									</span>
+								</li>
+								<li class="d-flex align-items-center justify-content-between list-group-item ui-sortable-handle" data-id="187">
+									<h6 class="mb-0">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-move me-3 ti ti-arrows-maximize ">
+											<polyline points="5 9 2 12 5 15"></polyline>
+											<polyline points="9 5 12 2 15 5"></polyline>
+											<polyline points="15 19 12 22 9 19"></polyline>
+											<polyline points="19 9 22 12 19 15"></polyline>
+											<line x1="2" y1="12" x2="22" y2="12"></line>
+											<line x1="12" y1="2" x2="12" y2="22"></line>
+										</svg>
+										<span>Review</span>
+									</h6>
+									<span class="float-end">
+										<div class="action-btn bg-info ms-2">
+											<a href="#" data-url="http://localhost/other/project-task-stages/187/edit" data-ajax-popup="true" data-bs-toggle="tooltip" title="" data-title="Edit Bug Status" class="mx-3 btn btn-sm d-inline-flex align-items-center" data-bs-original-title="Edit">
+												<i class="ti ti-pencil text-white"></i>
+											</a>
+										</div>
+										<div class="action-btn bg-danger ms-2">
+											<form method="POST" action="http://localhost/other/project-task-stages/187" accept-charset="UTF-8" id="delete-form-187"><input name="_method" type="hidden" value="DELETE"><input name="_token" type="hidden" value="q4UTQ0S1spGLbp1qFl5N9vDcE8eW1YX3XkMwbbbv">
+												<a href="#!" class="mx-3 btn btn-sm align-items-center bs-pass-para" data-bs-toggle="tooltip" title="" data-original-title="Delete" data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?" data-confirm-yes="document.getElementById('delete-form-187').submit();" data-bs-original-title="Delete">
+													<i class="ti ti-trash text-white"></i>
+												</a>
+											</form>
+										</div>
+
+									</span>
+								</li>
+								<li class="d-flex align-items-center justify-content-between list-group-item ui-sortable-handle" data-id="188">
+									<h6 class="mb-0">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-move me-3 ti ti-arrows-maximize ">
+											<polyline points="5 9 2 12 5 15"></polyline>
+											<polyline points="9 5 12 2 15 5"></polyline>
+											<polyline points="15 19 12 22 9 19"></polyline>
+											<polyline points="19 9 22 12 19 15"></polyline>
+											<line x1="2" y1="12" x2="22" y2="12"></line>
+											<line x1="12" y1="2" x2="12" y2="22"></line>
+										</svg>
+										<span>Done</span>
+									</h6>
+									<span class="float-end">
+										<div class="action-btn bg-info ms-2">
+											<a href="#" data-url="http://localhost/other/project-task-stages/188/edit" data-ajax-popup="true" data-bs-toggle="tooltip" title="" data-title="Edit Bug Status" class="mx-3 btn btn-sm d-inline-flex align-items-center" data-bs-original-title="Edit">
+												<i class="ti ti-pencil text-white"></i>
+											</a>
+										</div>
+										<div class="action-btn bg-danger ms-2">
+											<form method="POST" action="http://localhost/other/project-task-stages/188" accept-charset="UTF-8" id="delete-form-188"><input name="_method" type="hidden" value="DELETE"><input name="_token" type="hidden" value="q4UTQ0S1spGLbp1qFl5N9vDcE8eW1YX3XkMwbbbv">
+												<a href="#!" class="mx-3 btn btn-sm align-items-center bs-pass-para" data-bs-toggle="tooltip" title="" data-original-title="Delete" data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?" data-confirm-yes="document.getElementById('delete-form-188').submit();" data-bs-original-title="Delete">
+													<i class="ti ti-trash text-white"></i>
+												</a>
+											</form>
+										</div>
+
+									</span>
+								</li>
+							</ul>
+						</div>
+
+						<div class="tab-pane fade show  " role="tabpanel">
+							<ul class="list-unstyled list-group sortable stage ui-sortable">
+								<li class="d-flex align-items-center justify-content-between list-group-item ui-sortable-handle" data-id="185">
+									<h6 class="mb-0">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-move me-3 ti ti-arrows-maximize ">
+											<polyline points="5 9 2 12 5 15"></polyline>
+											<polyline points="9 5 12 2 15 5"></polyline>
+											<polyline points="15 19 12 22 9 19"></polyline>
+											<polyline points="19 9 22 12 19 15"></polyline>
+											<line x1="2" y1="12" x2="22" y2="12"></line>
+											<line x1="12" y1="2" x2="12" y2="22"></line>
+										</svg>
+										<span>To Do</span>
+									</h6>
+									<span class="float-end">
+										<div class="action-btn bg-info ms-2">
+											<a href="#" data-url="http://localhost/other/project-task-stages/185/edit" data-ajax-popup="true" data-bs-toggle="tooltip" title="" data-title="Edit Bug Status" class="mx-3 btn btn-sm d-inline-flex align-items-center" data-bs-original-title="Edit">
+												<i class="ti ti-pencil text-white"></i>
+											</a>
+										</div>
+										<div class="action-btn bg-danger ms-2">
+											<form method="POST" action="http://localhost/other/project-task-stages/185" accept-charset="UTF-8" id="delete-form-185"><input name="_method" type="hidden" value="DELETE"><input name="_token" type="hidden" value="q4UTQ0S1spGLbp1qFl5N9vDcE8eW1YX3XkMwbbbv">
+												<a href="#!" class="mx-3 btn btn-sm align-items-center bs-pass-para" data-bs-toggle="tooltip" title="" data-original-title="Delete" data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?" data-confirm-yes="document.getElementById('delete-form-185').submit();" data-bs-original-title="Delete">
+													<i class="ti ti-trash text-white"></i>
+												</a>
+											</form>
+										</div>
+
+									</span>
+								</li>
+								<li class="d-flex align-items-center justify-content-between list-group-item ui-sortable-handle" data-id="186">
+									<h6 class="mb-0">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-move me-3 ti ti-arrows-maximize ">
+											<polyline points="5 9 2 12 5 15"></polyline>
+											<polyline points="9 5 12 2 15 5"></polyline>
+											<polyline points="15 19 12 22 9 19"></polyline>
+											<polyline points="19 9 22 12 19 15"></polyline>
+											<line x1="2" y1="12" x2="22" y2="12"></line>
+											<line x1="12" y1="2" x2="12" y2="22"></line>
+										</svg>
+										<span>In Progress</span>
+									</h6>
+									<span class="float-end">
+										<div class="action-btn bg-info ms-2">
+											<a href="#" data-url="http://localhost/other/project-task-stages/186/edit" data-ajax-popup="true" data-bs-toggle="tooltip" title="" data-title="Edit Bug Status" class="mx-3 btn btn-sm d-inline-flex align-items-center" data-bs-original-title="Edit">
+												<i class="ti ti-pencil text-white"></i>
+											</a>
+										</div>
+										<div class="action-btn bg-danger ms-2">
+											<form method="POST" action="http://localhost/other/project-task-stages/186" accept-charset="UTF-8" id="delete-form-186"><input name="_method" type="hidden" value="DELETE"><input name="_token" type="hidden" value="q4UTQ0S1spGLbp1qFl5N9vDcE8eW1YX3XkMwbbbv">
+												<a href="#!" class="mx-3 btn btn-sm align-items-center bs-pass-para" data-bs-toggle="tooltip" title="" data-original-title="Delete" data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?" data-confirm-yes="document.getElementById('delete-form-186').submit();" data-bs-original-title="Delete">
+													<i class="ti ti-trash text-white"></i>
+												</a>
+											</form>
+										</div>
+
+									</span>
+								</li>
+								<li class="d-flex align-items-center justify-content-between list-group-item ui-sortable-handle" data-id="187">
+									<h6 class="mb-0">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-move me-3 ti ti-arrows-maximize ">
+											<polyline points="5 9 2 12 5 15"></polyline>
+											<polyline points="9 5 12 2 15 5"></polyline>
+											<polyline points="15 19 12 22 9 19"></polyline>
+											<polyline points="19 9 22 12 19 15"></polyline>
+											<line x1="2" y1="12" x2="22" y2="12"></line>
+											<line x1="12" y1="2" x2="12" y2="22"></line>
+										</svg>
+										<span>Review</span>
+									</h6>
+									<span class="float-end">
+										<div class="action-btn bg-info ms-2">
+											<a href="#" data-url="http://localhost/other/project-task-stages/187/edit" data-ajax-popup="true" data-bs-toggle="tooltip" title="" data-title="Edit Bug Status" class="mx-3 btn btn-sm d-inline-flex align-items-center" data-bs-original-title="Edit">
+												<i class="ti ti-pencil text-white"></i>
+											</a>
+										</div>
+										<div class="action-btn bg-danger ms-2">
+											<form method="POST" action="http://localhost/other/project-task-stages/187" accept-charset="UTF-8" id="delete-form-187"><input name="_method" type="hidden" value="DELETE"><input name="_token" type="hidden" value="q4UTQ0S1spGLbp1qFl5N9vDcE8eW1YX3XkMwbbbv">
+												<a href="#!" class="mx-3 btn btn-sm align-items-center bs-pass-para" data-bs-toggle="tooltip" title="" data-original-title="Delete" data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?" data-confirm-yes="document.getElementById('delete-form-187').submit();" data-bs-original-title="Delete">
+													<i class="ti ti-trash text-white"></i>
+												</a>
+											</form>
+										</div>
+
+									</span>
+								</li>
+								<li class="d-flex align-items-center justify-content-between list-group-item ui-sortable-handle" data-id="188">
+									<h6 class="mb-0">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-move me-3 ti ti-arrows-maximize ">
+											<polyline points="5 9 2 12 5 15"></polyline>
+											<polyline points="9 5 12 2 15 5"></polyline>
+											<polyline points="15 19 12 22 9 19"></polyline>
+											<polyline points="19 9 22 12 19 15"></polyline>
+											<line x1="2" y1="12" x2="22" y2="12"></line>
+											<line x1="12" y1="2" x2="12" y2="22"></line>
+										</svg>
+										<span>Done</span>
+									</h6>
+									<span class="float-end">
+										<div class="action-btn bg-info ms-2">
+											<a href="#" data-url="http://localhost/other/project-task-stages/188/edit" data-ajax-popup="true" data-bs-toggle="tooltip" title="" data-title="Edit Bug Status" class="mx-3 btn btn-sm d-inline-flex align-items-center" data-bs-original-title="Edit">
+												<i class="ti ti-pencil text-white"></i>
+											</a>
+										</div>
+										<div class="action-btn bg-danger ms-2">
+											<form method="POST" action="http://localhost/other/project-task-stages/188" accept-charset="UTF-8" id="delete-form-188"><input name="_method" type="hidden" value="DELETE"><input name="_token" type="hidden" value="q4UTQ0S1spGLbp1qFl5N9vDcE8eW1YX3XkMwbbbv">
+												<a href="#!" class="mx-3 btn btn-sm align-items-center bs-pass-para" data-bs-toggle="tooltip" title="" data-original-title="Delete" data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?" data-confirm-yes="document.getElementById('delete-form-188').submit();" data-bs-original-title="Delete">
+													<i class="ti ti-trash text-white"></i>
+												</a>
+											</form>
+										</div>
+
+									</span>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<p class=" mt-4">
+						<strong>Note :
+						</strong>
+						<b>You can easily change order of project task stage using drag &amp; drop.</b>
+					</p>
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+{% endblock %}
+{% block javascript %}
+{% endblock %}

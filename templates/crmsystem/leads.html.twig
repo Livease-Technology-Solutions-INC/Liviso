@@ -14,86 +14,99 @@
 {% endblock %}
 
 {% block pagetitle %}
-	{{ include('partials/page-title.html.twig', { sub_title: 'Leads', page_title: 'Leads' }) }}
+	<div class"row align-items-center d-flex">
+		<div class="col mt-2">
+			<div class="float-end mt-3">
+				<a href="#" class="btn btn-sm btn-primary" onclick="saveAsPDF()" data-bs-toggle="tooltip" title="" data-original-title="Download" data-bs-original-title="Export">
+					<span class="btn-inner--icon">
+						<i class="bi bi-plus"></i>
+					</span>
+				</a>
+			</div>
+		</div>
+		<div class="col auto">
+			{{ include('partials/page-title.html.twig', { sub_title: 'Leads', page_title: 'Leads' }) }}
+		</div>
+	</div>
 {% endblock %}
 
 {% block body %}
-	{# <div class="row">
+	<div class="row">
 		<div class="col-sm-12">
-			{% set lead_stages = pipeline.leadStages %}
-			{% set json = [] %}
-			{% for lead_stage in lead_stages %}
-				{% set _ = json.append('task-list-' ~ lead_stage.id) %}
-			{% endfor %}
-			<div class="row kanban-wrapper horizontal-scroll-cards" data-containers='{{ json|json_encode()|raw }}' data-plugin="dragula">
-				{% for lead_stage in lead_stages %}
-					{% set leads = lead_stage.lead() %}
-					<div class="col">
-						<div class="card">
-							<div class="card-header">
-								<div class="float-end">
-									<span class="btn btn-sm btn-primary btn-icon count">
-										{{ leads|length }}
-									</span>
-								</div>
-								<h4 class="mb-0">{{ lead_stage.name }}</h4>
+			<div class="row kanban-wrapper horizontal-scroll-cards" data-containers="[&quot;task-list-231&quot;,&quot;task-list-232&quot;,&quot;task-list-233&quot;,&quot;task-list-234&quot;,&quot;task-list-235&quot;]" data-plugin="dragula">
+				<div class="col">
+					<div class="card">
+						<div class="card-header">
+							<div class="float-end">
+								<span class="btn btn-sm btn-primary btn-icon count">
+									0
+								</span>
 							</div>
-							<div class="card-body kanban-box" id="task-list-{{ lead_stage.id }}" data-id="{{ lead_stage.id }}">
-								{% for lead in leads %}
-									<div class="card" data-id="{{ lead.id }}">
-										<div class="pt-3 ps-3">
-											{% set labels = lead.labels() %}
-											{% if labels %}
-												{% for label in labels %}
-													<div class="badge-xs badge bg-{{ label.color }} p-2 px-3 rounded">{{ label.name }}</div>
-												{% endfor %}
-											{% endif %}
-										</div>
-										<div class="card-header border-0 pb-0 position-relative">
-											<h5>
-												<a href="{% if is_granted('view lead') %}{% if lead.is_active %}{{ path('leads.show', {'id': lead.id}) }}{% else %}#{% endif %}{% else %}#{% endif %}">{{ lead.name }}</a>
-											</h5>
-											<div class="card-header-right">
-												{% if app.user.type != 'client' %}
-													<div class="btn-group card-option">
-														<button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-															<i class="ti ti-dots-vertical"></i>
-														</button>
-														<div class="dropdown-menu dropdown-menu-end">
-															{% if is_granted('edit lead') %}
-																<a href="#!" data-size="md" data-url="{{ path('leads.labels', {'id': lead.id}) }}" data-ajax-popup="true" class="dropdown-item" data-bs-original-title="{{ 'Labels' }}">
-																	<i class="ti ti-bookmark"></i>
-																	<span>{{ 'Labels' }}</span>
-																</a>
-																<a href="#!" data-size="lg" data-url="{{ path('leads.edit', {'id': lead.id}) }}" data-ajax-popup="true" class="dropdown-item" data-bs-original-title="{{ 'Edit Lead' }}">
-																	<i class="ti ti-pencil"></i>
-																	<span>{{ 'Edit' }}</span>
-																</a>
-															{% endif %}
-															{% if is_granted('delete lead') %}
-																<form method="POST" action="{{ path('leads.destroy', {'id': lead.id}) }}" id="delete-form-{{ lead.id }}">
-																	<a href="#!" class="dropdown-item bs-pass-para">
-																		<i class="ti ti-archive"></i>
-																		<span>{{ 'Delete' }}</span>
-																	</a>
-																</form>
-															{% endif %}
-														</div>
-													</div>
-												{% endif %}
-											</div>
-										</div>
-										{# rest of the code #}
-									{# </div>
-								{% endfor %}
-							</div>
+							<h4 class="mb-0">Draft</h4>
 						</div>
+						<div class="card-body kanban-box" id="task-list-231" data-id="231"></div>
 					</div>
-				{% endfor %}
+
+				</div>
+				<div class="col">
+					<div class="card">
+						<div class="card-header">
+							<div class="float-end">
+								<span class="btn btn-sm btn-primary btn-icon count">
+									0
+								</span>
+							</div>
+							<h4 class="mb-0">Sent</h4>
+						</div>
+						<div class="card-body kanban-box" id="task-list-232" data-id="232"></div>
+					</div>
+
+				</div>
+				<div class="col">
+					<div class="card">
+						<div class="card-header">
+							<div class="float-end">
+								<span class="btn btn-sm btn-primary btn-icon count">
+									0
+								</span>
+							</div>
+							<h4 class="mb-0">Open</h4>
+						</div>
+						<div class="card-body kanban-box" id="task-list-233" data-id="233"></div>
+					</div>
+
+				</div>
+				<div class="col">
+					<div class="card">
+						<div class="card-header">
+							<div class="float-end">
+								<span class="btn btn-sm btn-primary btn-icon count">
+									0
+								</span>
+							</div>
+							<h4 class="mb-0">Revised</h4>
+						</div>
+						<div class="card-body kanban-box" id="task-list-234" data-id="234"></div>
+					</div>
+
+				</div>
+				<div class="col">
+					<div class="card">
+						<div class="card-header">
+							<div class="float-end">
+								<span class="btn btn-sm btn-primary btn-icon count">
+									0
+								</span>
+							</div>
+							<h4 class="mb-0">Declined</h4>
+						</div>
+						<div class="card-body kanban-box" id="task-list-235" data-id="235"></div>
+					</div>
+
+				</div>
 			</div>
 		</div>
-	</div>  #}
-
+	</div>
 {% endblock %}
 
 {% block javascript %}{% endblock %}

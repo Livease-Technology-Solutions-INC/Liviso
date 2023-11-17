@@ -14,7 +14,18 @@
 {% endblock %}
 
 {% block pagetitle %}
-	{{ include('partials/page-title.html.twig', { sub_title: 'Role', page_title: 'Role' }) }}
+	<div class"row align-items-center d-flex">
+		<div class="col mt-2">
+			<div class="float-end mt-3">
+				<a href="#" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary" data-bs-original-title="Import">
+					<i class="bi bi-plus"></i>
+				</a>
+			</div>
+		</div>
+		<div class="col auto">
+			{{ include('partials/page-title.html.twig', { sub_title: 'Role', page_title: 'Role' }) }}
+		</div>
+	</div>
 {% endblock %}
 
 {% block body %}
@@ -33,13 +44,13 @@
 						</thead>
 						<tbody>
 							{# <tr>
-								<td>Cara Stevens</td>
-								<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-								<td>New York</td>
-								<td>46</td>
-								<td>2011/12/06</td>
-								<td>2011/12/06</td>
-							</tr> #}
+															<td>Cara Stevens</td>
+															<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
+															<td>New York</td>
+															<td>46</td>
+															<td>2011/12/06</td>
+															<td>2011/12/06</td>
+														</tr> #}
 						</tbody>
 					</table>
 
@@ -68,6 +79,5 @@
 	<script src="/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
 
 	<!-- Datatable Demo Aapp js -->
-	<script src="/js/pages/demo.datatable-init.js">
-	</script>
+	<script src="/js/pages/demo.datatable-init.js"></script>
 {% endblock %}

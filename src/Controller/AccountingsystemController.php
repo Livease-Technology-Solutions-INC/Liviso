@@ -127,11 +127,11 @@ class AccountingsystemController extends AbstractController
             'controller_name' => 'AccountingsystemController',
         ]);
     }
-    #[Route('/accountingsystem/trail_balance', name: 'accountingsystem/trail_balance')]
+    #[Route('/accountingsystem/trial_balance', name: 'accountingsystem/trial_balance')]
     public function trialBalance(): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        return $this->render('accountingsystem/trailBalance.html.twig', [
+        return $this->render('accountingsystem/trialBalance.html.twig', [
             'controller_name' => 'AccountingsystemController',
         ]);
     }

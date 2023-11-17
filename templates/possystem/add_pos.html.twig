@@ -18,14 +18,12 @@
 {% endblock %}
 
 {% block body %}
-
 	<div class="container-fluid px-2">
-		{# <?php $lastsegment = request()->segment(count(request()->segments())) ?> #}
 		<div class="row">
 			<div class="col-12">
 				<div class="mt-2 pos-top-bar bg-color d-flex justify-content-between bg-primary">
 					<span class="text-white">POS</span>
-					<a href="{{ path('account-dashboard') }}" class="text-white">
+					<a href="http://localhost/other/account-dashboard" class="text-white">
 						<i class="ti ti-home" style="font-size: 20px;"></i>
 					</a>
 				</div>
@@ -43,7 +41,7 @@
 											<i class="ti ti-search"></i>
 										</span>
 									</div>
-									<input id="searchproduct" type="text" data-url="#" placeholder="" class="form-control pr-4 rounded-right">
+									<input id="searchproduct" type="text" data-url="http://localhost/other/search-products" placeholder="Search Product" class="form-control pr-4 rounded-right">
 								</div>
 							</form>
 						</div>
@@ -51,10 +49,22 @@
 					<div class="card-body p-2">
 						<div class="right-content">
 							<div class="button-list b-bottom catgory-pad">
-								<div class="form-row m-0" id="categories-listing"></div>
+								<div class="form-row m-0" id="categories-listing">
+									<div class="mb-3 mr-2 zoom-in ">
+										<div class="card rounded-10 card-stats mb-0 overflow-hidden cat-active" data-id="0">
+											<div class="category-select" data-cat-id="0">
+												<button type="button" class="btn tab-btns btn-primary">All Categories</button>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 							<div class="product-body-nop">
-								<div class="form-row" id="product-listing"></div>
+								<div class="form-row" id="product-listing">
+									<div class="card card-body col-12 text-center">
+										<h5>No Product Available</h5>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -65,18 +75,24 @@
 					<div class="card-header p-2">
 						<div class="row">
 							<div class="col-md-6">
-								{# {{ Form::select('customer_id', $customers,'', array('class' => 'form-control select customer_select','id'=>'customer','required'=>'required')) }} #}
-								{# {{ Form::hidden('vc_name_hidden', '',['id' => 'vc_name_hidden']) }} #}
+								<select class="form-control select customer_select" id="customer" required="required" name="customer_id">
+									<option value="" selected="selected">Walk-in-customer</option>
+									<option value="Habeebi">Habeebi</option>
+									<option value="Saleem Shahzad">Saleem Shahzad</option>
+									<option value="Billy ban">Billy ban</option>
+								</select>
+								<input id="vc_name_hidden" name="vc_name_hidden" type="hidden" value="">
 
 							</div>
 							<div class="col-md-6">
-								{# {{ Form::select('warehouse_id', $warehouses,'', array('class' => 'form-control select warehouse_select ','id'=>'warehouse','required'=>'required')) }} #}
-								{# {{ Form::hidden('warehouse_name_hidden', '',['id' => 'warehouse_name_hidden']) }} #}
+								<select class="form-control select warehouse_select " id="warehouse" required="required" name="warehouse_id">
+									<option value="47">North Warehouse</option>
+								</select>
+								<input id="warehouse_name_hidden" name="warehouse_name_hidden" type="hidden" value="47">
 							</div>
 						</div>
 					</div>
 					<div class="card-body carttable cart-product-list carttable-scroll" id="carthtml">
-						{# @php $total = 0 @endphp #}
 						<div class="table-responsive">
 							<table class="table">
 								<thead>
@@ -91,94 +107,43 @@
 									</tr>
 								</thead>
 								<tbody id="tbody">
-									{# @if(session($lastsegment) && !empty(session($lastsegment)) && count(session($lastsegment)) > 0)
-									                                        @foreach(session($lastsegment) as $id => $details)
-									                                            @php
-									                                                $product = \App\Models\ProductService::find($details['id']);
-									                                                $image_url = (  !empty($product) && isset($product->pro_image) ) ? $product->pro_image : 'uploads/pro_image/';
-									                                                $total += $details['subtotal'];
-									                                            @endphp #}
-									<tr data-product-id="#" id="#">
-										<td class="cart-images">
-											<img alt="Image placeholder" src="#" class="card-image avatar rounded-circle-sale shadow hover-shadow-lg">
-										</td>
-										<td class="name">details</td>
-										<td>
-											<span class="quantity buttons_added">
-												<input type="button" value="-" class="minus">
-												<input type="number" step="1" min="1" max="" name="quantity" title="Quantity" class="input-number" data-url="update-cart" data-id="id" size="4" value="details">
-												<input type="button" value="+" class="plus">
-											</span>
-										</td>
-										<td>
-											{# @if(!empty($product->tax_id))
-											                                                        @php
-											                                                            $taxes=\Utility::tax($product->tax_id);
-											                                                        @endphp
-											                                                        @foreach($taxes as $tax) #}
-											<span class="badge bg-primary">tax->name</span>
-											<br>
-											{# @endforeach
-											                                                    @else
-											                                                        -
-											                                                    @endif #}
-										</td>
-										<td class="price text-right">details</td>
-										<td class="col-sm-3 mt-2">
-											<span class="subtotal">details</span>
-										</td>
-										{# <td class="col-sm-2 mt-2">
-											<a href="#" class="action-btn bg-danger bs-pass-para-pos" data-confirm="#" data-text="" data-confirm-yes="delete-form-{{ $id }}" title="{{ __('Delete') }}" data-id="{{ $id }}">
-												<i class="ti ti-trash text-white mx-3 btn btn-sm" title="{{ __('Delete') }}"></i>
-											</a>
-											{!! Form::open(['method' => 'delete', 'url' => ['remove-from-cart'],'id' => 'delete-form-'.$id]) !!}
-											<input type="hidden" name="session_key" value="lastsegment">
-											<input type="hidden" name="id" value="id">
-											{!! Form::close() !!}
-										</td> #}
-									</tr>
-									@endforeach
-									                                    @else
 									<tr class="text-center no-found">
-										<td colspan="7">No Data Found</td>
+										<td colspan="7">No Data Found.!</td>
 									</tr>
-									@endif
 								</tbody>
 							</table>
 						</div>
 						<div class="total-section mt-3">
 							<div class="sub-total">
 								<div class="d-flex text-end justify-content-end">
-									<h6 class="mb-0 text-dark">Sub Total
-										:</h6>
-									<h6 class="mb-0 text-dark subtotal_price" id="displaytotal">total</h6>
+									<h6 class="mb-0 text-dark">Sub Total :</h6>
+									<h6 class="mb-0 text-dark subtotal_price" id="displaytotal">$0.00</h6>
 								</div>
 								<div class="row align-items-center">
 									<div class="col-6">
 										<div class="d-flex text-end justify-content-end align-items-center">
-											<span class="input-group-text bg-transparent">currencySymbol</span>
-											{# {{ Form::number('discount',null, array('class' => ' form-control discount','required'=>'required','placeholder'=>__('Discount'))) }} #}
-											{# {{ Form::hidden('discount_hidden', '',['id' => 'discount_hidden']) }} #}
+											<span class="input-group-text bg-transparent">$</span>
+											<input class=" form-control discount" required="required" placeholder="Discount" name="discount" type="number">
+											<input id="discount_hidden" name="discount_hidden" type="hidden" value="">
 										</div>
 									</div>
 									<div class="col-6">
 										<div class="d-flex align-items-center justify-content-end">
-											<h6 class="">Total
-												</h6>
-											<h6 class="totalamount">priceFormat</h6>
+											<h6 class="">Total :</h6>
+											<h6 class="totalamount">$0.00</h6>
 										</div>
 									</div>
 								</div>
 								<div class="d-flex align-items-center justify-content-between pt-3" id="btn-pur">
-									<button type="button" class="btn btn-primary rounded" data-ajax-popup="true" data-size="xl" data-align="centered" data-url="#" data-title="#" @if(session($lastsegment) && !empty(session($lastsegment)) && count(session($lastsegment)) > 0) @else disabled="disabled" @endif>
+									<button type="button" class="btn btn-primary rounded" data-ajax-popup="true" data-size="xl" data-align="centered" data-url="http://localhost/other/pos/create" data-title="POS Invoice" disabled="disabled">
 										PAY
 									</button>
 									<div class="tab-content btn-empty text-end">
-										<a href="#" class="btn btn-danger bs-pass-para-pos rounded m-0" data-toggle="tooltip" data-original-title="#" data-confirm="#" data-text="" data-confirm-yes="delete-form-emptycart">#
+										<a href="#" class="btn btn-danger bs-pass-para-pos rounded m-0" data-toggle="tooltip" data-original-title="Empty Cart" data-confirm="Are You Sure?" data-text="This action can not be undone. Do you want to continue?" data-confirm-yes="delete-form-emptycart">Empty Cart
 										</a>
-										{# {!! Form::open(['method' => 'post', 'url' => ['empty-cart'],'id' => 'delete-form-emptycart']) !!} #}
-										<input type="hidden" name="session_key" value="lastsegment" id="empty_cart">
-										{# {!! Form::close() !!} #}
+										<form method="POST" action="http://localhost/other/empty-cart" accept-charset="UTF-8" id="delete-form-emptycart"><input name="_token" type="hidden" value="q4UTQ0S1spGLbp1qFl5N9vDcE8eW1YX3XkMwbbbv">
+											<input type="hidden" name="session_key" value="pos" id="empty_cart">
+										</form>
 									</div>
 								</div>
 							</div>
@@ -188,41 +153,22 @@
 			</div>
 		</div>
 	</div>
-</div>
+	<!-- end row-->
+{% endblock %}
+{% block javascript %}
+	<!-- Datatables js -->
+	<script src="/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script src="/vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+	<script src="/vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+	<script src="/vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+	<script src="/vendor/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
+	<script src="/vendor/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+	<script src="/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
 
-
-<div class="modal fade" id="commonModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel"></h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="body"></div>
-		</div>
-	</div>
-</div>
-<div class="position-fixed top-0 end-0 p-3" style="z-index: 99999">
-	<div id="liveToast" class="toast text-white  fade" role="alert" aria-live="assertive" aria-atomic="true">
-		<div class="d-flex">
-			<div class="toast-body"></div>
-			<button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-		</div>
-	</div>
-</div>
-<!-- end row-->{% endblock %}{% block javascript %}
-<!-- Datatables js -->
-<script src="/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="/vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
-<script src="/vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-<script src="/vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
-<script src="/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-<script src="/vendor/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js"></script>
-<script src="/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
-<script src="/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
-<script src="/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
-<script src="/vendor/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-<script src="/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
-
-<!-- Datatable Demo Aapp js -->
-<script src="/js/pages/demo.datatable-init.js"></script>{% endblock %}
+	<!-- Datatable Demo Aapp js -->
+	<script src="/js/pages/demo.datatable-init.js"></script>
+{% endblock %}

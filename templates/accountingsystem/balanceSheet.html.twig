@@ -1,0 +1,784 @@
+{% extends 'partials/layout-vertical.html.twig' %}
+
+{% block title %}Balance Sheet
+{% endblock %}
+
+{% block css %}
+	<!-- Datatables css -->
+	<link href="/vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-fixedcolumns-bs5/css/fixedColumns.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-select-bs5/css/select.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block pagetitle %}
+	<div class"row align-items-center d-flex">
+		<div class="col mt-2">
+			<div class="float-end mt-3">
+
+				<a href="#" class="btn btn-sm btn-primary" onclick="saveAsPDF()" data-bs-toggle="tooltip" title="" data-original-title="Download" data-bs-original-title="Export">
+					<span class="btn-inner--icon">
+						<i class="bi bi-file-earmark-arrow-up"></i>
+					</span>
+				</a>
+			</div>
+		</div>
+		<div class="col auto">
+			{{ include('partials/page-title.html.twig', { sub_title: 'Balance Sheet', page_title: 'Balance Sheet' }) }}
+		</div>
+	</div>
+{% endblock %}
+{% block body %}
+	<div class="row mb-5 gy-4">
+		<div class="col-xl-6 col-lg-9 col-md-6">
+			<div class="welcome-card border bg-light-success p-3 border-success rounded text-dark h-100">
+				<h3 class="mb-3">Select dates</h3>
+				<form method="GET" action="#" accept-charset="UTF-8" id="report_bill_summary">
+					<div class="row gy-2 gx-2">
+						<div class="col-lg-4">
+							<div class="form-group mb-0">
+								<label for="start_date" class="form-label">Start Date</label>
+								<div class="input-group date">
+									<input class="month-btn form-control" name="start_date" type="date" value="2023-11-01" id="start_date">
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="form-group mb-0">
+								<label for="end_date" class="form-label">End Date</label>
+								<div class="input-group date">
+									<input class="month-btn form-control" name="end_date" type="date" value="2023-11-30" id="end_date">
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 d-flex align-items-end">
+							<a href="#" class="btn btn-primary me-2" onclick="document.getElementById('report_bill_summary').submit(); return false;" data-bs-toggle="tooltip" title="" data-original-title="apply" data-bs-original-title="Apply">
+								<span class="btn-inner--icon">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle me-1">
+										<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+										<polyline points="22 4 12 14.01 9 11.01"></polyline>
+									</svg>
+								</span>
+							</a>
+							<a href="#" class="btn btn-danger" data-bs-toggle="tooltip" title="" data-original-title="Reset" data-bs-original-title="Reset">
+								<span class="btn-inner--icon">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2">
+										<polyline points="3 6 5 6 21 6"></polyline>
+										<path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+										<line x1="10" y1="11" x2="10" y2="17"></line>
+										<line x1="14" y1="11" x2="14" y2="17"></line>
+									</svg>
+								</span>
+							</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="col-xl-2 col-lg-3 col-md-6">
+			<div class="card h-100 shadow-none mb-0">
+				<div class="card-body border rounded p-3">
+					<input type="hidden" value="Balance Sheet Report of 2023-11-01 to 2023-11-30" id="filename">
+					<div class="mb-4 d-flex align-items-center justify-content-between">
+						<h6 class="mb-0">Report:
+							<br>
+							<small class="text-muted">Balance Sheet</small>
+						</h6>
+						<span>
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-up-right">
+								<line x1="7" y1="17" x2="17" y2="7"></line>
+								<polyline points="7 7 17 7 17 17"></polyline>
+							</svg>
+						</span>
+					</div>
+					<h6 class="mb-0">Duration:</h6>
+					<small class="text-muted">2023-11-01 to 2023-11-30</small>
+				</div>
+			</div>
+		</div>
+		<div class="col-xl-2 col-lg-3 col-md-6">
+			<div class="card shadow-none mb-0 h-100">
+				<div class="card-body border rounded p-3">
+					<div class="mb-4 d-flex align-items-center justify-content-between">
+						<h6 class="mb-0">Total Assets</h6>
+						<span>
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-up-right">
+								<line x1="7" y1="17" x2="17" y2="7"></line>
+								<polyline points="7 7 17 7 17 17"></polyline>
+							</svg>
+						</span>
+					</div>
+					<div class="mb-3 d-flex align-items-center justify-content-between">
+						<span class="f-30 f-w-600">
+							$0.00
+						</span>
+					</div>
+					<div class="chart-wrapper">
+						<div id="TotalProducts"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xl-2 col-lg-3 col-md-6">
+			<div class="card shadow-none mb-0 h-100">
+				<div class="card-body border rounded p-3">
+					<div class="mb-4 d-flex align-items-center justify-content-between">
+						<h6 class="mb-0">Total Liabilities</h6>
+						<span>
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-up-right">
+								<line x1="7" y1="17" x2="17" y2="7"></line>
+								<polyline points="7 7 17 7 17 17"></polyline>
+							</svg>
+						</span>
+					</div>
+					<div class="mb-3 d-flex align-items-center justify-content-between">
+						<span class="f-30 f-w-600">
+							$0.00
+						</span>
+					</div>
+					<div class="chart-wrapper">
+						<div id="TotalProducts"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xl-2 col-lg-3 col-md-6">
+			<div class="card shadow-none mb-0 h-100">
+				<div class="card-body border rounded p-3">
+					<div class="mb-4 d-flex align-items-center justify-content-between">
+						<h6 class="mb-0">Total Expenses</h6>
+						<span>
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-up-right">
+								<line x1="7" y1="17" x2="17" y2="7"></line>
+								<polyline points="7 7 17 7 17 17"></polyline>
+							</svg>
+						</span>
+					</div>
+					<div class="mb-3 d-flex align-items-center justify-content-between">
+						<span class="f-30 f-w-600">
+							$0.00
+						</span>
+					</div>
+					<div class="chart-wrapper">
+						<div id="TotalProducts"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xl-2 col-lg-3 col-md-6">
+			<div class="card shadow-none mb-0 h-100">
+				<div class="card-body border rounded p-3">
+					<div class="mb-4 d-flex align-items-center justify-content-between">
+						<h6 class="mb-0">Total Income</h6>
+						<span>
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-up-right">
+								<line x1="7" y1="17" x2="17" y2="7"></line>
+								<polyline points="7 7 17 7 17 17"></polyline>
+							</svg>
+						</span>
+					</div>
+					<div class="mb-3 d-flex align-items-center justify-content-between">
+						<span class="f-30 f-w-600">
+							$0.00
+						</span>
+					</div>
+					<div class="chart-wrapper">
+						<div id="TotalProducts"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xl-2 col-lg-3 col-md-6">
+			<div class="card shadow-none mb-0 h-100">
+				<div class="card-body border rounded p-3">
+					<div class="mb-4 d-flex align-items-center justify-content-between">
+						<h6 class="mb-0">Total Equity</h6>
+						<span>
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-up-right">
+								<line x1="7" y1="17" x2="17" y2="7"></line>
+								<polyline points="7 7 17 7 17 17"></polyline>
+							</svg>
+						</span>
+					</div>
+					<div class="mb-3 d-flex align-items-center justify-content-between">
+						<span class="f-30 f-w-600">
+							$0.00
+						</span>
+					</div>
+					<div class="chart-wrapper">
+						<div id="TotalProducts"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-4 col-md-4">
+			<h3>Select data sheet</h3>
+		</div>
+		<div class="col-lg-8 col-md-8 d-flex justify-content-end">
+			<ul class="nav nav-pills cust-nav   rounded  mb-3" id="pills-tab" role="tablist">
+
+				<li class="nav-item">
+					<a class="nav-link active" id="Assets-tab" data-bs-toggle="pill" href="#Assets" role="tab" aria-controls="asset" aria-selected="true">Assets</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link " id="Liabilities-tab" data-bs-toggle="pill" href="#Liabilities" role="tab" aria-controls="asset" aria-selected="true">Liabilities</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link " id="Expenses-tab" data-bs-toggle="pill" href="#Expenses" role="tab" aria-controls="asset" aria-selected="true">Expenses</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link " id="Income-tab" data-bs-toggle="pill" href="#Income" role="tab" aria-controls="asset" aria-selected="true">Income</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link " id="Equity-tab" data-bs-toggle="pill" href="#Equity" role="tab" aria-controls="asset" aria-selected="true">Equity</a>
+				</li>
+
+			</ul>
+		</div>
+		<div class="col-12">
+			<div class="tab-content" id="pills-tabContent">
+				<div class="tab-pane fade  active show" id="Assets" role="tabpanel" aria-labelledby="Assets-tab">
+					<div class="row gy-4">
+						<div class="col-xxl-3 col-lg-4 col-md-6">
+							<div class="data-wrapper rounded">
+								<h4>Current Asset</h4>
+								<div class="data-body bg-white list-group">
+									<div class="list-group-item list-head d-flex justify-content-between p-b-0 ps-0 pe-0">
+										<span class="f-w-900 border-bottom border-dark ps-3 pe-3 pb-2">Account
+											<i class="ti ti-arrows-up-down"></i>
+										</span>
+										<span class="text-muted  ps-3 pe-3 pb-2">Amount</span>
+									</div>
+									<div class="list-group-item  d-flex justify-content-between ">
+										<span>Accounts Receivable</span>
+										<span>
+											$0.00
+										</span>
+									</div>
+								</div>
+								<div class="list-group-item d-flex justify-content-between bg-success p-3 text-white">
+									<span>Total Current Asset</span>
+									<span>
+										$0.00
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xxl-3 col-lg-4 col-md-6">
+							<div class="data-wrapper rounded">
+								<h4>Fixed Asset</h4>
+								<div class="data-body bg-white list-group">
+									<div class="list-group-item list-head d-flex justify-content-between p-b-0 ps-0 pe-0">
+										<span class="f-w-900 border-bottom border-dark ps-3 pe-3 pb-2">Account
+											<i class="ti ti-arrows-up-down"></i>
+										</span>
+										<span class="text-muted  ps-3 pe-3 pb-2">Amount</span>
+									</div>
+									<div class="list-group-item  d-flex justify-content-between ">
+										<span>Computer Equipment</span>
+										<span>
+											$0.00
+										</span>
+									</div>
+									<div class="list-group-item  d-flex justify-content-between ">
+										<span>Office Equipment</span>
+										<span>
+											$0.00
+										</span>
+									</div>
+								</div>
+								<div class="list-group-item d-flex justify-content-between bg-success p-3 text-white">
+									<span>Total Fixed Asset</span>
+									<span>
+										$0.00
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xxl-3 col-lg-4 col-md-6">
+							<div class="data-wrapper rounded">
+								<h4>Inventory</h4>
+								<div class="data-body bg-white list-group">
+									<div class="list-group-item list-head d-flex justify-content-between p-b-0 ps-0 pe-0">
+										<span class="f-w-900 border-bottom border-dark ps-3 pe-3 pb-2">Account
+											<i class="ti ti-arrows-up-down"></i>
+										</span>
+										<span class="text-muted  ps-3 pe-3 pb-2">Amount</span>
+									</div>
+									<div class="list-group-item  d-flex justify-content-between ">
+										<span>Inventory</span>
+										<span>
+											$0.00
+										</span>
+									</div>
+								</div>
+								<div class="list-group-item d-flex justify-content-between bg-success p-3 text-white">
+									<span>Total Inventory</span>
+									<span>
+										$0.00
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xxl-3 col-lg-4 col-md-6">
+							<div class="data-wrapper rounded">
+								<h4>Non-current Asset</h4>
+								<div class="data-body bg-white list-group">
+									<div class="list-group-item list-head d-flex justify-content-between p-b-0 ps-0 pe-0">
+										<span class="f-w-900 border-bottom border-dark ps-3 pe-3 pb-2">Account
+											<i class="ti ti-arrows-up-down"></i>
+										</span>
+										<span class="text-muted  ps-3 pe-3 pb-2">Amount</span>
+									</div>
+								</div>
+								<div class="list-group-item d-flex justify-content-between bg-success p-3 text-white">
+									<span>Total Non-current Asset</span>
+									<span>
+										$0.00
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xxl-3 col-lg-4 col-md-6">
+							<div class="data-wrapper rounded">
+								<h4>Prepayment</h4>
+								<div class="data-body bg-white list-group">
+									<div class="list-group-item list-head d-flex justify-content-between p-b-0 ps-0 pe-0">
+										<span class="f-w-900 border-bottom border-dark ps-3 pe-3 pb-2">Account
+											<i class="ti ti-arrows-up-down"></i>
+										</span>
+										<span class="text-muted  ps-3 pe-3 pb-2">Amount</span>
+									</div>
+								</div>
+								<div class="list-group-item d-flex justify-content-between bg-success p-3 text-white">
+									<span>Total Prepayment</span>
+									<span>
+										$0.00
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xxl-3 col-lg-4 col-md-6">
+							<div class="data-wrapper rounded">
+								<h4>Bank &amp; Cash</h4>
+								<div class="data-body bg-white list-group">
+									<div class="list-group-item list-head d-flex justify-content-between p-b-0 ps-0 pe-0">
+										<span class="f-w-900 border-bottom border-dark ps-3 pe-3 pb-2">Account
+											<i class="ti ti-arrows-up-down"></i>
+										</span>
+										<span class="text-muted  ps-3 pe-3 pb-2">Amount</span>
+									</div>
+									<div class="list-group-item  d-flex justify-content-between ">
+										<span>Budget - Finance Staff</span>
+										<span>
+											$0.00
+										</span>
+									</div>
+								</div>
+								<div class="list-group-item d-flex justify-content-between bg-success p-3 text-white">
+									<span>Total Bank &amp; Cash</span>
+									<span>
+										$0.00
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xxl-3 col-lg-4 col-md-6">
+							<div class="data-wrapper rounded">
+								<h4>Depreciation</h4>
+								<div class="data-body bg-white list-group">
+									<div class="list-group-item list-head d-flex justify-content-between p-b-0 ps-0 pe-0">
+										<span class="f-w-900 border-bottom border-dark ps-3 pe-3 pb-2">Account
+											<i class="ti ti-arrows-up-down"></i>
+										</span>
+										<span class="text-muted  ps-3 pe-3 pb-2">Amount</span>
+									</div>
+									<div class="list-group-item  d-flex justify-content-between ">
+										<span>Accumulated Depreciation</span>
+										<span>
+											$0.00
+										</span>
+									</div>
+								</div>
+								<div class="list-group-item d-flex justify-content-between bg-success p-3 text-dark">
+									<span>Total Depreciation</span>
+									<span>
+										$0.00
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane fade  " id="Liabilities" role="tabpanel" aria-labelledby="Liabilities-tab">
+					<div class="row gy-4">
+						<div class="col-xxl-3 col-lg-4 col-md-6">
+							<div class="data-wrapper rounded">
+								<h4>Current Liability</h4>
+								<div class="data-body bg-white list-group">
+									<div class="list-group-item list-head d-flex justify-content-between p-b-0 ps-0 pe-0">
+										<span class="f-w-900 border-bottom border-dark ps-3 pe-3 pb-2">Account
+											<i class="ti ti-arrows-up-down"></i>
+										</span>
+										<span class="text-muted  ps-3 pe-3 pb-2">Amount</span>
+									</div>
+									<div class="list-group-item  d-flex justify-content-between ">
+										<span>Accounts Payable</span>
+										<span>
+											$0.00
+										</span>
+									</div>
+									<div class="list-group-item  d-flex justify-content-between ">
+										<span>Accruals</span>
+										<span>
+											$0.00
+										</span>
+									</div>
+									<div class="list-group-item  d-flex justify-content-between ">
+										<span>Office Equipment</span>
+										<span>
+											$0.00
+										</span>
+									</div>
+									<div class="list-group-item  d-flex justify-content-between ">
+										<span>Clearing Account</span>
+										<span>
+											$0.00
+										</span>
+									</div>
+									<div class="list-group-item  d-flex justify-content-between ">
+										<span>Employee Benefits Payable</span>
+										<span>
+											$0.00
+										</span>
+									</div>
+									<div class="list-group-item  d-flex justify-content-between ">
+										<span>Employee Deductions payable</span>
+										<span>
+											$0.00
+										</span>
+									</div>
+									<div class="list-group-item  d-flex justify-content-between ">
+										<span>Historical Adjustments</span>
+										<span>
+											$0.00
+										</span>
+									</div>
+									<div class="list-group-item  d-flex justify-content-between ">
+										<span>Revenue Received in Advance</span>
+										<span>
+											$0.00
+										</span>
+									</div>
+									<div class="list-group-item  d-flex justify-content-between ">
+										<span>Rounding</span>
+										<span>
+											$0.00
+										</span>
+									</div>
+								</div>
+								<div class="list-group-item d-flex justify-content-between bg-success p-3 text-white">
+									<span>Total Current Liability</span>
+									<span>
+										$0.00
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xxl-3 col-lg-4 col-md-6">
+							<div class="data-wrapper rounded">
+								<h4>Liability</h4>
+								<div class="data-body bg-white list-group">
+									<div class="list-group-item list-head d-flex justify-content-between p-b-0 ps-0 pe-0">
+										<span class="f-w-900 border-bottom border-dark ps-3 pe-3 pb-2">Account
+											<i class="ti ti-arrows-up-down"></i>
+										</span>
+										<span class="text-muted  ps-3 pe-3 pb-2">Amount</span>
+									</div>
+								</div>
+								<div class="list-group-item d-flex justify-content-between bg-success p-3 text-white">
+									<span>Total Liability</span>
+									<span>
+										$0.00
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xxl-3 col-lg-4 col-md-6">
+							<div class="data-wrapper rounded">
+								<h4>Non-current Liability</h4>
+								<div class="data-body bg-white list-group">
+									<div class="list-group-item list-head d-flex justify-content-between p-b-0 ps-0 pe-0">
+										<span class="f-w-900 border-bottom border-dark ps-3 pe-3 pb-2">Account
+											<i class="ti ti-arrows-up-down"></i>
+										</span>
+										<span class="text-muted  ps-3 pe-3 pb-2">Amount</span>
+									</div>
+								</div>
+								<div class="list-group-item d-flex justify-content-between bg-success p-3 text-white">
+									<span>Total Non-current Liability</span>
+									<span>
+										$0.00
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane fade  " id="Expenses" role="tabpanel" aria-labelledby="Expenses-tab">
+					<div class="row gy-4">
+						<div class="col-xxl-3 col-lg-4 col-md-6">
+							<div class="data-wrapper rounded">
+								<h4>Direct Costs</h4>
+								<div class="data-body bg-white list-group">
+									<div class="list-group-item list-head d-flex justify-content-between p-b-0 ps-0 pe-0">
+										<span class="f-w-900 border-bottom border-dark ps-3 pe-3 pb-2">Account
+											<i class="ti ti-arrows-up-down"></i>
+										</span>
+										<span class="text-muted  ps-3 pe-3 pb-2">Amount</span>
+									</div>
+									<div class="list-group-item  d-flex justify-content-between ">
+										<span>Costs of Goods Sold</span>
+										<span>
+											$0.00
+										</span>
+									</div>
+								</div>
+								<div class="list-group-item d-flex justify-content-between bg-success p-3 text-white">
+									<span>Total Direct Costs</span>
+									<span>
+										$0.00
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xxl-3 col-lg-4 col-md-6">
+							<div class="data-wrapper rounded">
+								<h4>Expense</h4>
+								<div class="data-body bg-white list-group">
+									<div class="list-group-item list-head d-flex justify-content-between p-b-0 ps-0 pe-0">
+										<span class="f-w-900 border-bottom border-dark ps-3 pe-3 pb-2">Account
+											<i class="ti ti-arrows-up-down"></i>
+										</span>
+										<span class="text-muted  ps-3 pe-3 pb-2">Amount</span>
+									</div>
+									<div class="list-group-item  d-flex justify-content-between ">
+										<span>Advertising</span>
+										<span>
+											$0.00
+										</span>
+									</div>
+									<div class="list-group-item  d-flex justify-content-between ">
+										<span>Automobile Expenses</span>
+										<span>
+											$0.00
+										</span>
+									</div>
+									<div class="list-group-item  d-flex justify-content-between ">
+										<span>Bad Debts</span>
+										<span>
+											$0.00
+										</span>
+									</div>
+									<div class="list-group-item  d-flex justify-content-between ">
+										<span>Bank Revaluations</span>
+										<span>
+											$0.00
+										</span>
+									</div>
+									<div class="list-group-item  d-flex justify-content-between ">
+										<span>Bank Service Charges</span>
+										<span>
+											$0.00
+										</span>
+									</div>
+									<div class="list-group-item  d-flex justify-content-between ">
+										<span>Consulting &amp; Accounting</span>
+										<span>
+											$0.00
+										</span>
+									</div>
+									<div class="list-group-item  d-flex justify-content-between ">
+										<span>Depreciation</span>
+										<span>
+											$0.00
+										</span>
+									</div>
+									<div class="list-group-item  d-flex justify-content-between ">
+										<span>General Expenses</span>
+										<span>
+											$0.00
+										</span>
+									</div>
+								</div>
+								<div class="list-group-item d-flex justify-content-between bg-success p-3 text-white">
+									<span>Total Expense</span>
+									<span>
+										$0.00
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane fade  " id="Income" role="tabpanel" aria-labelledby="Income-tab">
+					<div class="row gy-4">
+						<div class="col-xxl-3 col-lg-4 col-md-6">
+							<div class="data-wrapper rounded">
+								<h4>Revenue</h4>
+								<div class="data-body bg-white list-group">
+									<div class="list-group-item list-head d-flex justify-content-between p-b-0 ps-0 pe-0">
+										<span class="f-w-900 border-bottom border-dark ps-3 pe-3 pb-2">Account
+											<i class="ti ti-arrows-up-down"></i>
+										</span>
+										<span class="text-muted  ps-3 pe-3 pb-2">Amount</span>
+									</div>
+									<div class="list-group-item  d-flex justify-content-between ">
+										<span>Interest Income</span>
+										<span>
+											$0.00
+										</span>
+									</div>
+									<div class="list-group-item  d-flex justify-content-between ">
+										<span>Other Revenue</span>
+										<span>
+											$0.00
+										</span>
+									</div>
+									<div class="list-group-item  d-flex justify-content-between ">
+										<span>Purchase Discount</span>
+										<span>
+											$0.00
+										</span>
+									</div>
+									<div class="list-group-item  d-flex justify-content-between ">
+										<span>Sales</span>
+										<span>
+											$0.00
+										</span>
+									</div>
+								</div>
+								<div class="list-group-item d-flex justify-content-between bg-success p-3 text-white">
+									<span>Total Revenue</span>
+									<span>
+										$0.00
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xxl-3 col-lg-4 col-md-6">
+							<div class="data-wrapper rounded">
+								<h4>Sales</h4>
+								<div class="data-body bg-white list-group">
+									<div class="list-group-item list-head d-flex justify-content-between p-b-0 ps-0 pe-0">
+										<span class="f-w-900 border-bottom border-dark ps-3 pe-3 pb-2">Account
+											<i class="ti ti-arrows-up-down"></i>
+										</span>
+										<span class="text-muted  ps-3 pe-3 pb-2">Amount</span>
+									</div>
+								</div>
+								<div class="list-group-item d-flex justify-content-between bg-success p-3 text-white">
+									<span>Total Sales</span>
+									<span>
+										$0.00
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xxl-3 col-lg-4 col-md-6">
+							<div class="data-wrapper rounded">
+								<h4>Other Income</h4>
+								<div class="data-body bg-white list-group">
+									<div class="list-group-item list-head d-flex justify-content-between p-b-0 ps-0 pe-0">
+										<span class="f-w-900 border-bottom border-dark ps-3 pe-3 pb-2">Account
+											<i class="ti ti-arrows-up-down"></i>
+										</span>
+										<span class="text-muted  ps-3 pe-3 pb-2">Amount</span>
+									</div>
+								</div>
+								<div class="list-group-item d-flex justify-content-between bg-success p-3 text-white">
+									<span>Total Other Income</span>
+									<span>
+										$0.00
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane fade  " id="Equity" role="tabpanel" aria-labelledby="Equity-tab">
+					<div class="row gy-4">
+						<div class="col-xxl-3 col-lg-4 col-md-6">
+							<div class="data-wrapper rounded">
+								<h4>Equity</h4>
+								<div class="data-body bg-white list-group">
+									<div class="list-group-item list-head d-flex justify-content-between p-b-0 ps-0 pe-0">
+										<span class="f-w-900 border-bottom border-dark ps-3 pe-3 pb-2">Account
+											<i class="ti ti-arrows-up-down"></i>
+										</span>
+										<span class="text-muted  ps-3 pe-3 pb-2">Amount</span>
+									</div>
+									<div class="list-group-item  d-flex justify-content-between ">
+										<span>Common Stock</span>
+										<span>
+											$0.00
+										</span>
+									</div>
+									<div class="list-group-item  d-flex justify-content-between ">
+										<span>Owners Contribution</span>
+										<span>
+											$0.00
+										</span>
+									</div>
+									<div class="list-group-item  d-flex justify-content-between ">
+										<span>Owners Draw</span>
+										<span>
+											$0.00
+										</span>
+									</div>
+									<div class="list-group-item  d-flex justify-content-between ">
+										<span>Retained Earnings</span>
+										<span>
+											$0.00
+										</span>
+									</div>
+								</div>
+								<div class="list-group-item d-flex justify-content-between bg-success p-3 text-white">
+									<span>Total Equity</span>
+									<span>
+										$0.00
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block javascript %}
+	<!-- Datatables js -->
+	<script src="/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script src="/vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+	<script src="/vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+	<script src="/vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+	<script src="/vendor/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
+	<script src="/vendor/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+	<script src="/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
+
+	<!-- Datatable Demo Aapp js -->
+	<script src="/js/pages/demo.datatable-init.js"></script>
+{% endblock %}

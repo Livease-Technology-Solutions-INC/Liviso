@@ -14,43 +14,64 @@
 {% endblock %}
 
 {% block pagetitle %}
-	{{ include('partials/page-title.html.twig', { sub_title: 'purchase', page_title: 'Purchase' }) }}
+	<div class"row align-items-center d-flex">
+		<div class="col mt-2">
+			<div class="float-end mt-3">
+				<a href="#" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary" data-bs-original-title="Import">
+					<i class="bi bi-file-earmark-arrow-down"></i>
+				</a>
+				<a href="#" class="btn btn-sm btn-primary" onclick="saveAsPDF()" data-bs-toggle="tooltip" title="" data-original-title="Download" data-bs-original-title="Export">
+					<span class="btn-inner--icon">
+						<i class="bi bi-file-earmark-arrow-up"></i>
+					</span>
+				</a>
+				<a href="#" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary" data-bs-original-title="Import">
+					<i class="bi bi-plus"></i>
+				</a>
+			</div>
+		</div>
+		<div class="col auto">
+			{{ include('partials/page-title.html.twig', { sub_title: 'purchase', page_title: 'Purchase' }) }}
+		</div>
+	</div>
 {% endblock %}
 
 {% block body %}
 	<div class="row">
-        <div class="col-sm-12">
-            <div class="category" id="multiCollapseExample1">
-                <div class="card">
-                    <div class="card-body">
-                        {# {{ Form::open(['route' => ['productservice.index'], 'method' => 'GET', 'id' => 'product_service']) }} #}
-                        <div class="d-flex align-items-center justify-content-end">
-                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
-                                <div class="btn-box">
-                                    {# {{ Form::label('category', __('Category'),['class'=>'form-label']) }} #}
-                                    {# {{ Form::select('category', $category, null, ['class' => 'form-control select','id'=>'choices-multiple', 'required' => 'required']) }} #}
-                                </div>
-                            </div>
-                            <div class="col-auto float-end ms-2 mt-4">
-                                <a href="#" class="btn btn-sm btn-primary"
-                                   onclick="document.getElementById('product_service').submit(); return false;"
-                                   data-bs-toggle="tooltip" title="apply">
-                                    <span class="btn-inner--icon"><i class="ti ti-search"></i></span>
-                                </a>
-                                <a href="#" class="btn btn-sm btn-danger" data-bs-toggle="tooltip"
-                                   title="Reset">
-                                    <span class="btn-inner--icon"><i class="ti ti-trash-off "></i></span>
-                                </a>
-                            </div>
+		<div class="col-sm-12">
+			<div class=" mt-2 " id="multiCollapseExample1">
+				<div class="card">
+					<div class="card-body">
+						<form method="GET" action="#" accept-charset="UTF-8" id="product_service">
+							<div class="d-flex align-items-center justify-content-end">
+								<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+									<div class="btn-box">
+										<label for="category" class="form-label">Category</label>
+										<select class="form-control select" id="choices-multiple" required="required" name="category">
+											<option value="" selected="selected">Select Category</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-auto float-end ms-2 mt-4">
+									<a href="#" class="btn btn-sm btn-primary" onclick="document.getElementById('product_service').submit(); return false;" data-bs-toggle="tooltip" title="" data-bs-original-title="apply">
+										<span class="btn-inner--icon">
+											<i class="bi bi-search"></i>
+										</span>
+									</a>
+									<a href="#" class="btn btn-sm btn-danger" data-bs-toggle="tooltip" title="" data-bs-original-title="Reset">
+										<span class="btn-inner--icon">
+											<i class="bi bi-trash"></i>
+										</span>
+									</a>
+								</div>
 
-                        </div>
-                        {# {{ Form::close() }} #}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="row">
 		<div class="col-12">
 			<div class="card">
@@ -58,10 +79,10 @@
 					<table id="basic-datatable" class="table table-striped dt-responsive nowrap w-100">
 						<thead>
 							<tr>
-								<th>Purchase</th>
+								<th>Name</th>
 								<th>SKU</th>
-								<th>Sales Price</th>
-								<th>Purchase Price</th>
+								<th>Sale Price</th>
+								<th>Purchase Date</th>
 								<th>Tax</th>
 								<th>Category</th>
 								<th>Unit</th>
@@ -71,39 +92,14 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>PC</td>
-								<td>00BG102</td>
-								<td>$50,000.00</td>
-								<td>Vat(5%)</td>
-								<td>Skin</td>
-								<td>Kilo</td>
-								<td>100</td>
-								<td>Product</td>
-								<td>Kilo</td>
-							</tr>
-							<tr>
-								<td>PC</td>
-								<td>00BG102</td>
-								<td>$50,000.00</td>
-								<td>Vat(5%)</td>
-								<td>Skin</td>
-								<td>Kilo</td>
-								<td>100</td>
-								<td>Product</td>
-								<td>Kilo</td>
-							</tr>
-							<tr>
-								<td>PC</td>
-								<td>00BG102</td>
-								<td>$50,000.00</td>
-								<td>Vat(5%)</td>
-								<td>Skin</td>
-								<td>Kilo</td>
-								<td>100</td>
-								<td>Product</td>
-								<td>Kilo</td>
-							</tr>
+							{# <tr>
+																						<td>Cara Stevens</td>
+																						<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
+																						<td>New York</td>
+																						<td>46</td>
+																						<td>2011/12/06</td>
+																						<td>2011/12/06</td>
+																					</tr> #}
 						</tbody>
 					</table>
 
@@ -132,6 +128,5 @@
 	<script src="/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
 
 	<!-- Datatable Demo Aapp js -->
-	<script src="/js/pages/demo.datatable-init.js">
-	</script>
+	<script src="/js/pages/demo.datatable-init.js"></script>
 {% endblock %}
