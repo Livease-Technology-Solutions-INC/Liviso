@@ -9,13 +9,40 @@
 	<div class"row align-items-center d-flex">
 		<div class="col mt-2">
 			<div class="float-end mt-3">
-				<a href="#" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary" data-bs-original-title="Import">
-					<i class="bi bi-plus"></i>
-				</a>
+				<button type="button" class="p-0 m-0 border-0" data-bs-toggle="modal" data-bs-target="#bugtask" data-bs-whatever="@mdo">
+					<a href="#" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary" data-bs-original-title="Import">
+						<i class="bi bi-plus"></i>
+					</a>
+				</button>
 			</div>
 		</div>
 		<div class="col auto">
 			{{ include('partials/page-title.html.twig', { sub_title: 'Bug Status', page_title: 'Bug Status' }) }}
+		</div>
+	</div>
+	<div class="modal fade rounded-3" id="bugtask" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog rounded-3">
+			<div class="modal-content rounded-3">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Create Bug Stage</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="modal-body">
+						<div class="row">
+							<div class="form-group col-12">
+								<label for="name" class="form-label">Bug status title</label>
+								<input class="form-control" required="required" name="name" type="text" value="" id="name">
+							</div>
+							
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-primary rounded-2">Create</button>
+				</div>
+			</div>
 		</div>
 	</div>
 {% endblock %}

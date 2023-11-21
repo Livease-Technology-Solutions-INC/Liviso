@@ -17,13 +17,49 @@
 	<div class"row align-items-center d-flex">
 		<div class="col mt-2">
 			<div class="float-end mt-3">
-				<a href="#" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary" data-bs-original-title="Import">
-					<i class="bi bi-plus"></i>
-				</a>
+				<button type="button" class="p-0 m-0 border-0" data-bs-toggle="modal" data-bs-target="#client" data-bs-whatever="@mdo">
+					<a href="#" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary" data-bs-original-title="Import">
+						<i class="bi bi-plus"></i>
+					</a>
+				</button>
 			</div>
 		</div>
 		<div class="col auto">
 			{{ include('partials/page-title.html.twig', { sub_title: 'Manage Client', page_title: 'Manage Client' }) }}
+		</div>
+	</div>
+	<div class="modal fade rounded-3" id="client" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog rounded-3">
+			<div class="modal-content rounded-3">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Create</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="modal-body">
+						<div class="row">
+							<div class="form-group">
+								<label for="name" class="form-label">Name</label>
+								<input class="form-control" placeholder="Enter client Name" required="required" name="name" type="text" id="name">
+							</div>
+							<div class="form-group">
+								<label for="email" class="form-label">E-Mail Address</label>
+								<input class="form-control" placeholder="Enter Client Email" required="required" name="email" type="email" id="email">
+							</div>
+							<div class="form-group">
+								<label for="password" class="form-label">Password</label>
+								<input class="form-control" placeholder="Enter User Password" required="required" minlength="6" name="password" type="password" value="" id="password">
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-primary rounded-2">Create</button>
+				</div>
+			</div>
 		</div>
 	</div>
 {% endblock %}
@@ -36,32 +72,26 @@
 					<div class="card text-center">
 						<div class="card-header border-0 pb-0">
 
-							<div class="card-header-right">
+							<div class="card-header-right float-end">
 								<div class="btn-group card-option">
-									<button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										<i class="ti ti-dots-vertical"></i>
+									<button
+										type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{# <i class="bi bi-plus-circle-dotted"></i> #}
 									</button>
-
 									<div class="dropdown-menu dropdown-menu-end">
-
-
-										<a href="#!" data-size="md" data-url="http://localhost/other/clients/135/edit" data-ajax-popup="true" class="dropdown-item" data-bs-original-title="Edit User">
-											<i class="ti ti-pencil"></i>
+										<a href="#!" data-size="lg" data-url="#" data-ajax-popup="true" class="dropdown-item" data-bs-original-title="Edit User">
+											<i class="bi bi-pencil"></i>
 											<span>Edit</span>
 										</a>
-
-										<form method="POST" action="http://localhost/other/clients/135" accept-charset="UTF-8" id="delete-form-135"><input name="_method" type="hidden" value="DELETE"><input name="_token" type="hidden" value="q4UTQ0S1spGLbp1qFl5N9vDcE8eW1YX3XkMwbbbv">
+										<form method="POST" action="#" accept-charset="UTF-8" id="delete-form-132"><input name="_method" type="hidden" value="DELETE"><input name="_token" type="hidden" value="q4UTQ0S1spGLbp1qFl5N9vDcE8eW1YX3XkMwbbbv">
 											<a href="#!" class="dropdown-item bs-pass-para">
-												<i class="ti ti-archive"></i>
+												<i class="bi bi-archive"></i>
 												<span>
 													Delete
 												</span>
 											</a>
-
 										</form>
-
-										<a href="#!" data-url="http://localhost/other/client-reset-password/eyJpdiI6IkZlN1BKekw2aHpJdVVMTDVTTHVWc2c9PSIsInZhbHVlIjoiS3h4dGNQOWY3TzljMFYrUUc0Mlc4UT09IiwibWFjIjoiM2E3ZDhlZjM1YmU4YTc1YmE1NTc5ZWY0YWZhMDA5YjE4NjIxM2I1OTFmNjI4YmFiNWExNjc4NzdmYWIwYWRhMiIsInRhZyI6IiJ9" data-ajax-popup="true" class="dropdown-item" data-bs-original-title="Reset Password">
-											<i class="ti ti-adjustments"></i>
+										<a href="#!" data-url="#" data-ajax-popup="true" data-size="md" class="dropdown-item" data-bs-original-title="Reset Password">
+											<i class="bi bi-adjustments"></i>
 											<span>
 												Reset Password</span>
 										</a>
@@ -71,7 +101,7 @@
 						</div>
 						<div class="card-body full-card">
 							<div class="img-fluid rounded-circle card-avatar">
-								<img src="https://liviso.net/storage/uploads/avatar/avatar.png" class="img-user wid-80 rounded-circle">
+								<img src="" class="img-user wid-80 rounded-circle">
 							</div>
 							<h4 class="mt-2 text-primary">Uk Giveaways</h4>
 							<p></p>

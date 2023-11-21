@@ -18,15 +18,64 @@
 	<div class"row align-items-center d-flex">
 		<div class="col mt-2">
 			<div class="float-end mt-3">
-				<a href="#" class="btn btn-sm btn-primary" onclick="saveAsPDF()" data-bs-toggle="tooltip" title="" data-original-title="Download" data-bs-original-title="Export">
-					<span class="btn-inner--icon">
+				<button type="button" class="p-0 m-0 border-0" data-bs-toggle="modal" data-bs-target="#deals" data-bs-whatever="@mdo">
+					<a href="#" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary" data-bs-original-title="Import">
 						<i class="bi bi-plus"></i>
-					</span>
-				</a>
+					</a>
+				</button>
 			</div>
 		</div>
 		<div class="col auto">
 			{{ include('partials/page-title.html.twig', { sub_title: 'Deal', page_title: 'Deal' }) }}
+		</div>
+	</div>
+	<div class="modal fade rounded-3" id="deals" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog rounded-3">
+			<div class="modal-content rounded-3">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Create Lead</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="modal-body">
+						<div class="modal-body">
+
+
+							<div class="row">
+								<div class="col-6 form-group">
+									<label for="name" class="form-label">Deal Name</label>
+									<input class="form-control" required="required" name="name" type="text" id="name">
+								</div>
+								<div class="col-6 form-group">
+									<label for="phone" class="form-label">Phone</label>
+									<input class="form-control" required="required" name="phone" type="text" id="phone">
+								</div>
+								<div class="col-6 form-group">
+									<label for="price" class="form-label">Price</label>
+									<input class="form-control" min="0" name="price" type="number" value="0" id="price">
+								</div>
+								<div class="col-6 form-group">
+									<label for="clients" class="form-label">Clients</label>
+									<div class="choices" data-type="select-multiple" role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-expanded="false">
+										<div class="choices__inner">
+											<select class="form-control select2 choices__input" multiple="" id="choices-multiple1" required="required" name="clients[]" hidden="" tabindex="-1" data-choice="active"></select>
+											<div class="choices__list choices__list--multiple"></div><input type="text" class="choices__input choices__input--cloned" autocomplete="off" autocapitalize="off" spellcheck="false" role="textbox" aria-autocomplete="list" aria-label="null"></div>
+										<div class="choices__list choices__list--dropdown" aria-expanded="false">
+											<div class="choices__list" aria-multiselectable="true" role="listbox">
+												<div id="choices--choices-multiple1-item-choice-1" class="choices__item choices__item--choice choices__item--selectable is-highlighted" role="option" data-choice="" data-id="1" data-value="135" data-select-text="Press to select" data-choice-selectable="" aria-selected="true">Uk Giveaways</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-primary rounded-2">Create</button>
+				</div>
+			</div>
 		</div>
 	</div>
 {% endblock %}

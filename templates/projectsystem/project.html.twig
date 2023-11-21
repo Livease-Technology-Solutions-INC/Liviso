@@ -14,75 +14,207 @@
 {% endblock %}
 
 {% block pagetitle %}
-	<div class="row">
+	<div class"row align-items-center d-flex">
+		<div class="col mt-2">
+			<div class="float-end mt-3">
+				<button type="button" class="p-0 m-0 border-0" data-bs-toggle="modal" data-bs-target="#project" data-bs-whatever="@mdo">
+					<a href="#" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary" data-bs-original-title="Import">
+						<i class="bi bi-plus"></i>
+					</a>
+				</button>
+			</div>
+		</div>
+		<div class="col auto">
+			{{ include('partials/page-title.html.twig', { sub_title: 'Project', page_title: 'Project' }) }}
+		</div>
+	</div>
+	<div class="modal fade rounded-3" id="project" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog rounded-3">
+			<div class="modal-content rounded-3">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Create</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="modal-body">
+						<div class="row mb-2">
+							<div class="col-sm-12 col-md-12">
+								<div class="form-group">
+									<label for="project_name m-0" class="form-label">Project Name</label>
+									<span class="text-danger">*</span>
+									<input class="form-control m-0" required="required" name="project_name" type="text" id="project_name">
+								</div>
+							</div>
+						</div>
+						<div class="row mb-2">
+							<div class="col-sm-6 col-md-6">
+								<div class="form-group">
+									<label for="start_date" class="form-label mb-0">Start Date</label>
+									<input class="form-control" name="start_date" type="date" id="start_date">
+								</div>
+							</div>
+							<div class="col-sm-6 col-md-6">
+								<div class="form-group">
+									<label for="end_date" class="form-label mb-0">End Date</label>
+									<input class="form-control" name="end_date" type="date" id="end_date">
+								</div>
+							</div>
+						</div>
+						<div class="row mb-2">
+							<div class="form-group col-sm-12 col-md-12">
+								<label for="project_image" class="form-label">Project Image</label>
+								<span class="text-danger">*</span>
+								<div class="form-file mb-3">
+									<input type="file" class="form-control" name="project_image" required="">
+								</div>
 
-		<div class="col-md-6 col-xxl-3">
-			<div class="card">
-				<div class="card-header border-0 pb-0">
-					<div class="d-flex align-items-center">
-						<img src="https://liviso.net/storage/uploads/avatar/default.png" class="img-fluid wid-30 me-2" alt="">
-						<h5 class="mb-0">
-							<a class="text-dark" href="http://localhost/other/projects/9">Automatic</a>
-						</h5>
-					</div>
-					<div class="card-header-right">
-						<div class="btn-group card-option">
-							<button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<i class="ti ti-dots-vertical"></i>
-							</button>
-							<div class="dropdown-menu dropdown-menu-end">
-
-								<a class="dropdown-item" data-ajax-popup="true" data-size="md" data-title="Duplicate Project" data-url="http://localhost/other/project/copy/9">
-									<i class="ti ti-copy"></i>
-									<span>Duplicate</span>
-								</a>
-								<a href="#!" data-size="lg" data-url="http://localhost/other/projects/9/edit" data-ajax-popup="true" class="dropdown-item" data-bs-original-title="Edit Project">
-									<i class="ti ti-pencil"></i>
-									<span>Edit</span>
-								</a>
-								<form method="POST" action="http://localhost/other/projects/9" accept-charset="UTF-8"><input name="_method" type="hidden" value="DELETE"><input name="_token" type="hidden" value="q4UTQ0S1spGLbp1qFl5N9vDcE8eW1YX3XkMwbbbv">
-									<a href="#!" class="dropdown-item bs-pass-para">
-										<i class="ti ti-archive"></i>
-										<span>
-											Delete</span>
-									</a>
-
-								</form>
-								<a href="#!" data-size="lg" data-url="http://localhost/other/invite-project-member/9" data-ajax-popup="true" class="dropdown-item" data-bs-original-title="Invite User">
-									<i class="ti ti-send"></i>
-									<span>Invite User</span>
-								</a>
+							</div>
+							<div class="col-sm-6 col-md-6">
+								<div class="form-group">
+									<label for="client" class="form-label">Client</label>
+									<span class="text-danger">*</span>
+									<select class="form-control" required="required" id="client" name="client">
+										<option value="" selected="selected">Select Client</option>
+										<option value="135">Uk Giveaways</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-6 col-md-6">
+								<div class="form-group">
+									<label for="user" class="form-label">User</label>
+									<span class="text-danger">*</span>
+									<select class="form-control" required="required" name="user[]">
+										<option value="" selected="selected">Select User</option>
+										<option value="132">Saleem Shahzad</option>
+										<option value="134">William Ndubuisi</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-6 col-md-6">
+								<div class="form-group">
+									<label for="budget" class="form-label">Budget</label>
+									<input class="form-control" name="budget" type="number" id="budget">
+								</div>
+							</div>
+							<div class="col-6 col-md-6">
+								<div class="form-group">
+									<label for="estimated_hrs" class="form-label">Estimated Hours</label>
+									<input class="form-control" min="0" maxlength="8" name="estimated_hrs" type="number" id="estimated_hrs">
+								</div>
+							</div>
+						</div>
+						<div class="row mb-2">
+							<div class="col-sm-12 col-md-12">
+								<div class="form-group">
+									<label for="description" class="form-label">Description</label>
+									<textarea class="form-control" rows="4" cols="50" name="description" id="description"></textarea>
+								</div>
+							</div>
+						</div>
+						<div class="row mb-2">
+							<div class="col-sm-12 col-md-12">
+								<div class="form-group">
+									<label for="tag" class="form-label">Tag</label>
+									<input class="form-control" data-toggle="tags" name="tag" type="text" id="tag">
+								</div>
+							</div>
+						</div>
+						<div class="row mb-2">
+							<div class="col">
+								<div class="form-group">
+									<label for="status" class="form-label">Status</label>
+									<select class="form-select mb-3">
+										<option selected>In progress</option>
+										<option value="1">On Hold</option>
+										<option value="2">Complete</option>
+										<option value="3">Canceled</option>
+									</select>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="card-body">
-					<div class="row g-2 justify-content-between">
-						<div class="col-auto">
-							<span class="badge rounded-pill bg-info">In Progress</span>
-						</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-primary rounded-2">Create</button>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
 
-					</div>
-					<p class="text-muted text-sm mt-3">Blank</p>
-					<small>MEMBERS</small>
-					<div class="user-group">
-						<a href="#" class="avatar rounded-circle avatar-sm">
-							<img src="http://localhost/other/storage/uploads/avatar/Logo1_1692870175.jpeg" alt="image" data-bs-toggle="tooltip" title="Sabarish">
-						</a>
-						<a href="#" class="avatar rounded-circle avatar-sm">
-							<img src="http://localhost/other/storage/uploads/avatar/avatar.png" alt="image" data-bs-toggle="tooltip" title="William Ndubuisi">
-						</a>
-					</div>
-					<div class="card mb-0 mt-3">
-						<div class="card-body p-3">
-							<div class="row">
-								<div class="col-6">
-									<h6 class="mb-0 text-danger">17 Oct 2023</h6>
-									<p class="text-muted text-sm mb-0">Start Date</p>
+{% block body %}
+	<div class="row min-750" id="project_view">
+		<div class="row">
+
+			<div class="col-md-6 col-xxl-3">
+				<div class="card">
+					<div class="card-header border-0 pb-0">
+						<div class="d-flex align-items-center">
+							<img src="#" class="img-fluid wid-30 me-2" alt="">
+							<h5 class="mb-0">
+								<a class="text-dark" href="#">Automatic</a>
+							</h5>
+						</div>
+						<div class="card-header-right">
+							<div class="btn-group card-option">
+								<button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i class="ti ti-dots-vertical"></i>
+								</button>
+								<div class="dropdown-menu dropdown-menu-end">
+
+									<a class="dropdown-item" data-ajax-popup="true" data-size="md" data-title="Duplicate Project" data-url="#">
+										<i class="ti ti-copy"></i>
+										<span>Duplicate</span>
+									</a>
+									<a href="#!" data-size="lg" data-url="#" data-ajax-popup="true" class="dropdown-item" data-bs-original-title="Edit Project">
+										<i class="ti ti-pencil"></i>
+										<span>Edit</span>
+									</a>
+									<form method="POST" action="#" accept-charset="UTF-8"><input name="_method" type="hidden" value="DELETE"><input name="_token" type="hidden" value="q4UTQ0S1spGLbp1qFl5N9vDcE8eW1YX3XkMwbbbv">
+										<a href="#!" class="dropdown-item bs-pass-para">
+											<i class="ti ti-archive"></i>
+											<span>
+												Delete</span>
+										</a>
+
+									</form>
+									<a href="#!" data-size="lg" data-url="http://localhost/other/invite-project-member/9" data-ajax-popup="true" class="dropdown-item" data-bs-original-title="Invite User">
+										<i class="ti ti-send"></i>
+										<span>Invite User</span>
+									</a>
 								</div>
-								<div class="col-6 text-end">
-									<h6 class="mb-0">27 Oct 2023</h6>
-									<p class="text-muted text-sm mb-0">Due Date</p>
+							</div>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="row g-2 justify-content-between">
+							<div class="col-auto">
+								<span class="badge rounded-pill bg-info">In Progress</span>
+							</div>
+
+						</div>
+						<p class="text-muted text-sm mt-3">Blank</p>
+						<small>MEMBERS</small>
+						<div class="user-group">
+							<a href="#" class="avatar rounded-circle avatar-sm">
+								<img src="#" alt="image" data-bs-toggle="tooltip" title="Sabarish">
+							</a>
+							<a href="#" class="avatar rounded-circle avatar-sm">
+								<img src="#" alt="image" data-bs-toggle="tooltip" title="William Ndubuisi">
+							</a>
+						</div>
+						<div class="card mb-0 mt-3">
+							<div class="card-body p-3">
+								<div class="row">
+									<div class="col-6">
+										<h6 class="mb-0 text-danger">17 Oct 2023</h6>
+										<p class="text-muted text-sm mb-0">Start Date</p>
+									</div>
+									<div class="col-6 text-end">
+										<h6 class="mb-0">27 Oct 2023</h6>
+										<p class="text-muted text-sm mb-0">Due Date</p>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -91,10 +223,6 @@
 			</div>
 		</div>
 	</div>
-{% endblock %}
-
-{% block body %}
-	<div class="row min-750" id="project_view"></div>
 {% endblock %}
 
 {% block javascript %}{% endblock %}

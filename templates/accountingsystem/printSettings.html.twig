@@ -14,20 +14,9 @@
 {% endblock %}
 
 {% block pagetitle %}
-	<div class"row align-items-center d-flex">
-		<div class="col mt-2">
-			<div class="float-end mt-3">
-				<a href="#" class="btn btn-sm btn-primary" onclick="saveAsPDF()" data-bs-toggle="tooltip" title="" data-original-title="Download" data-bs-original-title="Export">
-					<span class="btn-inner--icon">
-						<i class="bi bi-plus"></i>
-					</span>
-				</a>
-			</div>
-		</div>
-		<div class="col auto">
-			{{ include('partials/page-title.html.twig', { sub_title: 'Print Settings', page_title: 'Print Settings' }) }}
-		</div>
-	</div>
+
+	{{ include('partials/page-title.html.twig', { sub_title: 'Print Settings', page_title: 'Print Settings' }) }}
+
 {% endblock %}
 
 {% block body %}
@@ -136,7 +125,7 @@
 												<b>Laptop</b>
 												<br/>
 												Brand Model VGN-TXN27N/B
-																																				                                                                11.1" Notebook PC
+																																																                                                                11.1" Notebook PC
 											</td>
 											<td>1</td>
 											<td>$1799.00</td>
@@ -148,7 +137,7 @@
 												<b>Warranty</b>
 												<br/>
 												Two Year Extended Warranty -
-																																				                                                                Parts and Labor
+																																																                                                                Parts and Labor
 											</td>
 											<td>3</td>
 											<td>$499.00</td>
@@ -181,10 +170,10 @@
 								<h6 class="text-muted">Notes:</h6>
 								<small>
 									All accounts are to be paid within 7 days from receipt of
-																											                                                        invoice. To be paid by cheque or credit card or direct payment
-																											                                                        online. If account is not paid within 7 days the credits details
-																											                                                        supplied as confirmation of work undertaken will be charged the
-																											                                                        agreed quoted fee noted above.
+																																				                                                        invoice. To be paid by cheque or credit card or direct payment
+																																				                                                        online. If account is not paid within 7 days the credits details
+																																				                                                        supplied as confirmation of work undertaken will be charged the
+																																				                                                        agreed quoted fee noted above.
 								</small>
 							</div>
 						</div>

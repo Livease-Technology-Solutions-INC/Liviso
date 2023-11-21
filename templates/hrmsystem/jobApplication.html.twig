@@ -9,13 +9,121 @@
 	<div class"row align-items-center d-flex">
 		<div class="col mt-2">
 			<div class="float-end mt-3">
-				<a href="#" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary" data-bs-original-title="Export">
-					<i class="bi bi-plus"></i>
-				</a>
+				<button type="button" class="p-0 m-0 border-0" data-bs-toggle="modal" data-bs-target="#jobApplication" data-bs-whatever="@mdo">
+					<a href="#" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary" data-bs-original-title="Import">
+						<i class="bi bi-plus"></i>
+					</a>
+				</button>
 			</div>
 		</div>
 		<div class="col auto">
 			{{ include('partials/page-title.html.twig', { sub_title: 'Job Application', page_title: 'Job Application' }) }}
+		</div>
+	</div>
+	<div class="modal fade rounded-3" id="jobApplication" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog rounded-3">
+			<div class="modal-content rounded-3">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Create New Job Application</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="modal-body">
+						<div class="row">
+							<div class="form-group col-md-12">
+								<label for="job" class="form-label">Job</label>
+								<div class="choices" data-type="select-one" tabindex="0" role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-expanded="false">
+									<div class="choices__inner">
+										<select class="form-control select2 choices__input" id="jobs" name="job" hidden="" tabindex="-1" data-choice="active">
+											<option value="" data-custom-properties="[object Object]">--</option>
+										</select>
+										<div class="choices__list choices__list--single">
+											<div class="choices__item choices__placeholder choices__item--selectable" data-item="" data-id="1" data-value="" data-custom-properties="[object Object]" aria-selected="true" data-deletable="">--<button type="button" class="choices__button" aria-label="Remove item: ''" data-button="">Remove item</button>
+											</div>
+										</div>
+									</div>
+									<div class="choices__list choices__list--dropdown" aria-expanded="false"><input type="text" class="choices__input choices__input--cloned" autocomplete="off" autocapitalize="off" spellcheck="false" role="textbox" aria-autocomplete="list" aria-label="--" placeholder=""><div class="choices__list" role="listbox">
+											<div id="choices--jobs-item-choice-1" class="choices__item choices__item--choice is-selected choices__placeholder choices__item--selectable is-highlighted" role="option" data-choice="" data-id="1" data-value="" data-select-text="Press to select" data-choice-selectable="" aria-selected="true">--</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="name" class="form-label">Name</label>
+								<input class="form-control name" name="name" type="text" id="name">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="email" class="form-label">Email</label>
+								<input class="form-control" name="email" type="text" id="email">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="phone" class="form-label">Phone</label>
+								<input class="form-control" name="phone" type="text" id="phone">
+							</div>
+							<div class="form-group col-md-6 dob d-none">
+								<label for="dob" class="form-label">Date of Birth</label>
+								<input class="form-control" name="dob" type="date" id="dob">
+							</div>
+							<div class="form-group col-md-6 gender d-none">
+								<label for="gender" class="form-label">Gender</label>
+								<div class="d-flex radio-check">
+									<div class="form-check form-check-inline form-group">
+										<input type="radio" id="g_male" value="Male" name="gender" class="form-check-input">
+										<label class="form-check-label" for="g_male">Male</label>
+									</div>
+									<div class="form-check form-check-inline form-group">
+										<input type="radio" id="g_female" value="Female" name="gender" class="form-check-input">
+										<label class="form-check-label" for="g_female">Female</label>
+									</div>
+								</div>
+							</div>
+							<div class="form-group col-md-6 country d-none">
+								<label for="country" class="form-label">Country</label>
+								<input class="form-control" name="country" type="text" id="country">
+							</div>
+							<div class="form-group col-md-6 country d-none">
+								<label for="state" class="form-label">State</label>
+								<input class="form-control" name="state" type="text" id="state">
+							</div>
+							<div class="form-group col-md-6 country d-none">
+								<label for="city" class="form-label">City</label>
+								<input class="form-control" name="city" type="text" id="city">
+							</div>
+
+							<div class="form-group col-md-6 profile d-none">
+								<label for="profile" class="form-label">Profile</label>
+								<div class="choose-file form-group">
+									<label for="profile" class="form-label">
+										<div>Choose file here</div>
+										<input type="file" class="form-control" name="profile" id="profile" data-filename="profile_create">
+									</label>
+									<p class="profile_create"></p>
+								</div>
+							</div>
+							<div class="form-group col-md-6 resume d-none">
+								<label for="resume" class="form-label">CV / Resume</label>
+								<div class="choose-file form-group">
+									<label for="resume" class="form-label">
+										<div>Choose file here</div>
+										<input type="file" class="form-control" name="resume" id="resume" data-filename="resume_create">
+									</label>
+									<p class="resume_create"></p>
+								</div>
+							</div>
+							<div class="form-group col-md-12 letter d-none">
+								<label for="cover_letter" class="form-label">Cover Letter</label>
+								<textarea class="form-control" name="cover_letter" cols="50" rows="10" id="cover_letter"></textarea>
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-primary rounded-2">Create</button>
+				</div>
+			</div>
 		</div>
 	</div>
 {% endblock %}

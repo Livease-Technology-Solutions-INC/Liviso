@@ -27,15 +27,177 @@
 						<i class="bi bi-file-earmark-arrow-up"></i>
 					</span>
 				</a>
-				<a href="#" class="btn btn-sm btn-primary" onclick="saveAsPDF()" data-bs-toggle="tooltip" title="" data-original-title="Download" data-bs-original-title="Create">
-					<span class="btn-inner--icon">
+				<button type="button" class="p-0 m-0 border-0" data-bs-toggle="modal" data-bs-target="#customer" data-bs-whatever="@mdo">
+					<a href="#" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary" data-bs-original-title="Import">
 						<i class="bi bi-plus"></i>
-					</span>
-				</a>
+					</a>
+				</button>
 			</div>
 		</div>
 		<div class="col auto">
 			{{ include('partials/page-title.html.twig', { sub_title: 'Customer', page_title: 'Customer' }) }}
+		</div>
+	</div>
+	<div class="modal fade rounded-3" id="customer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog rounded-3">
+			<div class="modal-content rounded-3">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Create Lead</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="modal-body">
+
+						<h6 class="sub-title">Basic Info</h6>
+						<div class="row">
+							<div class="col-lg-4 col-md-4 col-sm-6">
+								<div class="form-group">
+									<label for="name" class="form-label">Name</label>
+									<input class="form-control" required="required" name="name" type="text" id="name">
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-4 col-sm-6">
+								<div class="form-group">
+									<label for="contact" class="form-label">Contact</label>
+									<input class="form-control" required="required" name="contact" type="number" id="contact">
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-4 col-sm-6">
+								<div class="form-group">
+									<label for="email" class="form-label">Email</label>
+									<input class="form-control" name="email" type="text" id="email">
+
+								</div>
+							</div>
+
+							<div class="col-lg-4 col-md-4 col-sm-6">
+								<div class="form-group">
+									<label for="tax_number" class="form-label">Tax Number</label>
+									<input class="form-control" name="tax_number" type="text" id="tax_number">
+								</div>
+							</div>
+						</div>
+
+						<h6 class="sub-title">Billing Address</h6>
+						<div class="row">
+							<div class="col-lg-6 col-md-6 col-sm-6">
+								<div class="form-group">
+									<label for="billing_name" class="form-label">Name</label>
+									<input class="form-control" name="billing_name" type="text" id="billing_name">
+								</div>
+							</div>
+							<div class="col-lg-6 col-md-6 col-sm-6">
+								<div class="form-group">
+									<label for="billing_phone" class="form-label">Phone</label>
+									<input class="form-control" name="billing_phone" type="text" id="billing_phone">
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="billing_address" class="form-label">Address</label>
+									<textarea class="form-control" rows="3" name="billing_address" cols="50" id="billing_address"></textarea>
+
+								</div>
+							</div>
+							<div class="col-lg-6 col-md-6 col-sm-6">
+								<div class="form-group">
+									<label for="billing_city" class="form-label">City</label>
+									<input class="form-control" name="billing_city" type="text" id="billing_city">
+
+								</div>
+							</div>
+							<div class="col-lg-6 col-md-6 col-sm-6">
+								<div class="form-group">
+									<label for="billing_state" class="form-label">State</label>
+									<input class="form-control" name="billing_state" type="text" id="billing_state">
+								</div>
+							</div>
+							<div class="col-lg-6 col-md-6 col-sm-6">
+								<div class="form-group">
+									<label for="billing_country" class="form-label">Country</label>
+									<input class="form-control" name="billing_country" type="text" id="billing_country">
+								</div>
+							</div>
+
+							<div class="col-lg-6 col-md-6 col-sm-6">
+								<div class="form-group">
+									<label for="billing_zip" class="form-label">Zip Code</label>
+									<input class="form-control" name="billing_zip" type="text" id="billing_zip">
+
+								</div>
+							</div>
+
+						</div>
+
+						<div class="col-md-12 text-end">
+							<input type="button" id="billing_data" value="Shipping Same As Billing" class="btn btn-primary">
+						</div>
+						<h6 class="sub-title">Shipping Address</h6>
+						<div class="row">
+							<div class="col-lg-6 col-md-6 col-sm-6">
+								<div class="form-group">
+									<label for="shipping_name" class="form-label">Name</label>
+									<input class="form-control" name="shipping_name" type="text" id="shipping_name">
+
+								</div>
+							</div>
+							<div class="col-lg-6 col-md-6 col-sm-6">
+								<div class="form-group">
+									<label for="shipping_phone" class="form-label">Phone</label>
+									<input class="form-control" name="shipping_phone" type="text" id="shipping_phone">
+
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="shipping_address" class="form-label">Address</label>
+									<label class="form-label" for="example2cols1Input"></label>
+									<textarea class="form-control" rows="3" name="shipping_address" cols="50" id="shipping_address"></textarea>
+
+								</div>
+							</div>
+
+
+							<div class="col-lg-6 col-md-6 col-sm-6">
+								<div class="form-group">
+									<label for="shipping_city" class="form-label">City</label>
+									<input class="form-control" name="shipping_city" type="text" id="shipping_city">
+
+								</div>
+							</div>
+							<div class="col-lg-6 col-md-6 col-sm-6">
+								<div class="form-group">
+									<label for="shipping_state" class="form-label">State</label>
+									<input class="form-control" name="shipping_state" type="text" id="shipping_state">
+
+								</div>
+							</div>
+							<div class="col-lg-6 col-md-6 col-sm-6">
+								<div class="form-group">
+									<label for="shipping_country" class="form-label">Country</label>
+									<input class="form-control" name="shipping_country" type="text" id="shipping_country">
+
+								</div>
+							</div>
+
+
+							<div class="col-lg-6 col-md-6 col-sm-6">
+								<div class="form-group">
+									<label for="shipping_zip" class="form-label">Zip Code</label>
+									<input class="form-control" name="shipping_zip" type="text" id="shipping_zip">
+
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-primary rounded-2">Create</button>
+				</div>
+			</div>
 		</div>
 	</div>
 {% endblock %}
@@ -59,13 +221,13 @@
 						</thead>
 						<tbody>
 							{# <tr>
-															<td>Cara Stevens</td>
-															<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-															<td>New York</td>
-															<td>46</td>
-															<td>2011/12/06</td>
-															<td>2011/12/06</td>
-														</tr> #}
+																						<td>Cara Stevens</td>
+																						<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
+																						<td>New York</td>
+																						<td>46</td>
+																						<td>2011/12/06</td>
+																						<td>2011/12/06</td>
+																					</tr> #}
 						</tbody>
 					</table>
 

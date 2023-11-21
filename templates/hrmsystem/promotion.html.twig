@@ -17,15 +17,59 @@
 	<div class"row align-items-center d-flex">
 		<div class="col mt-2">
 			<div class="float-end mt-3">
-				<a href="#" class="btn btn-sm btn-primary" onclick="saveAsPDF()" data-bs-toggle="tooltip" title="" data-original-title="Download" data-bs-original-title="Create">
-					<span class="btn-inner--icon">
+				<button type="button" class="p-0 m-0 border-0" data-bs-toggle="modal" data-bs-target="#promotion" data-bs-whatever="@mdo">
+					<a href="#" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary" data-bs-original-title="Import">
 						<i class="bi bi-plus"></i>
-					</span>
-				</a>
+					</a>
+				</button>
 			</div>
 		</div>
 		<div class="col auto">
 			{{ include('partials/page-title.html.twig', { sub_title: 'Promotion', page_title: 'Promotion' }) }}
+		</div>
+	</div>
+	<div class="modal fade rounded-3" id="promotion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog rounded-3">
+			<div class="modal-content rounded-3">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Create New Promotion</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="modal-body">
+						<div class="row">
+							<div class="form-group col-lg-6 col-md-6">
+								<label for="employee_id" class="form-label">Employee</label>
+								<select class="form-control select" required="required" id="employee_id" name="employee_id">
+									<option value="32">Saleem Shahzad</option>
+									<option value="33">William Ndubuisi</option>
+								</select>
+							</div>
+							<div class="form-group col-lg-6 col-md-6">
+								<label for="designation_id" class="form-label">Designation</label>
+								<select class="form-control select" id="designation_id" name="designation_id"></select>
+							</div>
+							<div class="form-group col-lg-6 col-md-6">
+								<label for="promotion_title" class="form-label">Promotion Title</label>
+								<input class="form-control" name="promotion_title" type="text" id="promotion_title">
+							</div>
+							<div class="form-group col-lg-6 col-md-6">
+								<label for="promotion_date" class="form-label">Promotion Date</label>
+								<input class="form-control " name="promotion_date" type="date" id="promotion_date">
+							</div>
+							<div class="form-group col-lg-12">
+								<label for="description" class="form-label">Description</label>
+								<textarea class="form-control" placeholder="Enter Description" name="description" cols="50" rows="10" id="description"></textarea>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-primary rounded-2">Create</button>
+				</div>
+			</div>
 		</div>
 	</div>
 {% endblock %}
@@ -49,13 +93,13 @@
 						</thead>
 						<tbody>
 							{# <tr>
-															<td>Cara Stevens</td>
-															<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-															<td>New York</td>
-															<td>46</td>
-															<td>2011/12/06</td>
-															<td>2011/12/06</td>
-														</tr> #}
+																													<td>Cara Stevens</td>
+																													<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
+																													<td>New York</td>
+																													<td>46</td>
+																													<td>2011/12/06</td>
+																													<td>2011/12/06</td>
+																												</tr> #}
 						</tbody>
 					</table>
 

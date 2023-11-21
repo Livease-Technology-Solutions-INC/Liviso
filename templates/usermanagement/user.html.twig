@@ -4,13 +4,20 @@
 {% endblock %}
 
 {% block css %}
-	<!-- Datatables css -->
-	<link href="/vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
-	<link href="/vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
-	<link href="/vendor/datatables.net-fixedcolumns-bs5/css/fixedColumns.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
-	<link href="/vendor/datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
-	<link href="/vendor/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
-	<link href="/vendor/datatables.net-select-bs5/css/select.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<!-- Select2 css -->
+	<link
+	href="/vendor/select2/css/select2.min.css" rel="stylesheet" type="text/css"/>
+
+	<!-- Daterangepicker css -->
+	<link
+	href="/vendor/daterangepicker/daterangepicker.css" rel="stylesheet" type="text/css"/>
+
+	<!-- Bootstrap Touchspin css -->
+	<link
+	href="/vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet" type="text/css"/>
+
+	<!-- Flatpickr Timepicker css -->
+	<link href="/vendor/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css"/>
 {% endblock %}
 
 {% block pagetitle %}
@@ -20,13 +27,120 @@
 				<a href="#" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary" data-bs-original-title="Import">
 					<i class="ri ri-user-follow-line"></i>
 				</a>
-				<a href="#" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary" data-bs-original-title="Import">
-					<i class="bi bi-plus"></i>
-				</a>
+				<button type="button" class="p-0 m-0 border-0" data-bs-toggle="modal" data-bs-target="#user" data-bs-whatever="@mdo">
+					<a href="#" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary" data-bs-original-title="Import">
+						<i class="bi bi-plus"></i>
+					</a>
+				</button>
 			</div>
 		</div>
 		<div class="col auto">
 			{{ include('partials/page-title.html.twig', { sub_title: 'Manage User', page_title: 'Manage User' }) }}
+		</div>
+	</div>
+	<div class="modal fade rounded-3" id="user" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog rounded-3">
+			<div class="modal-content rounded-3">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Create</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group mb-1">
+									<label for="name" class="form-label mb-0">Name</label>
+									<input class="form-control" placeholder="Enter User Name" required="required" name="name" type="text" id="name">
+								</div>
+							</div>
+							<div class="col-md-6 mb-1">
+								<div class="form-group">
+									<label for="email" class="form-label mb-0">Email</label>
+									<input class="form-control" placeholder="Enter User Email" required="required" name="email" type="text" id="email">
+								</div>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="role" class="form-label">User Role</label>
+								<select class="form-control select2" data-toggle="select2">
+									<option></option>
+									<option value="AK">Accountant</option>
+									<option value="AK">Accountant Manager</option>
+									<option value="AK">Admin</option>
+									<option value="AK">Factory Worker</option>
+									<option value="HI">Secretary</option>
+									{# <optgroup label="Pacific Time Zone">
+																			<option value="CA">California</option>
+																			<option value="NV">Nevada</option>
+																			<option value="OR">Oregon</option>
+																			<option value="WA">Washington</option>
+																		</optgroup> #}
+								{# <optgroup label="Mountain Time Zone">
+																		<option value="AZ">Arizona</option>
+																		<option value="CO">Colorado</option>
+																		<option value="ID">Idaho</option>
+																		<option value="MT">Montana</option>
+																		<option value="NE">Nebraska</option>
+																		<option value="NM">New Mexico</option>
+																		<option value="ND">North Dakota</option>
+																		<option value="UT">Utah</option>
+																		<option value="WY">Wyoming</option>
+																	</optgroup> #}
+									{# <optgroup label="Central Time Zone">
+																			<option value="AL">Alabama</option>
+																			<option value="AR">Arkansas</option>
+																			<option value="IL">Illinois</option>
+																			<option value="IA">Iowa</option>
+																			<option value="KS">Kansas</option>
+																			<option value="KY">Kentucky</option>
+																			<option value="LA">Louisiana</option>
+																			<option value="MN">Minnesota</option>
+																			<option value="MS">Mississippi</option>
+																			<option value="MO">Missouri</option>
+																			<option value="OK">Oklahoma</option>
+																			<option value="SD">South Dakota</option>
+																			<option value="TX">Texas</option>
+																			<option value="TN">Tennessee</option>
+																			<option value="WI">Wisconsin</option>
+																		</optgroup> #}
+									{# <optgroup label="Eastern Time Zone">
+																			<option value="CT">Connecticut</option>
+																			<option value="DE">Delaware</option>
+																			<option value="FL">Florida</option>
+																			<option value="GA">Georgia</option>
+																			<option value="IN">Indiana</option>
+																			<option value="ME">Maine</option>
+																			<option value="MD">Maryland</option>
+																			<option value="MA">Massachusetts</option>
+																			<option value="MI">Michigan</option>
+																			<option value="NH">New Hampshire</option>
+																			<option value="NJ">New Jersey</option>
+																			<option value="NY">New York</option>
+																			<option value="NC">North Carolina</option>
+																			<option value="OH">Ohio</option>
+																			<option value="PA">Pennsylvania</option>
+																			<option value="RI">Rhode Island</option>
+																			<option value="SC">South Carolina</option>
+																			<option value="VT">Vermont</option>
+																			<option value="VA">Virginia</option>
+																			<option value="WV">West Virginia</option>
+																		</optgroup> #}
+								</select>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="password" class="form-label mb-0">Password</label>
+									<input class="form-control" placeholder="Enter User Password" required="required" minlength="6" name="password" type="password" value="" id="password">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-primary rounded-2">Create</button>
+				</div>
+			</div>
 		</div>
 	</div>
 {% endblock %}
@@ -38,47 +152,41 @@
 				<div class="card-header border-0 pb-0">
 					<div class="d-flex justify-content-between align-items-center">
 						<h6 class="mb-0">
-							<div class="badge bg-primary p-2 px-3 rounded">
+							<div class="badge bg-primary p-2 px-3 rounded-3">
 								Admin
 							</div>
 						</h6>
-					</div>
-					<div class="card-header-right">
-						<div class="btn-group card-option">
-							<button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<i class="ti ti-dots-vertical"></i>
-							</button>
-
-							<div class="dropdown-menu dropdown-menu-end">
-
-								<a href="#!" data-size="lg" data-url="http://localhost/other/users/132/edit" data-ajax-popup="true" class="dropdown-item" data-bs-original-title="Edit User">
-									<i class="ti ti-pencil"></i>
-									<span>Edit</span>
-								</a>
-
-								<form method="POST" action="http://localhost/other/users/132" accept-charset="UTF-8" id="delete-form-132"><input name="_method" type="hidden" value="DELETE"><input name="_token" type="hidden" value="q4UTQ0S1spGLbp1qFl5N9vDcE8eW1YX3XkMwbbbv">
-									<a href="#!" class="dropdown-item bs-pass-para">
-										<i class="ti ti-archive"></i>
-										<span>
-											Delete
-										</span>
+						<div class="card-header-right float-end">
+							<div class="btn-group card-option">
+								<button
+									type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{# <i class="bi bi-plus-circle-dotted"></i> #}
+								</button>
+								<div class="dropdown-menu dropdown-menu-end">
+									<a href="#!" data-size="lg" data-url="#" data-ajax-popup="true" class="dropdown-item" data-bs-original-title="Edit User">
+										<i class="bi bi-pencil"></i>
+										<span>Edit</span>
 									</a>
-								</form>
-
-								<a href="#!" data-url="http://localhost/other/user-reset-password/eyJpdiI6IkJZL1krTTFWaW1JN29oMXJZc2VyYlE9PSIsInZhbHVlIjoiTk5IaXl4MUUrUVFONWdoUTFBTDZBdz09IiwibWFjIjoiYWE0Mjc5Yjg3YmZlOWFiZDhiMDU2ZTM0NzUyODhlMTRhMTVhNDliMjYxMGE5NmUyMmYxM2U5ZjM3NDMwMjlkOSIsInRhZyI6IiJ9" data-ajax-popup="true" data-size="md" class="dropdown-item" data-bs-original-title="Reset Password">
-									<i class="ti ti-adjustments"></i>
-									<span>
-										Reset Password</span>
-								</a>
+									<form method="POST" action="#" accept-charset="UTF-8" id="delete-form-132"><input name="_method" type="hidden" value="DELETE"><input name="_token" type="hidden" value="q4UTQ0S1spGLbp1qFl5N9vDcE8eW1YX3XkMwbbbv">
+										<a href="#!" class="dropdown-item bs-pass-para">
+											<i class="bi bi-archive"></i>
+											<span>
+												Delete
+											</span>
+										</a>
+									</form>
+									<a href="#!" data-url="#" data-ajax-popup="true" data-size="md" class="dropdown-item" data-bs-original-title="Reset Password">
+										<i class="bi bi-adjustments"></i>
+										<span>
+											Reset Password</span>
+									</a>
+								</div>
 							</div>
-
 						</div>
 					</div>
 				</div>
-
 				<div class="card-body full-card">
 					<div class="img-fluid rounded-circle card-avatar">
-						<img src="https://liviso.net/storage/uploads/avatar/avatar.png" class="img-user wid-80 round-img rounded-circle">
+						<img src="" class="img-user wid-80 round-img rounded-circle">
 					</div>
 					<h4 class=" mt-3 text-primary">Saleem Shahzad</h4>
 					<small class="text-primary">shehziok@gmail.com</small>
@@ -94,47 +202,41 @@
 				<div class="card-header border-0 pb-0">
 					<div class="d-flex justify-content-between align-items-center">
 						<h6 class="mb-0">
-							<div class="badge bg-primary p-2 px-3 rounded">
+							<div class="badge bg-primary p-2 px-3 rounded-3">
 								Admin
 							</div>
 						</h6>
-					</div>
-					<div class="card-header-right">
-						<div class="btn-group card-option">
-							<button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<i class="ti ti-dots-vertical"></i>
-							</button>
-
-							<div class="dropdown-menu dropdown-menu-end">
-
-								<a href="#!" data-size="lg" data-url="http://localhost/other/users/134/edit" data-ajax-popup="true" class="dropdown-item" data-bs-original-title="Edit User">
-									<i class="ti ti-pencil"></i>
-									<span>Edit</span>
-								</a>
-
-								<form method="POST" action="http://localhost/other/users/134" accept-charset="UTF-8" id="delete-form-134"><input name="_method" type="hidden" value="DELETE"><input name="_token" type="hidden" value="q4UTQ0S1spGLbp1qFl5N9vDcE8eW1YX3XkMwbbbv">
-									<a href="#!" class="dropdown-item bs-pass-para">
-										<i class="ti ti-archive"></i>
-										<span>
-											Delete
-										</span>
+						<div class="card-header-right float-end">
+							<div class="btn-group card-option">
+								<button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i class="bi bi-dots-vertical"></i>
+								</button>
+								<div class="dropdown-menu dropdown-menu-end">
+									<a href="#!" data-size="lg" data-url="#" data-ajax-popup="true" class="dropdown-item" data-bs-original-title="Edit User">
+										<i class="bi bi-pencil"></i>
+										<span>Edit</span>
 									</a>
-								</form>
-
-								<a href="#!" data-url="http://localhost/other/user-reset-password/eyJpdiI6Ikp5b3RmU1NYSVduTC9CQlJqNE1tdEE9PSIsInZhbHVlIjoiZU1mZFhwd3ZZMVZZeSttYjVWeWtrdz09IiwibWFjIjoiMTFmZmY0ZjU5ZWJlZTQ2ZmVmZTNjOTgzYWM3MWIwM2U0N2ZlOTAxN2NmNTBiYjk5ZWQwYjhmNzBiOTEyMzllOCIsInRhZyI6IiJ9" data-ajax-popup="true" data-size="md" class="dropdown-item" data-bs-original-title="Reset Password">
-									<i class="ti ti-adjustments"></i>
-									<span>
-										Reset Password</span>
-								</a>
+									<form method="POST" action="#" accept-charset="UTF-8" id="delete-form-134"><input name="_method" type="hidden" value="DELETE"><input name="_token" type="hidden" value="q4UTQ0S1spGLbp1qFl5N9vDcE8eW1YX3XkMwbbbv">
+										<a href="#!" class="dropdown-item bs-pass-para">
+											<i class="bi bi-archive"></i>
+											<span>
+												Delete
+											</span>
+										</a>
+									</form>
+									<a href="#!" data-url="#" data-ajax-popup="true" data-size="md" class="dropdown-item" data-bs-original-title="Reset Password">
+										<i class="bi bi-adjustments"></i>
+										<span>
+											Reset Password</span>
+									</a>
+								</div>
 							</div>
-
 						</div>
 					</div>
 				</div>
-
 				<div class="card-body full-card">
 					<div class="img-fluid rounded-circle card-avatar">
-						<img src="https://liviso.net/storage/uploads/avatar/avatar.png" class="img-user wid-80 round-img rounded-circle">
+						<img src="" class="img-user wid-80 round-img rounded-circle">
 					</div>
 					<h4 class=" mt-3 text-primary">William Ndubuisi</h4>
 					<small class="text-primary">williamndubuisidev@gmail.com</small>
@@ -147,19 +249,32 @@
 {% endblock %}
 
 {% block javascript %}
-	<!-- Datatables js -->
-	<script src="/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
-	<script src="/vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
-	<script src="/vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-	<script src="/vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
-	<script src="/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-	<script src="/vendor/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js"></script>
-	<script src="/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
-	<script src="/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
-	<script src="/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
-	<script src="/vendor/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-	<script src="/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
+	<!--  Select2 Plugin Js -->
+	<script src="/vendor/select2/js/select2.min.js"></script>
 
-	<!-- Datatable Demo Aapp js -->
-	<script src="/js/pages/demo.datatable-init.js"></script>
+	<!-- Daterangepicker Plugin js -->
+	<script src="/vendor/daterangepicker/moment.min.js"></script>
+	<script src="/vendor/daterangepicker/daterangepicker.js"></script>
+
+	<!-- Input Mask Plugin js -->
+	<script src="/vendor/jquery-mask-plugin/jquery.mask.min.js"></script>
+
+	<!-- Bootstrap Touchspin Plugin js -->
+	<script src="/vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+
+	<!-- Bootstrap Maxlength Plugin js -->
+	<script src="/vendor/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+
+	<!-- Typehead Plugin js -->
+	<script src="/vendor/handlebars/handlebars.min.js"></script>
+	<script src="/vendor/typeahead.js/typeahead.bundle.min.js"></script>
+
+	<!-- Flatpickr Timepicker Plugin js -->
+	<script src="/vendor/flatpickr/flatpickr.min.js"></script>
+
+	<!-- Typehead Demo js -->
+	<script src="/js/pages/demo.typehead.js"></script>
+
+	<!-- Timepicker Demo js -->
+	<script src="/js/pages/demo.flatpickr.js"></script>
 {% endblock %}

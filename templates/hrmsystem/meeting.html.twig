@@ -17,15 +17,80 @@
 	<div class"row align-items-center d-flex">
 		<div class="col mt-2">
 			<div class="float-end mt-3">
-				<a href="#" class="btn btn-sm btn-primary" onclick="saveAsPDF()" data-bs-toggle="tooltip" title="" data-original-title="Download" data-bs-original-title="Create">
-					<span class="btn-inner--icon">
+				<button type="button" class="p-0 m-0 border-0" data-bs-toggle="modal" data-bs-target="#meeting" data-bs-whatever="@mdo">
+					<a href="#" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary" data-bs-original-title="Import">
 						<i class="bi bi-plus"></i>
-					</span>
-				</a>
+					</a>
+				</button>
 			</div>
 		</div>
 		<div class="col auto">
 			{{ include('partials/page-title.html.twig', { sub_title: 'Meeting', page_title: 'Meeting' }) }}
+		</div>
+	</div>
+	<div class="modal fade rounded-3" id="meeting" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog rounded-3">
+			<div class="modal-content rounded-3">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Create New Meeting</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="branch_id" class="form-label">Branch</label>
+									<select class="form-control select" name="branch_id" id="branch_id" placeholder="Select Branch">
+										<option value="">Select Branch</option>
+										<option value="0">All Branch</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" id="department_div">
+									<label for="department_id" class="form-label">Department</label>
+									<select class="form-control select" name="department_id[]" id="department_id" placeholder="Select Department"></select>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group" id="employee_div">
+									<label for="employee_id" class="form-label">Employee</label>
+									<select class="form-control select" name="employee_id[]" id="employee_id" placeholder="Select Employee"></select>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="title" class="form-label">Meeting Title</label>
+									<input class="form-control" placeholder="Enter Meeting Title" name="title" type="text" id="title">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="date" class="form-label">Meeting Date</label>
+									<input class="form-control " name="date" type="date" id="date">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="time" class="form-label">Meeting Time</label>
+									<input class="form-control timepicker" name="time" type="time" id="time">
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="note" class="form-label">Meeting Note</label>
+									<textarea class="form-control" placeholder="Enter Meeting Note" name="note" cols="50" rows="10" id="note"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-primary rounded-2">Create</button>
+				</div>
+			</div>
 		</div>
 	</div>
 {% endblock %}
@@ -47,13 +112,13 @@
 						</thead>
 						<tbody>
 							{# <tr>
-															<td>Cara Stevens</td>
-															<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-															<td>New York</td>
-															<td>46</td>
-															<td>2011/12/06</td>
-															<td>2011/12/06</td>
-														</tr> #}
+																						<td>Cara Stevens</td>
+																						<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
+																						<td>New York</td>
+																						<td>46</td>
+																						<td>2011/12/06</td>
+																						<td>2011/12/06</td>
+																					</tr> #}
 						</tbody>
 					</table>
 

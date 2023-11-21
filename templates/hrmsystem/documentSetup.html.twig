@@ -17,15 +17,74 @@
 	<div class"row align-items-center d-flex">
 		<div class="col mt-2">
 			<div class="float-end mt-3">
-				<a href="#" class="btn btn-sm btn-primary" onclick="saveAsPDF()" data-bs-toggle="tooltip" title="" data-original-title="Download" data-bs-original-title="Create">
-					<span class="btn-inner--icon">
+				<button type="button" class="p-0 m-0 border-0" data-bs-toggle="modal" data-bs-target="#documentSetup" data-bs-whatever="@mdo">
+					<a href="#" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary" data-bs-original-title="Import">
 						<i class="bi bi-plus"></i>
-					</span>
-				</a>
+					</a>
+				</button>
 			</div>
 		</div>
 		<div class="col auto">
 			{{ include('partials/page-title.html.twig', { sub_title: 'Document Setup', page_title: 'Document Setup' }) }}
+		</div>
+	</div>
+	<div class="modal fade rounded-3" id="documentSetup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog rounded-3">
+			<div class="modal-content rounded-3">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Create New Document</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="name" class="form-label">Name</label>
+									<input class="form-control" required="required" name="name" type="text" id="name">
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="role" class="form-label">Role</label>
+									<select class="form-control select" id="role" name="role">
+										<option value="0">All</option>
+										<option value="28">Admin</option>
+										<option value="30">Secretary</option>
+										<option value="31">Accountant</option>
+										<option value="32">Accounts Manager</option>
+										<option value="33">Factory Worker</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="description" class="form-label">Description</label>
+									<textarea class="form-control" rows="3" name="description" cols="50" id="description"></textarea>
+								</div>
+							</div>
+
+							<div class="col-md-6 form-group">
+								<label for="document" class="form-label">Document</label>
+								<div class="choose-file ">
+									<label for="document" class="form-label">
+										<input type="file" class="form-control" name="document" id="document" data-filename="document_create" required="">
+										<img id="image" class="mt-3" style="width:25%;">
+									</label>
+								</div>
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-primary rounded-2">Create</button>
+				</div>
+			</div>
 		</div>
 	</div>
 {% endblock %}
@@ -48,13 +107,13 @@
 						</thead>
 						<tbody>
 							{# <tr>
-																						<td>Cara Stevens</td>
-																						<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-																						<td>New York</td>
-																						<td>46</td>
-																						<td>2011/12/06</td>
-																						<td>2011/12/06</td>
-																					</tr> #}
+																																				<td>Cara Stevens</td>
+																																				<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
+																																				<td>New York</td>
+																																				<td>46</td>
+																																				<td>2011/12/06</td>
+																																				<td>2011/12/06</td>
+																																			</tr> #}
 						</tbody>
 					</table>
 

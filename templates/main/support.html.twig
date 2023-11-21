@@ -14,21 +14,101 @@
 {% endblock %}
 
 {% block pagetitle %}
-	{{ include('partials/page-title.html.twig', { sub_title: 'Support System', page_title: 'Support System' }) }}
+	<div class"row align-items-center d-flex">
+		<div class="col mt-2">
+			<div class="float-end mt-3">
+				<button type="button" class="p-0 m-0 border-0" data-bs-toggle="modal" data-bs-target="#zoom" data-bs-whatever="@mdo">
+					<a href="#" data-size="lg" data-url="#" data-ajax-popup="true" data-bs-toggle="tooltip" title="" data-title="Create New Webhook" class="btn btn-sm btn-primary" data-bs-original-title="Create">
+						<i class="bi bi-plus"></i>
+					</a>
+				</button>
+			</div>
+		</div>
+		<div class="col auto">
+			{{ include('partials/page-title.html.twig', { sub_title: 'Support System', page_title: 'Support System' }) }}
+		</div>
+	</div>
+	<div class="modal fade rounded-3" id="zoom" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog rounded-3">
+			<div class="modal-content rounded-3">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Create Support</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="modal-body">
+						<div class="row">
+							<div class="form-group col-md-12">
+								<label for="subject" class="form-label">Subject</label>
+								<input class="form-control " required="required" name="subject" type="text" value="" id="subject">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="user" class="form-label">Support for User</label>
+								<select class="form-control select" id="user" name="user">
+									<option value="132">Saleem Shahzad</option>
+									<option value="134">William Ndubuisi</option>
+								</select>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="priority" class="form-label">Priority</label>
+								<select class="form-control select" id="priority" name="priority">
+									<option value="0">Low</option>
+									<option value="1">Medium</option>
+									<option value="2">High</option>
+									<option value="3">Critical</option>
+								</select>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="status" class="form-label">Status</label>
+								<select class="form-control select" id="status" name="status">
+									<option value="Open">Open</option>
+									<option value="Close">Close</option>
+									<option value="On Hold">On Hold</option>
+								</select>
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="end_date" class="form-label">End Date</label>
+								<input class="form-control" required="required" name="end_date" type="date" value="" id="end_date">
+							</div>
+
+
+						</div>
+						<div class="row">
+							<div class="form-group col-md-12">
+								<label for="description" class="form-label">Description</label>
+								<textarea class="form-control" rows="3" name="description" cols="50" id="description"></textarea>
+							</div>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="attachment" class="form-label">Attachment</label>
+							<label for="document" class="form-label">
+								<input type="file" class="form-control" name="attachment" id="attachment" data-filename="attachment_create">
+							</label>
+							<img id="image" class="mt-2" style="width:25%;">
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-primary rounded-2">Create</button>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}
 
 {% block body %}
-{# the buttons #}
+	{# the buttons #}
 	{# <div class="float-end">
-		<a href="#" class="btn btn-sm btn-primary" data-bs-toggle="tooltip" title="#">
-			<i class="ti ti-layout-grid text-white"></i>
-		</a>
-		<a href="#" data-size="lg" data-url="#" data-ajax-popup="true" data-bs-toggle="tooltip" title="#" data-title="#" class="btn btn-sm btn-primary">
-			<i class="ti ti-plus"></i>
-		</a>
-	</div> #}
-	<div class="row">
-		<div class="col-lg-3 col-md-6">
+							<a href="#" class="btn btn-sm btn-primary" data-bs-toggle="tooltip" title="#">
+								<i class="ti ti-layout-grid text-white"></i>
+							</a>
+							<a href="#" data-size="lg" data-url="#" data-ajax-popup="true" data-bs-toggle="tooltip" title="#" data-title="#" class="btn btn-sm btn-primary">
+								<i class="ti ti-plus"></i>
+							</a>
+						</div> #}
+		<div class="row"> <div class="col-lg-3 col-md-6">
 			<div class="card">
 				<div class="card-body">
 					<div class="row align-items-center justify-content-between">
@@ -44,13 +124,13 @@
 
 								<div class="ms-3">
 									<small class="text-muted">Total</small>
-									<h3 class="col-auto text-end">Ticket</h3>
+									<h5 class="col-auto text-end text-dark">Ticket</h5>
 								</div>
 							</div>
 						</div>
 						{# count ticket #}
 						<div class="col-auto text-end">
-							<h3 class="m-0">0</h3>
+							<h3 class="m-0 text-dark">0</h3>
 						</div>
 					</div>
 				</div>
@@ -74,12 +154,12 @@
 
 								<div class="ms-3">
 									<small class="text-muted">Open</small>
-									<h6 class="col-auto text-end">Ticket</h6>
+									<h5 class="col-auto text-end text-dark">Ticket</h5>
 								</div>
 							</div>
 						</div>
 						<div class="col-auto text-end">
-							<h3 class="m-0">0</h3>
+							<h3 class="m-0 text-dark">0</h3>
 						</div>
 					</div>
 				</div>
@@ -101,12 +181,12 @@
 								</svg>
 								<div class="ms-3">
 									<small class="text-muted">On Hold</small>
-									<h6 class="col-auto text-end">Ticket</h6>
+									<h5 class="col-auto text-end text-dark">Ticket</h5>
 								</div>
 							</div>
 						</div>
 						<div class="col-auto text-end">
-							<h3 class="m-0">0</h3>
+							<h3 class="m-0 text-dark">0</h3>
 						</div>
 					</div>
 				</div>
@@ -129,12 +209,12 @@
 
 								<div class="ms-3">
 									<small class="text-muted">Close</small>
-									<h6 class="col-auto text-end">Ticket</h6>
+									<h5 class="col-auto text-end text-dark">Ticket</h5>
 								</div>
 							</div>
 						</div>
 						<div class="col-auto text-end">
-							<h3 class="m-0">0</h3>
+							<h3 class="m-0 text-dark">0</h3>
 						</div>
 					</div>
 				</div>
@@ -163,13 +243,13 @@
 
 						<tbody>
 							{# <tr>
-								<td>Tiger Nixon</td>
-								<td>System Architect</td>
-								<td>Edinburgh</td>
-								<td>61</td>
-								<td>2011/04/25</td>
-								<td>$320,800</td>
-							</tr> #}
+																																											<td>Tiger Nixon</td>
+																																											<td>System Architect</td>
+																																											<td>Edinburgh</td>
+																																											<td>61</td>
+																																											<td>2011/04/25</td>
+																																											<td>$320,800</td>
+																																										</tr> #}
 						</tbody>
 					</table>
 
