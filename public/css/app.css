@@ -18491,6 +18491,203 @@ html[data-bs-theme=dark] .auth-brand .logo-dark {
   height: 70%;
 }
 
+.checkoutcard {
+  margin: 0;
+  padding: 0;
+  font-family: "Courier New", Courier, monospace;
+  height: 100%;
+  background-color: black;
+}
+.checkoutcard .container {
+  width: 100%;
+  height: 100%;
+  margin: 3% auto;
+}
+.checkoutcard .ui {
+  border: 0;
+  -webkit-box-shadow: 0 0 10´x 0 rgba(149, 184, 209, 0.5);
+          box-shadow: 0 0 10´x 0 rgba(149, 184, 209, 0.5);
+  border-radius: 10px;
+  width: 80%;
+  margin: 0 auto;
+  padding: 10%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 20px;
+  background-color: rgb(0, 0, 0);
+}
+.checkoutcard .ui .back {
+  position: fixed;
+  left: 0;
+  top: 0; /* You can adjust the top position if needed */
+}
+.checkoutcard .container-left {
+  width: 50%;
+}
+.checkoutcard .container-right {
+  width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.checkoutcard .card {
+  width: 360px;
+  height: 230px;
+  margin: 0 auto;
+  background: linear-gradient(45deg, rgb(2, 0, 36) 0%, rgb(0, 140, 177) 35%, rgb(0, 29, 125) 100%);
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+}
+.checkoutcard .intern {
+  padding: 20px;
+}
+.checkoutcard .approximation {
+  width: 30px;
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+}
+.checkoutcard .chip {
+  height: 40px;
+  position: relative;
+  left: 87%;
+  bottom: 20px;
+}
+.checkoutcard .card-number {
+  margin-top: 30px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.checkoutcard .card-holder {
+  color: whitesmoke;
+}
+.checkoutcard .card label {
+  font-size: 0.7rem;
+}
+.checkoutcard .card-infos {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 40%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  color: white;
+}
+.checkoutcard #credit-card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 15px;
+  font-size: 1.1rem;
+  color: white;
+  text-transform: uppercase;
+}
+.checkoutcard .number-container,
+.checkoutcard .name-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.checkoutcard .expiration-container,
+.checkoutcard .cvv-container {
+  width: 50%;
+}
+.checkoutcard input {
+  border: 0;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: #333333;
+  color: white;
+  font-weight: 600;
+  font-size: 1.1rem;
+  outline: 0;
+  width: 100%;
+}
+.checkoutcard input[type=text]:focus {
+  border: 1px solid #95b8d1;
+}
+.checkoutcard input#valid-thru-text,
+.checkoutcard input#cvv-text {
+  width: 95%;
+}
+.checkoutcard input[type=submit] {
+  width: 95%;
+  background-color: #008cb1;
+  cursor: pointer;
+}
+.checkoutcard .infos-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+@media (max-width: 1024px) {
+  .checkoutcard .ui {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: column-reverse;
+            flex-direction: column-reverse;
+  }
+  .checkoutcard .container-left,
+.checkoutcard .container-right {
+    width: 100%;
+  }
+}
+@media (max-width: 500px) {
+  .checkoutcard .card {
+    width: 260px;
+    height: 130px;
+  }
+  .checkoutcard .intern {
+    padding: 5px;
+  }
+  .checkoutcard .card-number {
+    margin-top: 2px;
+    font-size: 0.6rem;
+    font-weight: 600;
+    margin-left: 30px;
+  }
+  .checkoutcard .card-holder {
+    font-size: 0.6rem;
+    margin-left: 30px;
+  }
+  .checkoutcard .card-infos {
+    font-size: 0.6rem;
+    margin-left: 30px;
+  }
+  .checkoutcard .chip {
+    height: 20px;
+    position: relative;
+    left: 87%;
+    bottom: 70px;
+  }
+  .checkoutcard .ui {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: column-reverse;
+            flex-direction: column-reverse;
+  }
+  .checkoutcard .container-left,
+.checkoutcard .container-right {
+    width: 100%;
+  }
+}
+
 .apex-charts {
   min-height: 10px !important;
 }

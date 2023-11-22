@@ -1,0 +1,79 @@
+{{ include('partials/html.html.twig') }}
+
+<head>
+	{{ include('partials/title-meta.html.twig', {title: 'Card Details'}) }}
+
+	{{ include('partials/head-css.html.twig') }}
+</head>
+{% block css %}
+	<link href="/css/app.min.css" rel="stylesheet" type="text/css" id="app-style"/>
+{% endblock %}
+<body class="checkoutcard">
+	<main class="container">
+		<section class="ui">
+			<a class="back text-white d-flex justify-content-center m-2" href="{{path("setup_subcription_plan")}}">
+				<i class="ri ri-arrow-left-line"></i>
+				<h4>Back</h4>
+			</a>
+			<div class="container-left">
+				<form id="credit-card">
+					<div class="number-container">
+						<label>Card Number</label>
+						<input type="text" name="card-number" id="card-number" maxlength="19" placeholder="1234 5678 9101 1121" required onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+					</div>
+					<div class="name-container">
+						<label>Holder</label>
+						<input type="text" name="name-text" id="name-text" maxlength="30" placeholder="NOAH JACOB" required onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || event.key == ' '">
+					</div>
+					<div class="infos-container">
+						<div class="expiration-container">
+							<label>Valid-thru</label>
+							<input type="text" name="valid-thru-text" id="valid-thru-text" maxlength="5" placeholder="02/40" required onkeypress="return event.charCode >=48 && event.charCode <= 57">
+						</div>
+						<div class="cvv-container">
+							<label>CVV</label>
+							<input type="text" name="cvv-text" id="cvv-text" maxlength="4" placeholder="1234" required onkeypress="return event.charCode >=48 && event.charCode <= 57">
+						</div>
+					</div>
+					<input type="submit" value="ADD" id="add">
+				</form>
+			</div>
+			<div class="container-right">
+				<div class="card">
+					<div class="intern">
+						<img class="approximation" src="/images/card/aprox.png" alt="aproximation">
+						<div class="card-number">
+							<div class="number-vl">1234 5678 9101 1121</div>
+						</div>
+						<div class="card-holder">
+							<label>Holder</label>
+							<div class="name-vl">NOAH JACOB</div>
+						</div>
+						<div class="card-infos">
+							<div class="exp">
+								<label>valid-thru</label>
+								<div class="expiration-vl">02/40</div>
+							</div>
+							<div class="cvv">
+								<label>CVV</label>
+								<div class="cvv-vl">123</div>
+							</div>
+						</div>
+						<img class="chip" src="/images/card/chip.png" alt="chip">
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="footer footer-alt">
+		<span class="text-white-50">
+			<script>
+				document.write(new Date().getFullYear())
+			</script>
+			© Liviso</span>
+	</footer>
+	{{ include('partials/footer-scripts.html.twig') }}
+
+</body></html>{% block javascript %}
+<script src="/js/pages/card.js"></script>{% endblock %}
