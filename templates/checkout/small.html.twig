@@ -2,18 +2,67 @@
 
 <title>Small</title>
 {% block css %}
-	
+	{# <link href="/css/app.min.css" rel="stylesheet" type="text/css" id="app-style"/> #}
 {% endblock %}
 
 {% block body %}
-    <div class = "containter">
-        <h1 class="text-center">Your Cart</h1>
-        <div class="card">
-            <div class="card body border-5">
-                <h2>Product</h2>
-                <h4>small</h4>
-                <small>Discount: none</small>
-            </div>
-        </div>
-    </div>
+	<div class="plan">
+		<h1 class="text-center">Your Cart</h1>
+		<div class="card">
+			<div class="card-title b-5">
+				<div class="title">
+					<h2>Product</h2>
+					<h4>small</h4>
+					<small>Discount: none</small>
+				</div>
+			</div>
+			<div class="card-body"></div>
+			<div class="card-add">
+				<div class="input-group">
+					<select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+						<option selected>Monthly</option>
+						<option value="1">6 Months</option>
+						<option value="2">1 Years</option>
+						<option value="3">2 years</option>
+						<option value="4">3 Years</option>
+						<option value="5">4 Years</option>
+						<option value="6">5 Years</option>
+					</select>
+					<button class="btn btn-outline-secondary" type="button">$49 </button>
+				</div>
+				<div>
+					<h3>Addon User</h3>
+					<h3>$10 each(Repeated)</h3>
+				</div>
+				<div>
+					<h3>Onetime Setup Fee</h3>
+					<h3>$350</h3>
+				</div>
+				<div>
+					<h3>Admin Fee</h3>
+					<h3>$15</h3>
+				</div>
+			</div>
+		</div>
+		<div class="order-summary">
+			<div class="top">
+				<div class="container">
+					<h2>Order Summary</h2>
+					<h4>small</h4>
+				</div>
+			</div>
+			<br>
+			<div class="body">
+				<div class="div">
+					<h2>Subtotal(USD)</h2>
+					<h2>$300</h2>
+				</div>
+				<div class="div">
+					<a href="#">Have a voucher code or referral code</a>
+				</div>
+				<button class="submit" type="submit">I'm Ready To Pay</button>
+			</div>
+		</div>
+	</div>
 {% endblock %}
+{% block javascript %}{% endblock %}
