@@ -18688,6 +18688,15 @@ html[data-bs-theme=dark] .auth-brand .logo-dark {
   }
 }
 
+.plan .title {
+  position: fixed;
+  left: 0;
+  top: 0;
+  margin: 10px;
+}
+.plan .container {
+  margin-top: 100px;
+}
 .apex-charts {
   min-height: 10px !important;
 }

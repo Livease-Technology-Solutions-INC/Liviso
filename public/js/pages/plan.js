@@ -1,0 +1,1 @@
+const productPrice=document.querySelector("#initial-price"),addOn=document.querySelector("#addon"),oneTime=document.querySelector("#onetime"),admin=document.querySelector("#admin"),subTotal=document.querySelector("#subTotal"),subTotalHTML=subTotal.innerHTML;console.log(subTotalHTML);

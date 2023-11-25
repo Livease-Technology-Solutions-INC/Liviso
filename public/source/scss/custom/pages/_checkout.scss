@@ -1,0 +1,16 @@
+.plan {
+	.title {
+		position: fixed;
+		left: 0;
+		top: 0;
+        margin: 10px;
+	}
+	.container {
+		margin-top: 100px;
+		.row {
+			.first-column {
+				// margin-bottom: 20px;
+			}
+		}
+	}
+}

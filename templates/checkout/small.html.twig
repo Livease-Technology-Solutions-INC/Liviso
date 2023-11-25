@@ -1,68 +1,98 @@
 <!DOCTYPE html>
 
 <title>Small</title>
+<head>
+	{{ include('partials/title-meta.html.twig', {title: 'Card Details'}) }}
+
+	{{ include('partials/head-css.html.twig') }}
+</head>
 {% block css %}
-	{# <link href="/css/app.min.css" rel="stylesheet" type="text/css" id="app-style"/> #}
+	<link href="/css/app.min.css" rel="stylesheet" type="text/css" id="app-style"/>
 {% endblock %}
 
 {% block body %}
 	<div class="plan">
-		<h1 class="text-center">Your Cart</h1>
-		<div class="card">
-			<div class="card-title b-5">
-				<div class="title">
-					<h2>Product</h2>
-					<h4>small</h4>
-					<small>Discount: none</small>
+		<h1 class="text-center title text-black">Your Cart</h1>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 mb-2~">
+					<div class="card rounded-3 p-2 d-flex ">
+						<div class="order-summary-1">
+							<div class="card-header mb-0">
+								<div class="product-title mb-0">
+									<h2 class="text-black">Product</h2>
+									<div class="d-flex justify-content-between align-items-center">
+										<h4>small</h4>
+										<h5 class="text-success" id="initial-price" data-initial-price="49">$49</h5>
+									</div>
+									<small class="text-black">Discount: none</small>
+								</div>
+							</div>
+							<div class="card-body mt-0">
+								<div class="input-group">
+									<select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+										<option selected>Monthly</option>
+										<option value="1">6 Months</option>
+										<option value="2">1 Years</option>
+										<option value="3">2 years</option>
+										<option value="4">3 Years</option>
+										<option value="5">4 Years</option>
+										<option value="6">5 Years</option>
+									</select>
+									<button class="btn btn-outline-secondary" type="button">$49
+									</button>
+								</div>
+								<div class="d-flex justify-content-between align-items-center mt-4">
+									<h4 class="text-black">Addon User</h4>
+									<h4 class="text-success" id="addon" data-addon="10">$10 each
+										<span class="text-black">(Repeated)</span>
+									</h4>
+								</div>
+								<div class="d-flex justify-content-between align-items-center">
+									<h4 class="text-black">Onetime Setup Fee</h4>
+									<h4 class="text-success" id="onetime" data-addon="350">$350</h4>
+								</div>
+								<div class="d-flex justify-content-between align-items-center">
+									<h4 class="text-black">Admin Fee</h4>
+									<h4 class="text-success" id="admin" data-admin="15">$15</h4>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
-			</div>
-			<div class="card-body"></div>
-			<div class="card-add">
-				<div class="input-group">
-					<select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
-						<option selected>Monthly</option>
-						<option value="1">6 Months</option>
-						<option value="2">1 Years</option>
-						<option value="3">2 years</option>
-						<option value="4">3 Years</option>
-						<option value="5">4 Years</option>
-						<option value="6">5 Years</option>
-					</select>
-					<button class="btn btn-outline-secondary" type="button">$49 </button>
-				</div>
-				<div>
-					<h3>Addon User</h3>
-					<h3>$10 each(Repeated)</h3>
-				</div>
-				<div>
-					<h3>Onetime Setup Fee</h3>
-					<h3>$350</h3>
-				</div>
-				<div>
-					<h3>Admin Fee</h3>
-					<h3>$15</h3>
+				<div class="col-md-6">
+					<div class="card rounded-3 p-2 d-flex ">
+						<div class="order-summary mb-0">
+							<div class="card-header">
+								<h2 class="text-dark mb-4">Order Summary</h2>
+								<h4 class="mb-0">small</h4>
+							</div>
+							<hr class="fw-bold text-dark mt-0">
+							<div class="card-body">
+								<div class="div d-flex align-items-center justify-content-between">
+									<h2 class="text-black" >Subtotal(USD)</h2>
+									<h2 class="text-success" id="subTotal" data-subTotal="424">$424</h2>
+								</div>
+								<div class="div text-center mt-4">
+									<a href="#" class="text-center text-black text-decoration-underline fw-bold">Have a voucher code or referral code?</a>
+								</div>
+								<button class="submit bg-black text-white p-1 col-12 rounded-3 mt-2 fw-bold fs-5" type="submit">I'm Ready To Pay</button>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
-		<div class="order-summary">
-			<div class="top">
-				<div class="container">
-					<h2>Order Summary</h2>
-					<h4>small</h4>
-				</div>
-			</div>
-			<br>
-			<div class="body">
-				<div class="div">
-					<h2>Subtotal(USD)</h2>
-					<h2>$300</h2>
-				</div>
-				<div class="div">
-					<a href="#">Have a voucher code or referral code</a>
-				</div>
-				<button class="submit" type="submit">I'm Ready To Pay</button>
-			</div>
-		</div>
+		<footer class="footer footer-alt">
+			<span class="text-black-50">
+				<script>
+					document.write(new Date().getFullYear())
+				</script>
+				© Liviso</span>
+		</footer>
 	</div>
+	{{ include('partials/footer-scripts.html.twig') }}
 {% endblock %}
-{% block javascript %}{% endblock %}
+{% block javascript %}
+	<script src="/js/pages/plan.js"></script>
+{% endblock %}
