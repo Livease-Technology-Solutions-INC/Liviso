@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<title>Ultra</title>
+<head>
+	{{ include('partials/title-meta.html.twig', {title: 'Card Details'}) }}
+
+	{{ include('partials/head-css.html.twig') }}
+</head>
+{% block css %}
+	<link href="/css/app.min.css" rel="stylesheet" type="text/css" id="app-style"/>
+{% endblock %}
+
+{% block body %}
+	<div class="plan">
+		<h1 class="text-center title text-black">Your Cart</h1>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 mb-2~">
+					<div class="card rounded-3 p-2 d-flex ">
+						<div class="order-summary-1">
+							<div class="card-header mb-0">
+								<div class="product-title mb-0">
+									<h2 class="text-black">Product</h2>
+									<div class="d-flex justify-content-between align-items-center">
+										<h4>ultra</h4>
+										<h5 class="text-success" id="initial-price" data-initial-price="299">$299</h5>
+									</div>
+									<ultra class="text-black">Discount: none</ultra>
+								</div>
+							</div>
+							<div class="card-body mt-0">
+								<div class="input-group">
+									<select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" oninput="updateDiscount()">
+										<option selected value="0">Monthly</option>
+										<option value="1" data-discount='6'>6 Months</option>
+										<option value="2" data-discount='15'>1 Years</option>
+										<option value="3" data-discount='25'>2 years</option>
+										<option value="4" data-discount='30'>3 Years</option>
+										<option value="5" data-discount='40'>4 Years</option>
+										<option value="6" data-discount='50'>5 Years</option>
+									</select>
+									<div class="btn" id="discounted-price">$299
+									</div>
+								</div>
+								<h5 id="discount-text" class='float-end text-success mt-1 p-0'>6% off</h5>
+								<br>
+								<div class="d-flex justify-content-between align-items-center mt-4">
+									<h4 class="text-black">Addon User</h4>
+									<h4 class="text-success" id="addon" data-addon="10">$10 each
+										<span class="text-black">(Repeated)</span>
+									</h4>
+								</div>
+								<div class="d-flex justify-content-between align-items-center">
+									<h4 class="text-black">Onetime Setup Fee</h4>
+									<h4 class="text-success" id="onetime" data-addon="350">$350</h4>
+								</div>
+								<div class="d-flex justify-content-between align-items-center">
+									<h4 class="text-black">Admin Fee</h4>
+									<h4 class="text-success" id="admin" data-admin="15">$15</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="card rounded-3 p-2 d-flex ">
+						<div class="order-summary mb-0">
+							<div class="card-header">
+								<h2 class="text-dark mb-4">Order Summary</h2>
+								<h4 class="mb-0">ultra</h4>
+							</div>
+							<hr class="fw-bold text-dark mt-0">
+							<div class="card-body">
+								<div class="div d-flex align-items-center justify-content-between">
+									<h2 class="text-black">Subtotal(USD)</h2>
+									<h2 class="text-success">$<span id="subTotal" data-subtotal="424">0</span</h2>
+									</div>
+									<div class="div text-center mt-4">
+										<a href="#" class="text-center text-black text-decoration-underline fw-bold">Have a voucher code or referral code?</a>
+									</div>
+									<button class="submit bg-black text-white p-1 col-12 rounded-3 mt-2 fw-bold fs-5" type="submit">I'm Ready To Pay</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<footer class="footer footer-alt">
+				<span class="text-black-50">
+					<script>
+						document.write(new Date().getFullYear())
+					</script>
+					© Liviso</span>
+			</footer>
+		</div>
+		{{ include('partials/footer-scripts.html.twig') }}
+	{% endblock %}
+	{% block javascript %}
+		<script src="/js/pages/plan.js"></script>
+	{% endblock %}
