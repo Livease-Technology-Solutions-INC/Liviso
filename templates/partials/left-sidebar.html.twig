@@ -230,25 +230,25 @@
 							</div>
 						</li>
 						<li class="side-nav-item">
-							<a data-bs-toggle="collapse" href="#sidebartradingandservices" aria-expanded="false" aria-controls="sidebartradingandservices">
+							<a data-bs-toggle="collapse" href="#sidebarworkflowsystem" aria-expanded="false" aria-controls="sidebarworkflowsystem">
 								<span>
-									Trading & Services
+									Workflow System
 								</span>
 								<span class="menu-arrow"></span>
 							</a>
-							<div class="collapse" id="sidebartradingandservices">
+							<div class="collapse" id="sidebarworkflowsystem">
 								<ul class="side-nav-third-level">
 									<li>
-										<a href="{{path("trading_&_services-dashboard")}}">Overview</a>
+										<a href="{{path("workflowSystem-dashboard")}}">Overview</a>
 									</li>
 									<li class="side-nav-item">
-										<a data-bs-toggle="collapse" href="#sidebardashboardtradingandservices" aria-expanded="false" aria-controls="sidebardashboardtradingandservices">
+										<a data-bs-toggle="collapse" href="#sidebardashboardworkflowsystem" aria-expanded="false" aria-controls="sidebardashboardworkflowsystem">
 											<span>
 												Reports
 											</span>
 											<span class="menu-arrow"></span>
 										</a>
-										<div class="collapse" id="sidebardashboardtradingandservices">
+										<div class="collapse" id="sidebardashboardworkflowsystem">
 											<ul class="side-nav-third-level">
 												<li>
 													<a href="charts-apex-area">Warehouse Report</a>
@@ -756,71 +756,128 @@
 				<a data-bs-toggle="collapse" href="#sidebarTasks" aria-expanded="false" aria-controls="sidebarTasks" class="side-nav-link">
 					<i class="ri-folder-4-fill"></i>
 					<span>
-						Trading & Service System
+						Workflow System
 					</span>
 					<span class="menu-arrow"></span>
 				</a>
 				<div class="collapse" id="sidebarTasks">
 					<ul class="side-nav-second-level">
-						<li>
-							<a href="apps-tasks">Supplier Creation</a>
+						<li class="side-nav-item">
+							<a data-bs-toggle="collapse" href="#sidebarsales" aria-expanded="false" aria-controls="sidebarsales">
+								<span>
+									Sales
+								</span>
+								<span class="menu-arrow"></span>
+							</a>
+							<div class="collapse" id="sidebarsales">
+								<ul class="side-nav-third-level">
+									<li>
+										<a href="{{path("accountingsystem/account")}}">Customer Creation</a>
+									</li>
+									<li>
+										<a href="{{path("accountingsystem/transfer")}}">Enquiry Creation</a>
+									</li>
+									<li>
+										<a href="{{path("accountingsystem/transfer")}}">Sales Order</a>
+									</li>
+									<li>
+										<a href="{{path("accountingsystem/transfer")}}">New Product Request</a>
+									</li>
+									<li>
+										<a href="{{path("accountingsystem/transfer")}}">GRN Local</a>
+									</li>
+									<li>
+										<a href="{{path("accountingsystem/transfer")}}">Delivery Order</a>
+									</li>
+									<li>
+										<a href="{{path("accountingsystem/transfer")}}">Invoice Generation</a>
+									</li>
+									<li>
+										<a href="{{path("accountingsystem/transfer")}}">Service Request<a>
+									</li>
+									<li>
+										<a href="{{path("accountingsystem/transfer")}}">Service Item Delivery Note <a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="side-nav-item">
+							<a data-bs-toggle="collapse" href="#sidebarprocurement" aria-expanded="false" aria-controls="sidebarprocurement">
+								<span>
+									Procurement
+								</span>
+								<span class="menu-arrow"></span>
+							</a>
+							<div class="collapse" id="sidebarprocurement">
+								<ul class="side-nav-third-level">
+									<li>
+										<a href="{{path("accountingsystem/account")}}">Supplier Creation</a>
+									</li>
+									<li>
+										<a href="{{path("accountingsystem/transfer")}}">Product Master</a>
+									</li>
+									<li>
+										<a href="{{path("accountingsystem/transfer")}}">Purchase Order</a>
+									</li>
+									<li>
+										<a href="{{path("accountingsystem/transfer")}}">QC Request</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="side-nav-item">
+							<a data-bs-toggle="collapse" href="#sidebarlogistics" aria-expanded="false" aria-controls="sidebarlogistics">
+								<span>
+									Logistics
+								</span>
+								<span class="menu-arrow"></span>
+							</a>
+							<div class="collapse" id="sidebarlogistics">
+								<ul class="side-nav-third-level">
+									<li>
+										<a href="{{path("accountingsystem/account")}}">Shipping Order</a>
+									</li>
+									<li>
+										<a href="{{path("accountingsystem/transfer")}}">Shipping Bill</a>
+									</li>
+									<li>
+										<a href="{{path("accountingsystem/transfer")}}">GRN(Inventory)</a>
+									</li>
+									<li>
+										<a href="{{path("accountingsystem/transfer")}}">Costing Sheet</a>
+									</li>
+									<li>
+										<a href="{{path("accountingsystem/transfer")}}">Delivery Order</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="side-nav-item">
+							<a data-bs-toggle="collapse" href="#sidebaraccounts" aria-expanded="false" aria-controls="sidebaraccounts">
+								<span>
+									Accounts
+								</span>
+								<span class="menu-arrow"></span>
+							</a>
+							<div class="collapse" id="sidebaraccounts">
+								<ul class="side-nav-third-level">
+									<li>
+										<a href="{{path("accountingsystem/account")}}">Payment Receipt</a>
+									</li>
+									<li>
+										<a href="{{path("accountingsystem/transfer")}}">Advance Payment</a>
+									</li>
+								</ul>
+							</div>
 						</li>
 						<li>
-							<a href="apps-tasks-details">Customer Creation</a>
+							<a href="apps-tasks-details">HR</a>
 						</li>
 						<li>
-							<a href="apps-tasks-details">Service Type Registration</a>
+							<a href="apps-tasks-details">Operations</a>
 						</li>
 						<li>
-							<a href="apps-tasks-details">Consumable Material Registration</a>
-						</li>
-						<li>
-							<a href="apps-tasks-details">Enquiry Creation</a>
-						</li>
-						<li>
-							<a href="apps-tasks-details">Estimate Request</a>
-						</li>
-						<li>
-							<a href="apps-tasks-details">Estimation</a>
-						</li>
-						<li>
-							<a href="apps-tasks-details">Quotation</a>
-						</li>
-						<li>
-							<a href="apps-tasks-details">Work Order</a>
-						</li>
-						<li>
-							<a href="apps-tasks-details">Accounts for Advance Payment</a>
-						</li>
-						<li>
-							<a href="apps-tasks-details">Purchase Dept</a>
-						</li>
-						<li>
-							<a href="apps-tasks-details">Purchases</a>
-						</li>
-						<li>
-							<a href="apps-tasks-details">Project Manager /  Coordinator / Supervisor</a>
-						</li>
-						<li>
-							<a href="apps-tasks-details">Service Report for Individual Works</a>
-						</li>
-						<li>
-							<a href="apps-tasks-details">AMC / Service Contract Creation</a>
-						</li>
-						<li>
-							<a href="apps-tasks-details">Invoice Creation</a>
-						</li>
-						<li>
-							<a href="apps-tasks-details">Accounts</a>
-						</li>
-						<li>
-							<a href="apps-tasks-details">Accounts for Payments to Supplier</a>
-						</li>
-						<li>
-							<a href="apps-tasks-details">Payments Receipt Creation</a>
-						</li>
-						<li>
-							<a href="apps-tasks-details">Payments Receipt Acknowledgement</a>
+							<a href="apps-tasks-details">IT(Information Technology)</a>
 						</li>
 					</ul>
 				</div>

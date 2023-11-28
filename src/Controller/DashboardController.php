@@ -48,11 +48,11 @@ class DashboardController extends AbstractController
             'controller_name' => 'DashboardController',
         ]);
     }
-    #[Route('/trading_&_services-dashboard', name: 'trading_&_services-dashboard')]
+    #[Route('/workflowSystem-dashboard', name: 'workflowSystem-dashboard')]
     public function index(): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        return $this->render('dashboard/tradingAndService.html.twig', [
+        return $this->render('dashboard/workflowSystem.html.twig', [
             'controller_name' => 'DashboardController',
         ]);
     }
