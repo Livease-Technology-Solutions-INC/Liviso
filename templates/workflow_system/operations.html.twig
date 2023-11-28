@@ -1,0 +1,71 @@
+{% extends 'partials/layout-vertical.html.twig' %}
+
+{% block title %}Operations
+{% endblock %}
+
+{% block css %}
+	<!-- Datatables css -->
+	<link href="/vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-fixedcolumns-bs5/css/fixedColumns.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-select-bs5/css/select.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block pagetitle %}
+	<div class"row align-items-center d-flex">
+		<div class="col mt-2">
+			<div class="float-end mt-3">
+				<button type="button" class="p-0 m-0 border-0" data-bs-toggle="modal" data-bs-target="#client" data-bs-whatever="@mdo">
+					<a href="#" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary" data-bs-original-title="Import">
+						<i class="bi bi-plus"></i>
+					</a>
+				</button>
+			</div>
+		</div>
+		<div class="col auto">
+			{{ include('partials/page-title.html.twig', { sub_title: 'operations', page_title: 'operations' }) }}
+		</div>
+	</div>
+	<div class="modal fade rounded-3" id="client" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog rounded-3">
+			<div class="modal-content rounded-3">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Create</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="modal-body">
+						<div class="row">
+							<div class="form-group">
+								<label for="name" class="form-label">Name</label>
+								<input class="form-control" placeholder="Enter client Name" required="required" name="name" type="text" id="name">
+							</div>
+							<div class="form-group">
+								<label for="email" class="form-label">E-Mail Address</label>
+								<input class="form-control" placeholder="Enter Client Email" required="required" name="email" type="email" id="email">
+							</div>
+							<div class="form-group">
+								<label for="password" class="form-label">Password</label>
+								<input class="form-control" placeholder="Enter User Password" required="required" minlength="6" name="password" type="password" value="" id="password">
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-primary rounded-2">Create</button>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block body %}
+	
+{% endblock %}
+
+{% block javascript %}{% endblock %}
