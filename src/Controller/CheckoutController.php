@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CheckoutController extends AbstractController
 {
-    #[Route('/small', name: 'small')]
+    #[Route('/checkout/small', name: 'small')]
     public function small(): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
@@ -16,7 +16,7 @@ class CheckoutController extends AbstractController
             'controller_name' => 'CheckoutController',
         ]);
     }
-    #[Route('/medium', name: 'medium')]
+    #[Route('/checkout/medium', name: 'medium')]
     public function medium(): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
@@ -24,7 +24,7 @@ class CheckoutController extends AbstractController
             'controller_name' => 'CheckoutController',
         ]);
     }
-    #[Route('/enterprice', name: 'enterprice')]
+    #[Route('/checkout/enterprice', name: 'enterprice')]
     public function enterprice(): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
@@ -32,7 +32,7 @@ class CheckoutController extends AbstractController
             'controller_name' => 'CheckoutController',
         ]);
     }
-    #[Route('/ultra', name: 'ultra')]
+    #[Route('/checkout/ultra', name: 'ultra')]
     public function ultra(): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
@@ -40,15 +40,8 @@ class CheckoutController extends AbstractController
             'controller_name' => 'CheckoutController',
         ]);
     }
-    #[Route('/red/card', name: 'red_card')]
-    public function redCard(): Response
-    {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        return $this->render('checkout/redCard.html.twig', [
-            'controller_name' => 'CheckoutController',
-        ]);
-    }
-    #[Route('/red/contact', name: 'red_contact')]
+
+    #[Route('/checkout/red/contact', name: 'red_contact')]
     public function redContact(): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
@@ -56,15 +49,8 @@ class CheckoutController extends AbstractController
             'controller_name' => 'CheckoutController',
         ]);
     }
-    #[Route('/purple/card', name: 'purple_card')]
-    public function purpleCard(): Response
-    {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        return $this->render('checkout/purpleCard.html.twig', [
-            'controller_name' => 'CheckoutController',
-        ]);
-    }
-    #[Route('/purple/contact', name: 'purple_contact')]
+
+    #[Route('/checkout/purple/contact', name: 'purple_contact')]
     public function purpleContact(): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
