@@ -15,6 +15,13 @@ class UserController extends AbstractController
             'controller_name' => 'UserController',
         ]);
     }
+    #[Route('/my_account', name: 'my_account')]
+    public function myAccount(): Response
+    {
+        return $this->render('user/myAccount.html.twig', [
+            'controller_name' => 'UserController',
+        ]);
+    }
     // #[Route('/Out', name: 'Out')]
     // public function loggedOut(): Response
     // {
