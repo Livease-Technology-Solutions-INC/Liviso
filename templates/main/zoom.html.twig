@@ -28,68 +28,72 @@
 			{{ include('partials/page-title.html.twig', { sub_title: 'Manage Zoom meeting', page_title: 'Manage Zoom meeting' }) }}
 		</div>
 	</div>
-	<div class="modal fade rounded-3" id="zoom" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog rounded-3">
-			<div class="modal-content rounded-3">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Create New Meeting</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
+	<form id="zoom" method="post" action="{{path("zoom_create")}}" name="zoom">
+		<div class="modal fade rounded-3" id="zoom" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog rounded-3">
+				<div class="modal-content rounded-3">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Create New Meeting</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
 					<div class="modal-body">
-						<div class="row">
-							<div class="form-group col-md-12 mb-1">
-								<label for="title" class="form-label">Title</label>
-								<input class="form-control m-0" placeholder="Enter Meeting Title" required="required" name="title" type="text" id="title">
-							</div>
-							<div class="form-group col-md-6 mb-1">
-								<label for="projects" class="form-label m-0">Project</label>
-								<select class="form-control select project_select m-0" id="project_select" data-toggle="select" name="project_id">
-									<option value="" selected="selected">Select Project</option>
-									<option value="9">Automatic</option>
-								</select>
-							</div>
-							<div class="form-group col-md-6 mb-1">
-								<label for="projects" class="form-label m-0">Users</label>
-								<div id="user_div">
-									<select class="form-control select employee_select m-0" id="user_id" name="user_id[]">
-										<option value="">Select User</option>
+						<div class="modal-body">
+							<div class="row">
+								<div class="form-group col-md-12 mb-1">
+									<label for="title" class="form-label">Title</label>
+									<input class="form-control m-0" placeholder="Enter Meeting Title" required="required" name="title" type="text" id="title">
+								</div>
+								<div class="form-group col-md-6 mb-1">
+									<label for="project_select" class="form-label m-0">Project</label>
+									<select class="form-control select project_select m-0" id="project_select" data-toggle="select" name="project_id">
+										<option value="" selected="selected">Select Project</option>
+										<option value="9">Automatic</option>
 									</select>
 								</div>
-							</div>
 
-							<div class="form-group col-md-6 mb-1">
-								<label for="datetime" class="form-label m-0">Start Date / Time</label>
-								<input class="form-control date m-0" placeholder="Select Date/Time" required="required" name="start_date" type="datetime-local">
-							</div>
-							<div class="form-group col-md-6 mb-1">
-								<label for="duration" class="form-label m-0">Duration</label>
-								<input class="form-control m-0" placeholder="Enter Duration" required="required" name="duration" type="number" id="duration">
-							</div>
-
-							<div class="form-group col-md-6">
-								<label for="password" class="form-label m-0">Password ( Optional )</label>
-								<input class="form-control m-0" placeholder="Enter Password" name="password" type="password" value="" id="password">
-							</div>
-
-							<div class="form-group col-md-6 mt-3">
-								<div class="form-switch form-switch-right d-flex gx-7">
-									<input class="form-check-input" type="checkbox" name="client_id" id="client_id" checked="">
-									<label class="form-check-label" for="client_id">Invite Client For Zoom Meeting</label>
+								<div class="form-group col-md-6 mb-1">
+									<label for="user_id" class="form-label m-0">Users</label>
+									<div id="user_div">
+										<select class="form-control select employee_select m-0" id="user_id" name="user_id[]">
+											<option value="">Select User</option>
+										</select>
+									</div>
 								</div>
+
+								<div class="form-group col-md-6 mb-1">
+									<label for="datetime" class="form-label m-0">Start Date / Time</label>
+									<input class="form-control date m-0" placeholder="Select Date/Time" required="required" name="start_date" type="datetime-local" id="datetime">
+								</div>
+
+								<div class="form-group col-md-6 mb-1">
+									<label for="duration" class="form-label m-0">Duration</label>
+									<input class="form-control m-0" placeholder="Enter Duration" required="required" name="duration" type="number" id="duration">
+								</div>
+
+								<div class="form-group col-md-6">
+									<label for="password" class="form-label m-0">Password ( Optional )</label>
+									<input class="form-control m-0" placeholder="Enter Password" name="password" type="password" value="" id="password">
+								</div>
+
+								<div class="form-group col-md-6 mt-3">
+									<div class="form-switch form-switch-right d-flex gx-7">
+										<input class="form-check-input" type="checkbox" name="client_id" id="client_id" checked="">
+										<label class="form-check-label" for="client_id">Invite Client For Zoom Meeting</label>
+									</div>
+								</div>
+
+
 							</div>
-
-
 						</div>
 					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-primary rounded-2">Create</button>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
+						<button class="btn btn-primary rounded-2" type="submit">Create</button>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	</form>
 {% endblock %}
 
 {% block body %}
@@ -113,13 +117,13 @@
 						</thead>
 						<tbody>
 							{# <tr>
-																																																		<td>Cara Stevens</td>
-																																																		<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-																																																		<td>New York</td>
-																																																		<td>46</td>
-																																																		<td>2011/12/06</td>
-																																																		<td>2011/12/06</td>
-																																																	</tr> #}
+																																																																<td>Cara Stevens</td>
+																																																																<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
+																																																																<td>New York</td>
+																																																																<td>46</td>
+																																																																<td>2011/12/06</td>
+																																																																<td>2011/12/06</td>
+																																																															</tr> #}
 						</tbody>
 					</table>
 

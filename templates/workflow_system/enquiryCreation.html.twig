@@ -1,6 +1,6 @@
 {% extends 'partials/layout-vertical.html.twig' %}
 
-{% block title %}Enquire Creation
+{% block title %}Enquiry Creation
 {% endblock %}
 
 {% block css %}
@@ -11,6 +11,8 @@
 	<link href="/vendor/datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
 	<link href="/vendor/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
 	<link href="/vendor/datatables.net-select-bs5/css/select.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="https://cdn.jsdelivr.net/npm/select3@4.0.13/dist/css/select2.min.css" rel="stylesheet"/>
+
 {% endblock %}
 
 {% block pagetitle %}
@@ -25,47 +27,153 @@
 			</div>
 		</div>
 		<div class="col auto">
-			{{ include('partials/page-title.html.twig', { sub_title: 'enquire creation', page_title: 'enquire creation' }) }}
+			{{ include('partials/page-title.html.twig', { sub_title: 'enquiry creation', page_title: 'Enquiry Creation' }) }}
 		</div>
 	</div>
-	<div class="modal fade rounded-3" id="client" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog rounded-3">
-			<div class="modal-content rounded-3">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Create</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<div class="modal-body">
+	<form id="Enquiry Creation" method="post" action="{{path("zoom_create")}}" name="Enquiry Creation">
+		<div class="modal fade rounded-3" id="client" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog rounded-3">
+				<div class="modal-content rounded-3">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Create</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div
+						class="modal-body">
+						{# first row #}
+						<div class="row mb-1">
+							<div class="col-md-4 mb-1">
+								<div class="form-group">
+									<label for="productCode" class="form-label m-0">Product Code</label>
+									<select class="form-control select3 m-0" id="productCode" name="productCode">
+										<option value="0">Auto</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-md-4 mb-1">
+								<div class="form-group">
+									<label for="productQty" class="form-label m-0">Product Qty</label>
+									<input class="form-control" placeholder="Enter product Qty" required="required" qty="productQty" type="number" value="" id="productQty"/>
+								</div>
+							</div>
+							<div class="col-md-4 mb-1">
+								<div class="form-group">
+									<label for="requiredDate" class="form-label m-0">Required Date</label>
+									<select class="form-control select3 m-0" id="requiredDate" name="requiredDate">
+										<option value="0">Auto</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						{# second row #}
+						<div class="row mb-1">
+							<div class="col-md-4 mb-1">
+								<div class="form-group">
+									<label for="orderType" class="form-label m-0">Product Code</label>
+									<select class="form-control select3 m-0" id="orderType" name="orderType">
+										<option value="0">Confirmed</option>
+										<option value="1">Guaranteed Sale</option>
+										<option value="2">Forecast</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-md-4 mb-1">
+								<div class="form-group">
+									<label for="orderBy" class="form-label m-0">Order By</label>
+									<select class="form-control select3 m-0" id="orderBy" name="orderBy">
+										<option value="0">Auto</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-md-4 mb-1">
+								<div class="form-group">
+									<label for="orderUnder" class="form-label m-0">Order Under</label>
+									<select class="form-control select3 m-0" id="orderUnder" name="orderUnder">
+										<option value="0">Sales Man</option>
+										<option value="1">Dept</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						{# thrid row #}
 						<div class="row">
-							<div class="form-group">
-								<label for="name" class="form-label">Name</label>
-								<input class="form-control" placeholder="Enter client Name" required="required" name="name" type="text" id="name">
+							<div class="col-md-4 mb-1">
+								<div class="form-group">
+									<label for="orderFor" class="form-label m-0">Order For</label>
+									<select class="form-control select3 m-0" id="orderFor" name="orderFor">
+										<option value="0">Client Name</option>
+									</select>
+								</div>
 							</div>
-							<div class="form-group">
-								<label for="email" class="form-label">E-Mail Address</label>
-								<input class="form-control" placeholder="Enter Client Email" required="required" name="email" type="email" id="email">
+							<div class="col-md-4 mb-1">
+								<div class="form-group">
+									<label for="requiredPrice" class="form-label m-0">Required Price</label>
+									<input class="form-control select3 m-0" id="requiredPrice" name="requiredPrice" type="text"/>
+								</div>
 							</div>
-							<div class="form-group">
-								<label for="password" class="form-label">Password</label>
-								<input class="form-control" placeholder="Enter User Password" required="required" minlength="6" name="password" type="password" value="" id="password">
-							</div>
-
-
 						</div>
 					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-primary rounded-2">Create</button>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
+						<button type="button" class="btn btn-primary rounded-2">Create</button>
+					</div>
 				</div>
 			</div>
 		</div>
+	</form>
+{% endblock %}
+{% block body %}
+	<div class="row">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-body">
+					<table id="basic-datatable" class="table table-striped dt-responsive nowrap w-100">
+						<thead>
+							<tr>
+								<th>Product Code</th>
+								<th>Product Category</th>
+								<th>Product Qty</th>
+								<th>Required Date</th>
+								<th>Order Type</th>
+								<th>Order By</th>
+								<th>Order Under (Sales Man / Dept / etc….)</th>
+								<th>Order For (Client Name / etc…)</th>
+								<th>Required Price</th>
+							</tr>
+						</thead>
+						<tbody>
+							{# <tr>
+																																																																																																																																																																																																																																																																																																																																											<td>Cara Stevens</td>
+																																																																																																																																																																																																																																																																																																																																											<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
+																																																																																																																																																																																																																																																																																																																																											<td>New York</td>
+																																																																																																																																																																																																																																																																																																																																											<td>46</td>
+																																																																																																																																																																																																																																																																																																																																											<td>2011/12/06</td>
+																																																																																																																																																																																																																																																																																																																																											<td>2011/12/06</td>
+																																																																																																																																																																																																																																																																																																																																										</tr> #}
+						</tbody>
+					</table>
+
+				</div>
+				<!-- end card body-->
+			</div>
+			<!-- end card -->
+		</div>
+		<!-- end col-->
 	</div>
 {% endblock %}
-
-{% block body %}
-	
+{% block javascript %}
+	<!-- List of countries -->
+	<script src="https://code.jquery.com/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+	<script src="/js/pages/country.js"></script><!-- Datatables js --><script src="/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script src="/vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+	<script src="/vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+	<script src="/vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+	<script src="/vendor/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
+	<script src="/vendor/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+	<script src="/vendor/datatables.net-select/js/dataTables.select.min.js"></script><!-- Datatable Demo Aapp js --><script src="/js/pages/demo.datatable-init.js"></script>
 {% endblock %}
-
-{% block javascript %}{% endblock %}
