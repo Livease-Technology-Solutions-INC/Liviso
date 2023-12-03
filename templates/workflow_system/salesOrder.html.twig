@@ -29,7 +29,7 @@
 			{{ include('partials/page-title.html.twig', { sub_title: 'sales Order', page_title: 'Sales Order' }) }}
 		</div>
 	</div>
-	<form id="supplierCreation" method="post" action="{{path("zoom_create")}}" name="supplierCreation">
+	<form id="salesOrder" method="post" action="{{path("zoom_create")}}" name="salesOrder">
 		<div class="modal fade rounded-3" id="client" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog rounded-3">
 				<div class="modal-content rounded-3">
@@ -57,15 +57,15 @@
 									</select>
 								</div>
 							</div>
-						</div>
-						{# second row #}
-						<div class="row">
 							<div class="col-md-4 mb-1">
 								<div class="form-group">
 									<label for="productQty" class="form-label m-0">Product Qty</label>
 									<input class="form-control" placeholder="Enter productQty" required="required" name="productQty" type="text" value="" id="productQty">
 								</div>
 							</div>
+						</div>
+						{# second row #}
+						<div class="row">
 							<div class="col-md-4 mb-1">
 								<div class="form-group">
 									<label for="requiredDate" class="form-label m-0">Required Date</label>
@@ -82,9 +82,6 @@
 									</select>
 								</div>
 							</div>
-						</div>
-						{# thrid row #}
-						<div class="row">
 							<div class="col-md-4 mb-1">
 								<div class="form-group">
 									<label for="orderBY" class="form-label m-0">Order By</label>
@@ -93,6 +90,9 @@
 									</select>
 								</div>
 							</div>
+						</div>
+						{# thrid row #}
+						<div class="row">
 							<div class="col-md-4 mb-1">
 								<div class="form-group">
 									<label for="orderUnder" class="form-label m-0">Order Under</label>
@@ -111,9 +111,6 @@
 									</select>
 								</div>
 							</div>
-						</div>
-						{# fourth row #}
-						<div class="row">
 							<div class="col-md-4 mb-1">
 								<div class="form-group">
 									<label for="requiredPrice" class="form-label m-0">

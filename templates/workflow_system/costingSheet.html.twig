@@ -30,7 +30,7 @@
 			{{ include('partials/page-title.html.twig', { sub_title: 'costing sheet', page_title: 'Costing Sheet' }) }}
 		</div>
 	</div>
-	<form id="costingSheet method="post" action="{{path("zoom_create")}}" name="costingSheet>
+	<form id="costingSheet" method="post" action="{{path("zoom_create")}}" name="costingSheet">
 		<div class="modal fade rounded-3" id="client" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog rounded-3">
 				<div class="modal-content rounded-3">
@@ -44,6 +44,14 @@
 						<div class="row">
 							<div class="col-md-4 mb-1">
 								<div class="form-group">
+									<label for="GRNNumber" class="form-label m-0">GRN Number</label>
+									<select class="form-control select3 m-0" id="GRNNumber" name="GRNNumber">
+										<option value="0">Auto</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-md-4 mb-1">
+								<div class="form-group">
 									<label for="PO" class="form-label m-0">PO</label>
 									<select class="form-control select3 m-0" id="PO" name="PO">
 										<option value="0">Auto</option>
@@ -52,21 +60,121 @@
 							</div>
 							<div class="col-md-4 mb-1">
 								<div class="form-group">
-									<label for="supplierName" class="form-label m-0">Supplier Name</label>
-									<select class="form-control select3 m-0" id="supplierName" name="supplierName">
+									<label for="containerNumber" class="form-label m-0">Container Number</label>
+									<select class="form-control select3 m-0" id="containerNumber" name="containerNumber">
+										<option value="0">Auto</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						{# second row #}
+						<div class="row">
+							<div class="col-md-4 mb-1">
+								<div class="form-group">
+									<label for="fullItemListing" class="form-label m-0">Full Item Listing</label>
+									<select class="form-control select3 m-0" id="fullItemListing" name="fullItemListing">
 										<option value="0">Auto</option>
 									</select>
 								</div>
 							</div>
 							<div class="col-md-4 mb-1">
 								<div class="form-group">
-									<label for="listingOfAllItems" class="form-label m-0">Listing Of All Items</label>
-									<select class="form-control select3 m-0" id="lisingOfAllItems" name="lisingOfAllItems">
+									<label for="receivedQty" class="form-label m-0">Received Qty</label>
+									<select class="form-control select3 m-0" id="receivedQty" name="receivedQty">
 										<option value="0">Auto</option>
 									</select>
 								</div>
 							</div>
-
+							<div class="col-md-4 mb-1">
+								<div class="form-group">
+									<label for="damageQty" class="form-label m-0">Damage Qty</label>
+									<select class="form-control select3 m-0" id="damageQty" name="damageQty">
+										<option value="0">Auto</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						{# third row #}
+						<div class="row">
+							<div class="col-md-4 mb-1">
+								<div class="form-group">
+									<label for="shippingCost" class="form-label m-0">Shipping Cost</label>
+									<select class="form-control select3 m-0" id="shippingCost" name="shippingCost">
+										<option value="0">Auto</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-md-4 mb-1">
+								<div class="form-group">
+									<label for="DOCost" class="form-label m-0">Do Cost</label>
+									<input class="form-control select3 m-0" id="DOCost" name="DOCost" />
+								</div>
+							</div>
+							<div class="col-md-4 mb-1">
+								<div class="form-group">
+									<label for="otherShipingCharges" class="form-label m-0">Other Shipping Charges</label>
+									<input class="form-control select3 m-0" id="otherShipingCharges" name="otherShipingCharges" />
+								</div>
+							</div>
+						</div>
+						{# fourth row #}
+						<div class="row">
+							<div class="col-md-4 mb-1">
+								<div class="form-group">
+									<label for="customsDuty" class="form-label m-0">Customs Duty</label>
+									<input class="form-control select3 m-0" id="customsDuty" name="customsDuty" type="text"/>
+								</div>
+							</div>
+							<div class="col-md-4 mb-1">
+								<div class="form-group">
+									<label for="clearanceCharges" class="form-label m-0">Clearance Charges</label>
+									<input class="form-control select3 m-0" id="clearanceCharges" name="clearanceCharges" type="text"/>
+								</div>
+							</div>
+							<div class="col-md-4 mb-1">
+								<div class="form-group">
+									<label for="transportatioCost" class="form-label m-0">Transportation Cost</label>
+									<input class="form-control select3 m-0" id="transportatioCost" name="transportatioCost" />
+								</div>
+							</div>
+						</div>
+						{# fifth row #}
+						<div class="row">
+							<div class="col-md-4 mb-1">
+								<div class="form-group">
+									<label for="loading/UnloadingCost" class="form-label m-0">Loading/unloading Cost</label>
+									<input class="form-control select3 m-0" id="loading/UnloadingCost" name="loading/UnloadingCost" type="text"/>
+								</div>
+							</div>
+							<div class="col-md-4 mb-1">
+								<div class="form-group">
+									<label for="otherCharges" class="form-label m-0">Other Charges</label>
+									<input class="form-control select3 m-0" id="otherCharges" name="otherCharges" type="text"/>
+								</div>
+							</div>
+							<div class="col-md-4 mb-1">
+								<div class="form-group">
+									<label for="totalLandingCost" class="form-label m-0">Total Landing Cost</label>
+									<input class="form-control select3 m-0" id="totalLandingCost" name="totalLandingCost" />
+								</div>
+							</div>
+						</div>
+						{# sixth row #}
+						<div class="row">
+							<div class="col-md-4 mb-1">
+								<div class="form-group">
+									<label for="averageMarjinInPercentagge" class="form-label m-0">Average Marjin In Percentage</label>
+									<select class="form-control select3 m-0" id="averageMarjinInPercentagge" name="averageMarjinInPercentagge">
+										<option value="0">Auto</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-md-4 mb-1">
+								<div class="form-group">
+									<label for="approxSellingPrice" class="form-label m-0">Approx Selling Pric</label>
+									<input class="form-control select3 m-0" id="approxSellingPrice" name="approxSellingPrice" type="text"/>
+								</div>
+							</div>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
