@@ -11,6 +11,8 @@
 	<link href="/vendor/datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
 	<link href="/vendor/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
 	<link href="/vendor/datatables.net-select-bs5/css/select.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="https://cdn.jsdelivr.net/npm/select3@4.0.13/dist/css/select2.min.css" rel="stylesheet"/>
+
 {% endblock %}
 
 {% block pagetitle %}
@@ -25,7 +27,7 @@
 			</div>
 		</div>
 		<div class="col auto">
-			{{ include('partials/page-title.html.twig', { sub_title: 'shipping order', page_title: 'shipping order' }) }}
+			{{ include('partials/page-title.html.twig', { sub_title: 'shipping order', page_title: 'Shipping Order' }) }}
 		</div>
 	</div>
 	<div class="modal fade rounded-3" id="client" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -65,7 +67,69 @@
 {% endblock %}
 
 {% block body %}
-	
+	<div class="row">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-body">
+					<table id="basic-datatable" class="table table-striped dt-responsive nowrap w-100">
+						<thead>
+							<tr>
+								<th>Sales Order</th>
+								<th>Product Code</th>
+								<th>Product Qty</th>
+								<th>Required Date</th>
+								<th>Supplier</th>
+								<th>Last 3 purchases</th>
+								<th>Products List</th>
+								<th>New Price</th>
+								<th>Price Type</th>
+								<th>Payment Mode</th>
+								<th>Product Description</th>
+								<th>Unit Of Measurement</th>
+								<th>Shipment Mode</th>
+								<th>Product Images</th>
+								<th>Present Stock</th>
+							</tr>
+						</thead>
+						<tbody>
+							{# <tr>
+																																																																																																																																																																									<td>Cara Stevens</td>
+																																																																																																																																																																									<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
+																																																																																																																																																																									<td>New York</td>
+																																																																																																																																																																									<td>46</td>
+																																																																																																																																																																									<td>2011/12/06</td>
+																																																																																																																																																																									<td>2011/12/06</td>
+																																																																																																																																																																								</tr> #}
+						</tbody>
+					</table>
+
+				</div>
+				<!-- end card body-->
+			</div>
+			<!-- end card -->
+		</div>
+		<!-- end col-->
+	</div>
 {% endblock %}
 
-{% block javascript %}{% endblock %}
+{% block javascript %}
+	<!-- List of countries -->
+	<script src="https://Description.jquery.com/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+	<script src="/js/pages/country.js"></script>
+	<!-- Datatables js -->
+	<script src="/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script src="/vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+	<script src="/vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+	<script src="/vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+	<script src="/vendor/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
+	<script src="/vendor/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+	<script src="/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
+
+	<!-- Datatable Demo Aapp js -->
+	<script src="/js/pages/demo.datatable-init.js"></script>
+{% endblock %}

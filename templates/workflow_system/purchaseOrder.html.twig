@@ -30,7 +30,7 @@
 			{{ include('partials/page-title.html.twig', { sub_title: 'purchase order', page_title: 'Purchase Order' }) }}
 		</div>
 	</div>
-	<form id="purchaseOrder" method="post" action="{{path("zoom_create")}}" name="purchaseOrder">
+	<form id="shippingOrder" method="post" action="{{path("zoom_create")}}" name="shippingOrder">
 		<div class="modal fade rounded-3" id="client" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog rounded-3">
 				<div class="modal-content rounded-3">
@@ -44,79 +44,87 @@
 						<div class="row">
 							<div class="col-md-4 mb-1">
 								<div class="form-group">
-									<label for="salesOrder" class="form-label m-0">Sales Order</label>
-									<select class="form-control select3 m-0" id="salesOrder" name="salesOrder">
+									<label for="PO" class="form-label m-0">PO</label>
+									<select class="form-control select3 m-0" id="PO" name="PO">
+										<option value="0">PO</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-md-4 mb-1">
+								<div class="form-group">
+									<label for="supplierName" class="form-label m-0">Supplier Name</label>
+									<select class="form-control select3 m-0" id="supplierName" name="supplierName">
 										<option value="0">Auto</option>
 									</select>
 								</div>
 							</div>
 							<div class="col-md-4 mb-1">
 								<div class="form-group">
-									<label for="productCode" class="form-label m-0">Product Code</label>
-									<select class="form-control select3 m-0" id="productCode" name="productCode">
+									<label for="lisitingOfItems" class="form-label m-0">Listing Of Items</label>
+									<select class="form-control select3 m-0" id="listingOfItems" name="listingOfItems">
 										<option value="0">Auto</option>
 									</select>
 								</div>
 							</div>
-							<div class="col-md-4 mb-1">
-								<div class="form-group">
-									<label for="productQty" class="form-label m-0">Product Qty</label>
-									<select class="form-control select3 m-0" id="productQty" name="productQty">
-										<option value="0">Auto</option>
-									</select>
-								</div>
-							</div>
-							
 						</div>
 						{# second row #}
 						<div class="row">
 							<div class="col-md-4 mb-1">
 								<div class="form-group">
-									<label for="requiredDate" class="form-label m-0">Required Date</label>
-									<select class="form-control select3 m-0" id="requiredDate" name="requiredDate">
+									<label for="containerNumber" class="form-label m-0">Container Number</label>
+									<select class="form-control select3 m-0" id="containerNumber" name="containerNumber">
 										<option value="0">Auto</option>
 									</select>
 								</div>
 							</div>
 							<div class="col-md-4 mb-1">
 								<div class="form-group">
-									<label for="supplier" class="form-label m-0">Supplier</label>
-									<select class="form-control select3 m-0" id="supplier" name="supplier">
+									<label for="shippingLine" class="form-label m-0">Shipping Line</label>
+									<select class="form-control select3 m-0" id="shippingLine" name="shippingLine">
 										<option value="0">Auto</option>
 									</select>
 								</div>
 							</div>
 							<div class="col-md-4 mb-1">
 								<div class="form-group">
-									<label for="last3Purchases" class="form-label m-0">Last 3 Purchases</label>
-									<select class="form-control select3 m-0" id="last3Purchases" name="last3Purchases">
+									<label for="shippingPrice" class="form-label m-0">Shipping Price</label>
+									<select class="form-control select3 m-0" id="shippingPrice" name="shippingPrice">
 										<option value="0">Auto</option>
 									</select>
 								</div>
 							</div>
-							
 						</div>
 						{# thrid row #}
 						<div class="row">
 							<div class="col-md-4 mb-1">
 								<div class="form-group">
-									<label for="last3Purchases" class="form-label m-0">Last 3 Purchases</label>
-									<select class="form-control select3 m-0" id="last3Purchases" name="last3Purchases">
+									<label for="costForShipment" class="form-label m-0">Cost For Shipment</label>
+									<select class="form-control select3 m-0" id="costForShipment" name="costForShipment">
 										<option value="0">Auto</option>
 									</select>
 								</div>
 							</div>
 							<div class="col-md-4 mb-1">
 								<div class="form-group">
-									<label for="similarProductPictureUpload" class="form-label m-0">Similar Product Picture Upload</label>
-									<input class="form-control select3 m-0" id="similarProductPictureUpload" name="similarProductPictureUpload" type="file"/>
+									<label for="shipmentType" class="form-label m-0">Shipment Type</label>
+									<select class="form-control select3 m-0" id="shipmentType" name="shipmentType">
+										<option value="0">Auto</option>
+									</select>
 								</div>
 							</div>
 							<div class="col-md-4 mb-1">
 								<div class="form-group">
-									<label for="requiredPrice" class="form-label m-0">Required Price
+									<label for="updateETD" class="form-label m-0">Update ETD
 									</label>
-									<input class="form-control select3 m-0" id="requiredPrice" name="requiredPrice" type="price"/>
+									<input class="form-control select3 m-0" id="updateETD" name="updateETD" type="date"/>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4 mb-1">
+								<div class="form-group">
+									<label for="update ETA" class="form-label m-0">Update ETA(Arrival)</label>
+									<input class="form-control select3 m-0" id="update ETA" name="update ETA" type="date"/>
 								</div>
 							</div>
 						</div>
@@ -140,32 +148,27 @@
 					<table id="basic-datatable" class="table table-striped dt-responsive nowrap w-100">
 						<thead>
 							<tr>
-								<th>Sales Order</th>
-								<th>Product Code</th>
-								<th>Product Qty</th>
-								<th>Required Date</th>
-								<th>Supplier</th>
-								<th>Last 3 purchases</th>
-								<th>Products List</th>
-								<th>New Price</th>
-								<th>Price Type</th>
-								<th>Payment Mode</th>
-								<th>Product Description</th>
-								<th>Unit Of Measurement</th>
-								<th>Shipment Mode</th>
-								<th>Product Images</th>
-								<th>Present Stock</th>
+								<th>PO</th>
+								<th>Supplier Name</th>
+								<th>Listing Of Items</th>
+								<th>Container Number</th>
+								<th>Shipping Line</th>
+								<th>Shipping Price</th>
+								<th>Cost For Shipment</th>
+								<th>Shipment Type</th>
+								<th>Update ETD</th>
+								<th>Update ETA</th>
 							</tr>
 						</thead>
 						<tbody>
 							{# <tr>
-																																																																																																																																																											<td>Cara Stevens</td>
-																																																																																																																																																											<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-																																																																																																																																																											<td>New York</td>
-																																																																																																																																																											<td>46</td>
-																																																																																																																																																											<td>2011/12/06</td>
-																																																																																																																																																											<td>2011/12/06</td>
-																																																																																																																																																										</tr> #}
+																																																																																																																																																																																																																										<td>Cara Stevens</td>
+																																																																																																																																																																																																																										<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
+																																																																																																																																																																																																																										<td>New York</td>
+																																																																																																																																																																																																																										<td>46</td>
+																																																																																																																																																																																																																										<td>2011/12/06</td>
+																																																																																																																																																																																																																										<td>2011/12/06</td>
+																																																																																																																																																																																																																									</tr> #}
 						</tbody>
 					</table>
 
