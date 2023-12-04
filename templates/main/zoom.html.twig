@@ -28,7 +28,7 @@
 			{{ include('partials/page-title.html.twig', { sub_title: 'Manage Zoom meeting', page_title: 'Manage Zoom meeting' }) }}
 		</div>
 	</div>
-	<form id="zoom" method="post" action="{{path("zoom_create")}}" name="zoom">
+	<form id="zoomForm" method="post" action="{{path("zoom_create")}}" name="zoomForm">
 		<div class="modal fade rounded-3" id="zoom" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog rounded-3">
 				<div class="modal-content rounded-3">
@@ -116,14 +116,22 @@
 							</tr>
 						</thead>
 						<tbody>
-							{# <tr>
-																																																																<td>Cara Stevens</td>
-																																																																<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-																																																																<td>New York</td>
-																																																																<td>46</td>
-																																																																<td>2011/12/06</td>
-																																																																<td>2011/12/06</td>
-																																																															</tr> #}
+							{% for zoom in zooms %}
+								<tr>
+									<td>{{zoom.title}}</td>
+									<td>{{zoom.project}}</td>
+									<td>{{zoom.user}}</td>
+									<td>{{ zoom.meetingTime.format('Y-m-d H:i:s') }}</td>
+									<td>{{zoom.duration}}</td>
+									<td>2011/12/06</td>
+									<td>live</td>
+									<td>
+										<a href="{{ path("zoom_delete", {id: zoom.id})}}" class="p-1 rounded-3 bg-danger text-white border-0">
+											<i class="bi bi-trash"></i>
+										</a>
+									</td>
+								</tr>
+							{% endfor %}
 						</tbody>
 					</table>
 

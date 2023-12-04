@@ -32,16 +32,19 @@ class MainController extends AbstractController
             'controller_name' => 'MainController',
         ]);
     }
+    // zoom Routes
     #[Route('/zoom', name: 'zoom', methods: ["GET"])]
     public function zoom(ZoomRepository $zoomRepository): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        $zoom = $zoomRepository->findAll();
+        $zooms = $zoomRepository->findAll();
         // dd($zoom);
         return $this->render('main/zoom.html.twig', [
             'controller_name' => 'MainController',
+            'zooms' => $zooms
         ]);
     }
+    // zoom create
     #[Route('/zoom/create', name: 'zoom_create', methods: ["GET", "POST"])]
     public function zoomCreate(Request $request): Response
     {
@@ -55,9 +58,18 @@ class MainController extends AbstractController
         $zoom->setDuration(20);
         $this->entityManager->persist($zoom);
         $this->entityManager->flush();
-        // Redirect back to the '/zoom' page
-        // return $this->redirectToRoute('zoom');
-        return new Response('post was created');
+        return $this->redirectToRoute('zoom');
+        // return new Response('post was created');
+    }
+    // zoom remove
+    #[Route('/zoom/delete/{id}', name: 'zoom_delete', methods: ["GET", "POST"])]
+    public function zoomDelete(Zoom $zoom): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->entityManager->remove($zoom);
+        $this->entityManager->flush();
+        return $this->redirectToRoute('zoom');
+        // return new Response('post was deleted');
     }
     #[Route('/message', name: 'message', methods: ["GET"])]
     public function message(): Response
