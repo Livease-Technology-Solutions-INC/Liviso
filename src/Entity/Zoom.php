@@ -29,6 +29,12 @@ class Zoom
     #[ORM\Column]
     private ?int $duration = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $meetingURL = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $status = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -101,6 +107,28 @@ class Zoom
     public function setDuration(int $duration): static
     {
         $this->duration = $duration;
+
+        return $this;
+    }
+    public function getMeetingURL(): ?string
+    {
+        return $this->meetingURL;
+    }
+
+    public function setMeetingURL(string $meetingURL): static
+    {
+        $this->meetingURL = $meetingURL;
+
+        return $this;
+    }
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): static
+    {
+        $this->status = $status;
 
         return $this;
     }

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Zoom;
+use App\Form\ZoomType;
 use App\Repository\ZoomRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,34 +34,56 @@ class MainController extends AbstractController
         ]);
     }
     // zoom Routes
-    #[Route('/zoom', name: 'zoom', methods: ["GET"])]
-    public function zoom(ZoomRepository $zoomRepository): Response
-    {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        $zooms = $zoomRepository->findAll();
-        // dd($zoom);
-        return $this->render('main/zoom.html.twig', [
-            'controller_name' => 'MainController',
-            'zooms' => $zooms
-        ]);
-    }
-    // zoom create
-    #[Route('/zoom/create', name: 'zoom_create', methods: ["GET", "POST"])]
-    public function zoomCreate(Request $request): Response
+    #[Route('/zoom', name: 'zoom', methods: ["GET", "POST"])]
+    public function zoom(Request $request): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $zoom = new Zoom();
-        $zoom->setTitle('cand');
-        $zoom->setProject('mandy');
-        $zoom->setUser('william');
-        $meetingTime = new \DateTime('2023-11-22 07:10:00');
-        $zoom->setMeetingTime($meetingTime);
-        $zoom->setDuration(20);
-        $this->entityManager->persist($zoom);
-        $this->entityManager->flush();
-        return $this->redirectToRoute('zoom');
-        // return new Response('post was created');
+        $form = $this->createForm(ZoomType::class, $zoom);
+
+        // Handle form submission
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the entity only if the form is submitted and valid
+            $this->entityManager->persist($zoom);
+            $this->entityManager->flush();
+
+            // Redirect after successful form submission (optional)
+            return $this->redirectToRoute('zoom');
+        }
+
+        $repository = $this->entityManager->getRepository(Zoom::class);
+        $zooms = $repository->findAll();
+
+        return $this->render('main/zoom.html.twig', [
+            'controller_name' => 'MainController',
+            'zooms' => $zooms,
+            'form' => $form->createView(),
+        ]);
     }
+
+    // zoom create
+    // #[Route('/zoom/create', name: 'zoom_create', methods: ["GET", "POST"])]
+    // public function zoomCreate(Request $request): Response
+    // {
+    //     $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+    //     $zoom = new Zoom();
+    //     $form = $this->createForm(ZoomType::class, $zoom);
+
+    //     // Handle form submission
+    //     $form->handleRequest($request);
+
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         // Persist the entity only if the form is submitted and valid
+    //         $this->entityManager->persist($zoom);
+    //         $this->entityManager->flush();
+
+    //         // Redirect after successful form submission
+    //         return $this->redirectToRoute('zoom');
+    //     }
+    // }
     // zoom remove
     #[Route('/zoom/delete/{id}', name: 'zoom_delete', methods: ["GET", "POST"])]
     public function zoomDelete(Zoom $zoom): Response
