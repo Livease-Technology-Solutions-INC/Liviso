@@ -11,6 +11,7 @@
 	<link href="/vendor/datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
 	<link href="/vendor/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
 	<link href="/vendor/datatables.net-select-bs5/css/select.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
 {% endblock %}
 
 {% block pagetitle %}
@@ -37,30 +38,39 @@
 				</div>
 				<div class="modal-body">
 					{{ form_start(form) }}
-
-					{{ form_row(form.title, {'attr': {'class': 'form-control m-0', 'placeholder': 'Enter Meeting Title', 'required': 'required'}}) }}
-
 					<div class="row">
-						{{ form_row(form.project, {'attr': {'class': 'form-control select project_select m-0', 'data-toggle': 'select'}}) }}
-
-						<div id="user_div">
-							{{ form_row(form.user, {'attr': {'class': 'form-control select employee_select m-0'}}) }}
+						<div class="col-md-4 mt-1">
+							{{ form_row(form.title, {'attr': {'class': 'form-control m-0', 'placeholder': 'Enter Meeting Title', 'required': 'required'}}) }}
 						</div>
-
-						{{ form_row(form.meetingTime, {'attr': {'class': 'form-control date m-0', 'placeholder': 'Select Date/Time', 'required': 'required'}}) }}
-
-						{{ form_row(form.duration, {'attr': {'class': 'form-control m-0', 'placeholder': 'Enter Duration', 'required': 'required'}}) }}
-
-						{{ form_row(form.meetingURL, {'attr': {'class': 'form-control m-0'}}) }}
-
+						<div class="col-md-4 mt-1">
+							{{ form_row(form.project, {'attr': {'class': 'form-control select project_select m-0', 'data-toggle': 'select'}}) }}
+						</div>
+						<div class="col-md-4 mt-1">
+							<div id="user_div">
+								{{ form_row(form.user, {'attr': {'class': 'form-control select employee_select m-0', 'data-toggle': 'select'}}) }}
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4 mt-1">
+							{{ form_row(form.meetingTime) }}
+						</div>
+						<div class="col-md-4 mt-1">
+							{{ form_row(form.duration, {'attr': {'class': 'form-control m-0', 'placeholder': 'Enter Duration', 'required': 'required'}}) }}
+						</div>
+						<div class="col-md-4 mt-1">
+							{{ form_row(form.meetingURL, {'attr': {'class': 'form-control m-0', 'placeholder': 'Enter meeting url'}}) }}
+						</div>
+					</div>
+					<div class="col-md-12 mb-1">
 						{{ form_row(form.status, {'attr': {'class': 'form-control m-0'}}) }}
+					</div>
 
 					{# {{ form_row(form.password, {'attr': {'class': 'form-control m-0', 'placeholder': 'Enter Password'}}) }} #}
 
-						{# <div class="form-group col-md-6 mt-3">
-													{{ form_row(form.meetingURL, {'label': 'Invite Client For Zoom Meeting', 'attr': {'class': 'form-check-input'}}) }}
-												</div> #}
-					</div>
+					{# <div class="form-group col-md-6 mt-3">
+																																																																							{{ form_row(form.meetingURL, {'label': 'Invite Client For Zoom Meeting', 'attr': {'class': 'form-check-input'}}) }}
+																																																																						</div> #}
 
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
