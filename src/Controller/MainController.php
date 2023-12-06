@@ -63,27 +63,6 @@ class MainController extends AbstractController
         ]);
     }
 
-    // zoom create
-    // #[Route('/zoom/create', name: 'zoom_create', methods: ["GET", "POST"])]
-    // public function zoomCreate(Request $request): Response
-    // {
-    //     $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-
-    //     $zoom = new Zoom();
-    //     $form = $this->createForm(ZoomType::class, $zoom);
-
-    //     // Handle form submission
-    //     $form->handleRequest($request);
-
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         // Persist the entity only if the form is submitted and valid
-    //         $this->entityManager->persist($zoom);
-    //         $this->entityManager->flush();
-
-    //         // Redirect after successful form submission
-    //         return $this->redirectToRoute('zoom');
-    //     }
-    // }
     // zoom remove
     #[Route('/zoom/delete/{id}', name: 'zoom_delete', methods: ["GET", "POST"])]
     public function zoomDelete(Zoom $zoom): Response
