@@ -5,9 +5,11 @@ namespace App\Controller;
 use App\Entity\Webhook;
 use App\Form\WebhookType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class SettingsController extends AbstractController
@@ -55,7 +57,6 @@ class SettingsController extends AbstractController
         return $this->redirectToRoute('system');
         // return new Response('post was deleted');
     }
-    // edit
     #[Route('/webhook/edit/{id}', name: 'webhook_edit', methods: ["GET", "POST", "PUT"])]
     public function webhookEdit(Request $request, Webhook $webhooks): Response
     {
@@ -66,9 +67,21 @@ class SettingsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            dd($form->getErrors(true, true));
             $this->entityManager->flush();
 
+            // If the request is AJAX, return a JSON response
+            if ($request->isXmlHttpRequest()) {
+                return new JsonResponse(['success' => true]);
+            }
+
             return $this->redirectToRoute('system');
+        }
+
+        // If the request is AJAX, return a JSON response with form errors
+        if ($request->isXmlHttpRequest()) {
+            $errors = $this->getFormErrors($form);
+            return new JsonResponse(['success' => false, 'errors' => $errors], 400);
         }
 
         return $this->render('settings/system.html.twig', [
@@ -76,6 +89,49 @@ class SettingsController extends AbstractController
             'webhooks' => $webhooks,
         ]);
     }
+
+    // Helper function to extract form errors
+    private function getFormErrors(FormInterface $form): array
+    {
+        $errors = [];
+        foreach ($form->getErrors(true, true) as $error) {
+            $errors[] = $error->getMessage();
+        }
+
+        foreach ($form->all() as $childForm) {
+            if ($childForm instanceof FormInterface) {
+                $childErrors = $this->getFormErrors($childForm);
+                $errors = array_merge($errors, $childErrors);
+            }
+        }
+
+        return $errors;
+    }
+    #[Route('/webhook/fetch/{id}', name: 'webhook_fetch', methods: ["GET"])]
+    public function webhookFetch($id): JsonResponse
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        // Fetch the Webhook entity based on $id
+        $webhook = $this->entityManager->getRepository(Webhook::class)->find($id);
+
+        // Check if the Webhook entity was found
+        if (!$webhook) {
+            throw $this->createNotFoundException('Webhook not found');
+        }
+
+        // Assuming you want to expose certain data for editing
+        $data = [
+            'id' => $webhook->getId(),
+            'module' => $webhook->getModule(),
+            'url' => $webhook->getUrl(),
+            'method' => $webhook->getMethod(),
+            // Add other fields as needed
+        ];
+
+        return new JsonResponse($data);
+    }
+
 
     // webhook setting
     // #[Route('/sys_settings/webhook', name: 'webhook_create', methods: ["GET", "POST", "PUT", "DELETE"])]
