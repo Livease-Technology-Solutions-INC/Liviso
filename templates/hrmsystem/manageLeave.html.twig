@@ -35,74 +35,39 @@
 					<h5 class="modal-title" id="exampleModalLabel">Create Customer</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
+
 				<div class="modal-body">
-					<div class="modal-body">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="form-group">
-									<label for="employee_id" class="form-label">Employee</label>
-									<select class="form-control select" id="employee_id" name="employee_id">
-										<option selected="selected" value="">Select Employee</option>
-										<option value="32">Saleem Shahzad</option>
-										<option value="33">William Ndubuisi</option>
-									</select>
-								</div>
-							</div>
+					{{ form_start(form) }}
+					<div class="row">
+						<div class="col-md-12">
+							{{ form_row(form.leaveType) }}
 						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<div class="form-group">
-									<label for="leave_type_id" class="form-label">Leave Type</label>
-									<select name="leave_type_id" id="leave_type_id" class="form-control select">
-										<option value="">Select Leave Type</option>
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="start_date" class="form-label">Start Date</label>
-									<input class="form-control" name="start_date" type="date" id="start_date">
+					</div>
+					{# <div class="row">
+																<div class="col-md-12">
+																	{{ form_row(form.startTime) }}
+																</div>
+															</div> #}
+					<div class="row">
+						<div class="col-md-6">
+							{{ form_row(form.startTime) }}
 
-
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="end_date" class="form-label">End Date</label>
-									<input class="form-control" name="end_date" type="date" id="end_date">
-								</div>
-							</div>
 						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<div class="form-group">
-									<label for="leave_reason" class="form-label">Leave Reason</label>
-									<textarea class="form-control" placeholder="Leave Reason" name="leave_reason" cols="50" rows="10" id="leave_reason" spellcheck="false"></textarea>
-								</div>
-							</div>
+						<div class="col-md-6">
+							{{ form_row(form.endTime) }}
 						</div>
-						<div class="row">
-							<div class="col-md-12 text-end">
-								<a href="#" data-size="md" class="btn btn-primary btn-icon btn-sm text-right" data-ajax-popup-over="true" id="grammarCheck" data-url="http://localhost/other/grammar/grammar" data-bs-placement="top" data-title="Grammar check with AI">
-									<i class="ti ti-rotate"></i>
-									<span>Grammar check with AI</span>
-								</a>
-							</div>
-							<div class="col-md-12">
-								<div class="form-group">
-									<label for="remark" class="form-label">Remark</label>
-									<textarea class="form-control grammer_textarea" placeholder="Leave Remark" name="remark" cols="50" rows="10" id="remark"></textarea>
-								</div>
-							</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							{{ form_row(form.leaveReason) }}
 
 						</div>
 					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-primary rounded-2">Create</button>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
+						<button type="button" class="btn btn-primary rounded-2">Create</button>
+					</div>
+					{{ form_end(form) }}
 				</div>
 			</div>
 		</div>
@@ -131,13 +96,13 @@
 						</thead>
 						<tbody>
 							{# <tr>
-																																																									<td>Cara Stevens</td>
-																																																									<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-																																																									<td>New York</td>
-																																																									<td>46</td>
-																																																									<td>2011/12/06</td>
-																																																									<td>2011/12/06</td>
-																																																								</tr> #}
+																																																																																																																	<td>Cara Stevens</td>
+																																																																																																																	<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
+																																																																																																																	<td>New York</td>
+																																																																																																																	<td>46</td>
+																																																																																																																	<td>2011/12/06</td>
+																																																																																																																	<td>2011/12/06</td>
+																																																																																																																</tr> #}
 						</tbody>
 					</table>
 

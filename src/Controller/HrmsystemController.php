@@ -2,12 +2,25 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\HRMSystem\Complaints;
+use App\Entity\HRMSystem\ManageLeave;
+use App\Form\HRMSystem\ComplaintsType;
+use App\Form\HRMSystem\ManageLeaveType;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class HrmsystemController extends AbstractController
 {
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
     #[Route('/hrmsystem/employee_setup', name: 'hrmsystem/employee_setup')]
     public function employeeSetup(): Response
     {
@@ -33,11 +46,42 @@ class HrmsystemController extends AbstractController
         ]);
     }
     #[Route('/hrmsystem/manage_leave', name: 'hrmsystem/manage_leave')]
-    public function manageLeave(): Response
+    public function manageLeave(Request $request): Response
     {
-        return $this->render('hrmsystem/manageLeave.html.twig', [
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $manageleave = new ManageLeave();
+        $form = $this->createForm(ManageLeaveType::class, $manageleave);
+
+        // Handle form submission
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the entity only if the form is submitted and valid
+            $this->entityManager->persist($manageleave);
+            $this->entityManager->flush();
+
+            // Redirect after successful form submission (optional)
+            return $this->redirectToRoute('manageleave');
+        }
+
+        $repository = $this->entityManager->getRepository(ManageLeave::class);
+        $manageleaves = $repository->findAll();
+
+        return $this->render('hrmsystem/manageleave.html.twig', [
             'controller_name' => 'HrmsystemController',
+            'manageleaves' => $manageleaves,
+            'form' => $form->createView(),
         ]);
+    }
+    // delete manage leave
+    #[Route('/manage_leave/delete/{id}', name: 'Manageleave_delete', methods: ["GET", "POST"])]
+    public function ManageleaveDelete(Manageleave $Manageleave): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->entityManager->remove($Manageleave);
+        $this->entityManager->flush();
+        return $this->redirectToRoute('Manageleave');
+        // return new Response('post was deleted');
     }
     #[Route('/hrmsystem/bulk_attendance', name: 'hrmsystem/bulk_attendance')]
     public function bulkAttendance(): Response
@@ -200,13 +244,67 @@ class HrmsystemController extends AbstractController
         ]);
     }
     #[Route('/hrmsystem/complaints', name: 'hrmsystem/complaints')]
-    public function complaints(): Response
+    public function complaints(Request $request): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $complaints = new Complaints();
+        $form = $this->createForm(ComplaintsType::class, $complaints);
+
+        // Handle form submission
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the entity only if the form is submitted and valid
+            $this->entityManager->persist($complaints);
+            $this->entityManager->flush();
+
+            // Redirect after successful form submission (optional)
+            return $this->redirectToRoute('hrmsystem/complaints');
+        }
+
+        $repository = $this->entityManager->getRepository(Complaints::class);
+        $complaintss = $repository->findAll();
+
         return $this->render('hrmsystem/complaints.html.twig', [
             'controller_name' => 'HrmsystemController',
+            'complaintss' => $complaintss,
+            'form' => $form->createView(),
         ]);
     }
+    // delete complaints
+    #[Route('/complaints/delete/{id}', name: 'complaints_delete', methods: ["GET", "POST"])]
+    public function ComplaintsDelete(Complaints $complaints): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->entityManager->remove($complaints);
+        $this->entityManager->flush();
+        return $this->redirectToRoute('hrmsystem/complaints');
+        // return new Response('post was deleted');
+    }
+    // edit complaint
+    #[Route('/hrmsystem/complaints/{id}', name: 'complaints_edit', methods: ["GET", "PUT"])]
+    public function ComplaintsEdit(Request $request, Complaints $complaints): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $form = $this->createForm(ComplaintsType::class, $complaints);
+
+        // Handle form submission
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the updated entity if the form is submitted and valid
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('hrmsystem/complaints');
+        } else {
+            dd($form->getErrors(true, true));
+        }
+        return $this->render('hrmsystem/complaints.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
     #[Route('/hrmsystem/warning', name: 'hrmsystem/warning')]
     public function warning(): Response
     {

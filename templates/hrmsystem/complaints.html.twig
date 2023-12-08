@@ -36,41 +36,33 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<div class="modal-body">
-						<div class="row">
-							<div class="form-group col-md-6 col-lg-6 ">
-								<label for="complaint_from" class="form-label">Complaint From</label>
-								<select class="form-control  select" required="required" id="complaint_from" name="complaint_from">
-									<option value="32">Saleem Shahzad</option>
-									<option value="33">William Ndubuisi</option>
-								</select>
-							</div>
-							<div class="form-group col-md-6 col-lg-6">
-								<label for="complaint_against" class="form-label">Complaint Against</label>
-								<select class="form-control select" id="complaint_against" name="complaint_against">
-									<option value="32">Saleem Shahzad</option>
-									<option value="33">William Ndubuisi</option>
-								</select>
-							</div>
-							<div class="form-group col-md-6 col-lg-6">
-								<label for="title" class="form-label">Title</label>
-								<input class="form-control" name="title" type="text" id="title">
-							</div>
-							<div class="form-group col-md-6 col-lg-6">
-								<label for="complaint_date" class="form-label">Complaint Date</label>
-								<input class="form-control" name="complaint_date" type="date" id="complaint_date">
-							</div>
-							<div class="form-group col-md-12">
-								<label for="description" class="form-label">Description</label>
-								<textarea class="form-control" placeholder="Enter Description" name="description" cols="50" rows="10" id="description" spellcheck="false"></textarea>
-							</div>
+					{{ form_start(form) }}
+					<div class="row">
+						<div class="form-group col-md-6 col-lg-6 ">
+							{{ form_row(form.complaintFrom) }}
+						</div>
+						<div class="form-group col-md-6 col-lg-6">
+							{{ form_row(form.complaintAgainst) }}
+						</div>
+						<div class="form-group col-md-6 col-lg-6">
+							{{ form_row(form.complaintTitle) }}
+						</div>
+						<div class="form-group col-md-6 col-lg-6">
+
+							{{ form_row(form.complaintDate) }}
 
 						</div>
+						<div class="form-group col-md-12">
+							{{ form_row(form.description) }}
+
+						</div>
+
 					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-primary rounded-2">Create</button>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
+						<button type="submit" class="btn btn-primary rounded-2">Create</button>
+					</div>
+					{{ form_end(form) }}
 				</div>
 			</div>
 		</div>
@@ -86,8 +78,8 @@
 					<table id="basic-datatable" class="table table-striped dt-responsive nowrap w-100">
 						<thead>
 							<tr>
-								<th>Complaint Form</th>
-								<th>Complaint Agains</th>
+								<th>Complaint From</th>
+								<th>Complaint Against</th>
 								<th>Title</th>
 								<th>Complaint Date</th>
 								<th>Description</th>
@@ -95,41 +87,52 @@
 							</tr>
 						</thead>
 						<tbody>
-							{# <tr>
-																													<td>Cara Stevens</td>
-																													<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-																													<td>New York</td>
-																													<td>46</td>
-																													<td>2011/12/06</td>
-																													<td>2011/12/06</td>
-																												</tr> #}
+							{% for complaint in complaintss ?? [] %}
+								<tr>
+									<td>{{ complaint.complaintFrom }}</td>
+									<td>{{ complaint.complaintAgainst }}</td>
+									<td>{{ complaint.complaintTitle }}</td>
+									<td>{{ complaint.complaintDate|date('Y-m-d') }}</td>
+									<td>{{ complaint.description }}</td>
+									<td class="">
+										<div class="d-flex justify-content-center align-items-center gap-2">
+											<button type="button" class="p-0 m-0 border-0 open-edit-modal" data-bs-toggle="modal" data-bs-target="#complaints" data-bs-whatever="@mdo" data-edit-url="{{ path('complaints_edit', {'id': complaint.id}) }}">
+												<a href="#" data-bs-toggle="tooltip" title="" class="p-1 rounded-3 bg-info text-white border-0" data-bs-original-title="Edit">
+													<i class="bi bi-pen"></i>
+												</a>
+											</button>
+											<a href="{{ path('complaints_delete', {'id': complaint.id}) }}" class="p-1 rounded-3 bg-danger text-white border-0">
+												<i class="bi bi-trash"></i>
+											</a>
+										</div>
+									</td>
+								</tr>
+							{% endfor %}
 						</tbody>
 					</table>
-
 				</div>
-				<!-- end card body-->
 			</div>
-			<!-- end card -->
 		</div>
-		<!-- end col-->
 	</div>
-	<!-- end row-->
-{% endblock %}
 
-{% block javascript %}
-	<!-- Datatables js -->
-	<script src="/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
-	<script src="/vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
-	<script src="/vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-	<script src="/vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
-	<script src="/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-	<script src="/vendor/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js"></script>
-	<script src="/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
-	<script src="/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
-	<script src="/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
-	<script src="/vendor/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-	<script src="/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
+	{# Modal for Edit Complaints #}
+	<div class="modal fade" id="complaints" tabindex="-1" role="dialog" aria-labelledby="complaintsLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div
+				class="modal-content">{# Content for the modal will be dynamically loaded via Ajax #}
+			</div>
+		</div>
+	</div>
 
-	<!-- Datatable Demo Aapp js -->
-	<script src="/js/pages/demo.datatable-init.js"></script>
 {% endblock %}
+{% block javascript %}<!-- Datatables js --><script src="/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+<script src="/vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="/vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
+<script src="/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="/vendor/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js"></script>
+<script src="/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
+<script src="/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="/vendor/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+<script src="/vendor/datatables.net-select/js/dataTables.select.min.js"></script><!-- Datatable Demo Aapp js --><script src="/js/pages/demo.datatable-init.js"></script>{# edit  #}<script src="/public/js/pages/HRMSystem/complaints.js" {% endblock %}
