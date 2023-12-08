@@ -36,34 +36,26 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<div class="modal-body">
-						<div class="row">
-							<div class="form-group col-lg-12">
-								<label for="employee_id" class="form-label">Employee</label>
-								<select class="form-control select" required="required" id="employee_id" name="employee_id">
-									<option value="32">Saleem Shahzad</option>
-									<option value="33">William Ndubuisi</option>
-								</select>
-							</div>
-							<div class="form-group col-lg-6 col-md-6">
-								<label for="notice_date" class="form-label">Notice Date</label>
-								<input class="form-control" name="notice_date" type="date" id="notice_date">
-							</div>
-							<div class="form-group col-lg-6 col-md-6">
-								<label for="resignation_date" class="form-label">Resignation Date</label>
-								<input class="form-control" name="resignation_date" type="date" id="resignation_date">
-							</div>
-							<div class="form-group col-lg-12">
-								<label for="description" class="form-label">Description</label>
-								<textarea class="form-control" placeholder="Enter Description" name="description" cols="50" rows="10" id="description" spellcheck="false"></textarea>
-							</div>
-
+					{{ form_start(form) }}
+					<div class="row">
+						<div class="form-group col-lg-12">
+							{{ form_row(form.employee) }}
+						</div>
+						<div class="form-group col-lg-6 col-md-6">
+							{{ form_row(form.noticeDate) }}
+						</div>
+						<div class="form-group col-lg-6 col-md-6">
+							{{ form_row(form.resignationDate) }}
+						</div>
+						<div class="form-group col-lg-12">
+							{{ form_row(form.description) }}
 						</div>
 					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-primary rounded-2">Create</button>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
+						<button type="submit" class="btn btn-primary rounded-2">Create</button>
+					</div>
+					{{ form_end(form) }}
 				</div>
 			</div>
 		</div>
@@ -87,14 +79,26 @@
 							</tr>
 						</thead>
 						<tbody>
-							{# <tr>
-																																											<td>Cara Stevens</td>
-																																											<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-																																											<td>New York</td>
-																																											<td>46</td>
-																																											<td>2011/12/06</td>
-																																											<td>2011/12/06</td>
-																																										</tr> #}
+							{% for resignation in resignations %}
+								<tr>
+									<td>{{resignation.employee}}s</td>
+									<td>{{resignation.noticeDate|date('Y-m-d') }}</td>
+									<td>{{resignation.resignationDate|date('Y-m-d') }}</td>
+									<td>{{resignation.description}}</td>
+									<td class="">
+										<div class="d-flex justify-content-center align-items-center gap-2">
+											<button type="button" class="p-0 m-0 border-0 open-edit-modal" data-bs-toggle="modal" data-bs-target="#resignation" data-bs-whatever="@mdo" data-edit-url="{{ path('resignation_edit', {'id': resignation.id}) }}">
+												<a href="#" data-bs-toggle="tooltip" title="" class="p-1 rounded-3 bg-info text-white border-0" data-bs-original-title="Edit">
+													<i class="bi bi-pen"></i>
+												</a>
+											</button>
+											<a href="{{ path('resignation_delete', {'id': resignation.id}) }}" class="p-1 rounded-3 bg-danger text-white border-0">
+												<i class="bi bi-trash"></i>
+											</a>
+										</div>
+									</td>
+								</tr>
+							{% endfor %}
 						</tbody>
 					</table>
 

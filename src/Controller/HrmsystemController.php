@@ -3,15 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\HRMSystem\Trip;
+use App\Form\HRMSystem\TripType;
 use App\Entity\HRMSystem\Warning;
 use App\Entity\HRMSystem\Holidays;
 use App\Form\HRMSystem\WarningType;
 use App\Entity\HRMSystem\Complaints;
 use App\Form\HRMSystem\HolidaysType;
 use App\Entity\HRMSystem\ManageLeave;
+use App\Entity\HRMSystem\Resignation;
 use App\Form\HRMSystem\ComplaintsType;
-use App\Form\HRMSystem\TripType;
 use App\Form\HRMSystem\ManageLeaveType;
+use App\Form\HRMSystem\ResignationType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -224,14 +226,68 @@ class HrmsystemController extends AbstractController
             'controller_name' => 'HrmsystemController',
         ]);
     }
+    // Resignation
     #[Route('/hrmsystem/resignation', name: 'hrmsystem/resignation')]
-    public function resignation(): Response
+    public function resignation(Request $request): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $resignation = new Resignation();
+        $form = $this->createForm(ResignationType::class, $resignation);
+
+        // Handle form submission
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the entity only if the form is submitted and valid
+            $this->entityManager->persist($resignation);
+            $this->entityManager->flush();
+
+            // Redirect after successful form submission (optional)
+            return $this->redirectToRoute('hrmsystem/resignation');
+        }
+
+        $repository = $this->entityManager->getRepository(Resignation::class);
+        $resignations = $repository->findAll();
+
         return $this->render('hrmsystem/resignation.html.twig', [
             'controller_name' => 'HrmsystemController',
+            'resignations' => $resignations,
+            'form' => $form->createView(),
         ]);
     }
+    // delete resignation
+    #[Route('/resignation/delete/{id}', name: 'resignation_delete', methods: ["GET", "POST"])]
+    public function resignationDelete(Resignation $resignation): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->entityManager->remove($resignation);
+        $this->entityManager->flush();
+        return $this->redirectToRoute('hrmsystem/resignation');
+    }
+    // edit resignation
+    #[Route('/hrmsystem/resignation/{id}', name: 'resignation_edit', methods: ["GET", "PUT"])]
+    public function resignationEdit(Request $request, Resignation $resignation): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $form = $this->createForm(ResignationType::class, $resignation);
+
+        // Handle form submission
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the updated entity if the form is submitted and valid
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('hrmsystem/resignation');
+        } else {
+            dd($form->getErrors(true, true));
+        }
+        return $this->render('hrmsystem/resignation.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
     #[Route('/hrmsystem/trip', name: 'hrmsystem/trip')]
     public function trip(Request $request): Response
     {
