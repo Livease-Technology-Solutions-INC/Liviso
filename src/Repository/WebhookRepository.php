@@ -7,12 +7,12 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Zoo
+ * @extends ServiceEntityRepository<Webhook>
  *
- * @method webhook|null find($id, $lockMode = null, $lockVersion = null)
- * @method webhook|null findOneBy(array $criteria, array $orderBy = null)
- * @method webhook[]    findAll()
- * @method webhook[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Webhook|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Webhook|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Webhook[]    findAll()
+ * @method Webhook[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class WebhookRepository extends ServiceEntityRepository
 {
@@ -40,24 +40,24 @@ class WebhookRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return webhook[] Returns an array of webhook objects
+//     * @return Webhook[] Returns an array of Webhook objects
 //     */
 //    public function findByExampleField($value): array
 //    {
-//        return $this->createQueryBuilder('z')
-//            ->andWhere('z.exampleField = :val')
+//        return $this->createQueryBuilder('w')
+//            ->andWhere('w.exampleField = :val')
 //            ->setParameter('val', $value)
-//            ->orderBy('z.id', 'ASC')
+//            ->orderBy('w.id', 'ASC')
 //            ->setMaxResults(10)
 //            ->getQuery()
 //            ->getResult()
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?webhook
+//    public function findOneBySomeField($value): ?Webhook
 //    {
-//        return $this->createQueryBuilder('z')
-//            ->andWhere('z.exampleField = :val')
+//        return $this->createQueryBuilder('w')
+//            ->andWhere('w.exampleField = :val')
 //            ->setParameter('val', $value)
 //            ->getQuery()
 //            ->getOneOrNullResult()

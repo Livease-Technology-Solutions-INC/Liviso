@@ -15,6 +15,8 @@ use App\Form\HRMSystem\ComplaintsType;
 use App\Form\HRMSystem\ManageLeaveType;
 use App\Form\HRMSystem\ResignationType;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\HRMSystem\CustomQuestions;
+use App\Form\HRMSystem\CustomQuestionsType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -187,13 +189,66 @@ class HrmsystemController extends AbstractController
         ]);
     }
     #[Route('/hrmsystem/custom_question', name: 'hrmsystem/custom_question')]
-    public function customQuestion(): Response
+    public function customQuestion(Request $request): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $customQuestion = new CustomQuestions();
+        $form = $this->createForm(CustomQuestionsType::class, $customQuestion);
+
+        // Handle form submission
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the entity only if the form is submitted and valid
+            $this->entityManager->persist($customQuestion);
+            $this->entityManager->flush();
+
+            // Redirect after successful form submission (optional)
+            return $this->redirectToRoute('hrmsystem/custom_question');
+        }
+
+        $repository = $this->entityManager->getRepository(CustomQuestions::class);
+        $customQuestions = $repository->findAll();
+
         return $this->render('hrmsystem/customQuestion.html.twig', [
             'controller_name' => 'HrmsystemController',
+            'customQuestions' => $customQuestions,
+            'form' => $form->createView(),
         ]);
     }
+    // delete customQuestions
+    #[Route('/customQuestions/delete/{id}', name: 'customQuestions_delete', methods: ["GET", "POST"])]
+    public function customQuestionsDelete(CustomQuestions $customQuestions): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->entityManager->remove($customQuestions);
+        $this->entityManager->flush();
+        return $this->redirectToRoute('hrmsystem/custom_question');
+    }
+    // edit customQuestions
+    #[Route('/hrmsystem/customQuestions/{id}', name: 'customQuestions_edit', methods: ["GET", "PUT"])]
+    public function customQuestionsEdit(Request $request, CustomQuestions $customQuestions): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $form = $this->createForm(CustomQuestionsType::class, $customQuestions);
+
+        // Handle form submission
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the updated entity if the form is submitted and valid
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('hrmsystem/custom_question');
+        } else {
+            dd($form->getErrors(true, true));
+        }
+        return $this->render('hrmsystem/customQuestion.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
     #[Route('/hrmsystem/interview_schedule', name: 'hrmsystem/interview_schedule')]
     public function interviewSchedule(): Response
     {

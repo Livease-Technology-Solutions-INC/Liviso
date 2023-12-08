@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\HRMSystem;
 
-use App\Repository\CustomQuestionsRepository;
-use Doctrine\DBAL\Types\Types;
+use App\Repository\HRMSystem\CustomQuestionsRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CustomQuestionsRepository::class)]

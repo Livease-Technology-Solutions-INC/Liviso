@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repository;
+namespace App\Repository\HRMSystem;
 
-use App\Entity\CustomQuestions;
+use App\Entity\HRMSystem\CustomQuestions;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

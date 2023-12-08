@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Manageleave;
+use App\Entity\HRMSystem\ManageLeave;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Manageleave>
+ * @extends ServiceEntityRepository<ManageLeave>
  *
- * @method Manageleave|null find($id, $lockMode = null, $lockVersion = null)
- * @method Manageleave|null findOneBy(array $criteria, array $orderBy = null)
- * @method Manageleave[]    findAll()
- * @method Manageleave[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ManageLeave|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ManageLeave|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ManageLeave[]    findAll()
+ * @method ManageLeave[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class ManageLeaveRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Manageleave::class);
+        parent::__construct($registry, ManageLeave::class);
     }
 
-    public function save(Manageleave $entity, bool $flush = false): void
+    public function save(ManageLeave $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class ManageLeaveRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Manageleave $entity, bool $flush = false): void
+    public function remove(ManageLeave $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class ManageLeaveRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Manageleave[] Returns an array of Manageleave objects
+//     * @return ManageLeave[] Returns an array of ManageLeave objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class ManageLeaveRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Manageleave
+//    public function findOneBySomeField($value): ?ManageLeave
 //    {
 //        return $this->createQueryBuilder('m')
 //            ->andWhere('m.exampleField = :val')
