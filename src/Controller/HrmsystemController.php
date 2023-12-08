@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\HRMSystem\Complaints;
+use App\Entity\HRMSystem\Holidays;
 use App\Entity\HRMSystem\Warning;
 use App\Entity\HRMSystem\ManageLeave;
 use App\Form\HRMSystem\ComplaintsType;
 use App\Form\HRMSystem\WarningType;
+use App\Form\HRMSystem\HolidaysType;
 use App\Form\HRMSystem\ManageLeaveType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -343,7 +345,7 @@ class HrmsystemController extends AbstractController
         $this->entityManager->flush();
         return $this->redirectToRoute('hrmsystem/warning');
     }
-    // edit complaint
+    // edit warning
     #[Route('/hrmsystem/warning/{id}', name: 'warning_edit', methods: ["GET", "PUT"])]
     public function warningEdit(Request $request, Warning $warning): Response
     {
@@ -384,13 +386,65 @@ class HrmsystemController extends AbstractController
         ]);
     }
     #[Route('/hrmsystem/holidays', name: 'hrmsystem/holidays')]
-    public function holidays(): Response
+    public function holidays(Request $request): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $holidays = new Holidays();
+        $form = $this->createForm(HolidaysType::class, $holidays);
+
+        // Handle form submission
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the entity only if the form is submitted and valid
+            $this->entityManager->persist($holidays);
+            $this->entityManager->flush();
+
+            // Redirect after successful form submission (optional)
+            return $this->redirectToRoute('hrmsystem/holidays');
+        }
+
+        $repository = $this->entityManager->getRepository(Holidays::class);
+        $holidayss = $repository->findAll();
+
         return $this->render('hrmsystem/holidays.html.twig', [
             'controller_name' => 'HrmsystemController',
+            'holidayss' => $holidayss,
+            'form' => $form->createView(),
         ]);
     }
+    // holiday delete
+    #[Route('/holidays/delete/{id}', name: 'holidays_delete', methods: ["GET", "POST"])]
+    public function holidaysDelete(Holidays $holidays): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->entityManager->remove($holidays);
+        $this->entityManager->flush();
+        return $this->redirectToRoute('hrmsystem/holidays');
+    }
+     // edit holidays
+     #[Route('/hrmsystem/holidays/{id}', name: 'holidays_edit', methods: ["GET", "PUT"])]
+     public function holidaysEdit(Request $request, Holidays $holidays): Response
+     {
+         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+ 
+         $form = $this->createForm(HolidaysType::class, $holidays);
+ 
+         // Handle form submission
+         $form->handleRequest($request);
+ 
+         if ($form->isSubmitted() && $form->isValid()) {
+             // Persist the updated entity if the form is submitted and valid
+             $this->entityManager->flush();
+ 
+             return $this->redirectToRoute('hrmsystem/holidays');
+         } else {
+             dd($form->getErrors(true, true));
+         }
+         return $this->render('hrmsystem/holidays.html.twig', [
+             'form' => $form->createView()
+         ]);
+     }
     #[Route('/hrmsystem/event_setup', name: 'hrmsystem/event_setup')]
     public function eventSetup(): Response
     {
