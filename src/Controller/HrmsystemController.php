@@ -14,9 +14,11 @@ use App\Entity\HRMSystem\Resignation;
 use App\Form\HRMSystem\ComplaintsType;
 use App\Form\HRMSystem\ManageLeaveType;
 use App\Form\HRMSystem\ResignationType;
+use App\Form\HRMSystem\EmployeesAssetSetupType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\HRMSystem\CustomQuestions;
 use App\Form\HRMSystem\CustomQuestionsType;
+use App\Entity\HRMSystem\EmployeesAssetSetup;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -628,11 +630,63 @@ class HrmsystemController extends AbstractController
         ]);
     }
     #[Route('/hrmsystem/employees_asset_setup', name: 'hrmsystem/employees_asset_setup')]
-    public function employeesAssetSetup(): Response
+    public function employeesAssetSetup(Request $request): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $employeesAssetSetup = new EmployeesAssetSetup();
+        $form = $this->createForm(EmployeesAssetSetupType::class, $employeesAssetSetup);
+
+        // Handle form submission
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the entity only if the form is submitted and valid
+            $this->entityManager->persist($employeesAssetSetup);
+            $this->entityManager->flush();
+
+            // Redirect after successful form submission (optional)
+            return $this->redirectToRoute('hrmsystem/employees_asset_setup');
+        }
+
+        $repository = $this->entityManager->getRepository(EmployeesAssetSetup::class);
+        $employeesAssetSetups = $repository->findAll();
+
         return $this->render('hrmsystem/employeesAssetSetup.html.twig', [
             'controller_name' => 'HrmsystemController',
+            'employeesAssetSetups' => $employeesAssetSetups,
+            'form' => $form->createView(),
+        ]);
+    }
+    // delete employeesAssetSetupForm
+    #[Route('/employeesAssetSetup/delete/{id}', name: 'employeesAssetSetup_delete', methods: ["GET", "POST"])]
+    public function employeesAssetSetupDelete(EmployeesAssetSetup $employeesAssetSetup): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->entityManager->remove($employeesAssetSetup);
+        $this->entityManager->flush();
+        return $this->redirectToRoute('hrmsystem/employees_asset_setup');
+    }
+    // edit employeesAssetSetup
+    #[Route('/hrmsystem/employeesAssetSetup/{id}', name: 'employeesAssetSetup_edit', methods: ["GET", "PUT"])]
+    public function employeesAssetSetupEdit(Request $request, EmployeesAssetSetup $employeesAssetSetup): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $form = $this->createForm(EmployeesAssetSetupType::class, $employeesAssetSetup);
+
+        // Handle form submission
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the updated entity if the form is submitted and valid
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('hrmsystem/employees_asset_setup');
+        } else {
+            dd($form->getErrors(true, true));
+        }
+        return $this->render('hrmsystem/employeesAssetSetup.html.twig', [
+            'form' => $form->createView()
         ]);
     }
     #[Route('/hrmsystem/document_setup', name: 'hrmsystem/document_setup')]

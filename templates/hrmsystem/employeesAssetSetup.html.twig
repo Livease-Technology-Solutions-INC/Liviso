@@ -36,50 +36,33 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<div class="modal-body">
-						<div class="row">
-							<div class="col-12 form-group">
-								<label for="employee_id" class="form-label">Employee</label>
-								<div class="choices" data-type="select-multiple" role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-expanded="false">
-									<div class="choices__inner">
-										<select class="form-control select2 choices__input" id="choices-multiple1" multiple="" name="employee_id[]" hidden="" tabindex="-1" data-choice="active"></select>
-										<div class="choices__list choices__list--multiple"></div><input type="text" class="choices__input choices__input--cloned" autocomplete="off" autocapitalize="off" spellcheck="false" role="textbox" aria-autocomplete="list" aria-label="null"></div>
-									<div class="choices__list choices__list--dropdown" aria-expanded="false">
-										<div class="choices__list" aria-multiselectable="true" role="listbox">
-											<div id="choices--choices-multiple1-item-choice-1" class="choices__item choices__item--choice choices__item--selectable is-highlighted" role="option" data-choice="" data-id="1" data-value="132" data-select-text="Press to select" data-choice-selectable="" aria-selected="true">Saleem Shahzad</div>
-											<div id="choices--choices-multiple1-item-choice-2" class="choices__item choices__item--choice choices__item--selectable" role="option" data-choice="" data-id="2" data-value="134" data-select-text="Press to select" data-choice-selectable="">William Ndubuisi</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="form-group col-md-6">
-								<label for="name" class="form-label">Name</label>
-								<input class="form-control" required="required" name="name" type="text" value="" id="name">
-							</div>
-							<div class="form-group col-md-6">
-								<label for="amount" class="form-label">Amount</label>
-								<input class="form-control" required="required" step="0.01" name="amount" type="number" value="" id="amount">
-							</div>
+					{{ form_start(form) }}
+					<div class="row">
+						<div class="col-12 form-group mb-1|date('Y-m-d') ">
+							{{ form_row(form.employee) }}
+						</div>
+						<div class="form-group col-md-6 mb-1|date('Y-m-d') ">
+							{{ form_row(form.employeeName) }}
+						</div>
+						<div class="form-group col-md-6 mb-1|date('Y-m-d') ">
+							{{ form_row(form.amount) }}
+						</div>
 
-							<div class="form-group col-md-6">
-								<label for="purchase_date" class="form-label">Purchase Date</label>
-								<input class="form-control " name="purchase_date" type="date" value="" id="purchase_date">
-							</div>
-							<div class="form-group col-md-6">
-								<label for="supported_date" class="form-label">Supported Date</label>
-								<input class="form-control " name="supported_date" type="date" value="" id="supported_date">
-							</div>
-							<div class="form-group col-md-12">
-								<label for="description" class="form-label">Description</label>
-								<textarea class="form-control" rows="3" name="description" cols="50" id="description" spellcheck="false"></textarea>
-							</div>
-
+						<div class="form-group col-md-6 mb-1|date('Y-m-d') ">
+							{{ form_row(form.purchaseDate) }}
+						</div>
+						<div class="form-group col-md-6 mb-1|date('Y-m-d') ">
+							{{ form_row(form.supportedDate) }}
+						</div>
+						<div class="form-group col-md-12 mb-1|date('Y-m-d') ">
+							{{ form_row(form.description) }}
 						</div>
 					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-primary rounded-2">Create</button>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
+						<button type="submit" class="btn btn-primary rounded-2">Create</button>
+					</div>
+					{{ form_end(form) }}
 				</div>
 			</div>
 		</div>
@@ -105,17 +88,30 @@
 							</tr>
 						</thead>
 						<tbody>
-							{# <tr>
-																						<td>Cara Stevens</td>
-																						<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-																						<td>New York</td>
-																						<td>46</td>
-																						<td>2011/12/06</td>
-																						<td>2011/12/06</td>
-																					</tr> #}
+							{% for employeesAssetSetup in employeesAssetSetups %}
+								<tr>
+									<td>{{employeesAssetSetup.employee}}</td>
+									<td>{{employeesAssetSetup.employeeName}}</td>
+									<td>{{employeesAssetSetup.amount}}</td>
+									<td>{{employeesAssetSetup.purchaseDate|date('Y-m-d') }}</td>
+									<td>{{employeesAssetSetup.supportedDate|date('Y-m-d') }}</td>
+									<td>{{employeesAssetSetup.description}}</td>
+									<td class="">
+										<div class="d-flex justify-content-center align-items-center gap-2">
+											<button type="button" class="p-0 m-0 border-0 open-edit-modal" data-bs-toggle="modal" data-bs-target="#employeesAssetSetup" data-bs-whatever="@mdo" data-edit-url="{{ path('employeesAssetSetup_edit', {'id': employeesAssetSetup.id}) }}">
+												<a href="#" data-bs-toggle="tooltip" title="" class="p-1 rounded-3 bg-info text-white border-0" data-bs-original-title="Edit">
+													<i class="bi bi-pen"></i>
+												</a>
+											</button>
+											<a href="{{ path('employeesAssetSetup_delete', {'id': employeesAssetSetup.id}) }}" class="p-1 rounded-3 bg-danger text-white border-0">
+												<i class="bi bi-trash"></i>
+											</a>
+										</div>
+									</td>
+								</tr>
+							{% endfor %}
 						</tbody>
 					</table>
-
 				</div>
 				<!-- end card body-->
 			</div>

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\HRMSystem;
 
-use App\Repository\EmployeeAssetSetupRepository;
+use App\Repository\HRMSystem\EmployeeAssetSetupRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EmployeeAssetSetupRepository::class)]
-class EmployeeAssetSetup
+class EmployeesAssetSetup
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -15,10 +15,10 @@ class EmployeeAssetSetup
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Employee = null;
+    private ?string $employee = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $EmployeeName = null;
+    private ?string $employeeName = null;
 
     #[ORM\Column]
     private ?int $amount = null;
@@ -39,24 +39,24 @@ class EmployeeAssetSetup
 
     public function getEmployee(): ?string
     {
-        return $this->Employee;
+        return $this->employee;
     }
 
     public function setEmployee(string $Employee): static
     {
-        $this->Employee = $Employee;
+        $this->employee = $Employee;
 
         return $this;
     }
 
     public function getEmployeeName(): ?string
     {
-        return $this->EmployeeName;
+        return $this->employeeName;
     }
 
     public function setEmployeeName(string $EmployeeName): static
     {
-        $this->EmployeeName = $EmployeeName;
+        $this->employeeName = $EmployeeName;
 
         return $this;
     }

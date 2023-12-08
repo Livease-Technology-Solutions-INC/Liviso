@@ -27,7 +27,6 @@ class ManageLeaveType extends AbstractType
                     'Study Leave' => 'Study Leave',
                     'Sabbatical Leave' => 'Sabbatical Leave',
                     'Holidays' => 'Holidays',
-
                 ],
                 'attr' => ['class' => 'form-control m-0'],
             ])

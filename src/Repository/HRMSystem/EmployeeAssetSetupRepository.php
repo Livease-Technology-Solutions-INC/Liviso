@@ -1,27 +1,27 @@
 <?php
 
-namespace App\Repository;
+namespace App\Repository\HRMSystem;
 
-use App\Entity\EmployeeAssetSetup;
+use App\Entity\HRMSystem\EmployeesAssetSetup;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<EmployeeAssetSetup>
+ * @extends ServiceEntityRepository<EmployeesAssetSetup>
  *
- * @method EmployeeAssetSetup|null find($id, $lockMode = null, $lockVersion = null)
- * @method EmployeeAssetSetup|null findOneBy(array $criteria, array $orderBy = null)
- * @method EmployeeAssetSetup[]    findAll()
- * @method EmployeeAssetSetup[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method EmployeesAssetSetup|null find($id, $lockMode = null, $lockVersion = null)
+ * @method EmployeesAssetSetup|null findOneBy(array $criteria, array $orderBy = null)
+ * @method EmployeesAssetSetup[]    findAll()
+ * @method EmployeesAssetSetup[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class EmployeeAssetSetupRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, EmployeeAssetSetup::class);
+        parent::__construct($registry, EmployeesAssetSetup::class);
     }
 
-    public function save(EmployeeAssetSetup $entity, bool $flush = false): void
+    public function save(EmployeesAssetSetup $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class EmployeeAssetSetupRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(EmployeeAssetSetup $entity, bool $flush = false): void
+    public function remove(EmployeesAssetSetup $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class EmployeeAssetSetupRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return EmployeeAssetSetup[] Returns an array of EmployeeAssetSetup objects
+//     * @return EmployeesAssetSetup[] Returns an array of EmployeesAssetSetup objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class EmployeeAssetSetupRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?EmployeeAssetSetup
+//    public function findOneBySomeField($value): ?EmployeesAssetSetup
 //    {
 //        return $this->createQueryBuilder('e')
 //            ->andWhere('e.exampleField = :val')
