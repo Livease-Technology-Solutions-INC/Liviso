@@ -36,42 +36,32 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<div class="modal-body">
-						<div class="row">
-							<div class="form-group col-md-12">
-								<label for="employee_id" class="form-label">Employee</label>
-								<select class="form-control select" required="required" id="employee_id" name="employee_id">
-									<option value="32">Saleem Shahzad</option>
-									<option value="33">William Ndubuisi</option>
-								</select>
-							</div>
-							<div class="form-group col-lg-6 col-md-6">
-								<label for="start_date" class="form-label">Start Date</label>
-								<input class="form-control" name="start_date" type="date" id="start_date">
-							</div>
-							<div class="form-group col-lg-6 col-md-6">
-								<label for="end_date" class="form-label">End Date</label>
-								<input class="form-control" name="end_date" type="date" id="end_date">
-							</div>
-							<div class="form-group col-lg-6 col-md-6">
-								<label for="purpose_of_visit" class="form-label">Purpose of Trip</label>
-								<input class="form-control" name="purpose_of_visit" type="text" id="purpose_of_visit">
-							</div>
-							<div class="form-group col-md-6">
-								<label for="place_of_visit" class="form-label">Country</label>
-								<input class="form-control" name="place_of_visit" type="text" id="place_of_visit">
-							</div>
-							<div class="form-group col-md-12">
-								<label for="description" class="form-label">Description</label>
-								<textarea class="form-control" placeholder="Enter Description" name="description" cols="50" rows="10" id="description"></textarea>
-							</div>
-
+					{{ form_start(form) }}
+					<div class="row">
+						<div class="form-group col-md-12">
+							{{ form_row(form.employee) }}
 						</div>
+						<div class="form-group col-lg-6 col-md-6">
+							{{ form_row(form.startDate) }}
+						</div>
+						<div class="form-group col-lg-6 col-md-6">
+							{{ form_row(form.endDate) }}
+						</div>
+						<div class="form-group col-lg-6 col-md-6">
+							{{ form_row(form.purposeOfTrip) }}
+						</div>
+						<div class="form-group col-md-6">
+							{{ form_row(form.country) }}
+						</div>
+						<div class="form-group col-md-12">
+							{{ form_row(form.description) }}
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
+							<button type="submit" class="btn btn-primary rounded-2">Create</button>
+						</div>
+						{{ form_end(form) }}
 					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-primary rounded-2">Create</button>
 				</div>
 			</div>
 		</div>
@@ -97,14 +87,28 @@
 							</tr>
 						</thead>
 						<tbody>
-							{# <tr>
-															<td>Cara Stevens</td>
-															<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-															<td>New York</td>
-															<td>46</td>
-															<td>2011/12/06</td>
-															<td>2011/12/06</td>
-														</tr> #}
+							{% for trip in trips %}
+								<tr>
+									<td>{{trip.employee}}</td>
+									<td>{{ trip.startDate|date('Y-m-d') }}</td>
+									<td>{{ trip.endDate|date('Y-m-d') }}</td>
+									<td>{{trip.purposeOfTrip}}</td>
+									<td>{{trip.country}}</td>
+									<td>{{trip.description}}</td>
+									<td class="">
+										<div class="d-flex justify-content-center align-items-center gap-2">
+											<button type="button" class="p-0 m-0 border-0 open-edit-modal" data-bs-toggle="modal" data-bs-target="#trip" data-bs-whatever="@mdo" data-edit-url="{{ path('trip_edit', {'id': trip.id}) }}">
+												<a href="#" data-bs-toggle="tooltip" title="" class="p-1 rounded-3 bg-info text-white border-0" data-bs-original-title="Edit">
+													<i class="bi bi-pen"></i>
+												</a>
+											</button>
+											<a href="{{ path('trip_delete', {'id': trip.id}) }}" class="p-1 rounded-3 bg-danger text-white border-0">
+												<i class="bi bi-trash"></i>
+											</a>
+										</div>
+									</td>
+								</tr>
+							{% endfor %}
 						</tbody>
 					</table>
 

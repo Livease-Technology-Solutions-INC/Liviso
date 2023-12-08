@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\HRMSystem;
 
-use App\Repository\TripRepository;
+use App\Repository\HRMSystem\TripRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
