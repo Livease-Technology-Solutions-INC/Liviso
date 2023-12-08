@@ -3,15 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\HRMSystem\Complaints;
+use App\Entity\HRMSystem\Warning;
 use App\Entity\HRMSystem\ManageLeave;
 use App\Form\HRMSystem\ComplaintsType;
+use App\Form\HRMSystem\WarningType;
 use App\Form\HRMSystem\ManageLeaveType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 class HrmsystemController extends AbstractController
 {
@@ -306,13 +307,66 @@ class HrmsystemController extends AbstractController
     }
 
     #[Route('/hrmsystem/warning', name: 'hrmsystem/warning')]
-    public function warning(): Response
+    public function warning(Request $request): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $warning = new Warning();
+        $form = $this->createForm(WarningType::class, $warning);
+
+        // Handle form submission
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the entity only if the form is submitted and valid
+            $this->entityManager->persist($warning);
+            $this->entityManager->flush();
+
+            // Redirect after successful form submission (optional)
+            return $this->redirectToRoute('hrmsystem/warning');
+        }
+
+        $repository = $this->entityManager->getRepository(Warning::class);
+        $warnings = $repository->findAll();
+
         return $this->render('hrmsystem/warning.html.twig', [
             'controller_name' => 'HrmsystemController',
+            'warnings' => $warnings,
+            'form' => $form->createView(),
         ]);
     }
+    // delete warning
+    #[Route('/warning/delete/{id}', name: 'warning_delete', methods: ["GET", "POST"])]
+    public function warningDelete(Warning $warning): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->entityManager->remove($warning);
+        $this->entityManager->flush();
+        return $this->redirectToRoute('hrmsystem/warning');
+    }
+    // edit complaint
+    #[Route('/hrmsystem/warning/{id}', name: 'warning_edit', methods: ["GET", "PUT"])]
+    public function warningEdit(Request $request, Warning $warning): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $form = $this->createForm(WarningType::class, $warning);
+
+        // Handle form submission
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the updated entity if the form is submitted and valid
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('hrmsystem/warning');
+        } else {
+            dd($form->getErrors(true, true));
+        }
+        return $this->render('hrmsystem/warning.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
     #[Route('/hrmsystem/termination', name: 'hrmsystem/termination')]
     public function termination(): Response
     {
