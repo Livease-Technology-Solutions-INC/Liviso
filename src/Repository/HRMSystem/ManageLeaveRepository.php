@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository;
+namespace App\Repository\HRMSystem;
 
 use App\Entity\HRMSystem\ManageLeave;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;

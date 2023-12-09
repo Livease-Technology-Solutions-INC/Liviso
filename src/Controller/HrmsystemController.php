@@ -72,7 +72,7 @@ class HrmsystemController extends AbstractController
             $this->entityManager->flush();
 
             // Redirect after successful form submission (optional)
-            return $this->redirectToRoute('manageleave');
+            return $this->redirectToRoute('hrmsystem/manage_leave');
         }
 
         $repository = $this->entityManager->getRepository(ManageLeave::class);
@@ -80,19 +80,42 @@ class HrmsystemController extends AbstractController
 
         return $this->render('hrmsystem/manageleave.html.twig', [
             'controller_name' => 'HrmsystemController',
-            'manageleaves' => $manageleaves,
+            'manageLeaves' => $manageleaves,
             'form' => $form->createView(),
         ]);
     }
     // delete manage leave
-    #[Route('/manage_leave/delete/{id}', name: 'Manageleave_delete', methods: ["GET", "POST"])]
-    public function ManageleaveDelete(Manageleave $Manageleave): Response
+    #[Route('/manage_leave/delete/{id}', name: 'manageleave_delete', methods: ["GET", "POST"])]
+    public function manageleaveDelete(Manageleave $Manageleave): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $this->entityManager->remove($Manageleave);
         $this->entityManager->flush();
-        return $this->redirectToRoute('Manageleave');
+        return $this->redirectToRoute('hrmsystem/manage_leave');
         // return new Response('post was deleted');
+    }
+    // edit manageLeave
+    #[Route('/hrmsystem/manage_leave/{id}', name: 'manageleave_edit', methods: ["GET", "PUT"])]
+    public function manageleaveEdit(Request $request, ManageLeave $manageLeave): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $form = $this->createForm(ManageLeaveType::class, $manageLeave);
+
+        // Handle form submission
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the updated entity if the form is submitted and valid
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('hrmsystem/manage_leave');
+        } else {
+            dd($form->getErrors(true, true));
+        }
+        return $this->render('hrmsystem/manageleave.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
     #[Route('/hrmsystem/bulk_attendance', name: 'hrmsystem/bulk_attendance')]
     public function bulkAttendance(): Response
