@@ -709,7 +709,7 @@ class HrmsystemController extends AbstractController
         ]);
     }
     // delete employeesAssetSetupForm
-    #[Route('/employeesAssetSetup/delete/{id}', name: 'employeesAssetSetup_delete', methods: ["GET", "POST"])]
+    #[Route('/hrmsystem/employees_asset_setup/delete/{id}', name: 'employeesAssetSetup_delete', methods: ["GET", "POST"])]
     public function employeesAssetSetupDelete(EmployeesAssetSetup $employeesAssetSetup): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
@@ -717,27 +717,41 @@ class HrmsystemController extends AbstractController
         $this->entityManager->flush();
         return $this->redirectToRoute('hrmsystem/employees_asset_setup');
     }
-    // edit employeesAssetSetup
-    #[Route('/hrmsystem/employeesAssetSetup/{id}', name: 'employeesAssetSetup_edit', methods: ["GET", "PUT"])]
-    public function employeesAssetSetupEdit(Request $request, EmployeesAssetSetup $employeesAssetSetup): Response
+    // edit resignation
+    #[Route("/hrmsystem/employees_asset_setup/{id}/edit", name: "employeesAssetSetup_edit", methods: ["GET", "PUT", "POST"])]
+    public function employeesAssetSetupEdit(Request $request, $id): Response
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $repository = $this->entityManager->getRepository(EmployeesAssetSetup::class);
+        $employeesAssetSetup = $repository->find($id);
+
+        if (!$employeesAssetSetup) {
+            throw $this->createNotFoundException('employeesAssetSetup not found');
+        }
 
         $form = $this->createForm(EmployeesAssetSetupType::class, $employeesAssetSetup);
+        try {
+            $form->handleRequest($request);
 
-        // Handle form submission
-        $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Persist the entity only if the form is submitted and valid
+                $employeesAssetSetup = $form->getData();
+                $this->entityManager->persist($employeesAssetSetup);
+                $this->entityManager->flush();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Persist the updated entity if the form is submitted and valid
-            $this->entityManager->flush();
-
-            return $this->redirectToRoute('hrmsystem/employees_asset_setup');
-        } else {
-            dd($form->getErrors(true, true));
+                // Redirect after successful form submission (optional)
+                return $this->redirectToRoute('hrmsystem/employees_asset_setup');
+            }
+        } catch (\Exception $error) {
+            $this->addFlash('danger', 'An error occurred while processing the form.');
+            throw $error;
         }
-        return $this->render('hrmsystem/employeesAssetSetup.html.twig', [
-            'form' => $form->createView()
+        $repository = $this->entityManager->getRepository(employeesAssetSetup::class);
+        $employeesAssetSetups = $repository->findAll();
+
+        return $this->render('hrmsystem/edit/employeesAssetSetup.html.twig', [
+            'controller_name' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'employeesAssetSetups' => $employeesAssetSetups,
         ]);
     }
     #[Route('/hrmsystem/document_setup', name: 'hrmsystem/document_setup')]
