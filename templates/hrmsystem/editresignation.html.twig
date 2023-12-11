@@ -32,7 +32,7 @@
 		<div class="modal-dialog rounded-3">
 			<div class="modal-content rounded-3">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Create New Resignation</h5>
+					<h5 class="modal-title" id="exampleModalLabel">Edit Resignation</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
@@ -87,8 +87,8 @@
 									<td>{{resignation.description}}</td>
 									<td class="">
 										<div class="d-flex justify-content-center align-items-center gap-2">
-											<button type="button" class="p-0 m-0 border-0 open-edit-modal">
-												<a href="{{ path('resignation_edit', {'id': resignation.id}) }}" data-bs-toggle="tooltip" title="" class="p-1 rounded-3 bg-info text-white border-0" data-bs-original-title="Edit" onclick="openEditModal('{{ path('resignation_edit', {'id': resignation.id}) }}'); return false;">
+											<button type="button" class="p-0 m-0 border-0 open-edit-modal" data-bs-toggle="modal" data-bs-target="#resignation" data-bs-whatever="@mdo">
+												<a href="{{ path('resignation_edit', {'id': resignation.id}) }}" data-bs-toggle="tooltip" title="" class="p-1 rounded-3 bg-info text-white border-0" data-bs-original-title="Edit" onclick="openEditModal('{{ path('resignation_edit', {'id': resignation.id}) }}');">
 													<i class="bi bi-pen"></i>
 												</a>
 											</button>
@@ -113,6 +113,12 @@
 {% endblock %}
 
 {% block javascript %}
+	<script>
+		// Custom JavaScript for modal handling
+$(document).ready(function () { // Open the modal when the page is ready
+$('#resignation').modal('show');
+});
+	</script>
 	<!-- Datatables js -->
 	<script src="/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
 	<script src="/vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>

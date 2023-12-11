@@ -345,26 +345,40 @@ class HrmsystemController extends AbstractController
         return $this->redirectToRoute('hrmsystem/resignation');
     }
     // edit resignation
-    #[Route('/hrmsystem/resignation/{id}', name: 'resignation_edit', methods: ["GET", "PUT"])]
-    public function resignationEdit(Request $request, Resignation $resignation): Response
+    #[Route("/hrmsystem/resignation/{id}/edit", name: "resignation_edit", methods: ["GET", "PUT", "POST"])]
+    public function resignationEdit(Request $request, $id): Response
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $repository = $this->entityManager->getRepository(Resignation::class);
+        $resignation = $repository->find($id);
+
+        if (!$resignation) {
+            throw $this->createNotFoundException('Resignation not found');
+        }
 
         $form = $this->createForm(ResignationType::class, $resignation);
+        try {
+            $form->handleRequest($request);
 
-        // Handle form submission
-        $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Persist the entity only if the form is submitted and valid
+                $resignation = $form->getData();
+                $this->entityManager->persist($resignation);
+                $this->entityManager->flush();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Persist the updated entity if the form is submitted and valid
-            $this->entityManager->flush();
-
-            return $this->redirectToRoute('hrmsystem/resignation');
-        } else {
-            dd($form->getErrors(true, true));
+                // Redirect after successful form submission (optional)
+                return $this->redirectToRoute('hrmsystem/resignation');
+            }
+        } catch (\Exception $error) {
+            $this->addFlash('danger', 'An error occurred while processing the form.');
+            throw $error;
         }
-        return $this->render('hrmsystem/resignation.html.twig', [
-            'form' => $form->createView()
+        $repository = $this->entityManager->getRepository(Resignation::class);
+        $resignations = $repository->findAll();
+
+        return $this->render('hrmsystem/editresignation.html.twig', [
+            'controller_name' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'resignations' => $resignations,
         ]);
     }
 
