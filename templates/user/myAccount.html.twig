@@ -25,7 +25,7 @@
 						<p class="text-muted mb-3">
 							Hi I'm
 							{{app.user.fullName}},has been the industry's standard dummy text ever since the
-																					                                                1500s, when an unknown printer took a galley of type.
+																																										                                                1500s, when an unknown printer took a galley of type.
 						</p>
 						<p class="text-muted mb-2">
 							<strong>Full Name :</strong>
@@ -35,7 +35,7 @@
 						<p class="text-muted mb-2">
 							<strong>Mobile :</strong>
 							<span class="ms-2">(123)
-																								                                                    123 1234</span>
+																																																                                                    123 1234</span>
 						</p>
 
 						<p class="text-muted mb-2">
@@ -270,9 +270,9 @@
 											<span class="ms-2 fs-12">Year: 2015 - 18</span>
 										</p>
 										<p class="text-muted mt-2 mb-0 pb-3">Everyone realizes why a new common language
-																																	                                                                would be desirable: one could refuse to pay expensive translators.
-																																	                                                                To achieve this, it would be necessary to have uniform grammar,
-																																	                                                                pronunciation and more common words.</p>
+																																																																		                                                                would be desirable: one could refuse to pay expensive translators.
+																																																																		                                                                To achieve this, it would be necessary to have uniform grammar,
+																																																																		                                                                pronunciation and more common words.</p>
 									</div>
 								</div>
 
@@ -284,9 +284,9 @@
 											<span class="ms-2 fs-12">Year: 2012 - 15</span>
 										</p>
 										<p class="text-muted mt-2 mb-0 pb-3">If several languages coalesce, the grammar
-																																	                                                                of the resulting language is more simple and regular than that of
-																																	                                                                the individual languages. The new common language will be more
-																																	                                                                simple and regular than the existing European languages.</p>
+																																																																		                                                                of the resulting language is more simple and regular than that of
+																																																																		                                                                the individual languages. The new common language will be more
+																																																																		                                                                simple and regular than the existing European languages.</p>
 
 									</div>
 								</div>
@@ -299,9 +299,9 @@
 											<span class="ms-2 fs-12">Year: 2010 - 12</span>
 										</p>
 										<p class="text-muted mt-2 mb-0 pb-2">The European languages are members of
-																																	                                                                the same family. Their separate existence is a myth. For science
-																																	                                                                music sport etc, Europe uses the same vocabulary. The languages
-																																	                                                                only differ in their grammar their pronunciation.</p>
+																																																																		                                                                the same family. Their separate existence is a myth. For science
+																																																																		                                                                music sport etc, Europe uses the same vocabulary. The languages
+																																																																		                                                                only differ in their grammar their pronunciation.</p>
 									</div>
 								</div>
 
@@ -354,10 +354,10 @@
 								<div class="fs-16 text-center fst-italic text-dark">
 									<i class="ri-double-quotes-l fs-20"></i>
 									Cras sit amet nibh libero, in
-																											                                                        gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras
-																											                                                        purus odio, vestibulum in vulputate at, tempus viverra turpis. Duis
-																											                                                        sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper
-																											                                                        porta. Mauris massa.
+																																																						                                                        gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras
+																																																						                                                        purus odio, vestibulum in vulputate at, tempus viverra turpis. Duis
+																																																						                                                        sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper
+																																																						                                                        porta. Mauris massa.
 								</div>
 
 								<div class="mx-n2 p-2 mt-3 bg-light">
@@ -473,13 +473,13 @@
 									<div class="col-md-6">
 										<div class="mb-3">
 											<label for="firstname" class="form-label">First Name</label>
-											<input type="text" class="form-control" id="firstname" placeholder="Enter first name">
+											<input type="text" class="form-control" id="firstname" placeholder="Enter first name" value="{{ app.user.fullname|split(' ')|first }}" disabled>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="mb-3">
 											<label for="lastname" class="form-label">Last Name</label>
-											<input type="text" class="form-control" id="lastname" placeholder="Enter last name">
+											<input type="text" class="form-control" id="lastname" placeholder="Enter last name" value="{{ app.user.fullname|split(' ')|slice(1, 1)|first }}" disabled>
 										</div>
 									</div>
 									<!-- end col -->
@@ -500,11 +500,11 @@
 								<div class="row">
 									<div class="col-md-6">
 										<div class="mb-3">
-											<label for="useremail" class="form-label">Email Address</label>
-											<input type="email" class="form-control" id="useremail" placeholder="Enter email">
+											<label for="useremail" class="form-label">Email</label>
+											<input type="email" class="form-control" id="useremail" placeholder="Enter email" value="{{app.user.email}}" disabled>
 											<span class="form-text text-muted">
 												<small>If you want to change email please
-													<a href="javascript: void(0);">click</a>
+													<a href="{{path("confirmmail")}}">click</a>
 													here.</small>
 											</span>
 										</div>
@@ -512,13 +512,29 @@
 									<div class="col-md-6">
 										<div class="mb-3">
 											<label for="userpassword" class="form-label">Password</label>
-											<input type="password" class="form-control" id="userpassword" placeholder="Enter password">
+											<input type="password" class="form-control" id="userpassword" placeholder="Enter password" value="{{app.user.password}}" disabled>
 											<span class="form-text text-muted">
 												<small>If you want to change password please
-													<a href="javascript: void(0);">click</a>
+													<a href="{{path("recoverpassword")}}">click</a>
 													here.</small>
 											</span>
 										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="mb-3">
+												<label for="mobilenumber" class="form-label">Mobile Number</label>
+												<input type="tel" class="form-control" id="mobilenumber" placeholder="Enter your phone number">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="mb-3 mt-md-4">
+												<select name="country" class="form-control selectpicker" id="selectcountry" data-none-selected-text="Nothing selected">
+													<option value="USA">USA</option>
+												</select>
+											</div>
+										</div>
+										<!-- end col -->
 									</div>
 									<!-- end col -->
 								</div>

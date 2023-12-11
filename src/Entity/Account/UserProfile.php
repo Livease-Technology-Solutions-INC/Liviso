@@ -5,7 +5,7 @@ namespace App\Entity\Account;
 use App\Entity\User;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\HRMSystem\UserProfileRepository;
+use App\Repository\Account\UserProfileRepository;
 
 #[ORM\Entity(repositoryClass: UserProfileRepository::class)]
 class UserProfile
@@ -15,11 +15,11 @@ class UserProfile
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToOne(targetEntity: "User")]
+    #[ORM\OneToOne(targetEntity: User::class)]
     private ?User $user = null;
 
     #[ORM\Column(type: "text")]
-    private ?string $bio = null;    
+    private ?string $bio = null;
 
     #[ORM\Column(length: 180, type: "text")]
     private ?string $companyName = null;

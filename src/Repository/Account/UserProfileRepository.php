@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository\HRMSystem;
+namespace App\Repository\Account;
 
 use App\Entity\Account\UserProfile;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
