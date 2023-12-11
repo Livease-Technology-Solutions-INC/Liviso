@@ -28,7 +28,7 @@
 			{{ include('partials/page-title.html.twig', { sub_title: 'Warning', page_title: 'Warning' }) }}
 		</div>
 	</div>
-	<div class="modal fade rounded-3" id="warning" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade rounded-3 special" id="warning" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog rounded-3">
 			<div class="modal-content rounded-3">
 				<div class="modal-header">
@@ -90,10 +90,11 @@
 									<td>{{warning.warningTo}}</td>
 									<td>{{warning.subject}}</td>
 									<td>{{ warning.warningDate|date('Y-m-d') }}</td>
+									<td>{{warning.description}}</td>
 									<td class="">
 										<div class="d-flex justify-content-center align-items-center gap-2">
-											<button type="button" class="p-0 m-0 border-0 open-edit-modal" data-bs-toggle="modal" data-bs-target="#warning" data-bs-whatever="@mdo" data-edit-url="{{ path('warning_edit', {'id': warning.id}) }}">
-												<a href="#" data-bs-toggle="tooltip" title="" class="p-1 rounded-3 bg-info text-white border-0" data-bs-original-title="Edit">
+											<button type="button" class="p-0 m-0 border-0 open-edit-modal">
+												<a href="{{ path('warning_edit', {'id': warning.id}) }}" data-bs-toggle="tooltip" title="" class="p-1 rounded-3 bg-info text-white border-0" data-bs-original-title="Edit">
 													<i class="bi bi-pen"></i>
 												</a>
 											</button>

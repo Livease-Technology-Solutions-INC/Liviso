@@ -116,19 +116,19 @@ class HrmsystemController extends AbstractController
                 $this->entityManager->flush();
 
                 // Redirect after successful form submission (optional)
-                return $this->redirectToRoute('hrmsystem/manageleave');
+                return $this->redirectToRoute('hrmsystem/manage_leave');
             }
         } catch (\Exception $error) {
             $this->addFlash('danger', 'An error occurred while processing the form.');
             throw $error;
         }
-        $repository = $this->entityManager->getRepository(manageleave::class);
+        $repository = $this->entityManager->getRepository(Manageleave::class);
         $manageleaves = $repository->findAll();
 
-        return $this->render('hrmsystem/edit/editmanageleave.html.twig', [
+        return $this->render('hrmsystem/edit/manageleave.html.twig', [
             'controllername' => 'HrmsystemController',
             'form' => $form->createView(),
-            'manageleaves' => $manageleaves,
+            'manageLeaves' => $manageleaves,
         ]);
     }
     #[Route('/hrmsystem/bulk_attendance', name: 'hrmsystem/bulk_attendance')]
@@ -256,7 +256,7 @@ class HrmsystemController extends AbstractController
         ]);
     }
     // delete customQuestions
-    #[Route('/customQuestions/delete/{id}', name: 'customQuestions_delete', methods: ["GET", "POST"])]
+    #[Route('/hrmsystem/customQuestions/delete/{id}', name: 'customQuestions_delete', methods: ["GET", "POST"])]
     public function customQuestionsDelete(CustomQuestions $customQuestions): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
@@ -264,29 +264,45 @@ class HrmsystemController extends AbstractController
         $this->entityManager->flush();
         return $this->redirectToRoute('hrmsystem/custom_question');
     }
-    // edit customQuestions
-    #[Route('/hrmsystem/customQuestions/{id}', name: 'customQuestions_edit', methods: ["GET", "PUT"])]
-    public function customQuestionsEdit(Request $request, CustomQuestions $customQuestions): Response
+
+    // edit customQuestion
+    #[Route("/hrmsystem/customQuestion/{id}/edit", name: "customQuestions_edit", methods: ["GET", "PUT", "POST"])]
+    public function customQuestionEdit(Request $request, $id): Response
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $repository = $this->entityManager->getRepository(CustomQuestions::class);
+        $customQuestion = $repository->find($id);
 
-        $form = $this->createForm(CustomQuestionsType::class, $customQuestions);
-
-        // Handle form submission
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Persist the updated entity if the form is submitted and valid
-            $this->entityManager->flush();
-
-            return $this->redirectToRoute('hrmsystem/custom_question');
-        } else {
-            dd($form->getErrors(true, true));
+        if (!$customQuestion) {
+            throw $this->createNotFoundException('customQuestion not found');
         }
-        return $this->render('hrmsystem/customQuestion.html.twig', [
-            'form' => $form->createView()
+
+        $form = $this->createForm(CustomQuestionsType::class, $customQuestion);
+        try {
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Persist the entity only if the form is submitted and valid
+                $customQuestion = $form->getData();
+                $this->entityManager->persist($customQuestion);
+                $this->entityManager->flush();
+
+                // Redirect after successful form submission (optional)
+                return $this->redirectToRoute('hrmsystem/custom_question');
+            }
+        } catch (\Exception $error) {
+            $this->addFlash('danger', 'An error occurred while processing the form.');
+            throw $error;
+        }
+        $repository = $this->entityManager->getRepository(CustomQuestions::class);
+        $customQuestions = $repository->findAll();
+
+        return $this->render('hrmsystem/edit/customQuestion.html.twig', [
+            'controller_name' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'customQuestions' => $customQuestions,
         ]);
     }
+
 
     #[Route('/hrmsystem/interview_schedule', name: 'hrmsystem/interview_schedule')]
     public function interviewSchedule(): Response
@@ -425,7 +441,7 @@ class HrmsystemController extends AbstractController
         ]);
     }
     // delete trip
-    #[Route('/trip/delete/{id}', name: 'trip_delete', methods: ["GET", "POST"])]
+    #[Route('/hrmsystem/trip/delete/{id}', name: 'trip_delete', methods: ["GET", "POST"])]
     public function tripDelete(Trip $trip): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
@@ -434,28 +450,43 @@ class HrmsystemController extends AbstractController
         return $this->redirectToRoute('hrmsystem/trip');
     }
     // edit trip
-    #[Route('/hrmsystem/trip/{id}', name: 'trip_edit', methods: ["GET", "PUT"])]
-    public function tripEdit(Request $request, Trip $trip): Response
+    #[Route("/hrmsystem/trip/{id}/edit", name: "trip_edit", methods: ["GET", "PUT", "POST"])]
+    public function tripEdit(Request $request, $id): Response
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $repository = $this->entityManager->getRepository(Trip::class);
+        $trip = $repository->find($id);
+
+        if (!$trip) {
+            throw $this->createNotFoundException('trip not found');
+        }
 
         $form = $this->createForm(TripType::class, $trip);
+        try {
+            $form->handleRequest($request);
 
-        // Handle form submission
-        $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Persist the entity only if the form is submitted and valid
+                $trip = $form->getData();
+                $this->entityManager->persist($trip);
+                $this->entityManager->flush();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Persist the updated entity if the form is submitted and valid
-            $this->entityManager->flush();
-
-            return $this->redirectToRoute('hrmsystem/trip');
-        } else {
-            dd($form->getErrors(true, true));
+                // Redirect after successful form submission (optional)
+                return $this->redirectToRoute('hrmsystem/trip');
+            }
+        } catch (\Exception $error) {
+            $this->addFlash('danger', 'An error occurred while processing the form.');
+            throw $error;
         }
-        return $this->render('hrmsystem/trip.html.twig', [
-            'form' => $form->createView()
+        $repository = $this->entityManager->getRepository(Trip::class);
+        $trips = $repository->findAll();
+
+        return $this->render('hrmsystem/edit/trip.html.twig', [
+            'controller_name' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'trips' => $trips,
         ]);
     }
+
 
     #[Route('/hrmsystem/promotion', name: 'hrmsystem/promotion')]
     public function promotion(): Response
@@ -494,7 +525,7 @@ class HrmsystemController extends AbstractController
         ]);
     }
     // delete complaints
-    #[Route('/complaints/delete/{id}', name: 'complaints_delete', methods: ["GET", "POST"])]
+    #[Route('/hrmsystem/complaints/delete/{id}', name: 'complaints_delete', methods: ["GET", "POST"])]
     public function ComplaintsDelete(Complaints $complaints): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
@@ -503,30 +534,43 @@ class HrmsystemController extends AbstractController
         return $this->redirectToRoute('hrmsystem/complaints');
         // return new Response('post was deleted');
     }
-    // edit complaint
-    #[Route('/hrmsystem/complaints/{id}', name: 'complaints_edit', methods: ["GET", "PUT"])]
-    public function ComplaintsEdit(Request $request, Complaints $complaints): Response
+    // edit complaints
+    #[Route("/hrmsystem/complaints/{id}/edit", name: "complaints_edit", methods: ["GET", "PUT", "POST"])]
+    public function complaintsEdit(Request $request, $id): Response
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $repository = $this->entityManager->getRepository(Complaints::class);
+        $complaints = $repository->find($id);
+
+        if (!$complaints) {
+            throw $this->createNotFoundException('complaints not found');
+        }
 
         $form = $this->createForm(ComplaintsType::class, $complaints);
+        try {
+            $form->handleRequest($request);
 
-        // Handle form submission
-        $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Persist the entity only if the form is submitted and valid
+                $complaints = $form->getData();
+                $this->entityManager->persist($complaints);
+                $this->entityManager->flush();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Persist the updated entity if the form is submitted and valid
-            $this->entityManager->flush();
-
-            return $this->redirectToRoute('hrmsystem/complaints');
-        } else {
-            dd($form->getErrors(true, true));
+                // Redirect after successful form submission (optional)
+                return $this->redirectToRoute('hrmsystem/complaints');
+            }
+        } catch (\Exception $error) {
+            $this->addFlash('danger', 'An error occurred while processing the form.');
+            throw $error;
         }
-        return $this->render('hrmsystem/complaints.html.twig', [
-            'form' => $form->createView()
+        $repository = $this->entityManager->getRepository(Complaints::class);
+        $complaintss = $repository->findAll();
+
+        return $this->render('hrmsystem/edit/complaints.html.twig', [
+            'controller_name' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'complaintss' => $complaintss,
         ]);
     }
-
     #[Route('/hrmsystem/warning', name: 'hrmsystem/warning')]
     public function warning(Request $request): Response
     {
@@ -556,7 +600,7 @@ class HrmsystemController extends AbstractController
         ]);
     }
     // delete warning
-    #[Route('/warning/delete/{id}', name: 'warning_delete', methods: ["GET", "POST"])]
+    #[Route('/hrmsystem/warning/delete/{id}', name: 'warning_delete', methods: ["GET", "POST"])]
     public function warningDelete(Warning $warning): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
@@ -565,29 +609,42 @@ class HrmsystemController extends AbstractController
         return $this->redirectToRoute('hrmsystem/warning');
     }
     // edit warning
-    #[Route('/hrmsystem/warning/{id}', name: 'warning_edit', methods: ["GET", "PUT"])]
-    public function warningEdit(Request $request, Warning $warning): Response
+    #[Route("/hrmsystem/warning/{id}/edit", name: "warning_edit", methods: ["GET", "PUT", "POST"])]
+    public function warningEdit(Request $request, $id): Response
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $repository = $this->entityManager->getRepository(Warning::class);
+        $warning = $repository->find($id);
+
+        if (!$warning) {
+            throw $this->createNotFoundException('warning not found');
+        }
 
         $form = $this->createForm(WarningType::class, $warning);
+        try {
+            $form->handleRequest($request);
 
-        // Handle form submission
-        $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Persist the entity only if the form is submitted and valid
+                $warning = $form->getData();
+                $this->entityManager->persist($warning);
+                $this->entityManager->flush();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Persist the updated entity if the form is submitted and valid
-            $this->entityManager->flush();
-
-            return $this->redirectToRoute('hrmsystem/warning');
-        } else {
-            dd($form->getErrors(true, true));
+                // Redirect after successful form submission (optional)
+                return $this->redirectToRoute('hrmsystem/warning');
+            }
+        } catch (\Exception $error) {
+            $this->addFlash('danger', 'An error occurred while processing the form.');
+            throw $error;
         }
-        return $this->render('hrmsystem/warning.html.twig', [
-            'form' => $form->createView()
+        $repository = $this->entityManager->getRepository(Warning::class);
+        $warnings = $repository->findAll();
+
+        return $this->render('hrmsystem/edit/warning.html.twig', [
+            'controller_name' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'warnings' => $warnings,
         ]);
     }
-
     #[Route('/hrmsystem/termination', name: 'hrmsystem/termination')]
     public function termination(): Response
     {
@@ -633,7 +690,7 @@ class HrmsystemController extends AbstractController
         ]);
     }
     // holiday delete
-    #[Route('/holidays/delete/{id}', name: 'holidays_delete', methods: ["GET", "POST"])]
+    #[Route('/hrmsystem/holidays/delete/{id}', name: 'holidays_delete', methods: ["GET", "POST"])]
     public function holidaysDelete(Holidays $holidays): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
@@ -641,27 +698,41 @@ class HrmsystemController extends AbstractController
         $this->entityManager->flush();
         return $this->redirectToRoute('hrmsystem/holidays');
     }
-    // edit holidays
-    #[Route('/hrmsystem/holidays/{id}', name: 'holidays_edit', methods: ["GET", "PUT"])]
-    public function holidaysEdit(Request $request, Holidays $holidays): Response
+    // holiday edit
+    #[Route("/hrmsystem/holidays/{id}/edit", name: "holidays_edit", methods: ["GET", "PUT", "POST"])]
+    public function holidaysEdit(Request $request, $id): Response
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $repository = $this->entityManager->getRepository(Holidays::class);
+        $holidays = $repository->find($id);
+
+        if (!$holidays) {
+            throw $this->createNotFoundException('holidays not found');
+        }
 
         $form = $this->createForm(HolidaysType::class, $holidays);
+        try {
+            $form->handleRequest($request);
 
-        // Handle form submission
-        $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Persist the entity only if the form is submitted and valid
+                $holidays = $form->getData();
+                $this->entityManager->persist($holidays);
+                $this->entityManager->flush();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Persist the updated entity if the form is submitted and valid
-            $this->entityManager->flush();
-
-            return $this->redirectToRoute('hrmsystem/holidays');
-        } else {
-            dd($form->getErrors(true, true));
+                // Redirect after successful form submission (optional)
+                return $this->redirectToRoute('hrmsystem/holidays');
+            }
+        } catch (\Exception $error) {
+            $this->addFlash('danger', 'An error occurred while processing the form.');
+            throw $error;
         }
-        return $this->render('hrmsystem/holidays.html.twig', [
-            'form' => $form->createView()
+        $repository = $this->entityManager->getRepository(Holidays::class);
+        $holidayss = $repository->findAll();
+
+        return $this->render('hrmsystem/edit/holidays.html.twig', [
+            'controller_name' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'holidayss' => $holidayss,
         ]);
     }
     #[Route('/hrmsystem/event_setup', name: 'hrmsystem/event_setup')]

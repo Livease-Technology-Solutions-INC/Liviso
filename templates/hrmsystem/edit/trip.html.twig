@@ -1,0 +1,143 @@
+{% extends 'partials/layout-vertical.html.twig' %}
+
+{% block title %}Trip
+{% endblock %}
+
+{% block css %}
+	<!-- Datatables css -->
+	<link href="/vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-fixedcolumns-bs5/css/fixedColumns.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-select-bs5/css/select.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block pagetitle %}
+	<div class"row align-items-center d-flex">
+		<div class="col mt-2">
+			<div class="float-end mt-3">
+				<button type="button" class="p-0 m-0 border-0" data-bs-toggle="modal" data-bs-target="#trip" data-bs-whatever="@mdo">
+					<a href="#" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary" data-bs-original-title="Import">
+						<i class="bi bi-plus"></i>
+					</a>
+				</button>
+			</div>
+		</div>
+		<div class="col auto">
+			{{ include('partials/page-title.html.twig', { sub_title: 'Trip', page_title: 'Trip' }) }}
+		</div>
+	</div>
+	<div class="modal fade rounded-3 special" id="trip" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog rounded-3">
+			<div class="modal-content rounded-3">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Edit Trip</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					{{ form_start(form) }}
+					<div class="row">
+						<div class="form-group col-md-12">
+							{{ form_row(form.employee) }}
+						</div>
+						<div class="form-group col-lg-6 col-md-6">
+							{{ form_row(form.startDate) }}
+						</div>
+						<div class="form-group col-lg-6 col-md-6">
+							{{ form_row(form.endDate) }}
+						</div>
+						<div class="form-group col-lg-6 col-md-6">
+							{{ form_row(form.purposeOfTrip) }}
+						</div>
+						<div class="form-group col-md-6">
+							{{ form_row(form.country) }}
+						</div>
+						<div class="form-group col-md-12">
+							{{ form_row(form.description) }}
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
+							<button type="submit" class="btn btn-primary rounded-2">Edit</button>
+						</div>
+						{{ form_end(form) }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block body %}
+
+	<div class="row">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-body">
+					<table id="basic-datatable" class="table table-striped dt-responsive nowrap w-100">
+						<thead>
+							<tr>
+								<th>Employee Name</th>
+								<th>Start Date</th>
+								<th>End Date</th>
+								<th>Purpose of trip</th>
+								<th>Country</th>
+								<th>Description</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for trip in trips %}
+								<tr>
+									<td>{{trip.employee}}</td>
+									<td>{{ trip.startDate|date('Y-m-d') }}</td>
+									<td>{{ trip.endDate|date('Y-m-d') }}</td>
+									<td>{{trip.purposeOfTrip}}</td>
+									<td>{{trip.country}}</td>
+									<td>{{trip.description}}</td>
+									<td class="">
+										<div class="d-flex justify-content-center align-items-center gap-2">
+											<button type="button" class="p-0 m-0 border-0 open-edit-modal">
+												<a href="{{ path('trip_edit', {'id': trip.id}) }}" data-bs-toggle="tooltip" title="" class="p-1 rounded-3 bg-info text-white border-0" data-bs-original-title="Edit">
+													<i class="bi bi-pen"></i>
+												</a>
+											</button>
+											<a href="{{ path('trip_delete', {'id': trip.id}) }}" class="p-1 rounded-3 bg-danger text-white border-0">
+												<i class="bi bi-trash"></i>
+											</a>
+										</div>
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+
+				</div>
+				<!-- end card body-->
+			</div>
+			<!-- end card -->
+		</div>
+		<!-- end col-->
+	</div>
+	<!-- end row-->
+{% endblock %}
+
+{% block javascript %}
+	{# edit #}
+	<script src="/js/pages/edit.modal.js"></script>
+	<!-- Datatables js -->
+	<script src="/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script src="/vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+	<script src="/vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+	<script src="/vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+	<script src="/vendor/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
+	<script src="/vendor/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+	<script src="/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
+
+	<!-- Datatable Demo Aapp js -->
+	<script src="/js/pages/demo.datatable-init.js"></script>
+{% endblock %}
