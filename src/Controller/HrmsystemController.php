@@ -94,27 +94,41 @@ class HrmsystemController extends AbstractController
         return $this->redirectToRoute('hrmsystem/manage_leave');
         // return new Response('post was deleted');
     }
-    // edit manageLeave
-    #[Route('/hrmsystem/manage_leave/{id}', name: 'manageleave_edit', methods: ["GET", "PUT"])]
-    public function manageleaveEdit(Request $request, ManageLeave $manageLeave): Response
+    // edit manage_leave
+    #[Route("/hrmsystem/manage_leave/{id}/edit", name: "manageleave_edit", methods: ["GET", "PUT", "POST"])]
+    public function manage_leaveEdit(Request $request, $id): Response
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $repository = $this->entityManager->getRepository(Manageleave::class);
+        $manageleave = $repository->find($id);
 
-        $form = $this->createForm(ManageLeaveType::class, $manageLeave);
-
-        // Handle form submission
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Persist the updated entity if the form is submitted and valid
-            $this->entityManager->flush();
-
-            return $this->redirectToRoute('hrmsystem/manage_leave');
-        } else {
-            dd($form->getErrors(true, true));
+        if (!$manageleave) {
+            throw $this->createNotFoundException('manageleave not found');
         }
-        return $this->render('hrmsystem/manageleave.html.twig', [
-            'form' => $form->createView()
+
+        $form = $this->createForm(ManageleaveType::class, $manageleave);
+        try {
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Persist the entity only if the form is submitted and valid
+                $manageleave = $form->getData();
+                $this->entityManager->persist($manageleave);
+                $this->entityManager->flush();
+
+                // Redirect after successful form submission (optional)
+                return $this->redirectToRoute('hrmsystem/manageleave');
+            }
+        } catch (\Exception $error) {
+            $this->addFlash('danger', 'An error occurred while processing the form.');
+            throw $error;
+        }
+        $repository = $this->entityManager->getRepository(manageleave::class);
+        $manageleaves = $repository->findAll();
+
+        return $this->render('hrmsystem/edit/editmanageleave.html.twig', [
+            'controllername' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'manageleaves' => $manageleaves,
         ]);
     }
     #[Route('/hrmsystem/bulk_attendance', name: 'hrmsystem/bulk_attendance')]
@@ -375,7 +389,7 @@ class HrmsystemController extends AbstractController
         $repository = $this->entityManager->getRepository(Resignation::class);
         $resignations = $repository->findAll();
 
-        return $this->render('hrmsystem/editresignation.html.twig', [
+        return $this->render('hrmsystem/edit/resignation.html.twig', [
             'controller_name' => 'HrmsystemController',
             'form' => $form->createView(),
             'resignations' => $resignations,

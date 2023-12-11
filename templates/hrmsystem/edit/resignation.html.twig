@@ -1,6 +1,6 @@
 {% extends 'partials/layout-vertical.html.twig' %}
 
-{% block title %}Employees Asset Setup
+{% block title %}Resignation
 {% endblock %}
 
 {% block css %}
@@ -17,7 +17,7 @@
 	<div class"row align-items-center d-flex">
 		<div class="col mt-2">
 			<div class="float-end mt-3">
-				<button type="button" class="p-0 m-0 border-0" data-bs-toggle="modal" data-bs-target="#employeesAssetSetup" data-bs-whatever="@mdo">
+				<button type="button" class="p-0 m-0 border-0" data-bs-toggle="modal" data-bs-target="#resignation" data-bs-whatever="@mdo">
 					<a href="#" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary" data-bs-original-title="Import">
 						<i class="bi bi-plus"></i>
 					</a>
@@ -25,36 +25,29 @@
 			</div>
 		</div>
 		<div class="col auto">
-			{{ include('partials/page-title.html.twig', { sub_title: 'Employees Asset Setup', page_title: 'Employees Asset Setup' }) }}
+			{{ include('partials/page-title.html.twig', { sub_title: 'Resignation', page_title: 'Resignation' }) }}
 		</div>
 	</div>
-	<div class="modal fade rounded-3" id="employeesAssetSetup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade rounded-3 special" id="resignation" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog rounded-3">
 			<div class="modal-content rounded-3">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Create New Asset Setup</h5>
+					<h5 class="modal-title" id="exampleModalLabel">Edit Resignation</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 					{{ form_start(form) }}
 					<div class="row">
-						<div class="col-12 form-group mb-1|date('Y-m-d') ">
+						<div class="form-group col-lg-12">
 							{{ form_row(form.employee) }}
 						</div>
-						<div class="form-group col-md-6 mb-1|date('Y-m-d') ">
-							{{ form_row(form.employeeName) }}
+						<div class="form-group col-lg-6 col-md-6">
+							{{ form_row(form.noticeDate) }}
 						</div>
-						<div class="form-group col-md-6 mb-1|date('Y-m-d') ">
-							{{ form_row(form.amount) }}
+						<div class="form-group col-lg-6 col-md-6">
+							{{ form_row(form.resignationDate) }}
 						</div>
-
-						<div class="form-group col-md-6 mb-1|date('Y-m-d') ">
-							{{ form_row(form.purchaseDate) }}
-						</div>
-						<div class="form-group col-md-6 mb-1|date('Y-m-d') ">
-							{{ form_row(form.supportedDate) }}
-						</div>
-						<div class="form-group col-md-12 mb-1|date('Y-m-d') ">
+						<div class="form-group col-lg-12">
 							{{ form_row(form.description) }}
 						</div>
 					</div>
@@ -78,32 +71,28 @@
 					<table id="basic-datatable" class="table table-striped dt-responsive nowrap w-100">
 						<thead>
 							<tr>
-								<th>Name</th>
-								<th>Users</th>
-								<th>Purchase Date</th>
-								<th>Support Date</th>
-								<th>Amount</th>
-								<th>Description</th>
+								<th>Employee Name</th>
+								<th>Resignation Date</th>
+								<th>Last Working Time</th>
+								<th>Reason</th>
 								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
-							{% for employeesAssetSetup in employeesAssetSetups %}
+							{% for resignation in resignations %}
 								<tr>
-									<td>{{employeesAssetSetup.employee}}</td>
-									<td>{{employeesAssetSetup.employeeName}}</td>
-									<td>{{employeesAssetSetup.amount}}</td>
-									<td>{{employeesAssetSetup.purchaseDate|date('Y-m-d') }}</td>
-									<td>{{employeesAssetSetup.supportedDate|date('Y-m-d') }}</td>
-									<td>{{employeesAssetSetup.description}}</td>
+									<td>{{resignation.employee}}s</td>
+									<td>{{resignation.noticeDate|date('Y-m-d') }}</td>
+									<td>{{resignation.resignationDate|date('Y-m-d') }}</td>
+									<td>{{resignation.description}}</td>
 									<td class="">
 										<div class="d-flex justify-content-center align-items-center gap-2">
-											<button type="button" class="p-0 m-0 border-0 open-edit-modal" data-bs-toggle="modal" data-bs-target="#employeesAssetSetup" data-bs-whatever="@mdo" data-edit-url="{{ path('employeesAssetSetup_edit', {'id': employeesAssetSetup.id}) }}">
-												<a href="#" data-bs-toggle="tooltip" title="" class="p-1 rounded-3 bg-info text-white border-0" data-bs-original-title="Edit">
+											<button type="button" class="p-0 m-0 border-0 open-edit-modal" data-bs-toggle="modal" data-bs-target="#resignation" data-bs-whatever="@mdo">
+												<a href="{{ path('resignation_edit', {'id': resignation.id}) }}" data-bs-toggle="tooltip" title="" class="p-1 rounded-3 bg-info text-white border-0" data-bs-original-title="Edit" onclick="openEditModal('{{ path('resignation_edit', {'id': resignation.id}) }}');">
 													<i class="bi bi-pen"></i>
 												</a>
 											</button>
-											<a href="{{ path('employeesAssetSetup_delete', {'id': employeesAssetSetup.id}) }}" class="p-1 rounded-3 bg-danger text-white border-0">
+											<a href="{{ path('resignation_delete', {'id': resignation.id}) }}" class="p-1 rounded-3 bg-danger text-white border-0">
 												<i class="bi bi-trash"></i>
 											</a>
 										</div>
@@ -112,6 +101,7 @@
 							{% endfor %}
 						</tbody>
 					</table>
+
 				</div>
 				<!-- end card body-->
 			</div>
@@ -123,6 +113,8 @@
 {% endblock %}
 
 {% block javascript %}
+	{# edit #}
+	<script src="/js/pages/edit.modal.js"></script>
 	<!-- Datatables js -->
 	<script src="/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
 	<script src="/vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
