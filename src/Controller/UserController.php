@@ -22,13 +22,6 @@ class UserController extends AbstractController
             'controller_name' => 'UserController',
         ]);
     }
-    // #[Route('/Out', name: 'Out')]
-    // public function loggedOut(): Response
-    // {
-    //     return $this->render('user/logout.html.twig', [
-    //         'controller_name' => 'UserController',
-    //     ]);
-    // }
     #[Route('/recoverpassword', name: 'recoverpassword')]
     public function recoverpassword(): Response
     {

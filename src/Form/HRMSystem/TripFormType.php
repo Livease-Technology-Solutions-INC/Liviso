@@ -56,7 +56,7 @@ class TripType extends AbstractType
                 'attr' => [
                     'class' => 'form-control m-0',
                     'rows' => 5, 
-                    'placeholder' => 'Enter your description here...',
+                    'placeholder' => 'Enter your description',
                 ]
             ]);
     }
