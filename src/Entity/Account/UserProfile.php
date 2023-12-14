@@ -15,34 +15,41 @@ class UserProfile
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToOne(targetEntity: User::class)]
+    #[ORM\OneToOne(targetEntity: User::class, cascade: ["persist", "remove"])]
+    #[ORM\JoinColumn(name:"user_id", referencedColumnName:"id")]
     private ?User $user = null;
 
-    #[ORM\Column(type: "text")]
+    #[ORM\Column(type: "text", nullable: 'true')]
     private ?string $bio = null;
+    
+    #[ORM\Column(type: "text", length: 15, nullable: 'true')]
+    private ?string $mobileNumber = null;
 
-    #[ORM\Column(length: 180, type: "text")]
+    #[ORM\Column(type: "text", nullable: 'true')]
+    private ?string $country = null;
+
+    #[ORM\Column(length: 180, type: "text", nullable: 'true')]
     private ?string $companyName = null;
 
-    #[ORM\Column(length: 180, type: "text")]
+    #[ORM\Column(length: 180, type: "text", nullable: 'true')]
     private ?string $companyWebsite = null;
 
-    #[ORM\Column(length: 180, type: "text")]
+    #[ORM\Column(length: 180, type: "text", nullable: 'true')]
     private ?string $facebook = null;
 
-    #[ORM\Column(length: 180, type: "text")]
+    #[ORM\Column(length: 180, type: "text", nullable: 'true')]
     private ?string $twitter = null;
 
-    #[ORM\Column(length: 180, type: "text")]
+    #[ORM\Column(length: 180, type: "text", nullable: 'true')]
     private ?string $instagram = null;
 
-    #[ORM\Column(length: 180, type: "text")]
+    #[ORM\Column(length: 180, type: "text", nullable: 'true')]
     private ?string $linkedin = null;
 
-    #[ORM\Column(length: 180, type: "text")]
+    #[ORM\Column(length: 180, type: "text", nullable: 'true')]
     private ?string $skype = null;
 
-    #[ORM\Column(length: 180, type: "text")]
+    #[ORM\Column(length: 180, type: "text", nullable: 'true')]
     private ?string $github = null;
 
     public function getId(): ?string
@@ -166,6 +173,30 @@ class UserProfile
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getMobileNumber(): ?string
+    {
+        return $this->mobileNumber;
+    }
+
+    public function setMobileNumber(?string $mobileNumber): static
+    {
+        $this->mobileNumber = $mobileNumber;
+
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?string $country): static
+    {
+        $this->country = $country;
 
         return $this;
     }

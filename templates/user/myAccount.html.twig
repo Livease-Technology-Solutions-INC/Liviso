@@ -25,7 +25,7 @@
 						<p class="text-muted mb-3">
 							Hi I'm
 							{{app.user.fullName}},has been the industry's standard dummy text ever since the
-																																										                                                1500s, when an unknown printer took a galley of type.
+																																																																																																																														                                                1500s, when an unknown printer took a galley of type.
 						</p>
 						<p class="text-muted mb-2">
 							<strong>Full Name :</strong>
@@ -35,7 +35,7 @@
 						<p class="text-muted mb-2">
 							<strong>Mobile :</strong>
 							<span class="ms-2">(123)
-																																																                                                    123 1234</span>
+																																																																																																																																																                                                    123 1234</span>
 						</p>
 
 						<p class="text-muted mb-2">
@@ -270,9 +270,9 @@
 											<span class="ms-2 fs-12">Year: 2015 - 18</span>
 										</p>
 										<p class="text-muted mt-2 mb-0 pb-3">Everyone realizes why a new common language
-																																																																		                                                                would be desirable: one could refuse to pay expensive translators.
-																																																																		                                                                To achieve this, it would be necessary to have uniform grammar,
-																																																																		                                                                pronunciation and more common words.</p>
+																																																																																																																																																																																																						                                                                would be desirable: one could refuse to pay expensive translators.
+																																																																																																																																																																																																						                                                                To achieve this, it would be necessary to have uniform grammar,
+																																																																																																																																																																																																						                                                                pronunciation and more common words.</p>
 									</div>
 								</div>
 
@@ -284,9 +284,9 @@
 											<span class="ms-2 fs-12">Year: 2012 - 15</span>
 										</p>
 										<p class="text-muted mt-2 mb-0 pb-3">If several languages coalesce, the grammar
-																																																																		                                                                of the resulting language is more simple and regular than that of
-																																																																		                                                                the individual languages. The new common language will be more
-																																																																		                                                                simple and regular than the existing European languages.</p>
+																																																																																																																																																																																																						                                                                of the resulting language is more simple and regular than that of
+																																																																																																																																																																																																						                                                                the individual languages. The new common language will be more
+																																																																																																																																																																																																						                                                                simple and regular than the existing European languages.</p>
 
 									</div>
 								</div>
@@ -299,9 +299,9 @@
 											<span class="ms-2 fs-12">Year: 2010 - 12</span>
 										</p>
 										<p class="text-muted mt-2 mb-0 pb-2">The European languages are members of
-																																																																		                                                                the same family. Their separate existence is a myth. For science
-																																																																		                                                                music sport etc, Europe uses the same vocabulary. The languages
-																																																																		                                                                only differ in their grammar their pronunciation.</p>
+																																																																																																																																																																																																						                                                                the same family. Their separate existence is a myth. For science
+																																																																																																																																																																																																						                                                                music sport etc, Europe uses the same vocabulary. The languages
+																																																																																																																																																																																																						                                                                only differ in their grammar their pronunciation.</p>
 									</div>
 								</div>
 
@@ -354,10 +354,10 @@
 								<div class="fs-16 text-center fst-italic text-dark">
 									<i class="ri-double-quotes-l fs-20"></i>
 									Cras sit amet nibh libero, in
-																																																						                                                        gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras
-																																																						                                                        purus odio, vestibulum in vulputate at, tempus viverra turpis. Duis
-																																																						                                                        sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper
-																																																						                                                        porta. Mauris massa.
+																																																																																																																																																																		                                                        gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras
+																																																																																																																																																																		                                                        purus odio, vestibulum in vulputate at, tempus viverra turpis. Duis
+																																																																																																																																																																		                                                        sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper
+																																																																																																																																																																		                                                        porta. Mauris massa.
 								</div>
 
 								<div class="mx-n2 p-2 mt-3 bg-light">
@@ -464,192 +464,153 @@
 						</div>
 						<!-- end timeline content-->
 
-						<div class="tab-pane" id="settings">
-							<form>
-								<h5 class="mb-4 text-uppercase">
-									<i class="ri-contacts-book-2-line me-1"></i>
-									Personal Info</h5>
+						<div
+							class="tab-pane" id="settings">
+							{# {{ form_start(form) }} #}
+							<h5 class="mb-4 text-uppercase">
+								<i class="ri-contacts-book-2-line me-1"></i>
+								Personal Info</h5>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="mb-3">
+										<label for="firstname" class="form-label">First Name</label>
+										<input type="text" class="form-control" id="firstname" placeholder="Enter first name" value="{{ app.user.fullname|split(' ')|first }}" disabled>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="mb-3">
+										<label for="lastname" class="form-label">Last Name</label>
+										<input type="text" class="form-control" id="lastname" placeholder="Enter last name" value="{{ app.user.fullname|split(' ')|slice(1, 1)|first }}" disabled>
+									</div>
+								</div>
+								<!-- end col -->
+							</div>
+							<!-- end row -->
+
+							<div class="row">
+								<div class="col-12">
+									<div
+										class="mb-3">{# {{ form_row(form.bio) }} #}
+									</div>
+								</div>
+								<!-- end col -->
+							</div>
+							<!-- end row -->
+
+							<div class="row">
+								<div class="col-md-6">
+									<div class="mb-3">
+										<label for="useremail" class="form-label">Email</label>
+										<input type="email" class="form-control" id="useremail" placeholder="Enter email" value="{{app.user.email}}" disabled>
+										<span class="form-text text-muted">
+											<small>If you want to change email please
+												<a href="{{path("confirmmail")}}">click</a>
+												here.</small>
+										</span>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="mb-3">
+										<label for="userpassword" class="form-label">Password</label>
+										<input type="password" class="form-control" id="userpassword" placeholder="Enter password" value="{{app.user.password}}" disabled>
+										<span class="form-text text-muted">
+											<small>If you want to change password please
+												<a href="{{path("recoverpassword")}}">click</a>
+												here.</small>
+										</span>
+									</div>
+								</div>
+								{# {{ form_row(form.user_id) }} #}
 								<div class="row">
 									<div class="col-md-6">
-										<div class="mb-3">
-											<label for="firstname" class="form-label">First Name</label>
-											<input type="text" class="form-control" id="firstname" placeholder="Enter first name" value="{{ app.user.fullname|split(' ')|first }}" disabled>
+										<div
+											class="mb-3">{# {{ form_row(form.mobileNumber) }} #}
 										</div>
 									</div>
 									<div class="col-md-6">
-										<div class="mb-3">
-											<label for="lastname" class="form-label">Last Name</label>
-											<input type="text" class="form-control" id="lastname" placeholder="Enter last name" value="{{ app.user.fullname|split(' ')|slice(1, 1)|first }}" disabled>
+										<div
+											class="mb-3">{# {{ form_row(form.country) }} #}
 										</div>
 									</div>
 									<!-- end col -->
 								</div>
-								<!-- end row -->
+								<!-- end col -->
+							</div>
+							<!-- end row -->
 
-								<div class="row">
-									<div class="col-12">
-										<div class="mb-3">
-											<label for="userbio" class="form-label">Bio</label>
-											<textarea class="form-control" id="userbio" rows="4" placeholder="Write something..."></textarea>
-										</div>
+							<h5 class="mb-3 text-uppercase bg-light p-2">
+								<i class="ri-building-line me-1"></i>
+								Company Info</h5>
+							<div class="row">
+								<div class="col-md-6">
+									<div
+										class="mb-3">{# {{ form_row(form.companyName) }} #}
 									</div>
-									<!-- end col -->
 								</div>
-								<!-- end row -->
+								<div class="col-md-6">
+									<div
+										class="mb-3">{# {{ form_row(form.companyWebsite) }} #}
+									</div>
+								</div>
+								<!-- end col -->
+							</div>
+							<!-- end row -->
 
-								<div class="row">
-									<div class="col-md-6">
-										<div class="mb-3">
-											<label for="useremail" class="form-label">Email</label>
-											<input type="email" class="form-control" id="useremail" placeholder="Enter email" value="{{app.user.email}}" disabled>
-											<span class="form-text text-muted">
-												<small>If you want to change email please
-													<a href="{{path("confirmmail")}}">click</a>
-													here.</small>
-											</span>
-										</div>
+							<h5 class="mb-3 text-uppercase bg-light p-2">
+								<i class="ri-global-line me-1"></i>
+								Social</h5>
+							<div class="row">
+								<div class="col-md-6">
+									<div
+										class="mb-3">{# {{ form_row(form.facebook) }} #}
 									</div>
-									<div class="col-md-6">
-										<div class="mb-3">
-											<label for="userpassword" class="form-label">Password</label>
-											<input type="password" class="form-control" id="userpassword" placeholder="Enter password" value="{{app.user.password}}" disabled>
-											<span class="form-text text-muted">
-												<small>If you want to change password please
-													<a href="{{path("recoverpassword")}}">click</a>
-													here.</small>
-											</span>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-6">
-											<div class="mb-3">
-												<label for="mobilenumber" class="form-label">Mobile Number</label>
-												<input type="tel" class="form-control" id="mobilenumber" placeholder="Enter your phone number">
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="mb-3 mt-md-4">
-												<select name="country" class="form-control selectpicker" id="selectcountry" data-none-selected-text="Nothing selected">
-													<option value="USA">USA</option>
-												</select>
-											</div>
-										</div>
-										<!-- end col -->
-									</div>
-									<!-- end col -->
 								</div>
-								<!-- end row -->
+								<div class="col-md-6">
+									<div
+										class="mb-3">{# {{ form_row(form.twitter) }} #}
+									</div>
+								</div>
+								<!-- end col -->
+							</div>
+							<!-- end row -->
 
-								<h5 class="mb-3 text-uppercase bg-light p-2">
-									<i class="ri-building-line me-1"></i>
-									Company Info</h5>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="mb-3">
-											<label for="companyname" class="form-label">Company Name</label>
-											<input type="text" class="form-control" id="companyname" placeholder="Enter company name">
-										</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div
+										class="mb-3">{# {{ form_row(form.instagram) }} #}
 									</div>
-									<div class="col-md-6">
-										<div class="mb-3">
-											<label for="cwebsite" class="form-label">Website</label>
-											<input type="text" class="form-control" id="cwebsite" placeholder="Enter website url">
-										</div>
-									</div>
-									<!-- end col -->
 								</div>
-								<!-- end row -->
+								<div class="col-md-6">
+									<div
+										class="mb-3">{# {{ form_row(form.linkedin) }} #}
+									</div>
+								</div>
+								<!-- end col -->
+							</div>
+							<!-- end row -->
 
-								<h5 class="mb-3 text-uppercase bg-light p-2">
-									<i class="ri-global-line me-1"></i>
-									Social</h5>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="mb-3">
-											<label for="social-fb" class="form-label">Facebook</label>
-											<div class="input-group">
-												<span class="input-group-text">
-													<i class="ri-facebook-fill"></i>
-												</span>
-												<input type="text" class="form-control" id="social-fb" placeholder="Url">
-											</div>
-										</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div
+										class="mb-3">{# {{ form_row(form.skype) }} #}
 									</div>
-									<div class="col-md-6">
-										<div class="mb-3">
-											<label for="social-tw" class="form-label">Twitter</label>
-											<div class="input-group">
-												<span class="input-group-text">
-													<i class="ri-twitter-line"></i>
-												</span>
-												<input type="text" class="form-control" id="social-tw" placeholder="Username">
-											</div>
-										</div>
-									</div>
-									<!-- end col -->
 								</div>
-								<!-- end row -->
+								<div class="col-md-6">
+									<div
+										class="mb-3">{# {{ form_row(form.github) }} #}
+									</div>
+								</div>
 
-								<div class="row">
-									<div class="col-md-6">
-										<div class="mb-3">
-											<label for="social-insta" class="form-label">Instagram</label>
-											<div class="input-group">
-												<span class="input-group-text">
-													<i class="ri-instagram-line"></i>
-												</span>
-												<input type="text" class="form-control" id="social-insta" placeholder="Url">
-											</div>
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="mb-3">
-											<label for="social-lin" class="form-label">Linkedin</label>
-											<div class="input-group">
-												<span class="input-group-text">
-													<i class="ri-linkedin-fill"></i>
-												</span>
-												<input type="text" class="form-control" id="social-lin" placeholder="Url">
-											</div>
-										</div>
-									</div>
-									<!-- end col -->
-								</div>
-								<!-- end row -->
+								<!-- end col -->
+							</div>
+							<!-- end row -->
 
-								<div class="row">
-									<div class="col-md-6">
-										<div class="mb-3">
-											<label for="social-sky" class="form-label">Skype</label>
-											<div class="input-group">
-												<span class="input-group-text">
-													<i class="ri-skype-line"></i>
-												</span>
-												<input type="text" class="form-control" id="social-sky" placeholder="@username">
-											</div>
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="mb-3">
-											<label for="social-gh" class="form-label">Github</label>
-											<div class="input-group">
-												<span class="input-group-text">
-													<i class="ri-github-line"></i>
-												</span>
-												<input type="text" class="form-control" id="social-gh" placeholder="Username">
-											</div>
-										</div>
-									</div>
-									<!-- end col -->
-								</div>
-								<!-- end row -->
-
-								<div class="text-end">
-									<button type="submit" class="btn btn-success mt-2">
-										<i class="ri-save-line"></i>
-										Save</button>
-								</div>
-							</form>
+							<div class="text-end">
+								<button type="submit" class="btn btn-success mt-2">
+									<i class="ri-save-line"></i>
+									Save</button>
+							</div>
+							{# {{ form_end(form) }} #}
 						</div>
 						<!-- end settings content-->
 
