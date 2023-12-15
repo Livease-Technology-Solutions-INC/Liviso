@@ -31,36 +31,22 @@ class UserController extends AbstractController
     public function myAccount(Request $request): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        $userProfile = new UserProfile();
+        $form = $this->createForm(UserProfileType::class, $userProfile, ['current_user' => $currentUser]);
+        $form->handleRequest($request);
 
-        // // Get the currently logged-in user
-        // $user = $this->getUser();
-        // $someData = [
-        //     'email' => $user->getEmail(),
-        //     'password' => $user->getPassword(),
-        // ];
-        // $form = $this->createForm(UserProfileType::class, $user, [
-        //     'some_data' => $someData,
-        // ]);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->persist($userProfile);
+            $this->entityManager->flush();
 
-        // // Handle form submission
-        // $form->handleRequest($request);
+            // Redirect after successful form submission (optional)
+            return $this->redirectToRoute('my_account');
+        }
 
-        // if ($form->isSubmitted() && $form->isValid()) {
-
-        //     // Persist the User entity (UserProfile will be persisted automatically)
-        //     $this->entityManager->persist($user);
-        //     $this->entityManager->flush();
-
-        //     // Redirect after successful form submission (optional)
-        //     return $this->redirectToRoute('my_account');
-        // }
-
-        // Show only the current user's profile
-        // $userProfiles = [$user->getProfile()];
         return $this->render('user/myAccount.html.twig', [
-            'controller_name' => 'UserController',
-            // 'userProfiles' => $userProfiles,
-            // 'form' => $form->createView(),
+            'user_profile' => $userProfile,
+            'form' => $form->createView(),
         ]);
     }
     #[Route('/recoverpassword', name: 'recoverpassword')]

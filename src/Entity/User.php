@@ -24,7 +24,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?UserProfile $profile = null;
     public function __construct()
     {
-        $this->profile = new UserProfile(); 
+        $this->profile = new UserProfile();
         $this->profile->setUser($this);
     }
 
@@ -145,16 +145,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         if ($this->profile !== null) {
             throw new \LogicException('User already has a profile.');
         }
-    
+
         // Set the profile on the user
         $this->profile = $profile;
-        
+
         // Set the user on the profile
         $profile->setUser($this);
-    
+
         return $this;
     }
-    
+
 
 
     // ...
@@ -172,15 +172,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeProfile(UserProfile $profile): static
     {
         $this->profile = null;
-    
+
         // set the owning side to null (unless already changed)
         if ($profile->getUser() === $this) {
             $profile->setUser(null);
         }
-    
+
         return $this;
     }
-    
-    
-
 }
