@@ -27,28 +27,59 @@ class UserController extends AbstractController
             'controller_name' => 'UserController',
         ]);
     }
-    #[Route('/my_account', name: 'my_account')]
-    public function myAccount(Request $request): Response
+    #[Route('my_account/{user_id}', name: 'my_account')]
+    public function myAccount(Request $request, int $user_id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        // Check if the current user matches the requested user_id
         $currentUser = $this->getUser();
-        $userProfile = new UserProfile();
-        $form = $this->createForm(UserProfileType::class, $userProfile, ['current_user' => $currentUser]);
+
+        if ($currentUser === null) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        // Explicitly assert that $currentUser is not null
+        assert($currentUser instanceof User);
+
+        $userId = $currentUser->getId();
+        if (!$currentUser instanceof User || $currentUser->getId() !== $user_id) {
+            throw $this->createAccessDeniedException('You are not allowed to access this user profile.');
+        }
+
+        /** @var User $currentUser */
+        $userProfile = $currentUser->getProfile();
+
+        // If the user does not have a profile, create one
+        if (!$userProfile) {
+            $userProfile = new UserProfile();
+            $userProfile->setUser($currentUser);
+
+            $this->entityManager->persist($userProfile);
+            $this->entityManager->flush();
+        }
+
+        if (!$userProfile) {
+            throw $this->createNotFoundException('UserProfile not found for the current user.');
+        }
+
+        $email = $currentUser->getEmail();
+        $form = $this->createForm(UserProfileType::class, $userProfile, ['current_user' => $this->getUser()]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->persist($userProfile);
             $this->entityManager->flush();
 
-            // Redirect after successful form submission (optional)
-            return $this->redirectToRoute('my_account');
+            return $this->redirectToRoute('my_account', ['user_id' => $user_id]);
         }
 
         return $this->render('user/myAccount.html.twig', [
-            'user_profile' => $userProfile,
+            'email' => $email,
+            'userProfile' => $userProfile,
             'form' => $form->createView(),
         ]);
     }
+
     #[Route('/recoverpassword', name: 'recoverpassword')]
     public function recoverpassword(): Response
     {

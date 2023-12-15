@@ -305,7 +305,7 @@ console.log("clicked");
 					</div>
 
 					<!-- item-->
-					<a href="{{path("my_account")}}" class="dropdown-item">
+					<a href="{{ path('my_account', {'user_id': app.user.id}) }}" class="dropdown-item">
 						<i class="ri-account-circle-fill align-middle me-1"></i>
 						<span>My Account</span>
 					</a>

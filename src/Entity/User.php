@@ -171,13 +171,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeProfile(UserProfile $profile): static
     {
-        $this->profile = null;
-
-        // set the owning side to null (unless already changed)
         if ($profile->getUser() === $this) {
+            // Set the profile on the user to null
+            $this->profile = null;
+    
+            // Set the user on the profile to null
             $profile->setUser(null);
         }
-
+    
         return $this;
     }
 }

@@ -23,9 +23,7 @@
 					<div class="text-start mt-3">
 						<h4 class="fs-13 text-uppercase">About Me :</h4>
 						<p class="text-muted mb-3">
-							Hi I'm
-							{{app.user.fullName}},has been the industry's standard dummy text ever since the
-																																																																																																																																					                                                1500s, when an unknown printer took a galley of type.
+							{{userProfile.bio}}
 						</p>
 						<p class="text-muted mb-2">
 							<strong>Full Name :</strong>
@@ -35,12 +33,12 @@
 						<p class="text-muted mb-2">
 							<strong>Mobile :</strong>
 							<span class="ms-2">(123)
-																																																																																																																																																								                                                    123 1234</span>
+																																																																																																																																																																																																																								                                                    123 1234</span>
 						</p>
 
 						<p class="text-muted mb-2">
 							<strong>Email :</strong>
-							<span class="ms-2 ">{{app.user.email}}</span>
+							<span class="ms-2 ">{{email}}</span>
 						</p>
 
 						<p class="text-muted mb-1">
@@ -270,9 +268,9 @@
 											<span class="ms-2 fs-12">Year: 2015 - 18</span>
 										</p>
 										<p class="text-muted mt-2 mb-0 pb-3">Everyone realizes why a new common language
-																																																																																																																																																																																																																	                                                                would be desirable: one could refuse to pay expensive translators.
-																																																																																																																																																																																																																	                                                                To achieve this, it would be necessary to have uniform grammar,
-																																																																																																																																																																																																																	                                                                pronunciation and more common words.</p>
+																																																																																																																																																																																																																																																																																																									                                                                would be desirable: one could refuse to pay expensive translators.
+																																																																																																																																																																																																																																																																																																									                                                                To achieve this, it would be necessary to have uniform grammar,
+																																																																																																																																																																																																																																																																																																									                                                                pronunciation and more common words.</p>
 									</div>
 								</div>
 
@@ -284,9 +282,9 @@
 											<span class="ms-2 fs-12">Year: 2012 - 15</span>
 										</p>
 										<p class="text-muted mt-2 mb-0 pb-3">If several languages coalesce, the grammar
-																																																																																																																																																																																																																	                                                                of the resulting language is more simple and regular than that of
-																																																																																																																																																																																																																	                                                                the individual languages. The new common language will be more
-																																																																																																																																																																																																																	                                                                simple and regular than the existing European languages.</p>
+																																																																																																																																																																																																																																																																																																									                                                                of the resulting language is more simple and regular than that of
+																																																																																																																																																																																																																																																																																																									                                                                the individual languages. The new common language will be more
+																																																																																																																																																																																																																																																																																																									                                                                simple and regular than the existing European languages.</p>
 
 									</div>
 								</div>
@@ -299,9 +297,9 @@
 											<span class="ms-2 fs-12">Year: 2010 - 12</span>
 										</p>
 										<p class="text-muted mt-2 mb-0 pb-2">The European languages are members of
-																																																																																																																																																																																																																	                                                                the same family. Their separate existence is a myth. For science
-																																																																																																																																																																																																																	                                                                music sport etc, Europe uses the same vocabulary. The languages
-																																																																																																																																																																																																																	                                                                only differ in their grammar their pronunciation.</p>
+																																																																																																																																																																																																																																																																																																									                                                                the same family. Their separate existence is a myth. For science
+																																																																																																																																																																																																																																																																																																									                                                                music sport etc, Europe uses the same vocabulary. The languages
+																																																																																																																																																																																																																																																																																																									                                                                only differ in their grammar their pronunciation.</p>
 									</div>
 								</div>
 
@@ -354,10 +352,10 @@
 								<div class="fs-16 text-center fst-italic text-dark">
 									<i class="ri-double-quotes-l fs-20"></i>
 									Cras sit amet nibh libero, in
-																																																																																																																																																																											                                                        gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras
-																																																																																																																																																																											                                                        purus odio, vestibulum in vulputate at, tempus viverra turpis. Duis
-																																																																																																																																																																											                                                        sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper
-																																																																																																																																																																											                                                        porta. Mauris massa.
+																																																																																																																																																																																																																																																			                                                        gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras
+																																																																																																																																																																																																																																																			                                                        purus odio, vestibulum in vulputate at, tempus viverra turpis. Duis
+																																																																																																																																																																																																																																																			                                                        sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper
+																																																																																																																																																																																																																																																			                                                        porta. Mauris massa.
 								</div>
 
 								<div class="mx-n2 p-2 mt-3 bg-light">
@@ -494,11 +492,13 @@
 								<!-- end col -->
 							</div>
 							<!-- end row -->
-
 							<div class="row">
 								<div class="col-md-6">
 									<div class="mb-3">
-										{{ form_row(form.user) }}
+										<label for='user_email'>
+											<strong>Email</strong>
+										</label>
+										<input class="form-control mt-2" id='user_email' value="{{ email }}" disabled/>
 										<span class="form-text text-muted">
 											<small>If you want to change email please
 												<a href="{{path("confirmmail")}}">click</a>
@@ -523,8 +523,7 @@
 										</div>
 									</div>
 									<div class="col-md-6">
-										<div
-											class="mb-3">{{ form_row(form.country) }}
+										<div class="mb-3">{{ form_row(form.country) }}
 										</div>
 									</div>
 									<!-- end col -->
@@ -538,13 +537,11 @@
 								Company Info</h5>
 							<div class="row">
 								<div class="col-md-6">
-									<div
-										class="mb-3">{{ form_row(form.companyName) }}
+									<div class="mb-3">{{ form_row(form.companyName) }}
 									</div>
 								</div>
 								<div class="col-md-6">
-									<div
-										class="mb-3">{{ form_row(form.companyWebsite) }}
+									<div class="mb-3">{{ form_row(form.companyWebsite) }}
 									</div>
 								</div>
 								<!-- end col -->
@@ -556,57 +553,44 @@
 								Social</h5>
 							<div class="row">
 								<div class="col-md-6">
-									<div
-										class="mb-3">{{ form_row(form.facebook) }}
+									<div class="mb-3">{{ form_row(form.facebook) }}
 									</div>
 								</div>
 								<div class="col-md-6">
-									<div
-										{# class="mb-3">{{ form_row(form.twitter) }} #}
+									<div class="mb-3">{{form_row(form.instagram)}}
 									</div>
 								</div>
 								<!-- end col -->
 							</div>
 							<!-- end row -->
-
 							<div class="row">
 								<div class="col-md-6">
-									<div
-										class="mb-3">{{ form_row(form.instagram) }}
-									</div>
+									<div class="mb-3">{{form_row(form.linkedin)}}</div>
 								</div>
 								<div class="col-md-6">
-									<div
-										class="mb-3">{{ form_row(form.linkedin) }}
-									</div>
+									<div class="mb-3">{{form_row(form.skype)}}</div>
 								</div>
 								<!-- end col -->
 							</div>
 							<!-- end row -->
-
 							<div class="row">
 								<div class="col-md-6">
-									<div
-										class="mb-3">{{ form_row(form.skype) }}
-									</div>
+									<div class="mb-3">{{form_row(form.github)}}</div>
 								</div>
 								<div class="col-md-6">
-									<div
-										class="mb-3">{{ form_row(form.github) }}
-									</div>
+									<div class="mb-3">{{ form_row(form.twitter) }}</div>
 								</div>
-
 								<!-- end col -->
 							</div>
 							<!-- end row -->
-
 							<div class="text-end">
 								<button type="submit" class="btn btn-success mt-2">
-									<i class="ri-save-line"></i>
-									Save</button>
+									<i class="ri-save-line">
+										Save</i>
+								</button>
 							</div>
-							{{ form_end(form) }}
 						</div>
+						{{ form_end(form) }}
 						<!-- end settings content-->
 
 					</div>

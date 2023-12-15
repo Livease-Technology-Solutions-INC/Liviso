@@ -13,6 +13,16 @@ services:
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
         bind: 
             $stripeSk: "%env(STRIPE_SK)%"
+    App\Form\Account\DataTransformer\UserToIdTransformer:
+        arguments:
+            $entityManager: '@doctrine.orm.entity_manager'
+        tags:
+            - { name: 'form.type', alias: 'user_to_id_transformer' }
+    App\Form\Account\UserProfileType:
+        arguments:
+            $userToIdTransformer: '@App\Form\Account\DataTransformer\UserToIdTransformer'
+        tags:
+            - { name: 'form.type' }
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name

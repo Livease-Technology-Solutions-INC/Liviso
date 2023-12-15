@@ -2,31 +2,35 @@
 
 namespace App\Form\Account;
 
+use App\Entity\User;
 use App\Entity\Account\UserProfile;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use App\Form\Account\DataTransformer\UserToIdTransformer;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use App\Entity\User;
-use Symfony\Component\Security\Core\Security;
 
 class UserProfileType extends AbstractType
 {
+    private UserToIdTransformer $userToIdTransformer;
+
+    public function __construct(UserToIdTransformer $userToIdTransformer)
+    {
+        $this->userToIdTransformer = $userToIdTransformer;
+    }
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         // current authicated user
-        $currentUser = $options['current_user'];
+        // $currentUser = $options['current_user'];
 
         $builder
-            ->add('user', TextType::class, [
-                'data' => $currentUser->getEmail(),
-                'disabled' => true,
-                'label' => "Email",
-                'attr' => ['class' => 'form-control m-0'],
-            ])
+            ->add('user', HiddenType::class)
             ->add('bio', TextareaType::class, [
                 'required' => false,
                 'attr' => ['class' => 'form-control m-0'],
@@ -49,6 +53,7 @@ class UserProfileType extends AbstractType
             ])
             ->add('facebook', TextType::class, [
                 'required' => false,
+                'attr' => ['class' => 'form-control m-0'],
             ])
             ->add('twitter', TextType::class, [
                 'required' => false,
@@ -70,6 +75,7 @@ class UserProfileType extends AbstractType
                 'required' => false,
                 'attr' => ['class' => 'form-control m-0'],
             ]);
+        $builder->get('user')->addModelTransformer($this->userToIdTransformer);
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -78,5 +84,6 @@ class UserProfileType extends AbstractType
             'data_class' => UserProfile::class,
             'current_user' => null,
         ]);
+        $resolver->setAllowedTypes('current_user', [User::class, 'null']);
     }
 }
