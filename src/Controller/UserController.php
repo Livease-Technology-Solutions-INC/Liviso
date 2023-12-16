@@ -59,16 +59,17 @@ class UserController extends AbstractController
             $this->entityManager->flush();
         }
 
-        if (!$userProfile) {
-            throw $this->createNotFoundException('UserProfile not found for the current user.');
-        }
-
+        // Ensure form fields are empty
+        
         $email = $currentUser->getEmail();
-        $form = $this->createForm(UserProfileType::class, $userProfile, ['current_user' => $this->getUser()]);
+        $form = $this->createForm(UserProfileType::class,  $userProfile, [ 'current_user' => $currentUser]);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
+            // Update the user profile with the form data
+            $newUserProfile = $form->getData();
+            $userProfile->setBio($newUserProfile->getBio());
             $this->entityManager->flush();
+            // dd($form->getErrors(true, true));
 
             return $this->redirectToRoute('my_account', ['user_id' => $user_id]);
         }

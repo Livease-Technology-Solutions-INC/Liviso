@@ -4,6 +4,8 @@ namespace App\Form\Account;
 
 use App\Entity\User;
 use App\Entity\Account\UserProfile;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Form\FormBuilderInterface;
