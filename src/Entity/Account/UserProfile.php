@@ -5,6 +5,8 @@ namespace App\Entity\Account;
 use App\Entity\User;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use App\Repository\Account\UserProfileRepository;
 
 #[ORM\Entity(repositoryClass: UserProfileRepository::class)]
@@ -51,6 +53,9 @@ class UserProfile
 
     #[ORM\Column(length: 180, type: "text", nullable: 'true')]
     private ?string $github = null;
+
+    #[ORM\OneToMany(mappedBy: 'userProfile', targetEntity: UserProfileImage::class, cascade: ['persist', 'remove'])]
+    private Collection $images;
 
     public function getId(): ?string
     {
@@ -197,6 +202,40 @@ class UserProfile
     public function setCountry(?string $country): static
     {
         $this->country = $country;
+
+        return $this;
+    }
+    public function __construct()
+    {
+        $this->images = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection|UserProfileImage[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(UserProfileImage $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setUserProfile($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(UserProfileImage $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getUserProfile() === $this) {
+                $image->setUserProfile(null);
+            }
+        }
 
         return $this;
     }
