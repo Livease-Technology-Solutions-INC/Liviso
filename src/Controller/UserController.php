@@ -62,14 +62,12 @@ class UserController extends AbstractController
         // Ensure form fields are empty
         
         $email = $currentUser->getEmail();
-        $form = $this->createForm(UserProfileType::class,  $userProfile, [ 'current_user' => $currentUser]);
+        $form = $this->createForm(UserProfileType::class, $userProfile, ['current_user' => $this->getUser()]);        
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // Update the user profile with the form data
-            $newUserProfile = $form->getData();
-            $userProfile->setBio($newUserProfile->getBio());
+            $userProfile = $form->getData();
+            $this->entityManager->persist($userProfile);
             $this->entityManager->flush();
-            // dd($form->getErrors(true, true));
 
             return $this->redirectToRoute('my_account', ['user_id' => $user_id]);
         }
