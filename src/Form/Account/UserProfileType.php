@@ -30,7 +30,9 @@ class UserProfileType extends AbstractType
             ->add('user', HiddenType::class)
             ->add('bio', TextareaType::class, [
                 'required' => false,
-                'attr' => ['class' => 'form-control m-0'],
+                'attr' => [
+                    'class' => 'form-control m-0',
+                ],
             ])
             ->add('mobileNumber', NumberType::class, [
                 'required' => false,

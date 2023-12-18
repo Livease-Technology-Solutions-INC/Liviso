@@ -5,6 +5,7 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     support_dir: '%kernel.project_dir%/public/user/support/'
+    profileImage_dir: '%kernel.project_dir%/public/user/profileImage/'
 
 services:
     # default configuration for services in *this* file
@@ -23,6 +24,9 @@ services:
             $userToIdTransformer: '@App\Form\Account\DataTransformer\UserToIdTransformer'
         tags:
             - { name: 'form.type' }
+    App\Form\Account\DataTransformer\ImageFileToPathTransformer:
+        tags:
+            - { name: 'form.type', alias: 'image_file_to_path_transformer' }
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name

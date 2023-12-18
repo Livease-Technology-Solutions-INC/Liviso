@@ -62,10 +62,10 @@ class UserController extends AbstractController
         // Ensure form fields are empty
         
         $email = $currentUser->getEmail();
-        $form = $this->createForm(UserProfileType::class, $userProfile, ['current_user' => $this->getUser()]);        
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $userProfile = $form->getData();
+        $userprofileform = $this->createForm(UserProfileType::class, $userProfile, ['current_user' => $this->getUser()]);        
+        $userprofileform->handleRequest($request);
+        if ($userprofileform->isSubmitted() && $userprofileform->isValid()) {
+            $userProfile = $userprofileform->getData();
             $this->entityManager->persist($userProfile);
             $this->entityManager->flush();
 
@@ -75,7 +75,7 @@ class UserController extends AbstractController
         return $this->render('user/myAccount.html.twig', [
             'email' => $email,
             'userProfile' => $userProfile,
-            'form' => $form->createView(),
+            'form' => $userprofileform->createView(),
         ]);
     }
 
