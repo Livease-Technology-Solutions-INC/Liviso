@@ -25,7 +25,7 @@ class SupportSystemType extends AbstractType
                 'choices' => [
                     'Automatic' => 'Automatic',
                 ],
-                'attr' => ['class' => 'form-control m-0'],
+                'attr' => ['class' => 'form-select m-0'],
             ])
             ->add('priority',  ChoiceType::class, [
                 'label' => 'Priority',
@@ -35,7 +35,7 @@ class SupportSystemType extends AbstractType
                     'High' => 'High',
                     'Critical' => 'Critical',
                 ],
-                'attr' => ['class' => 'form-control m-0'],
+                'attr' => ['class' => 'form-select m-0'],
             ])
             ->add('status',  ChoiceType::class, [
                 'label' => 'Status',
@@ -45,7 +45,7 @@ class SupportSystemType extends AbstractType
                     'On Hold' => 'On Hold',
                     'Critical' => 'Critical',
                 ],
-                'attr' => ['class' => 'form-control m-0'],
+                'attr' => ['class' => 'form-select m-0'],
             ])
             ->add('endDate', DateType::class, [
                 'label' => 'End Date',

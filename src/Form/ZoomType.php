@@ -20,13 +20,13 @@ class ZoomType extends AbstractType
                 'choices' => [
                     'Automatic' => 'Automatic',
                 ],
-                'attr' => ['class' => 'form-control m-0'],
+                'attr' => ['class' => 'form-select m-0'],
             ])
             ->add('user',  ChoiceType::class, [
                 'choices' => [
                     'Automatic' => 'Automatic',
                 ],
-                'attr' => ['class' => 'form-control m-0'],
+                'attr' => ['class' => 'form-select m-0'],
             ])
             ->add('meetingTime', DateTimeType::class, [
                 'label' => 'Meeting Time',
@@ -48,7 +48,7 @@ class ZoomType extends AbstractType
                     'Live' => 'Live',
                     'Ended' => 'Ended',
                 ],
-                'attr' => ['class' => 'form-control m-0'],
+                'attr' => ['class' => 'form-select m-0'],
             ]);
     }
 

@@ -26,7 +26,7 @@ class CustomQuestionsType extends AbstractType
                     'Yes' => 'Yes',
                     'No' => 'No',
                 ],
-                'attr' => ['class' => 'form-control m-0'],
+                'attr' => ['class' => 'form-select m-0'],
             ]);
     }
 

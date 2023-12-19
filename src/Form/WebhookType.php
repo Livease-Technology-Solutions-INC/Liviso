@@ -38,7 +38,8 @@ class WebhookType extends AbstractType
                     "New budget" => "New budget",
                     "New revenue" => "New revenue",
                     "New invoice payment" => "New invoice payment",
-                ]
+                ],
+                'attr' => ['class' => 'form-select m-0'],
             ])
             ->add('URL',  TextType::class, [
                 'label' => 'URL',
@@ -53,7 +54,7 @@ class WebhookType extends AbstractType
                     'GET' => 'GET',
                     'POST' => 'POST'
                 ],
-                'attr' => ['class' => 'form-control m-0'],
+                'attr' => ['class' => 'form-select m-0'],
             ]);
     }
 

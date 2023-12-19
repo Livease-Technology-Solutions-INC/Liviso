@@ -19,7 +19,7 @@ class ManageLeaveType extends AbstractType
                 'choices' => [
                     'Automatic' => 'Automatic',
                 ],
-                'attr' => ['class' => 'form-control m-0'],
+                'attr' => ['class' => 'form-select m-0'],
             ])
             ->add('leaveType',  ChoiceType::class, [
                 'choices' => [
@@ -34,7 +34,7 @@ class ManageLeaveType extends AbstractType
                     'Sabbatical Leave' => 'Sabbatical Leave',
                     'Holidays' => 'Holidays',
                 ],
-                'attr' => ['class' => 'form-control m-0'],
+                'attr' => ['class' => 'form-select m-0'],
             ])
             ->add('startDate', DateType::class, [
                 'label' => 'Start Date',
