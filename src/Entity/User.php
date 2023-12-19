@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Account\UserImage;
+use App\Repository\UserRepository;
+use App\Entity\Account\UserProfile;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use App\Entity\Account\UserProfile;
-use Doctrine\ORM\Mapping as ORM;
-use App\Repository\UserRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -22,10 +23,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToOne(targetEntity: UserProfile::class, inversedBy: "user", cascade: ["persist", "remove"])]
     private ?UserProfile $profile = null;
+    #[ORM\OneToMany(targetEntity: UserImage::class, mappedBy: "user", cascade: ["persist", "remove"])]
+    private $userImages;
     public function __construct()
     {
         $this->profile = new UserProfile();
         $this->profile->setUser($this);
+        $this->userImages = new ArrayCollection();
     }
 
     #[ORM\Column(length: 180, unique: true)]
@@ -179,6 +183,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $profile->setUser(null);
         }
     
+        return $this;
+    }
+    public function getUserImages(): Collection
+    {
+        return $this->userImages;
+    }
+
+    public function addUserImage(UserImage $userImage): self
+    {
+        if (!$this->userImages->contains($userImage)) {
+            $this->userImages[] = $userImage;
+            $userImage->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserImage(UserImage $userImage): self
+    {
+        if ($this->userImages->removeElement($userImage)) {
+            if ($userImage->getUser() === $this) {
+                $userImage->setUser(null);
+            }
+        }
+
         return $this;
     }
 }

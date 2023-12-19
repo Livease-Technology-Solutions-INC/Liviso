@@ -3,10 +3,7 @@
 namespace App\Entity\Account;
 
 use App\Entity\User;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\ArrayCollection;
 use App\Repository\Account\UserProfileRepository;
 
 #[ORM\Entity(repositoryClass: UserProfileRepository::class)]
