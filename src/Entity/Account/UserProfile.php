@@ -3,6 +3,7 @@
 namespace App\Entity\Account;
 
 use App\Entity\User;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\Account\UserProfileRepository;
 

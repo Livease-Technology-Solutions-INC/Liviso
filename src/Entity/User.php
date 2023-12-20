@@ -30,6 +30,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->profile = new UserProfile();
         $this->profile->setUser($this);
         $this->userImages = new ArrayCollection();
+        $this->linkedUsers = new ArrayCollection();
     }
 
     #[ORM\Column(length: 180, unique: true)]
@@ -51,6 +52,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $fullName = null;
 
     // ...
+
+    /**
+     * @var Collection|User[]
+     */
+    #[ORM\OneToMany(targetEntity: User::class, mappedBy: "parentUser")]
+    private $linkedUsers;
+
+    /**
+     * @var User|null
+     */
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "linkedUsers")]
+    private ?User $parentUser = null;
+
 
     public function getFullName(): ?string
     {
@@ -178,11 +192,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         if ($profile->getUser() === $this) {
             // Set the profile on the user to null
             $this->profile = null;
-    
+
             // Set the user on the profile to null
             $profile->setUser(null);
         }
-    
+
         return $this;
     }
     public function getUserImages(): Collection
@@ -207,6 +221,50 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $userImage->setUser(null);
             }
         }
+
+        return $this;
+    }
+    
+     /**
+     * @return Collection|User[]
+     */
+    public function getLinkedUsers(): Collection
+    {
+        return $this->linkedUsers;
+    }
+
+    public function addLinkedUser(User $user): self
+    {
+        if (!$this->linkedUsers->contains($user)) {
+            $this->linkedUsers[] = $user;
+            $user->setParentUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLinkedUser(User $user): self
+    {
+        if ($this->linkedUsers->removeElement($user)) {
+            if ($user->getParentUser() === $this) {
+                $user->setParentUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return User|null
+     */
+    public function getParentUser(): ?User
+    {
+        return $this->parentUser;
+    }
+
+    public function setParentUser(?User $parentUser): self
+    {
+        $this->parentUser = $parentUser;
 
         return $this;
     }

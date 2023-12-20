@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Entity\Account;
+
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\User;
 
-/**
- * @ORM\Entity
- */
+use App\Repository\Account\UserImageRepository;
+
+#[ORM\Entity(repositoryClass: UserImageRepository::class)]
 class UserImage
 {
     #[ORM\Id]
