@@ -50,16 +50,10 @@ class RegistrationController extends AbstractController
             $session->set('fullName', $fullName);
             return $this->redirectToRoute('account-dashboard');
         }
-        // Pass the user's full name to the template
-        // Fetch user data from the database based on the email
-        // $userFromDB = $entityManager->getRepository(User::class)->findOneBy(['email' => $user->getEmail()]);
-
-        // $fullName = $userFromDB ? $userFromDB->getFullName() : null;
 
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
-            // 'fullName' => $fullName,
         ]);
     }
 }
