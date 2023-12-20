@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,7 +22,7 @@ class UsermanagementController extends AbstractController
         $this->entityManager = $entityManager;
     }
     #[Route('/user/{id}', name: 'user')]
-    public function user(int $id, UserPasswordHasherInterface $userPasswordHasher): Response
+    public function user(Request $request, int $id, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $existingUser = $this->entityManager->getRepository(User::class)->find($id);
@@ -28,20 +30,28 @@ class UsermanagementController extends AbstractController
             throw $this->createNotFoundException('The existing user does not exist');
         }
         $newUser = new User();
-        $newUser->setFullName("Danny funds");
-        $newUser->setEmail('sample@example.com');
-        $hashedPassword = $userPasswordHasher->hashPassword($newUser, 'password123');
-        $newUser->setPassword($hashedPassword);
-        $existingUser->addLinkedUser($newUser);
-        $this->entityManager->persist($newUser);
-        $this->entityManager->flush();
+        $form = $this->createForm(UserType::class, $newUser);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $newUser = $form->getData();
+            $newUser->setParentUser($existingUser);
+            // Use the PasswordEncoderInterface to hash the password
+            $hashedPassword = $userPasswordHasher->hashPassword($newUser, $newUser->getPassword());
+            $newUser->setPassword($hashedPassword);
+            $this->entityManager->persist($newUser);
+            $this->entityManager->flush();
+            return $this->redirectToRoute('user', ['id' => $id]);
+        }
+
+        // $hashedPassword = $userPasswordHasher->hashPassword($newUser, 'password123');
+        // $newUser->setPassword($hashedPassword);
+        // $existingUser->addLinkedUser($newUser);
 
 
-        $this->addFlash('success', 'New user created and linked successfully.');
-        return $this->redirectToRoute('client');
-        // return $this->render('usermanagement/user.html.twig', [
-        //     'controller_name' => 'UsermanagementController',
-        // ]);
+        return $this->render('usermanagement/user.html.twig', [
+            'controller_name' => 'UsermanagementController',
+            'form' => $form->createView(),
+        ]);
     }
     #[Route('/role', name: 'role')]
     public function role(): Response
