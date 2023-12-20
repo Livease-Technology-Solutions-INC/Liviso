@@ -21,7 +21,7 @@ class UsermanagementController extends AbstractController
     {
         $this->entityManager = $entityManager;
     }
-    #[Route('/user/{id}', name: 'user')]
+    #[Route('/user/{id}', name: 'user',  methods:["GET", "POST"])]
     public function user(Request $request, int $id, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
