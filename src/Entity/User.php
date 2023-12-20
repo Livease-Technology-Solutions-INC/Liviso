@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Zoom;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Account\UserImage;
 use App\Repository\UserRepository;
@@ -23,48 +24,53 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToOne(targetEntity: UserProfile::class, inversedBy: "user", cascade: ["persist", "remove"])]
     private ?UserProfile $profile = null;
+    
     #[ORM\OneToMany(targetEntity: UserImage::class, mappedBy: "user", cascade: ["persist", "remove"])]
     private $userImages;
-    public function __construct()
-    {
-        $this->profile = new UserProfile();
-        $this->profile->setUser($this);
-        $this->userImages = new ArrayCollection();
-        $this->linkedUsers = new ArrayCollection();
-    }
-
+    
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
-
+    
     #[ORM\Column]
     private array $roles = [];
-
+    
     /**
      * @var string The hashed password
      */
     #[ORM\Column]
     private ?string $password = null;
     // ...
-
+    
     /**
      */
     #[ORM\Column]
     private ?string $fullName = null;
-
+    
     // ...
-
+    
     /**
      * @var Collection|User[]
      */
     #[ORM\OneToMany(targetEntity: User::class, mappedBy: "parentUser")]
     private $linkedUsers;
-
+    
     /**
      * @var User|null
      */
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "linkedUsers")]
     private ?User $parentUser = null;
-
+    
+    #[ORM\OneToMany(targetEntity: Zoom::class, mappedBy: "user")]
+    private Collection $zoomMeetings;
+    
+    public function __construct()
+    {
+        $this->profile = new UserProfile();
+        $this->profile->setUser($this);
+        $this->userImages = new ArrayCollection();
+        $this->linkedUsers = new ArrayCollection();
+        $this->zoomMeetings = new ArrayCollection();
+    }
 
     public function getFullName(): ?string
     {
@@ -224,8 +230,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-    
-     /**
+
+    /**
      * @return Collection|User[]
      */
     public function getLinkedUsers(): Collection
@@ -267,5 +273,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->parentUser = $parentUser;
 
         return $this;
+    }
+
+    public function getZoomMeetings(): Collection
+    {
+        return $this->zoomMeetings;
+    }
+
+    public function addZoomMeeting(Zoom $zoom): void
+    {
+        if (!$this->zoomMeetings->contains($zoom)) {
+            $this->zoomMeetings[] = $zoom;
+            $zoom->setUser($this);
+        }
+    }
+
+    public function removeZoomMeeting(Zoom $zoom): void
+    {
+        $this->zoomMeetings->removeElement($zoom);
     }
 }

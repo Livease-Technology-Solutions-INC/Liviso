@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use App\Repository\ZoomRepository;
+use App\Entity\User;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ZoomRepository;
 
 #[ORM\Entity(repositoryClass: ZoomRepository::class)]
 class Zoom
@@ -20,8 +21,9 @@ class Zoom
     #[ORM\Column(length: 255)]
     private ?string $project = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $user = null;
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "zoomMeetings")]
+    #[ORM\JoinColumn(name: "user_id", referencedColumnName: "id")]
+    private ?User $user = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $meetingTime = null;
@@ -64,12 +66,12 @@ class Zoom
         return $this;
     }
 
-    public function getUser(): ?string
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser(string $user): static
+    public function setUser(?User $user): static
     {
         $this->user = $user;
 
