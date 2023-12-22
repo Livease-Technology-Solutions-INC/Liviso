@@ -46,8 +46,8 @@
 							{{ form_row(form.project, {'attr': {'class': 'form-control select project_select m-0', 'data-toggle': 'select'}}) }}
 						</div>
 						<div class="col-md-4 mt-1">
-							<div id="user_div">
-								{{ form_row(form.user, {'attr': {'class': 'form-control select employee_select m-0', 'data-toggle': 'select'}}) }}
+							<div id="hostedBy_div">
+								{{ form_row(form.user) }}
 							</div>
 						</div>
 					</div>
@@ -69,8 +69,8 @@
 					{# {{ form_row(form.password, {'attr': {'class': 'form-control m-0', 'placeholder': 'Enter Password'}}) }} #}
 
 					{# <div class="form-group col-md-6 mt-3">
-																																																																							{{ form_row(form.meetingURL, {'label': 'Invite Client For Zoom Meeting', 'attr': {'class': 'form-check-input'}}) }}
-																																																																						</div> #}
+																																																																												{{ form_row(form.meetingURL, {'label': 'Invite Client For Zoom Meeting', 'attr': {'class': 'form-check-input'}}) }}
+																																																																											</div> #}
 
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>

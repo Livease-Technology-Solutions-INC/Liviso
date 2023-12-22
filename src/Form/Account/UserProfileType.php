@@ -24,8 +24,6 @@ class UserProfileType extends AbstractType
     }
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        // current authicated user
-        // $currentUser = $options['current_user'];
 
         $builder
             ->add('user', HiddenType::class)

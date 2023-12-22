@@ -54,7 +54,6 @@ class UserController extends AbstractController
         if (!$userProfile) {
             $userProfile = new UserProfile();
             $userProfile->setUser($currentUser);
-
             $this->entityManager->persist($userProfile);
             $this->entityManager->flush();
         }

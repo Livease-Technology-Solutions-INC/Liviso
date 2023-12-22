@@ -72,6 +72,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->zoomMeetings = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->getFullName(); 
+    }
     public function getFullName(): ?string
     {
         return $this->fullName;

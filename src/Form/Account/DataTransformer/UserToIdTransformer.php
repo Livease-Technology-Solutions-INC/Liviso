@@ -22,7 +22,7 @@ class UserToIdTransformer implements DataTransformerInterface
             return null;
         }
 
-        if (!$user instanceof User) {
+        if (!is_object($user) || !$user instanceof User) {
             throw new TransformationFailedException('Expected an instance of User.');
         }
 
