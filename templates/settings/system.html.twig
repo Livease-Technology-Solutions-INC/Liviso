@@ -3300,7 +3300,7 @@
 																<td>{{webhook.url}}</td>
 																<td>{{webhook.method}}</td>
 																<td>
-																	<a href="{{ path("webhook_edit", {id: webhook.id})}}" data-bs-toggle="modal" data-bs-target="#webhook"  data-webhook-id="{{ webhook.id }}" class="p-1 rounded-3 bg-info text-white border-0 m-2 edit-webhook-link"  style="outline: none !important;">
+																	<a href="{{ path("webhook_edit", {'id': webhook.id, 'user_id': app.user.id})}}" data-bs-toggle="modal" data-bs-target="#webhook"  data-webhook-id="{{ webhook.id }}" class="p-1 rounded-3 bg-info text-white border-0 m-2 edit-webhook-link"  style="outline: none !important;">
 																		<i class="bi bi-pen"></i>
 																	</a>
 																	<a href="{{ path("webhook_delete", {id: webhook.id})}}" class="p-1 rounded-3 bg-danger text-white border-0" style="outline: none !important;">

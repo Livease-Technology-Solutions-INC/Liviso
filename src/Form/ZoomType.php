@@ -57,7 +57,9 @@ class ZoomType extends AbstractType
             ->add('duration')
             ->add('meetingURL', TextType::class, [
                 'label' => 'Meeting URL', 
+                'attr' => ['class' => 'form-control m-0', 
                 'autocomplete' => 'off',
+            ],
             ])
             ->add('status', ChoiceType::class, [
                 'choices' => [

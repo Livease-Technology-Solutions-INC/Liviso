@@ -118,7 +118,6 @@ class MainController extends AbstractController
     public function zoom(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        // check
         $currentUser = $this->getUser();
         assert($currentUser instanceof User);
         $zoom = new Zoom();

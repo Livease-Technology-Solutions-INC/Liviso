@@ -918,7 +918,7 @@
 				<div class="collapse" id="sidebarsetting">
 					<ul class="side-nav-second-level">
 						<li>
-							<a href="{{path("system")}}">System Settings</a>
+							<a href="{{path("system",  {'id': app.user.id}) }}">System Settings</a>
 						</li>
 						<li>
 							<a href="{{path("setup_subcription_plan")}}">Setup Subscription Plan</a>

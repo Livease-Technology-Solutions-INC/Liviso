@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use App\Repository\WebhookRepository;
+use App\Entity\User;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\WebhookRepository;
 
 #[ORM\Entity(repositoryClass: WebhookRepository::class)]
 class Webhook
@@ -22,6 +23,10 @@ class Webhook
 
     #[ORM\Column(length: 255)]
     private ?string $method = null;
+
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "webhook")]
+    #[ORM\JoinColumn(name: "user_id", referencedColumnName: "id")]
+    private ?User $user = null;
 
     public function getId(): ?int
     {
@@ -59,6 +64,18 @@ class Webhook
     public function setMethod(string $method): static
     {
         $this->method = $method;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

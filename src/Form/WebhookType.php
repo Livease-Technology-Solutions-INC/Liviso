@@ -63,6 +63,7 @@ class WebhookType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Webhook::class,
+            'current_user' => null,
         ]);
     }
 }

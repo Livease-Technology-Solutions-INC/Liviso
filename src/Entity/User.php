@@ -62,6 +62,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     
     #[ORM\OneToMany(targetEntity: Zoom::class, mappedBy: "user")]
     private Collection $zoomMeetings;
+
+    #[ORM\OneToMany(targetEntity: Webhook::class, mappedBy: "user")]
+    private Collection $webhook;
     
     public function __construct()
     {
@@ -70,6 +73,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->userImages = new ArrayCollection();
         $this->linkedUsers = new ArrayCollection();
         $this->zoomMeetings = new ArrayCollection();
+        $this->webhook = new ArrayCollection();
     }
 
     public function __toString()
@@ -295,5 +299,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeZoomMeeting(Zoom $zoom): void
     {
         $this->zoomMeetings->removeElement($zoom);
+    }
+
+    /**
+     * @return Collection<int, Webhook>
+     */
+    public function getWebhook(): Collection
+    {
+        return $this->webhook;
+    }
+
+    public function addWebhook(Webhook $webhook): static
+    {
+        if (!$this->webhook->contains($webhook)) {
+            $this->webhook->add($webhook);
+            $webhook->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWebhook(Webhook $webhook): static
+    {
+        if ($this->webhook->removeElement($webhook)) {
+            // set the owning side to null (unless already changed)
+            if ($webhook->getUser() === $this) {
+                $webhook->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }
