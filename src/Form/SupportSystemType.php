@@ -18,7 +18,8 @@ class SupportSystemType extends AbstractType
     {
         $builder
             ->add('subject', TextType::class, [
-                'attr' => ['class' => 'form-control m-0']
+                'attr' => ['class' => 'form-control m-0', 
+                'autocomplete' => 'off']
             ])
             ->add('supportForUser',  ChoiceType::class, [
                 'label' => 'Support For User',

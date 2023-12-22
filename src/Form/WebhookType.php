@@ -46,7 +46,8 @@ class WebhookType extends AbstractType
                 'required' => 'required',
                 'attr' => [
                     'class' => 'form-control m-0',
-                    'placeholder' => 'Enter URL',
+                    'placeholder' => 'Enter URL', 
+                    'autocomplete' => 'off',
                 ],
             ])
             ->add('method',  ChoiceType::class, [

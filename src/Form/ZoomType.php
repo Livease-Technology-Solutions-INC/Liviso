@@ -56,7 +56,8 @@ class ZoomType extends AbstractType
             ])
             ->add('duration')
             ->add('meetingURL', TextType::class, [
-                'label' => 'Meeting URL',
+                'label' => 'Meeting URL', 
+                'autocomplete' => 'off',
             ])
             ->add('status', ChoiceType::class, [
                 'choices' => [

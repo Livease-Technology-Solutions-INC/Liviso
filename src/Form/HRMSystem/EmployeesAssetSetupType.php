@@ -26,7 +26,8 @@ class EmployeesAssetSetupType extends AbstractType
             ])
             ->add('employeeName',  TextType::class, [
                 'label' => 'Name',
-                'attr' => ['class' => 'form-control m-0'],
+                'attr' => ['class' => 'form-control m-0',
+                'autocomplete' => 'off'],
             ])
             ->add('amount',  IntegerType::class, [
                 'label' => 'Amount',

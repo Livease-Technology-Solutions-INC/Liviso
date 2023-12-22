@@ -153,12 +153,13 @@ class MainController extends AbstractController
         $this->entityManager->remove($zoom);
         $this->entityManager->flush();
         return $this->redirectToRoute('zoom', ['id' => $id]);
-        // return new Response('post was deleted');
     }
     // edit zoom
-    #[Route("/zoom/{id}/edit", name: "zoom_edit", methods: ["GET", "PUT", "POST"])]
-    public function zoomEdit(Request $request, $id): Response
+    #[Route("/zoom/{id}/edit/{user_id}", name: "zoom_edit", methods: ["GET", "PUT", "POST"])]
+    public function zoomEdit(Request $request, int $id, int $user_id): Response
     {
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
         $repository = $this->entityManager->getRepository(Zoom::class);
         $zoom = $repository->find($id);
 
@@ -166,7 +167,7 @@ class MainController extends AbstractController
             throw $this->createNotFoundException('zoom not found');
         }
 
-        $form = $this->createForm(ZoomType::class, $zoom);
+        $form = $this->createForm(ZoomType::class, $zoom, ['current_user' => $this->getUser()]);
         try {
             $form->handleRequest($request);
 
@@ -176,15 +177,14 @@ class MainController extends AbstractController
                 $this->entityManager->persist($zoom);
                 $this->entityManager->flush();
 
-                // Redirect after successful form submission (optional)
-                return $this->redirectToRoute('zoom');
+                return $this->redirectToRoute('zoom', ['id' => $user_id]);
             }
         } catch (\Exception $error) {
             $this->addFlash('danger', 'An error occurred while processing the form.');
             throw $error;
         }
         $repository = $this->entityManager->getRepository(Zoom::class);
-        $zooms = $repository->findAll();
+        $zooms = $repository->findBy(['user' => $currentUser]);
 
         return $this->render('main/edit/zoom.html.twig', [
             'controller_name' => 'MainController',

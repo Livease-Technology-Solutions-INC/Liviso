@@ -45,11 +45,13 @@ class TripType extends AbstractType
             ])
             ->add('purposeOfTrip',  TextType::class, [
                 'label' => 'Purpose Of Trip',
-                'attr' => ['class' => 'form-control m-0'],
+                'attr' => ['class' => 'form-control m-0',
+                'autocomplete' => 'off'],
             ])
             ->add('country',  TextType::class, [
                 'label' => 'Country',
-                'attr' => ['class' => 'form-control m-0'],
+                'attr' => ['class' => 'form-control m-0',
+                'autocomplete' => 'off'],
             ])
         
             ->add('description', TextareaType::class, [

@@ -16,7 +16,8 @@ class HolidaysType extends AbstractType
         $builder
             ->add('occasion', TextType::class, [
                 'label' => 'Occasion',
-                'attr' => ['class' => 'form-control m-0'],
+                'attr' => ['class' => 'form-control m-0',
+                'autocomplete' => 'off'],
             ])
             ->add('startDate', DateType::class, [
                 'label' => 'Start Date',

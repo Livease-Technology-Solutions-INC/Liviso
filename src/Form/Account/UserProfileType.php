@@ -40,7 +40,7 @@ class UserProfileType extends AbstractType
             ->add('country', ChoiceType::class, [
                 'choices' => $this->getCountryList(),
                 'choice_label' => function ($value) {
-                    return $value; 
+                    return $value;
                 },
                 'required' => false,
                 'attr' => ['class' => 'form-select m-0'],
@@ -75,7 +75,9 @@ class UserProfileType extends AbstractType
             ])
             ->add('github', TextType::class, [
                 'required' => false,
-                'attr' => ['class' => 'form-control m-0'],
+                'attr' => [
+                    'class' => 'form-control m-0',
+                ],
             ]);
         $builder->get('user')->addModelTransformer($this->userToIdTransformer);
     }

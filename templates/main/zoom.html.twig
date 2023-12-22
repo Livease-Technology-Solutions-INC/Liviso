@@ -69,8 +69,8 @@
 					{# {{ form_row(form.password, {'attr': {'class': 'form-control m-0', 'placeholder': 'Enter Password'}}) }} #}
 
 					{# <div class="form-group col-md-6 mt-3">
-																																																																												{{ form_row(form.meetingURL, {'label': 'Invite Client For Zoom Meeting', 'attr': {'class': 'form-check-input'}}) }}
-																																																																											</div> #}
+																																																																																	{{ form_row(form.meetingURL, {'label': 'Invite Client For Zoom Meeting', 'attr': {'class': 'form-check-input'}}) }}
+																																																																																</div> #}
 
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
@@ -118,7 +118,7 @@
 									<td class="">
 										<div class="d-flex justify-content-center align-items-center gap-2">
 											<button type="button" class="p-0 m-0 border-0 open-edit-modal">
-												<a href="{{ path('zoom_edit', {'id': zoom.id}) }}" data-bs-toggle="tooltip" title="" class="p-1 rounded-3 bg-info text-white border-0" data-bs-original-title="Edit">
+												<a href="{{ path('zoom_edit', {'id': zoom.id, 'user_id': app.user.id}) }} " data-bs-toggle="tooltip" title="" class="p-1 rounded-3 bg-info text-white border-0" data-bs-original-title="Edit">
 													<i class="bi bi-pen"></i>
 												</a>
 											</button>

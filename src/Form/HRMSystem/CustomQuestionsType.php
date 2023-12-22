@@ -18,7 +18,8 @@ class CustomQuestionsType extends AbstractType
         $builder
             ->add('question',  TextType::class, [
                 'label' => 'Question',
-                'attr' => ['class' => 'form-control m-0'],
+                'attr' => ['class' => 'form-control m-0',
+                'autocomplete' => 'off'],
             ])
             ->add('isRequired',  ChoiceType::class, [
                 'label' => 'is Required',

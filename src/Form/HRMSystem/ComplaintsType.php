@@ -32,7 +32,8 @@ class ComplaintsType extends AbstractType
             ])
             ->add('complaintTitle',  TextType::class, [
                 'label' => 'Complaint Title',
-                'attr' => ['class' => 'form-control m-0'],
+                'attr' => ['class' => 'form-control m-0',
+                'autocomplete' => 'off'],
             ])
             ->add('complaintDate', DateType::class, [
                 'label' => 'Meeting Time',
