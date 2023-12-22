@@ -28,14 +28,17 @@ class MainController extends AbstractController
     {
         return new RedirectResponse($this->generateUrl('account-dashboard'));
     }
-    #[Route('/support', name: 'support', methods: ["GET", 'POST', "PUT"])]
-    public function support(Request $request): Response
+    #[Route('/support/{id}', name: 'support', methods: ["GET", 'POST'])]
+    public function support(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+   
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
         $support = new SupportSystem();
-        $form = $this->createForm(SupportSystemType::class, $support);
-
-        // Handle form submission
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $support->setUser($user);
+        $form = $this->createForm(SupportSystemType::class, $support, ['current_user' => $this->getUser()]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -56,11 +59,11 @@ class MainController extends AbstractController
             $this->entityManager->flush();
 
             // Redirect after successful form submission (optional)
-            return $this->redirectToRoute('support');
+            return $this->redirectToRoute('support', ['id' => $id]);
         }
 
         $repository = $this->entityManager->getRepository(SupportSystem::class);
-        $supports = $repository->findAll();
+        $supports = $repository->findBy(['user' => $currentUser]);
 
         return $this->render('main/support.html.twig', [
             'controller_name' => 'MainController',
@@ -70,24 +73,26 @@ class MainController extends AbstractController
     }
     // support delete
     #[Route('/support/delete/{id}', name: 'support_delete', methods: ["GET", "POST"])]
-    public function supportDelete(SupportSystem $support): Response
+    public function supportDelete(SupportSystem $support, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $this->entityManager->remove($support);
         $this->entityManager->flush();
-        return $this->redirectToRoute('support');
+        return $this->redirectToRoute('support', ['id' => $id]);
     }
     // support edit
-    #[Route("/support/{id}/edit", name: "support_edit", methods: ["GET", "PUT", "POST"])]
-    public function supportEdit(Request $request, int $id): Response
+    #[Route("/support/{id}/edit/{user_id}", name: "support_edit", methods: ["GET", "PUT", "POST"])]
+    public function supportEdit(Request $request, int $id, int $user_id): Response
     {
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
         $repository = $this->entityManager->getRepository(SupportSystem::class);
         $support = $repository->find($id);
 
         if (!$support) {
             throw $this->createNotFoundException('support not found');
         }
-        $form = $this->createForm(SupportSystemType::class, $support);
+        $form = $this->createForm(SupportSystemType::class, $support, ['current_user' => $this->getUser()]);
         try {
             $form->handleRequest($request);
 
@@ -98,14 +103,14 @@ class MainController extends AbstractController
                 $this->entityManager->flush();
 
                 // Redirect after successful form submission (optional)
-                return $this->redirectToRoute('support');
+                return $this->redirectToRoute('support', ['id' => $user_id]);
             }
         } catch (\Exception $error) {
             $this->addFlash('danger', 'An error occurred while processing the form.');
             throw $error;
         }
         $repository = $this->entityManager->getRepository(SupportSystem::class);
-        $supports = $repository->findAll();
+        $supports = $repository->findBy(['user' => $currentUser]);
 
         return $this->render('main/edit/support.html.twig', [
             'controller_name' => 'MainController',

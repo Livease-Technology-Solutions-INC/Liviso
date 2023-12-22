@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\Zoom;
+use App\Entity\SupportSystem;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Account\UserImage;
 use App\Repository\UserRepository;
@@ -65,6 +66,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(targetEntity: Webhook::class, mappedBy: "user")]
     private Collection $webhook;
+
+    #[ORM\OneToMany(targetEntity: SupportSystem::class, mappedBy: "user")]
+    private Collection $supportSystem;
     
     public function __construct()
     {
@@ -74,6 +78,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->linkedUsers = new ArrayCollection();
         $this->zoomMeetings = new ArrayCollection();
         $this->webhook = new ArrayCollection();
+        $this->supportSystem = new ArrayCollection();
     }
 
     public function __toString()
@@ -325,6 +330,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($webhook->getUser() === $this) {
                 $webhook->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SupportSystem>
+     */
+    public function getSupportSystem(): Collection
+    {
+        return $this->supportSystem;
+    }
+
+    public function addSupportSystem(SupportSystem $supportSystem): static
+    {
+        if (!$this->supportSystem->contains($supportSystem)) {
+            $this->supportSystem->add($supportSystem);
+            $supportSystem->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSupportSystem(SupportSystem $supportSystem): static
+    {
+        if ($this->supportSystem->removeElement($supportSystem)) {
+            // set the owning side to null (unless already changed)
+            if ($supportSystem->getUser() === $this) {
+                $supportSystem->setUser(null);
             }
         }
 

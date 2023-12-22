@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use App\Repository\SupportSystemRepository;
+use App\Entity\User;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\SupportSystemRepository;
 
 #[ORM\Entity(repositoryClass: SupportSystemRepository::class)]
 class SupportSystem
@@ -34,6 +35,10 @@ class SupportSystem
 
     #[ORM\Column(length: 100, type: 'string')]
     private ?string $image = null;
+
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "zoomMeetings")]
+    #[ORM\JoinColumn(name: "user_id", referencedColumnName: "id")]
+    private ?User $user = null;
 
     public function getId(): ?int
     {
@@ -120,6 +125,18 @@ class SupportSystem
     public function setImage(string $image): static
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }
