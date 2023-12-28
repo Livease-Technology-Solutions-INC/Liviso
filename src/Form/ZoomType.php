@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Zoom;
-use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use App\Form\Account\DataTransformer\UserToIdTransformer;

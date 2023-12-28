@@ -3441,6 +3441,11 @@
   "resolved" "https://registry.npmjs.org/immutable/-/immutable-4.3.4.tgz"
   "version" "4.3.4"
 
+"immutable@^5.0.0-beta.4":
+  "integrity" "sha512-sl9RE3lqd2LoQSESc8VV0k8qE9y57iT7dinq3Q+8mR2dqReHDZlgUrudzmFfZhDXBLXlNJMVWv3SG1YpQIokig=="
+  "resolved" "https://registry.npmjs.org/immutable/-/immutable-5.0.0-beta.4.tgz"
+  "version" "5.0.0-beta.4"
+
 "indent-string@^4.0.0":
   "integrity" "sha512-EdDDZu4A2OyIK7Lr/2zG+w5jmbuk1DVBnEwREQvBzspBJkCEbRa8GxU1lghYcaGJCnRWibjDXlq779X1/y5xwg=="
   "resolved" "https://registry.npmjs.org/indent-string/-/indent-string-4.0.0.tgz"

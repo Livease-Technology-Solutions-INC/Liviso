@@ -150,7 +150,7 @@ class MainController extends AbstractController
         ]);
     }
     // zoom delete
-    #[Route('/zoom/delete/{id}', name: 'zoom_delete', methods: ["GET", "POST"])]
+    #[Route('/zoom/{id}/delete/{user_id}', name: 'zoom_delete', methods: ["GET", "POST"])]
     public function zoomDelete(Zoom $zoom, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');

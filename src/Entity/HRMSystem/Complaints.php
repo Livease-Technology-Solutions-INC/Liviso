@@ -2,9 +2,10 @@
 
 namespace App\Entity\HRMSystem;
 
-use App\Repository\HRMSystem\ComplaintsRepository;
+use App\Entity\User;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\HRMSystem\ComplaintsRepository;
 
 #[ORM\Entity(repositoryClass: ComplaintsRepository::class)]
 class Complaints
@@ -28,6 +29,11 @@ class Complaints
 
     #[ORM\Column(type: 'text')]
     private ?string $description = null;
+
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "zoomMeetings")]
+    #[ORM\JoinColumn(name: "user_id", referencedColumnName: "id")]
+    private ?User $user = null;
+
 
     public function getId(): ?int
     {
@@ -90,6 +96,18 @@ class Complaints
     public function setDescription(string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

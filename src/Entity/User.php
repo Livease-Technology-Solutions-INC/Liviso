@@ -8,6 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Account\UserImage;
 use App\Repository\UserRepository;
 use App\Entity\Account\UserProfile;
+use App\Entity\HRMSystem\Complaints;
+use App\Entity\HRMSystem\CustomQuestions;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -69,6 +71,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(targetEntity: SupportSystem::class, mappedBy: "user")]
     private Collection $supportSystem;
+
+    #[ORM\OneToMany(targetEntity: Complaints::class, mappedBy: "user")]
+    private Collection $complaints;
+
+    #[ORM\OneToMany(targetEntity: CustomQuestions::class, mappedBy: "user")]
+    private Collection $customQuestions;
     
     public function __construct()
     {
@@ -79,6 +87,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->zoomMeetings = new ArrayCollection();
         $this->webhook = new ArrayCollection();
         $this->supportSystem = new ArrayCollection();
+        $this->complaints = new ArrayCollection();
+        $this->customQuestions = new ArrayCollection();
+
     }
 
     public function __toString()
@@ -360,6 +371,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($supportSystem->getUser() === $this) {
                 $supportSystem->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Complaints>
+     */
+    public function getComplaints(): Collection
+    {
+        return $this->complaints;
+    }
+
+    public function addComplaint(Complaints $complaint): static
+    {
+        if (!$this->complaints->contains($complaint)) {
+            $this->complaints->add($complaint);
+            $complaint->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComplaint(Complaints $complaint): static
+    {
+        if ($this->complaints->removeElement($complaint)) {
+            // set the owning side to null (unless already changed)
+            if ($complaint->getUser() === $this) {
+                $complaint->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CustomQuestions>
+     */
+    public function getCustomQuestions(): Collection
+    {
+        return $this->customQuestions;
+    }
+
+    public function addCustomQuestion(CustomQuestions $customQuestion): static
+    {
+        if (!$this->customQuestions->contains($customQuestion)) {
+            $this->customQuestions->add($customQuestion);
+            $customQuestion->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCustomQuestion(CustomQuestions $customQuestion): static
+    {
+        if ($this->customQuestions->removeElement($customQuestion)) {
+            // set the owning side to null (unless already changed)
+            if ($customQuestion->getUser() === $this) {
+                $customQuestion->setUser(null);
             }
         }
 

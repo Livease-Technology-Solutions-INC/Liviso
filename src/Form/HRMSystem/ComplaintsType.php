@@ -58,6 +58,7 @@ class ComplaintsType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Complaints::class,
+            'current_user' => null,
         ]);
     }
 }

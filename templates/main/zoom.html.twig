@@ -122,7 +122,7 @@
 													<i class="bi bi-pen"></i>
 												</a>
 											</button>
-											<a href="{{ path('zoom_delete', {'id': zoom.id}) }}" class="p-1 rounded-3 bg-danger text-white border-0">
+											<a href="{{ path('zoom_delete', {'id': zoom.id, 'user_id': app.user.id}) }}" class="p-1 rounded-3 bg-danger text-white border-0">
 												<i class="bi bi-trash"></i>
 											</a>
 										</div>
