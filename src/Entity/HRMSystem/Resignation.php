@@ -2,9 +2,10 @@
 
 namespace App\Entity\HRMSystem;
 
-use App\Repository\HRMSystem\ResignationRepository;
+use App\Entity\User;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\HRMSystem\ResignationRepository;
 
 #[ORM\Entity(repositoryClass: ResignationRepository::class)]
 class Resignation
@@ -25,6 +26,10 @@ class Resignation
 
     #[ORM\Column(length: 255)]
     private ?string $Description= null;
+
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "zoomMeetings")]
+    #[ORM\JoinColumn(name: "user_id", referencedColumnName: "id")]
+    private ?User $user = null;
 
     public function getId(): ?int
     {
@@ -75,6 +80,18 @@ class Resignation
     public function setDescription(string $Description): static
     {
         $this->Description = $Description;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

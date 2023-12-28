@@ -88,11 +88,11 @@
 									<td class="">
 										<div class="d-flex justify-content-center align-items-center gap-2">
 											<button type="button" class="p-0 m-0 border-0 open-edit-modal" data-bs-toggle="modal" data-bs-target="#resignation" data-bs-whatever="@mdo">
-												<a href="{{ path('resignation_edit', {'id': resignation.id}) }}" data-bs-toggle="tooltip" title="" class="p-1 rounded-3 bg-info text-white border-0" data-bs-original-title="Edit" onclick="openEditModal('{{ path('resignation_edit', {'id': resignation.id}) }}');">
+												<a href="{{ path('resignation_edit', {'id': resignation.id, 'user_id': app.user.id}) }}" data-bs-toggle="tooltip" title="" class="p-1 rounded-3 bg-info text-white border-0" data-bs-original-title="Edit" onclick="openEditModal('{{ path('resignation_edit', {'id': resignation.id}) }}');">
 													<i class="bi bi-pen"></i>
 												</a>
 											</button>
-											<a href="{{ path('resignation_delete', {'id': resignation.id}) }}" class="p-1 rounded-3 bg-danger text-white border-0">
+											<a href="{{ path('resignation_delete', {'id': resignation.id, 'user_id': app.user.id}) }}" class="p-1 rounded-3 bg-danger text-white border-0">
 												<i class="bi bi-trash"></i>
 											</a>
 										</div>

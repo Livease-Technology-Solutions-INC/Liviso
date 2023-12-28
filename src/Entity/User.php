@@ -10,6 +10,12 @@ use App\Repository\UserRepository;
 use App\Entity\Account\UserProfile;
 use App\Entity\HRMSystem\Complaints;
 use App\Entity\HRMSystem\CustomQuestions;
+use App\Entity\HRMSystem\EmployeesAssetSetup;
+use App\Entity\HRMSystem\Holidays;
+use App\Entity\HRMSystem\ManageLeave;
+use App\Entity\HRMSystem\Resignation;
+use App\Entity\HRMSystem\Trip;
+use App\Entity\HRMSystem\Warning;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -77,6 +83,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(targetEntity: CustomQuestions::class, mappedBy: "user")]
     private Collection $customQuestions;
+
+    #[ORM\OneToMany(targetEntity: EmployeesAssetSetup::class, mappedBy: "user")]
+    private Collection $employeesAssetSetup;
+
+    #[ORM\OneToMany(targetEntity: Holidays::class, mappedBy: "user")]
+    private Collection $holidays;
+
+    #[ORM\OneToMany(targetEntity: Trip::class, mappedBy: "user")]
+    private Collection $trip;
+    
+    #[ORM\OneToMany(targetEntity: Warning::class, mappedBy: "user")]
+    private Collection $warning;
+
+    #[ORM\OneToMany(targetEntity: ManageLeave::class, mappedBy: "user")]
+    private Collection $manageLeave;
+
+    #[ORM\OneToMany(targetEntity: Resignation::class, mappedBy: "user")]
+    private Collection $resignation;
     
     public function __construct()
     {
@@ -89,7 +113,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->supportSystem = new ArrayCollection();
         $this->complaints = new ArrayCollection();
         $this->customQuestions = new ArrayCollection();
-
+        $this->employeesAssetSetup = new ArrayCollection();
+        $this->holidays = new ArrayCollection();
+        $this->trip = new ArrayCollection();
+        $this->warning = new ArrayCollection();
+        $this->manageLeave = new ArrayCollection();
+        $this->resignation = new ArrayCollection();
     }
 
     public function __toString()
@@ -431,6 +460,186 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($customQuestion->getUser() === $this) {
                 $customQuestion->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EmployeesAssetSetup>
+     */
+    public function getEmployeesAssetSetup(): Collection
+    {
+        return $this->employeesAssetSetup;
+    }
+
+    public function addEmployeesAssetSetup(EmployeesAssetSetup $employeesAssetSetup): static
+    {
+        if (!$this->employeesAssetSetup->contains($employeesAssetSetup)) {
+            $this->employeesAssetSetup->add($employeesAssetSetup);
+            $employeesAssetSetup->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEmployeesAssetSetup(EmployeesAssetSetup $employeesAssetSetup): static
+    {
+        if ($this->employeesAssetSetup->removeElement($employeesAssetSetup)) {
+            // set the owning side to null (unless already changed)
+            if ($employeesAssetSetup->getUser() === $this) {
+                $employeesAssetSetup->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Holidays>
+     */
+    public function getHolidays(): Collection
+    {
+        return $this->holidays;
+    }
+
+    public function addHoliday(Holidays $holiday): static
+    {
+        if (!$this->holidays->contains($holiday)) {
+            $this->holidays->add($holiday);
+            $holiday->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHoliday(Holidays $holiday): static
+    {
+        if ($this->holidays->removeElement($holiday)) {
+            // set the owning side to null (unless already changed)
+            if ($holiday->getUser() === $this) {
+                $holiday->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Trip>
+     */
+    public function getTrip(): Collection
+    {
+        return $this->trip;
+    }
+
+    public function addTrip(Trip $trip): static
+    {
+        if (!$this->trip->contains($trip)) {
+            $this->trip->add($trip);
+            $trip->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTrip(Trip $trip): static
+    {
+        if ($this->trip->removeElement($trip)) {
+            // set the owning side to null (unless already changed)
+            if ($trip->getUser() === $this) {
+                $trip->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Warning>
+     */
+    public function getWarning(): Collection
+    {
+        return $this->warning;
+    }
+
+    public function addWarning(Warning $warning): static
+    {
+        if (!$this->warning->contains($warning)) {
+            $this->warning->add($warning);
+            $warning->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWarning(Warning $warning): static
+    {
+        if ($this->warning->removeElement($warning)) {
+            // set the owning side to null (unless already changed)
+            if ($warning->getUser() === $this) {
+                $warning->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ManageLeave>
+     */
+    public function getManageLeave(): Collection
+    {
+        return $this->manageLeave;
+    }
+
+    public function addManageLeave(ManageLeave $manageLeave): static
+    {
+        if (!$this->manageLeave->contains($manageLeave)) {
+            $this->manageLeave->add($manageLeave);
+            $manageLeave->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeManageLeave(ManageLeave $manageLeave): static
+    {
+        if ($this->manageLeave->removeElement($manageLeave)) {
+            // set the owning side to null (unless already changed)
+            if ($manageLeave->getUser() === $this) {
+                $manageLeave->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Resignation>
+     */
+    public function getResignation(): Collection
+    {
+        return $this->resignation;
+    }
+
+    public function addResignation(Resignation $resignation): static
+    {
+        if (!$this->resignation->contains($resignation)) {
+            $this->resignation->add($resignation);
+            $resignation->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResignation(Resignation $resignation): static
+    {
+        if ($this->resignation->removeElement($resignation)) {
+            // set the owning side to null (unless already changed)
+            if ($resignation->getUser() === $this) {
+                $resignation->setUser(null);
             }
         }
 

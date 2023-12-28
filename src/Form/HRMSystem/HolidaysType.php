@@ -45,6 +45,7 @@ class HolidaysType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Holidays::class,
+            'current_user' => null,
         ]);
     }
 }

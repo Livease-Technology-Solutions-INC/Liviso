@@ -57,14 +57,17 @@ class HrmsystemController extends AbstractController
             'controller_name' => 'HrmsystemController',
         ]);
     }
-    #[Route('/hrmsystem/manage_leave', name: 'hrmsystem/manage_leave')]
-    public function manageLeave(Request $request): Response
+    #[Route('/hrmsystem/manage_leave/{id}', name: 'hrmsystem/manage_leave')]
+    public function manageLeave(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
         $manageleave = new ManageLeave();
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $manageleave->setUser($user);
         $form = $this->createForm(ManageLeaveType::class, $manageleave);
 
-        // Handle form submission
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -73,11 +76,11 @@ class HrmsystemController extends AbstractController
             $this->entityManager->flush();
 
             // Redirect after successful form submission (optional)
-            return $this->redirectToRoute('hrmsystem/manage_leave');
+            return $this->redirectToRoute('hrmsystem/manage_leave', ['id' => $id]);
         }
 
         $repository = $this->entityManager->getRepository(ManageLeave::class);
-        $manageleaves = $repository->findAll();
+        $manageleaves = $repository->findBy(['user' => $currentUser]);
 
         return $this->render('hrmsystem/manageleave.html.twig', [
             'controller_name' => 'HrmsystemController',
@@ -86,19 +89,21 @@ class HrmsystemController extends AbstractController
         ]);
     }
     // delete manage leave
-    #[Route('/manage_leave/delete/{id}', name: 'manageleave_delete', methods: ["GET", "POST"])]
-    public function manageleaveDelete(Manageleave $Manageleave): Response
+    #[Route('/manage_leave/{id}/delete/{user_id}', name: 'manageleave_delete', methods: ["GET", "POST"])]
+    public function manageleaveDelete(Manageleave $Manageleave, int $id, int $user_id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $this->entityManager->remove($Manageleave);
         $this->entityManager->flush();
-        return $this->redirectToRoute('hrmsystem/manage_leave');
-        // return new Response('post was deleted');
+        return $this->redirectToRoute('hrmsystem/manage_leave', ['id' => $user_id]);
     }
     // edit manage_leave
-    #[Route("/hrmsystem/manage_leave/{id}/edit", name: "manageleave_edit", methods: ["GET", "PUT", "POST"])]
-    public function manage_leaveEdit(Request $request, $id): Response
+    #[Route("/hrmsystem/manage_leave/{id}/edit/{user_id}", name: "manageleave_edit", methods: ["GET", "PUT", "POST"])]
+    public function manage_leaveEdit(Request $request, int $id, int $user_id): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
         $repository = $this->entityManager->getRepository(Manageleave::class);
         $manageleave = $repository->find($id);
 
@@ -106,7 +111,7 @@ class HrmsystemController extends AbstractController
             throw $this->createNotFoundException('manageleave not found');
         }
 
-        $form = $this->createForm(ManageleaveType::class, $manageleave);
+        $form = $this->createForm(ManageleaveType::class, $manageleave,  ['current_user' => $this->getUser()]);
         try {
             $form->handleRequest($request);
 
@@ -117,14 +122,14 @@ class HrmsystemController extends AbstractController
                 $this->entityManager->flush();
 
                 // Redirect after successful form submission (optional)
-                return $this->redirectToRoute('hrmsystem/manage_leave');
+                return $this->redirectToRoute('hrmsystem/manage_leave', ['id' => $user_id]);
             }
         } catch (\Exception $error) {
             $this->addFlash('danger', 'An error occurred while processing the form.');
             throw $error;
         }
         $repository = $this->entityManager->getRepository(Manageleave::class);
-        $manageleaves = $repository->findAll();
+        $manageleaves = $repository->findBy(['user' => $currentUser]);
 
         return $this->render('hrmsystem/edit/manageleave.html.twig', [
             'controllername' => 'HrmsystemController',
@@ -228,14 +233,16 @@ class HrmsystemController extends AbstractController
             'controller_name' => 'HrmsystemController',
         ]);
     }
-    #[Route('/hrmsystem/custom_question', name: 'hrmsystem/custom_question')]
-    public function customQuestion(Request $request): Response
+    #[Route('/hrmsystem/custom_question/{id}', name: 'hrmsystem/custom_question', methods: ["GET", "POST"])]
+    public function customQuestion(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
         $customQuestion = new CustomQuestions();
-        $form = $this->createForm(CustomQuestionsType::class, $customQuestion);
-
-        // Handle form submission
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $customQuestion->setUser($user);
+        $form = $this->createForm(CustomQuestionsType::class, $customQuestion,  ['current_user' => $this->getUser()]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -244,11 +251,11 @@ class HrmsystemController extends AbstractController
             $this->entityManager->flush();
 
             // Redirect after successful form submission (optional)
-            return $this->redirectToRoute('hrmsystem/custom_question');
+            return $this->redirectToRoute('hrmsystem/custom_question', ['id'=> $id]);
         }
 
         $repository = $this->entityManager->getRepository(CustomQuestions::class);
-        $customQuestions = $repository->findAll();
+        $customQuestions = $repository->findBy(['user' => $currentUser]);
 
         return $this->render('hrmsystem/customQuestion.html.twig', [
             'controller_name' => 'HrmsystemController',
@@ -257,19 +264,22 @@ class HrmsystemController extends AbstractController
         ]);
     }
     // delete customQuestions
-    #[Route('/hrmsystem/customQuestions/delete/{id}', name: 'customQuestions_delete', methods: ["GET", "POST"])]
-    public function customQuestionsDelete(CustomQuestions $customQuestions): Response
+    #[Route('/hrmsystem/customQuestions/{id}/delete/{user_id}', name: 'customQuestions_delete', methods: ["GET", "POST"])]
+    public function customQuestionsDelete(CustomQuestions $customQuestions, int $id, int $user_id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $this->entityManager->remove($customQuestions);
         $this->entityManager->flush();
-        return $this->redirectToRoute('hrmsystem/custom_question');
+        return $this->redirectToRoute('hrmsystem/custom_question', ['id' => $user_id]);
     }
 
     // edit customQuestion
-    #[Route("/hrmsystem/customQuestion/{id}/edit", name: "customQuestions_edit", methods: ["GET", "PUT", "POST"])]
-    public function customQuestionEdit(Request $request, $id): Response
+    #[Route("/hrmsystem/customQuestion/{id}/edit/{user_id}", name: "customQuestions_edit", methods: ["GET", "PUT", "POST"])]
+    public function customQuestionEdit(Request $request, int $id, int $user_id): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
         $repository = $this->entityManager->getRepository(CustomQuestions::class);
         $customQuestion = $repository->find($id);
 
@@ -288,14 +298,14 @@ class HrmsystemController extends AbstractController
                 $this->entityManager->flush();
 
                 // Redirect after successful form submission (optional)
-                return $this->redirectToRoute('hrmsystem/custom_question');
+                return $this->redirectToRoute('hrmsystem/custom_question', ['id' => $user_id]);
             }
         } catch (\Exception $error) {
             $this->addFlash('danger', 'An error occurred while processing the form.');
             throw $error;
         }
         $repository = $this->entityManager->getRepository(CustomQuestions::class);
-        $customQuestions = $repository->findAll();
+        $customQuestions = $repository->findBy(['user' => $currentUser]);
 
         return $this->render('hrmsystem/edit/customQuestion.html.twig', [
             'controller_name' => 'HrmsystemController',
@@ -338,12 +348,16 @@ class HrmsystemController extends AbstractController
         ]);
     }
     // Resignation
-    #[Route('/hrmsystem/resignation', name: 'hrmsystem/resignation')]
-    public function resignation(Request $request): Response
+    #[Route('/hrmsystem/resignation/{id}', name: 'hrmsystem/resignation', methods: ["GET", "POST"])]
+    public function resignation(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
         $resignation = new Resignation();
-        $form = $this->createForm(ResignationType::class, $resignation);
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $resignation->setUser($user);
+        $form = $this->createForm(ResignationType::class, $resignation,  ['current_user' => $this->getUser()]);
 
         // Handle form submission
         $form->handleRequest($request);
@@ -354,11 +368,11 @@ class HrmsystemController extends AbstractController
             $this->entityManager->flush();
 
             // Redirect after successful form submission (optional)
-            return $this->redirectToRoute('hrmsystem/resignation');
+            return $this->redirectToRoute('hrmsystem/resignation', ['id' => $id]);
         }
 
         $repository = $this->entityManager->getRepository(Resignation::class);
-        $resignations = $repository->findAll();
+        $resignations = $repository->findBy(['user'=> $currentUser]);
 
         return $this->render('hrmsystem/resignation.html.twig', [
             'controller_name' => 'HrmsystemController',
@@ -367,18 +381,21 @@ class HrmsystemController extends AbstractController
         ]);
     }
     // delete resignation
-    #[Route('/resignation/delete/{id}', name: 'resignation_delete', methods: ["GET", "POST"])]
-    public function resignationDelete(Resignation $resignation): Response
+    #[Route('/resignation/{id}/delete/{user_id}', name: 'resignation_delete', methods: ["GET", "POST"])]
+    public function resignationDelete(Resignation $resignation, int $id, int $user_id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $this->entityManager->remove($resignation);
         $this->entityManager->flush();
-        return $this->redirectToRoute('hrmsystem/resignation');
+        return $this->redirectToRoute('hrmsystem/resignation',  ['id' => $user_id]);
     }
     // edit resignation
-    #[Route("/hrmsystem/resignation/{id}/edit", name: "resignation_edit", methods: ["GET", "PUT", "POST"])]
-    public function resignationEdit(Request $request, $id): Response
+    #[Route("/hrmsystem/resignation/{id}/edit/{user_id}", name: "resignation_edit", methods: ["GET", "PUT", "POST"])]
+    public function resignationEdit(Request $request, int $id, int $user_id): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
         $repository = $this->entityManager->getRepository(Resignation::class);
         $resignation = $repository->find($id);
 
@@ -386,7 +403,7 @@ class HrmsystemController extends AbstractController
             throw $this->createNotFoundException('Resignation not found');
         }
 
-        $form = $this->createForm(ResignationType::class, $resignation);
+        $form = $this->createForm(ResignationType::class, $resignation,  ['current_user' => $this->getUser()]);
         try {
             $form->handleRequest($request);
 
@@ -397,14 +414,14 @@ class HrmsystemController extends AbstractController
                 $this->entityManager->flush();
 
                 // Redirect after successful form submission (optional)
-                return $this->redirectToRoute('hrmsystem/resignation');
+                return $this->redirectToRoute('hrmsystem/resignation', ['id' => $user_id]);
             }
         } catch (\Exception $error) {
             $this->addFlash('danger', 'An error occurred while processing the form.');
             throw $error;
         }
         $repository = $this->entityManager->getRepository(Resignation::class);
-        $resignations = $repository->findAll();
+        $resignations = $repository->findBy(['user' => $currentUser]);
 
         return $this->render('hrmsystem/edit/resignation.html.twig', [
             'controller_name' => 'HrmsystemController',
@@ -413,14 +430,16 @@ class HrmsystemController extends AbstractController
         ]);
     }
 
-    #[Route('/hrmsystem/trip', name: 'hrmsystem/trip')]
-    public function trip(Request $request): Response
+    #[Route('/hrmsystem/trip/{id}', name: 'hrmsystem/trip')]
+    public function trip(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
         $trip = new Trip();
-        $form = $this->createForm(TripType::class, $trip);
-
-        // Handle form submission
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $trip->setUser($user);
+        $form = $this->createForm(TripType::class, $trip, ['current_user' => $this->getUser()]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -428,12 +447,11 @@ class HrmsystemController extends AbstractController
             $this->entityManager->persist($trip);
             $this->entityManager->flush();
 
-            // Redirect after successful form submission (optional)
-            return $this->redirectToRoute('hrmsystem/trip');
+            return $this->redirectToRoute('hrmsystem/trip', ['id' => $id]);
         }
 
         $repository = $this->entityManager->getRepository(Trip::class);
-        $trips = $repository->findAll();
+        $trips = $repository->findBy(['user' => $currentUser]);
 
         return $this->render('hrmsystem/trip.html.twig', [
             'controller_name' => 'HrmsystemController',
@@ -442,18 +460,21 @@ class HrmsystemController extends AbstractController
         ]);
     }
     // delete trip
-    #[Route('/hrmsystem/trip/delete/{id}', name: 'trip_delete', methods: ["GET", "POST"])]
-    public function tripDelete(Trip $trip): Response
+    #[Route('/hrmsystem/trip/{id}/delete/{user_id}', name: 'trip_delete', methods: ["GET", "POST"])]
+    public function tripDelete(Trip $trip, int $id, int $user_id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $this->entityManager->remove($trip);
         $this->entityManager->flush();
-        return $this->redirectToRoute('hrmsystem/trip');
+        return $this->redirectToRoute('hrmsystem/trip', ['id' => $user_id]);
     }
     // edit trip
-    #[Route("/hrmsystem/trip/{id}/edit", name: "trip_edit", methods: ["GET", "PUT", "POST"])]
-    public function tripEdit(Request $request, $id): Response
+    #[Route("/hrmsystem/trip/{id}/edit/{user_id}", name: "trip_edit", methods: ["GET", "PUT", "POST"])]
+    public function tripEdit(Request $request, int $id, int $user_id): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
         $repository = $this->entityManager->getRepository(Trip::class);
         $trip = $repository->find($id);
 
@@ -461,7 +482,7 @@ class HrmsystemController extends AbstractController
             throw $this->createNotFoundException('trip not found');
         }
 
-        $form = $this->createForm(TripType::class, $trip);
+        $form = $this->createForm(TripType::class, $trip, ['current_user' => $this->getUser()]);
         try {
             $form->handleRequest($request);
 
@@ -472,14 +493,14 @@ class HrmsystemController extends AbstractController
                 $this->entityManager->flush();
 
                 // Redirect after successful form submission (optional)
-                return $this->redirectToRoute('hrmsystem/trip');
+                return $this->redirectToRoute('hrmsystem/trip', ['id' => $user_id]);
             }
         } catch (\Exception $error) {
             $this->addFlash('danger', 'An error occurred while processing the form.');
             throw $error;
         }
         $repository = $this->entityManager->getRepository(Trip::class);
-        $trips = $repository->findAll();
+        $trips = $repository->findBy(['user' => $currentUser]);
 
         return $this->render('hrmsystem/edit/trip.html.twig', [
             'controller_name' => 'HrmsystemController',
@@ -505,6 +526,7 @@ class HrmsystemController extends AbstractController
         assert($currentUser instanceof User);
         $complaints = new Complaints();
         $user = $this->entityManager->getRepository(User::class)->find($id);
+        $complaints->setUser($user);
         $form = $this->createForm(ComplaintsType::class, $complaints,  ['current_user' => $this->getUser()]);
         $form->handleRequest($request);
 
@@ -527,18 +549,19 @@ class HrmsystemController extends AbstractController
         ]);
     }
     // delete complaints
-    #[Route('/hrmsystem/{id}complaints/delete/{user_id}', name: 'complaints_delete', methods: ["GET", "POST"])]
+    #[Route('/hrmsystem/complaints/{id}/delete/{user_id}', name: 'complaints_delete', methods: ["GET", "POST"])]
     public function ComplaintsDelete(Complaints $complaints, int $id, int $user_id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $this->entityManager->remove($complaints);
         $this->entityManager->flush();
-        return $this->redirectToRoute('hrmsystem/complaints', ['id' => $id]);
+        return $this->redirectToRoute('hrmsystem/complaints', ['id' => $user_id]);
     }
     // edit complaints
     #[Route("/hrmsystem/complaints/{id}/edit/{user_id}", name: "complaints_edit", methods: ["GET", "PUT", "POST"])]
     public function complaintsEdit(Request $request, int $id, int $user_id): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $currentUser = $this->getUser();
         assert($currentUser instanceof User);
         $repository = $this->entityManager->getRepository(Complaints::class);
@@ -574,14 +597,16 @@ class HrmsystemController extends AbstractController
             'complaintss' => $complaintss,
         ]);
     }
-    #[Route('/hrmsystem/warning', name: 'hrmsystem/warning')]
-    public function warning(Request $request): Response
+    #[Route('/hrmsystem/warning/{id}', name: 'hrmsystem/warning')]
+    public function warning(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
         $warning = new Warning();
-        $form = $this->createForm(WarningType::class, $warning);
-
-        // Handle form submission
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $warning->setUser($user);
+        $form = $this->createForm(WarningType::class, $warning, ['current_user' => $this->getUser()]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -590,11 +615,11 @@ class HrmsystemController extends AbstractController
             $this->entityManager->flush();
 
             // Redirect after successful form submission (optional)
-            return $this->redirectToRoute('hrmsystem/warning');
+            return $this->redirectToRoute('hrmsystem/warning', ['id' => $id]);
         }
 
         $repository = $this->entityManager->getRepository(Warning::class);
-        $warnings = $repository->findAll();
+        $warnings = $repository->findBy(['user' => $currentUser]);
 
         return $this->render('hrmsystem/warning.html.twig', [
             'controller_name' => 'HrmsystemController',
@@ -603,18 +628,21 @@ class HrmsystemController extends AbstractController
         ]);
     }
     // delete warning
-    #[Route('/hrmsystem/warning/delete/{id}', name: 'warning_delete', methods: ["GET", "POST"])]
-    public function warningDelete(Warning $warning): Response
+    #[Route('/hrmsystem/warning/{id}/delete/{user_id}', name: 'warning_delete', methods: ["GET", "POST"])]
+    public function warningDelete(Warning $warning, int $id, int $user_id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $this->entityManager->remove($warning);
         $this->entityManager->flush();
-        return $this->redirectToRoute('hrmsystem/warning');
+        return $this->redirectToRoute('hrmsystem/warning', ['id' => $user_id]);
     }
     // edit warning
-    #[Route("/hrmsystem/warning/{id}/edit", name: "warning_edit", methods: ["GET", "PUT", "POST"])]
-    public function warningEdit(Request $request, $id): Response
+    #[Route("/hrmsystem/warning/{id}/edit/{user_id}", name: "warning_edit", methods: ["GET", "PUT", "POST"])]
+    public function warningEdit(Request $request, int $id, int $user_id): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
         $repository = $this->entityManager->getRepository(Warning::class);
         $warning = $repository->find($id);
 
@@ -622,7 +650,7 @@ class HrmsystemController extends AbstractController
             throw $this->createNotFoundException('warning not found');
         }
 
-        $form = $this->createForm(WarningType::class, $warning);
+        $form = $this->createForm(WarningType::class, $warning, ['current_user' => $this->getUser()]);
         try {
             $form->handleRequest($request);
 
@@ -633,14 +661,14 @@ class HrmsystemController extends AbstractController
                 $this->entityManager->flush();
 
                 // Redirect after successful form submission (optional)
-                return $this->redirectToRoute('hrmsystem/warning');
+                return $this->redirectToRoute('hrmsystem/warning', ['id' => $user_id]);
             }
         } catch (\Exception $error) {
             $this->addFlash('danger', 'An error occurred while processing the form.');
             throw $error;
         }
         $repository = $this->entityManager->getRepository(Warning::class);
-        $warnings = $repository->findAll();
+        $warnings = $repository->findBy(['user' => $currentUser]);
 
         return $this->render('hrmsystem/edit/warning.html.twig', [
             'controller_name' => 'HrmsystemController',
@@ -664,14 +692,16 @@ class HrmsystemController extends AbstractController
             'controller_name' => 'HrmsystemController',
         ]);
     }
-    #[Route('/hrmsystem/holidays', name: 'hrmsystem/holidays')]
-    public function holidays(Request $request): Response
+    #[Route('/hrmsystem/holidays/{id}', name: 'hrmsystem/holidays')]
+    public function holidays(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
         $holidays = new Holidays();
-        $form = $this->createForm(HolidaysType::class, $holidays);
-
-        // Handle form submission
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $holidays->setUser($user);
+        $form = $this->createForm(HolidaysType::class, $holidays, ['current_user' => $this->getUser()]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -680,11 +710,11 @@ class HrmsystemController extends AbstractController
             $this->entityManager->flush();
 
             // Redirect after successful form submission (optional)
-            return $this->redirectToRoute('hrmsystem/holidays');
+            return $this->redirectToRoute('hrmsystem/holidays', ['id'=> $id]);
         }
 
         $repository = $this->entityManager->getRepository(Holidays::class);
-        $holidayss = $repository->findAll();
+        $holidayss = $repository->findBy(['user' => $currentUser]);
 
         return $this->render('hrmsystem/holidays.html.twig', [
             'controller_name' => 'HrmsystemController',
@@ -693,18 +723,21 @@ class HrmsystemController extends AbstractController
         ]);
     }
     // holiday delete
-    #[Route('/hrmsystem/holidays/delete/{id}', name: 'holidays_delete', methods: ["GET", "POST"])]
-    public function holidaysDelete(Holidays $holidays): Response
+    #[Route('/hrmsystem/holidays/{id}/delete/{user_id}', name: 'holidays_delete', methods: ["GET", "POST"])]
+    public function holidaysDelete(Holidays $holidays, int $id, int $user_id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $this->entityManager->remove($holidays);
         $this->entityManager->flush();
-        return $this->redirectToRoute('hrmsystem/holidays');
+        return $this->redirectToRoute('hrmsystem/holidays', ['id' => $user_id]);
     }
     // holiday edit
-    #[Route("/hrmsystem/holidays/{id}/edit", name: "holidays_edit", methods: ["GET", "PUT", "POST"])]
-    public function holidaysEdit(Request $request, $id): Response
+    #[Route("/hrmsystem/holidays/{id}/edit/{user_id}", name: "holidays_edit", methods: ["GET", "PUT", "POST"])]
+    public function holidaysEdit(Request $request, int $id, int $user_id): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
         $repository = $this->entityManager->getRepository(Holidays::class);
         $holidays = $repository->find($id);
 
@@ -723,14 +756,14 @@ class HrmsystemController extends AbstractController
                 $this->entityManager->flush();
 
                 // Redirect after successful form submission (optional)
-                return $this->redirectToRoute('hrmsystem/holidays');
+                return $this->redirectToRoute('hrmsystem/holidays', ['id' => $user_id]);
             }
         } catch (\Exception $error) {
             $this->addFlash('danger', 'An error occurred while processing the form.');
             throw $error;
         }
         $repository = $this->entityManager->getRepository(Holidays::class);
-        $holidayss = $repository->findAll();
+        $holidayss = $repository->findBy(['user'=> $currentUser]);
 
         return $this->render('hrmsystem/edit/holidays.html.twig', [
             'controller_name' => 'HrmsystemController',
@@ -754,14 +787,16 @@ class HrmsystemController extends AbstractController
             'controller_name' => 'HrmsystemController',
         ]);
     }
-    #[Route('/hrmsystem/employees_asset_setup', name: 'hrmsystem/employees_asset_setup')]
-    public function employeesAssetSetup(Request $request): Response
+    #[Route('/hrmsystem/employees_asset_setup/{id}', name: 'hrmsystem/employees_asset_setup', methods: ["GET", "POST"])]
+    public function employeesAssetSetup(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
         $employeesAssetSetup = new EmployeesAssetSetup();
-        $form = $this->createForm(EmployeesAssetSetupType::class, $employeesAssetSetup);
-
-        // Handle form submission
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $employeesAssetSetup->setUser($user);
+        $form = $this->createForm(EmployeesAssetSetupType::class, $employeesAssetSetup, ['current_user' => $this->getUser()]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -770,11 +805,11 @@ class HrmsystemController extends AbstractController
             $this->entityManager->flush();
 
             // Redirect after successful form submission (optional)
-            return $this->redirectToRoute('hrmsystem/employees_asset_setup');
+            return $this->redirectToRoute('hrmsystem/employees_asset_setup',  ['id' => $id]);
         }
 
         $repository = $this->entityManager->getRepository(EmployeesAssetSetup::class);
-        $employeesAssetSetups = $repository->findAll();
+        $employeesAssetSetups = $repository->findBy(['user' => $currentUser]);
 
         return $this->render('hrmsystem/employeesAssetSetup.html.twig', [
             'controller_name' => 'HrmsystemController',
@@ -783,18 +818,21 @@ class HrmsystemController extends AbstractController
         ]);
     }
     // delete employeesAssetSetupForm
-    #[Route('/hrmsystem/employees_asset_setup/delete/{id}', name: 'employeesAssetSetup_delete', methods: ["GET", "POST"])]
-    public function employeesAssetSetupDelete(EmployeesAssetSetup $employeesAssetSetup): Response
+    #[Route('/hrmsystem/employees_asset_setup/{id}/delete/{user_id}', name: 'employeesAssetSetup_delete', methods: ["GET", "POST"])]
+    public function employeesAssetSetupDelete(EmployeesAssetSetup $employeesAssetSetup, int $id, int $user_id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $this->entityManager->remove($employeesAssetSetup);
         $this->entityManager->flush();
-        return $this->redirectToRoute('hrmsystem/employees_asset_setup');
+        return $this->redirectToRoute('hrmsystem/employees_asset_setup', ['id' => $user_id]);
     }
     // edit resignation
-    #[Route("/hrmsystem/employees_asset_setup/{id}/edit", name: "employeesAssetSetup_edit", methods: ["GET", "PUT", "POST"])]
-    public function employeesAssetSetupEdit(Request $request, $id): Response
+    #[Route("/hrmsystem/employees_asset_setup/{id}/edit/{user_id}", name: "employeesAssetSetup_edit", methods: ["GET", "PUT", "POST"])]
+    public function employeesAssetSetupEdit(Request $request, int $id, int $user_id): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
         $repository = $this->entityManager->getRepository(EmployeesAssetSetup::class);
         $employeesAssetSetup = $repository->find($id);
 
@@ -813,14 +851,14 @@ class HrmsystemController extends AbstractController
                 $this->entityManager->flush();
 
                 // Redirect after successful form submission (optional)
-                return $this->redirectToRoute('hrmsystem/employees_asset_setup');
+                return $this->redirectToRoute('hrmsystem/employees_asset_setup', ['id' => $user_id]);
             }
         } catch (\Exception $error) {
             $this->addFlash('danger', 'An error occurred while processing the form.');
             throw $error;
         }
         $repository = $this->entityManager->getRepository(employeesAssetSetup::class);
-        $employeesAssetSetups = $repository->findAll();
+        $employeesAssetSetups = $repository->findBy(['user' => $currentUser]);
 
         return $this->render('hrmsystem/edit/employeesAssetSetup.html.twig', [
             'controller_name' => 'HrmsystemController',

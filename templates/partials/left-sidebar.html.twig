@@ -313,7 +313,7 @@
 							<div class="collapse" id="sidebarhrmleavemanagementsetup">
 								<ul class="side-nav-third-level">
 									<li>
-										<a href="{{path("hrmsystem/manage_leave")}}">Manage Leave</a>
+										<a href="{{path("hrmsystem/manage_leave", {id: app.user.id})}}">Manage Leave</a>
 									</li>
 									<li class="side-nav-item">
 										<a data-bs-toggle="collapse" href="#sidebarhrmattendance" aria-expanded="false" aria-controls="sidebarhrmattendance">
@@ -400,7 +400,7 @@
 										<a href="{{path("hrmsystem/job_on-boarding")}}">Job On-boarding</a>
 									</li>
 									<li>
-										<a href="{{path("hrmsystem/custom_question")}}">Custom Question</a>
+										<a href="{{path("hrmsystem/custom_question", {id: app.user.id})}}">Custom Question</a>
 									</li>
 									<li>
 										<a href="{{path("hrmsystem/interview_schedule")}}">Interview Schedule</a>
@@ -427,10 +427,10 @@
 										<a href="{{path("hrmsystem/transfer")}}">Transfer</a>
 									</li>
 									<li>
-										<a href="{{path("hrmsystem/resignation")}}">Resignation</a>
+										<a href="{{path("hrmsystem/resignation", {id: app.user.id})}}">Resignation</a>
 									</li>
 									<li>
-										<a href="{{path("hrmsystem/trip")}}">Trip</a>
+										<a href="{{path("hrmsystem/trip", {id: app.user.id})}}">Trip</a>
 									</li>
 									<li>
 										<a href="{{path("hrmsystem/promotion")}}">Promotion</a>
@@ -439,7 +439,7 @@
 										<a href="{{path("hrmsystem/complaints",  {id: app.user.id})}}">Complaints</a>
 									</li>
 									<li>
-										<a href="{{path("hrmsystem/warning")}}">Warning</a>
+										<a href="{{path("hrmsystem/warning", {id: app.user.id})}}">Warning</a>
 									</li>
 									<li>
 										<a href="{{path("hrmsystem/termination")}}">Termination</a>
@@ -448,7 +448,7 @@
 										<a href="{{path("hrmsystem/announcement")}}">Announcement</a>
 									</li>
 									<li>
-										<a href="{{path("hrmsystem/holidays")}}">Holidays</a>
+										<a href="{{path("hrmsystem/holidays", {id: app.user.id})}}">Holidays</a>
 									</li>
 								</ul>
 							</div>
@@ -460,7 +460,7 @@
 							<a href="{{path("hrmsystem/meeting")}}">Meeting</a>
 						</li>
 						<li>
-							<a href="{{path("hrmsystem/employees_asset_setup")}}">Employees Asset Setup</a>
+							<a href="{{path("hrmsystem/employees_asset_setup", {id: app.user.id})}}">Employees Asset Setup</a>
 						</li>
 						<li>
 							<a href="{{path("hrmsystem/document_setup")}}">Document Setup</a>

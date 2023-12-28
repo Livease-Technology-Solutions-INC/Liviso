@@ -3,37 +3,45 @@
 namespace App\Form\HRMSystem;
 
 use App\Entity\HRMSystem\Complaints;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use App\Form\Account\DataTransformer\UserToIdTransformer;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class ComplaintsType extends AbstractType
 {
+    private UserToIdTransformer $userToIdTransformer;
+    private EntityManagerInterface $entityManager;
+
+    public function __construct(UserToIdTransformer $userToIdTransformer, EntityManagerInterface $entityManager)
+    {
+        $this->userToIdTransformer = $userToIdTransformer;
+        $this->entityManager = $entityManager;
+    }
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('complaintFrom', ChoiceType::class, [
                 'label' => 'Complaint From',
-                'choices' => [
-                    'Automatic' => 'Automatic',
-                ],
+                'choices' => $this->getUserChoices(),
                 'attr' => ['class' => 'form-select m-0'],
             ])
             ->add('complaintAgainst',  ChoiceType::class, [
                 'label' => 'Complaint Against',
-                'choices' => [
-                    'Automatic' => 'Automatic',
-                ],
+                'choices' => $this->getUserChoices(),
                 'attr' => ['class' => 'form-select m-0'],
             ])
             ->add('complaintTitle',  TextType::class, [
                 'label' => 'Complaint Title',
-                'attr' => ['class' => 'form-control m-0',
-                'autocomplete' => 'off'],
+                'attr' => [
+                    'class' => 'form-control m-0',
+                    'autocomplete' => 'off'
+                ],
             ])
             ->add('complaintDate', DateType::class, [
                 'label' => 'Meeting Time',
@@ -48,10 +56,22 @@ class ComplaintsType extends AbstractType
             ->add('description', TextareaType::class, [
                 'attr' => [
                     'class' => 'form-control m-0',
-                    'rows' => 5, 
+                    'rows' => 5,
                     'placeholder' => 'Enter your description here...',
                 ]
             ]);
+    }
+    private function getUserChoices()
+    {
+        $userRepository = $this->entityManager->getRepository('App\Entity\User');
+        $users = $userRepository->findAll();
+
+        $choices = [];
+        foreach ($users as $user) {
+            $choices[$user->getfullName()] = $user;
+        }
+
+        return $choices;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

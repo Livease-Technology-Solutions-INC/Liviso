@@ -2,9 +2,10 @@
 
 namespace App\Entity\HRMSystem;
 
-use App\Repository\HRMSystem\ManageLeaveRepository;
+use App\Entity\User;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\HRMSystem\ManageLeaveRepository;
 
 #[ORM\Entity(repositoryClass: ManageLeaveRepository::class)]
 class ManageLeave
@@ -31,6 +32,10 @@ class ManageLeave
 
     #[ORM\Column(length: 255)]
     private ?string $remark = null;
+
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "zoomMeetings")]
+    #[ORM\JoinColumn(name: "user_id", referencedColumnName: "id")]
+    private ?User $user = null;
 
     public function getId(): ?int
     {
@@ -105,6 +110,18 @@ class ManageLeave
     public function setRemark(string $remark): static
     {
         $this->remark = $remark;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

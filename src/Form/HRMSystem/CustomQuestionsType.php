@@ -35,6 +35,7 @@ class CustomQuestionsType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => CustomQuestions::class,
+            'current_user' => null,
         ]);
     }
 }

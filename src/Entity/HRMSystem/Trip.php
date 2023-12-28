@@ -2,9 +2,10 @@
 
 namespace App\Entity\HRMSystem;
 
-use App\Repository\HRMSystem\TripRepository;
+use App\Entity\User;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\HRMSystem\TripRepository;
 
 #[ORM\Entity(repositoryClass: TripRepository::class)]
 class Trip
@@ -23,6 +24,7 @@ class Trip
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $endDate = null;
 
+
     #[ORM\Column(length: 255)]
     private ?string $purposeOfTrip = null;
 
@@ -31,6 +33,10 @@ class Trip
 
     #[ORM\Column(type: 'text')]
     private ?string $description = null;
+
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "zoomMeetings")]
+    #[ORM\JoinColumn(name: "user_id", referencedColumnName: "id")]
+    private ?User $user = null;
 
     public function getId(): ?int
     {
@@ -105,6 +111,18 @@ class Trip
     public function setDescription(string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }
