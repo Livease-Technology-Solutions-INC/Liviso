@@ -81,7 +81,7 @@
 						</div>
 						<div class="mb-3">
 							{{ form_label(registrationForm.location, null, {'label_attr': {'for': 'email', 'class': 'form-label'}}) }}
-							{{ form_widget(registrationForm.location, { 'attr': {'class': 'form-control', 'placeholder': 'Enter your email', 'id': 'location', 'required': 'required'} }) }}
+							{{ form_widget(registrationForm.location, { 'attr': {'class': 'form-select', 'placeholder': 'Enter your email', 'id': 'location', 'required': 'required'} }) }}
 						</div>
 
 						<div class="mb-3">
@@ -93,7 +93,7 @@
 							<div class="error">
 								{{ form_errors(registrationForm.plainPassword.first) }}
 							</div>
-
+							<br>
 							{{ form_label(registrationForm.plainPassword.second, 'Repeat Password', {'label_attr': {'for': 'password_repeat', 'class': 'form-label'}}) }}
 							<div class="input-group input-group-merge">
 								{{ form_widget(registrationForm.plainPassword.second, { 'attr': {'class': 'form-control', 'placeholder': 'Repeat your password', 'id': 'password_repeat'} }) }}
