@@ -54,6 +54,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $fullName = null;
+
+    #[ORM\Column]
+    private ?string $companyName = null;
+
+    #[ORM\Column]
+    private ?string $location = null;
     
     // ...
     
@@ -642,6 +648,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $resignation->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCompanyName(): ?string
+    {
+        return $this->companyName;
+    }
+
+    public function setCompanyName(string $companyName): static
+    {
+        $this->companyName = $companyName;
+
+        return $this;
+    }
+
+    public function getLocation(): ?string
+    {
+        return $this->location;
+    }
+
+    public function setLocation(string $location): static
+    {
+        $this->location = $location;
 
         return $this;
     }

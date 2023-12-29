@@ -390,7 +390,7 @@ class HrmsystemController extends AbstractController
         return $this->redirectToRoute('hrmsystem/resignation',  ['id' => $user_id]);
     }
     // edit resignation
-    #[Route("/hrmsystem/resignation/{id}/edit/{user_id}", name: "resignation_edit", methods: ["GET", "PUT", "POST"])]
+    #[Route("/hrmsystem/resignation/{id}/edit/{user_idwha}", name: "resignation_edit", methods: ["GET", "PUT", "POST"])]
     public function resignationEdit(Request $request, int $id, int $user_id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');

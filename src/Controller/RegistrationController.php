@@ -28,6 +28,7 @@ class RegistrationController extends AbstractController
             } else {
                 // Handle invalid CSRF token
             }
+            $formData = $form->getData();
             // Get the submitted full name from the form
             $fullName = $form->get('fullName')->getData();
 
@@ -38,7 +39,7 @@ class RegistrationController extends AbstractController
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
-                    $form->get('plainPassword')->getData()
+                    $form->get('plainPassword')->get('first')->getData()
                 )
             );
             $userRepository = $entityManager->getRepository(User::class);
