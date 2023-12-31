@@ -36,7 +36,7 @@ class SupportSystem
     #[ORM\Column(length: 100, type: 'string')]
     private ?string $image = null;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "zoomMeetings")]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "supportSystem")]
     #[ORM\JoinColumn(name: "user_id", referencedColumnName: "id")]
     private ?User $user = null;
 

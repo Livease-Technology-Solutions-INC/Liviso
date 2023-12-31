@@ -31,7 +31,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToOne(targetEntity: UserProfile::class, inversedBy: "user", cascade: ["persist", "remove"])]
+    #[ORM\OneToOne(targetEntity: UserProfile::class, mappedBy: "user", cascade: ["persist", "remove"])]
     private ?UserProfile $profile = null;
     
     #[ORM\OneToMany(targetEntity: UserImage::class, mappedBy: "user", cascade: ["persist", "remove"])]

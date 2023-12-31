@@ -33,7 +33,7 @@ class ManageLeave
     #[ORM\Column(length: 255)]
     private ?string $remark = null;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "zoomMeetings")]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "manageLeave")]
     #[ORM\JoinColumn(name: "user_id", referencedColumnName: "id")]
     private ?User $user = null;
 

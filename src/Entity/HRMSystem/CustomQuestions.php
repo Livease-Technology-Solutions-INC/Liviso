@@ -20,7 +20,7 @@ class CustomQuestions
     #[ORM\Column(length: 255)]
     private ?string $isRequired = null;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "zoomMeetings")]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "customQuestions")]
     #[ORM\JoinColumn(name: "user_id", referencedColumnName: "id")]
     private ?User $user = null;
 

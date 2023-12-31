@@ -24,7 +24,7 @@ class Holidays
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $endDate = null;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "zoomMeetings")]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "holidays")]
     #[ORM\JoinColumn(name: "user_id", referencedColumnName: "id")]
     private ?User $user = null;
 

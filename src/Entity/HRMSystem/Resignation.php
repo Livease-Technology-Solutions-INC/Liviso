@@ -27,7 +27,7 @@ class Resignation
     #[ORM\Column(length: 255)]
     private ?string $Description= null;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "zoomMeetings")]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "resignation")]
     #[ORM\JoinColumn(name: "user_id", referencedColumnName: "id")]
     private ?User $user = null;
 
