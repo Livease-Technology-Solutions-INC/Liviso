@@ -58,7 +58,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $companyName = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?string $location = null;
     
     // ...

@@ -34,6 +34,7 @@ class UsermanagementController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $newUser = $form->getData();
+            $newUser->setCompanyName($existingUser->getCompanyName());
             $newUser->setParentUser($existingUser);
             // Use the PasswordEncoderInterface to hash the password
             $hashedPassword = $userPasswordHasher->hashPassword($newUser, $newUser->getPassword());
@@ -42,12 +43,6 @@ class UsermanagementController extends AbstractController
             $this->entityManager->flush();
             return $this->redirectToRoute('user', ['id' => $id]);
         }
-
-        // $hashedPassword = $userPasswordHasher->hashPassword($newUser, 'password123');
-        // $newUser->setPassword($hashedPassword);
-        // $existingUser->addLinkedUser($newUser);
-
-
         return $this->render('usermanagement/user.html.twig', [
             'controller_name' => 'UsermanagementController',
             'form' => $form->createView(),

@@ -89,103 +89,56 @@
 {% endblock %}
 {% block body %}
 	<div class="row">
-		<div class="col-md-3 mb-4">
-			<div class="card text-center card-2">
-				<div class="card-header border-0 pb-0">
-					<div class="d-flex justify-content-between align-items-center">
-						<h6 class="mb-0">
-							<div class="badge bg-primary p-2 px-3 rounded-3">
-								Admin
-							</div>
-						</h6>
-						<div class="card-header-right float-end">
-							<div class="btn-group card-option">
-								<button
-									type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{# <i class="bi bi-plus-circle-dotted"></i> #}
-								</button>
-								<div class="dropdown-menu dropdown-menu-end">
-									<a href="#!" data-size="lg" data-url="#" data-ajax-popup="true" class="dropdown-item" data-bs-original-title="Edit User">
-										<i class="bi bi-pencil"></i>
-										<span>Edit</span>
-									</a>
-									<form method="POST" action="#" accept-charset="UTF-8" id="delete-form-132"><input name="_method" type="hidden" value="DELETE"><input name="_token" type="hidden" value="q4UTQ0S1spGLbp1qFl5N9vDcE8eW1YX3XkMwbbbv">
-										<a href="#!" class="dropdown-item bs-pass-para">
-											<i class="bi bi-archive"></i>
-											<span>
-												Delete
-											</span>
+		{% for linkedUser in app.user.LinkedUsers %}
+			<div class="col-md-3 mb-4">
+				<div class="card text-center card-2">
+					<div class="card-header border-0 pb-0">
+						<div class="d-flex justify-content-between align-items-center">
+							<h6 class="mb-0">
+								<div class="badge bg-primary p-2 px-3 rounded-3">
+									Admin
+								</div>
+							</h6>
+							<div class="card-header-right float-end">
+								<div class="btn-group card-option">
+									<button
+										type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{# <i class="bi bi-plus-circle-dotted"></i> #}
+									</button>
+									<div class="dropdown-menu dropdown-menu-end">
+										<a href="#!" data-size="lg" data-url="#" data-ajax-popup="true" class="dropdown-item" data-bs-original-title="Edit User">
+											<i class="bi bi-pencil"></i>
+											<span>Edit</span>
 										</a>
-									</form>
-									<a href="#!" data-url="#" data-ajax-popup="true" data-size="md" class="dropdown-item" data-bs-original-title="Reset Password">
-										<i class="bi bi-adjustments"></i>
-										<span>
-											Reset Password</span>
-									</a>
+										<form method="POST" action="#" accept-charset="UTF-8" id="delete-form-132"><input name="_method" type="hidden" value="DELETE"><input name="_token" type="hidden" value="q4UTQ0S1spGLbp1qFl5N9vDcE8eW1YX3XkMwbbbv">
+											<a href="#!" class="dropdown-item bs-pass-para">
+												<i class="bi bi-archive"></i>
+												<span>
+													Delete
+												</span>
+											</a>
+										</form>
+										<a href="#!" data-url="#" data-ajax-popup="true" data-size="md" class="dropdown-item" data-bs-original-title="Reset Password">
+											<i class="bi bi-adjustments"></i>
+											<span>
+												Reset Password</span>
+										</a>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="card-body full-card">
-					<label for="fileInput">
-						<img id="profileImage" src="/images/users/avatar-1.jpg" class="rounded-circle avatar-lg img-thumbnail" alt="profile-image"/>
-					</label>
-					<input type="file" id="fileInput" style="display: none;" disabled>
-					<h4 class=" mt-3 text-primary">Saleem Shahzad</h4>
-					<small class="text-primary">shehziok@gmail.com</small>
-					<p></p>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-3 mb-4">
-			<div class="card text-center card-2">
-				<div class="card-header border-0 pb-0">
-					<div class="d-flex justify-content-between align-items-center">
-						<h6 class="mb-0">
-							<div class="badge bg-primary p-2 px-3 rounded-3">
-								Admin
-							</div>
-						</h6>
-						<div class="card-header-right float-end">
-							<div class="btn-group card-option">
-								<button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									<i class="bi bi-dots-vertical"></i>
-								</button>
-								<div class="dropdown-menu dropdown-menu-end">
-									<a href="#!" data-size="lg" data-url="#" data-ajax-popup="true" class="dropdown-item" data-bs-original-title="Edit User">
-										<i class="bi bi-pencil"></i>
-										<span>Edit</span>
-									</a>
-									<form method="POST" action="#" accept-charset="UTF-8" id="delete-form-134"><input name="_method" type="hidden" value="DELETE"><input name="_token" type="hidden" value="q4UTQ0S1spGLbp1qFl5N9vDcE8eW1YX3XkMwbbbv">
-										<a href="#!" class="dropdown-item bs-pass-para">
-											<i class="bi bi-archive"></i>
-											<span>
-												Delete
-											</span>
-										</a>
-									</form>
-									<a href="#!" data-url="#" data-ajax-popup="true" data-size="md" class="dropdown-item" data-bs-original-title="Reset Password">
-										<i class="bi bi-adjustments"></i>
-										<span>
-											Reset Password</span>
-									</a>
-								</div>
-							</div>
-						</div>
+					<div class="card-body full-card">
+						<label for="fileInput">
+							<img id="profileImage" src="/images/users/avatar-1.jpg" class="rounded-circle avatar-lg img-thumbnail" alt="profile-image"/>
+						</label>
+						<input type="file" id="fileInput" style="display: none;" disabled>
+						<h4 class=" mt-3 text-primary">{{linkedUser}}</h4>
+						<small class="text-primary">{{linkedUser.email}}</small>
+						<p></p>
 					</div>
 				</div>
-				<div class="card-body full-card">
-					<label for="fileInput">
-						<img id="profileImage" src="/images/users/avatar-1.jpg" class="rounded-circle avatar-lg img-thumbnail" alt="profile-image"/>
-					</label>
-					<input type="file" id="fileInput" style="display: none;">
-					<h4 class=" mt-3 text-primary">William Ndubuisi</h4>
-					<small class="text-primary">williamndubuisidev@gmail.com</small>
-					<p></p>
-					<div class="text-center" data-bs-toggle="tooltip" title="" data-bs-original-title="Last Login"></div>
-				</div>
 			</div>
-		</div>
+		{% endfor %}
 	</div>
 {% endblock %}
 {% block javascript %}<!--  Select2 Plugin Js --><script src="/vendor/select2/js/select2.min.js"></script><!-- Daterangepicker Plugin js --><script src="/vendor/daterangepicker/moment.min.js"></script>
