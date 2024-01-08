@@ -18,6 +18,7 @@
 
 	<!-- Flatpickr Timepicker css -->
 	<link href="/vendor/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/css/app.min.css" rel="stylesheet" type="text/css"/>
 {% endblock %}
 
 {% block pagetitle %}
@@ -69,18 +70,46 @@
 									<option value="HI">Secretary</option>
 								</select>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-6 mt-2">
 								{{ form_row(form.password.first) }}
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-6 mt-2">
 								{{ form_row(form.password.second) }}
 							</div>
 						</div>
-						<div class="modal-footer">
+						<div class="modal-footer mt-2">
 							<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
 							<button type="submit" class="btn btn-primary rounded-2">Create</button>
 						</div>
 						{{ form_end(form) }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade rounded-3" id="resetPasswordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog rounded-3">
+			<div class="modal-content rounded-3">
+				<div class="modal-header">
+					<h5 class="modal-title" id="resetPasswordModal">Reset Password</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="modal-body">
+						{{ form_start(resetPasswordForm) }}
+						<div class="row">
+							<div class="col-md-4 mt-2">
+								{{ form_row(resetPasswordForm.password.first) }}
+							</div>
+							<div class="col-md-4 mt-2">
+								{{ form_row(resetPasswordForm.password.second) }}
+							</div>
+						</div>
+						<div class="modal-footer mt-2">
+							<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
+							<button type="submit" class="btn btn-primary rounded-2">Create</button>
+						</div>
+						{{ form_end(resetPasswordForm) }}
 					</div>
 				</div>
 			</div>
@@ -94,10 +123,10 @@
 				<div class="card text-center card-2">
 					<div class="card-header border-0 pb-0">
 						<div class="d-flex justify-content-between align-items-center">
-							<h6 class="mb-0">
-								<div class="badge bg-primary p-2 px-3 rounded-3">
-									Admin
-								</div>
+							<h6
+								class="mb-0">{# <div class="badge bg-primary p-2 px-3 rounded-3">
+																											Admin
+																										</div> #}
 							</h6>
 							<div class="card-header-right float-end">
 								<div class="btn-group card-option">
@@ -109,19 +138,21 @@
 											<i class="bi bi-pencil"></i>
 											<span>Edit</span>
 										</a>
-										<form method="POST" action="#" accept-charset="UTF-8" id="delete-form-132"><input name="_method" type="hidden" value="DELETE"><input name="_token" type="hidden" value="q4UTQ0S1spGLbp1qFl5N9vDcE8eW1YX3XkMwbbbv">
-											<a href="#!" class="dropdown-item bs-pass-para">
+										<form method="POST" action="#" accept-charset="UTF-8" id="delete-form{{linkedUser.id}}"><input name="_method" type="hidden" value="DELETE"><input name="_token" type="hidden" value="q4UTQ0S1spGLbp1qFl5N9vDcE8eW1YX3XkMwbbbv">
+											<a href="{{path("delete/user", {'child_id': linkedUser.id, 'id': app.user.id})}}" class="dropdown-item bs-pass-para">
 												<i class="bi bi-archive"></i>
 												<span>
 													Delete
 												</span>
 											</a>
 										</form>
-										<a href="#!" data-url="#" data-ajax-popup="true" data-size="md" class="dropdown-item" data-bs-original-title="Reset Password">
-											<i class="bi bi-adjustments"></i>
-											<span>
-												Reset Password</span>
-										</a>
+										<button type="button" data-bs-toggle="modal" data-bs-target="#resetPasswordModal">
+											<a href="#!" id="resetPasswordLink" data-url="#" data-ajax-popup="true" data-size="md" class="dropdown-item" data-bs-original-title="Reset Password">
+												<i class="bi bi-lock"></i>
+												<span>
+													Reset Password</span>
+											</a>
+										</button>
 									</div>
 								</div>
 							</div>
@@ -134,14 +165,33 @@
 						<input type="file" id="fileInput" style="display: none;" disabled>
 						<h4 class=" mt-3 text-primary">{{linkedUser}}</h4>
 						<small class="text-primary">{{linkedUser.email}}</small>
-						<p></p>
 					</div>
 				</div>
 			</div>
 		{% endfor %}
 	</div>
 {% endblock %}
-{% block javascript %}<!--  Select2 Plugin Js --><script src="/vendor/select2/js/select2.min.js"></script><!-- Daterangepicker Plugin js --><script src="/vendor/daterangepicker/moment.min.js"></script>
-	<script src="/vendor/daterangepicker/daterangepicker.js"></script><!-- Input Mask Plugin js --><script src="/vendor/jquery-mask-plugin/jquery.mask.min.js"></script><!-- Bootstrap Touchspin Plugin js --><script src="/vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script><!-- Bootstrap Maxlength Plugin js --><script src="/vendor/bootstrap-maxlength/bootstrap-maxlength.min.js"></script><!-- Typehead Plugin js --><script src="/vendor/handlebars/handlebars.min.js"></script>
-	<script src="/vendor/typeahead.js/typeahead.bundle.min.js"></script><!-- Flatpickr Timepicker Plugin js --><script src="/vendor/flatpickr/flatpickr.min.js"></script><!-- Typehead Demo js --><script src="/js/pages/demo.typehead.js"></script><!-- Timepicker Demo js --><script src="/js/pages/demo.flatpickr.js"></script>
+{% block javascript %}
+	<!--  Select2 Plugin Js -->
+	<script src="/vendor/select2/js/select2.min.js"></script>
+	<!-- Daterangepicker Plugin js -->
+	<script src="/vendor/daterangepicker/moment.min.js"></script> 
+	<script src="/vendor/daterangepicker/daterangepicker.js"></script>
+	<!-- Input Mask Plugin js -->
+	<script src="/vendor/jquery-mask-plugin/jquery.mask.min.js"></script>
+	<!-- Bootstrap Touchspin Plugin js -->
+	<script src="/vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+	<!-- Bootstrap Maxlength Plugin js -->
+	<script src="/vendor/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+	<!-- Typehead Plugin js -->
+	<script src="/vendor/handlebars/handlebars.min.js"></script>
+	<script src="/vendor/typeahead.js/typeahead.bundle.min.js"></script>
+	<!-- Flatpickr Timepicker Plugin js -->
+	<script src="/vendor/flatpickr/flatpickr.min.js"></script>
+	<!-- Typehead Demo js -->
+	<script src="/js/pages/demo.typehead.js"></script>
+	<!-- Timepicker Demo js -->
+	<script src="/js/pages/demo.flatpickr.js"></script>
+	{# user functionality #}
+	<script src="/js/pages/modal.js"></script>
 {% endblock %}
