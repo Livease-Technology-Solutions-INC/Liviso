@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Dto\EditUserDto;
 use EditUserType;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Dto\ResetPasswordDto;
+use App\Form\EditUserType as FormEditUserType;
 use App\Form\ResetPasswordType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -54,7 +56,7 @@ class UsermanagementController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-    #[Route('/user/{id}/reset-password/{child_id}', name: 'reset_password/user', methods: ["POST", "GET"])]
+    #[Route('/user/{id}/reset_password/{child_id}', name: 'reset_password/user', methods: ["POST", "GET"])]
     public function resetPassword(Request $request, int $id, int $child_id, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
@@ -103,20 +105,34 @@ class UsermanagementController extends AbstractController
 
         return $this->redirectToRoute('user', ['id' => $id]);
     }
-    public function editUser(Request $request, int $id, int $user_id, User $user)
+    #[Route('/user/{id}/edit_user/{child_id}', name: 'edit/user', methods: ["POST", "GET"])]
+    public function editUser(Request $request, int $id, int $child_id, UserPasswordHasherInterface $userPasswordHasher): Response
     {
-        $form = $this->createForm(EditUserType::class, $user);
-        $form->handleRequest($request);
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Handle form submission for editing user
-            // ...
+        $existingUser = $this->entityManager->getRepository(User::class)->find($child_id);
+
+        if (!$existingUser) {
+            throw $this->createNotFoundException('The existing user does not exist');
+        }
+
+        $editUserDto = new EditUserDto();
+        $editUserForm = $this->createForm(FormEditUserType::class, $editUserDto);
+        $editUserForm->handleRequest($request);
+
+        if ($editUserForm->isSubmitted() && $editUserForm->isValid()) {
+            $editUserDto->setUserId($existingUser->getId());
+            $other = $editUserForm->getData();
+            $existingUser->setfullName($other->getName());
+            // dd($other);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('user', ['id' => $id]);
         }
 
-        return $this->render('usermanagement/user.html.twig', [
-            'form' => $form->createView(),
+        return $this->render('usermanagement/edit/editUser.html.twig', [
+            'controller_name' => 'UsermanagementController',
+            'editUserForm' => $editUserForm->createView(),
         ]);
     }
     #[Route('/role', name: 'role')]

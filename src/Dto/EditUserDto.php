@@ -11,9 +11,7 @@ class EditUserDto
      */
     private $name;
 
-    /**
-     * @Assert\NotBlank()
-     */
+
     private $userId;
 
     public function getName(): ?string
