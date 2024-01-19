@@ -4,19 +4,20 @@ namespace App\Entity;
 
 use App\Entity\Zoom;
 use App\Entity\SupportSystem;
+use App\Entity\HRMSystem\Trip;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Account\UserImage;
+use App\Entity\HRMSystem\Warning;
+use App\Entity\HRMSystem\Holidays;
 use App\Repository\UserRepository;
 use App\Entity\Account\UserProfile;
 use App\Entity\HRMSystem\Complaints;
-use App\Entity\HRMSystem\CustomQuestions;
-use App\Entity\HRMSystem\EmployeesAssetSetup;
-use App\Entity\HRMSystem\Holidays;
 use App\Entity\HRMSystem\ManageLeave;
 use App\Entity\HRMSystem\Resignation;
-use App\Entity\HRMSystem\Trip;
-use App\Entity\HRMSystem\Warning;
+use App\Entity\HRMSystem\GoalTracking;
+use App\Entity\HRMSystem\CustomQuestions;
 use Doctrine\Common\Collections\Collection;
+use App\Entity\HRMSystem\EmployeesAssetSetup;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -107,6 +108,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(targetEntity: Resignation::class, mappedBy: "user")]
     private Collection $resignation;
+
+    #[ORM\OneToMany(targetEntity: GoalTracking::class, mappedBy: "user")]
+    private Collection $goalTracking;
     
     public function __construct()
     {
@@ -125,6 +129,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->warning = new ArrayCollection();
         $this->manageLeave = new ArrayCollection();
         $this->resignation = new ArrayCollection();
+        $this->goalTracking = new ArrayCollection();
     }
 
     public function __toString()
@@ -672,6 +677,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLocation(string $location): static
     {
         $this->location = $location;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, GoalTracking>
+     */
+    public function getGoalTracking(): Collection
+    {
+        return $this->goalTracking;
+    }
+
+    public function addGoalTracking(GoalTracking $goalTracking): static
+    {
+        if (!$this->goalTracking->contains($goalTracking)) {
+            $this->goalTracking->add($goalTracking);
+            $goalTracking->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGoalTracking(GoalTracking $goalTracking): static
+    {
+        if ($this->goalTracking->removeElement($goalTracking)) {
+            // set the owning side to null (unless already changed)
+            if ($goalTracking->getUser() === $this) {
+                $goalTracking->setUser(null);
+            }
+        }
 
         return $this;
     }
