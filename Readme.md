@@ -11,7 +11,7 @@ management.
 Centralised Database<br> Integrations<br> Modules<br> Customization<br> Report
 and Analytics<br> Scalability
 
-## Intsallation
+## Installation
 
 ### Client
 
