@@ -4,7 +4,7 @@ namespace App\Form\HRMSystem;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
-use App\Entity\HRMSystem\EmployeesAssetSetup;
+use App\Entity\HRMSystem\GoalTracking;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -27,22 +27,20 @@ class GoalTrackingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('employee', ChoiceType::class, [
-                'label' => 'Employee',
-                'choices' => $this->getUserChoices(),
+            ->add('branch', TextType::class, [
+                'label' => 'Branch',
                 'attr' => ['class' => 'form-select m-0'],
             ])
-            ->add('employeeName',  TextType::class, [
-                'label' => 'Name',
-                'attr' => ['class' => 'form-control m-0',
-                'autocomplete' => 'off'],
+            ->add('goalType', ChoiceType::class, [
+                'label' => 'Goal Type',
+                'choices' => [
+                    'Long Term Goal' => 'Long Term Goal',
+                    'Short Term Goal' => 'Long Term Goal',
+                ],
+                'attr' => ['class' => 'form-select m-0'],
             ])
-            ->add('amount',  IntegerType::class, [
-                'label' => 'Amount',
-                'attr' => ['class' => 'form-control m-0'],
-            ])
-            ->add('purchaseDate', DateType::class, [
-                'label' => 'Purchase Date',
+            ->add('startDate', DateType::class, [
+                'label' => 'Start Date',
                 'html5' => true,
                 'widget' => 'single_text',
                 'attr' => [
@@ -51,42 +49,55 @@ class GoalTrackingType extends AbstractType
                     'required' => 'required',
                 ],
             ])
-            ->add('supportedDate', DateType::class, [
-                'label' => 'Supported Date',
+            ->add('endDate', DateType::class, [
+                'label' => 'End Date',
                 'html5' => true,
                 'widget' => 'single_text',
                 'attr' => [
                     'class' => 'form-control m-0',
                     'placeholder' => 'Select Date/Time',
                     'required' => 'required',
+                ],
+            ])
+            ->add('subject',  TextType::class, [
+                'label' => 'Subject',
+                'attr' => [
+                    'class' => 'form-control m-0',
+                    'autocomplete' => 'off'
+                ],
+            ])
+            ->add('targetAchievement',  TextType::class, [
+                'label' => 'Target Acheivement',
+                'attr' => [
+                    'class' => 'form-control m-0',
+                    'autocomplete' => 'off'
                 ],
             ])
             ->add('description', TextareaType::class, [
+                'label' => 'Description',
                 'attr' => [
                     'class' => 'form-control m-0',
                     'rows' => 5,
                     'placeholder' => 'Enter your description',
                 ]
+            ])
+            ->add('status', ChoiceType::class, [
+                'label' => 'Status',
+                'choices' => [
+                    'Not Started' => 'Not Started',
+                    'In progress' => 'In progress',
+                    'Completed' => 'Completed',
+                ],
+                'attr' => [
+                    'class' => 'form-select m-0',
+                ]
             ]);
-    }
-
-    private function getUserChoices()
-    {
-        $userRepository = $this->entityManager->getRepository('App\Entity\User');
-        $users = $userRepository->findAll();
-
-        $choices = [];
-        foreach ($users as $user) {
-            $choices[$user->getfullName()] = $user;
-        }
-
-        return $choices;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => EmployeesAssetSetup::class,
+            'data_class' => GoalTracking::class,
             'current_user' => null,
         ]);
     }

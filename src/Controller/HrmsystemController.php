@@ -12,9 +12,11 @@ use App\Entity\HRMSystem\Complaints;
 use App\Form\HRMSystem\HolidaysType;
 use App\Entity\HRMSystem\ManageLeave;
 use App\Entity\HRMSystem\Resignation;
+use App\Entity\HRMSystem\GoalTracking;
 use App\Form\HRMSystem\ComplaintsType;
 use App\Form\HRMSystem\ManageLeaveType;
 use App\Form\HRMSystem\ResignationType;
+use App\Form\HRMSystem\GoalTrackingType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\HRMSystem\CustomQuestions;
 use App\Form\HRMSystem\CustomQuestionsType;
@@ -169,12 +171,34 @@ class HrmsystemController extends AbstractController
             'controller_name' => 'HrmsystemController',
         ]);
     }
-    #[Route('/hrmsystem/goal_tracking', name: 'hrmsystem/goal_tracking')]
-    public function goalTracking(): Response
+    #[Route('/hrmsystem/goal_tracking/{id}', name: 'hrmsystem/goal_tracking')]
+    public function goalTracking(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $goalTracking = new GoalTracking();
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $goalTracking->setUser($user);
+        $form = $this->createForm(GoalTrackingType::class, $goalTracking, ['current_user' => $this->getUser()]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the entity only if the form is submitted and valid
+            $this->entityManager->persist($goalTracking);
+            $this->entityManager->flush();
+
+            // Redirect after successful form submission (optional)
+            return $this->redirectToRoute('goalTracking', ['id' => $id]);
+        }
+
+        $repository = $this->entityManager->getRepository(goalTracking::class);
+        $goalTrackings = $repository->findBy(['user' => $currentUser]);
+
         return $this->render('hrmsystem/goalTracking.html.twig', [
-            'controller_name' => 'HrmsystemController',
+            'controller_name' => 'MainController',
+            'goalTrackings' => $goalTrackings,
+            'form' => $form->createView(),
         ]);
     }
     #[Route('/hrmsystem/training_list', name: 'hrmsystem/training_list')]
@@ -251,7 +275,7 @@ class HrmsystemController extends AbstractController
             $this->entityManager->flush();
 
             // Redirect after successful form submission (optional)
-            return $this->redirectToRoute('hrmsystem/custom_question', ['id'=> $id]);
+            return $this->redirectToRoute('hrmsystem/custom_question', ['id' => $id]);
         }
 
         $repository = $this->entityManager->getRepository(CustomQuestions::class);
@@ -372,7 +396,7 @@ class HrmsystemController extends AbstractController
         }
 
         $repository = $this->entityManager->getRepository(Resignation::class);
-        $resignations = $repository->findBy(['user'=> $currentUser]);
+        $resignations = $repository->findBy(['user' => $currentUser]);
 
         return $this->render('hrmsystem/resignation.html.twig', [
             'controller_name' => 'HrmsystemController',
@@ -710,7 +734,7 @@ class HrmsystemController extends AbstractController
             $this->entityManager->flush();
 
             // Redirect after successful form submission (optional)
-            return $this->redirectToRoute('hrmsystem/holidays', ['id'=> $id]);
+            return $this->redirectToRoute('hrmsystem/holidays', ['id' => $id]);
         }
 
         $repository = $this->entityManager->getRepository(Holidays::class);
@@ -763,7 +787,7 @@ class HrmsystemController extends AbstractController
             throw $error;
         }
         $repository = $this->entityManager->getRepository(Holidays::class);
-        $holidayss = $repository->findBy(['user'=> $currentUser]);
+        $holidayss = $repository->findBy(['user' => $currentUser]);
 
         return $this->render('hrmsystem/edit/holidays.html.twig', [
             'controller_name' => 'HrmsystemController',

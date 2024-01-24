@@ -37,62 +37,63 @@
 				</div>
 				<div class="modal-body">
 					<div class="modal-body">
+						{{form_start(form)}}
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="branch" class="form-label">Branch</label>
-									<input class="form-control " name="branch" type="text" id="branch">
+									{{ form_row(form.branch) }}
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="goal_type" class="form-label">GoalTypes</label>
-									<select class="form-control select" required="required" id="goal_type" name="goal_type">
-										<option value="" selected="selected">Select Goal Type</option>
-									</select>
+									{{ form_row(form.goalType) }}
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="start_date" class="form-label">Start Date</label>
-									<input class="form-control " name="start_date" type="date" id="start_date">
+									{{ form_row(form.startDate) }}
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="end_date" class="form-label">End Date</label>
-									<input class="form-control " name="end_date" type="date" id="end_date">
+									{{ form_row(form.endDate) }}
 								</div>
 							</div>
 							<div class="col-md-12">
 								<div class="form-group">
-									<label for="subject" class="form-label">Subject</label>
-									<input class="form-control" name="subject" type="text" id="subject">
+									{{ form_row(form.subject) }}
 								</div>
 							</div>
 							<div class="col-md-12">
 								<div class="form-group">
-									<label for="target_achievement" class="form-label">Target Achievement</label>
-									<input class="form-control" name="target_achievement" type="text" id="target_achievement">
+									{{ form_row(form.targetAchievement) }}
 								</div>
 							</div>
 							<div class="col-md-12">
 								<div class="form-group">
-									<label for="description" class="form-label">Description</label>
-									<textarea class="form-control description" name="description" cols="50" rows="10" id="description"></textarea>
+									{{ form_row(form.description) }}
 								</div>
 							</div>
 							<div class="col-md-12">
 								<div class="form-group">
-									<label for="status" class="form-label">Status</label>
-									<select class="form-control select" id="status" name="status">
-										<option value="0">Not Started</option>
-										<option value="1">In Progress</option>
-										<option value="2">Completed</option>
-									</select>
+									{{ form_row(form.status) }}
 								</div>
 							</div>
-
+							<div class="rating-css">
+								<div>star rating system<br>using html & css</div>
+								<div class="star-icon">
+									<input type="radio" name="rating1" id="rating1">
+									<label for="rating1" class="fa fa-star"></label>
+									<input type="radio" name="rating2" id="rating1">
+									<label for="rating2" class="fa fa-star"></label>
+									<input type="radio" name="rating3" id="rating1">
+									<label for="rating3" class="fa fa-star"></label>
+									<input type="radio" name="rating4" id="rating1">
+									<label for="rating4" class="fa fa-star"></label>
+									<input type="radio" name="rating5" id="rating1">
+									<label for="rating5" class="fa fa-star"></label>
+								</div>
+							</div>
 							<div class="col-md-12">
 								<fieldset id="demo1" class="rating">
 									<input class="stars" type="radio" id="rating-5" name="rating" value="5">
@@ -108,11 +109,12 @@
 								</fieldset>
 							</div>
 						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
+							<button type="submit" class="btn btn-primary rounded-2">Create</button>
+						</div>
+						{{form_end(form)}}
 					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-primary rounded-2">Create</button>
 				</div>
 			</div>
 		</div>
@@ -140,14 +142,18 @@
 							</tr>
 						</thead>
 						<tbody>
-							{# <tr>
-																																				<td>Cara Stevens</td>
-																																				<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-																																				<td>New York</td>
-																																				<td>46</td>
-																																				<td>2011/12/06</td>
-																																				<td>2011/12/06</td>
-																																			</tr> #}
+							{% for goalTracking in goalTrackings %}
+								<tr>
+									<td>{{goalTracking.branch}}</td>
+									<td>{{goalTracking.goalType}}</td>
+									<td>{{goalTracking.startDate}}</td>
+									<td>{{goalTracking.endDate}}</td>
+									<td>{{goalTracking.subject}}</td>
+									<td>{{goalTracking.targetAchievement}}</td>
+									<td>{{goalTracking.description}}</td>
+									<td>{{goalTracking.status}}</td>
+								</tr>
+							{% endfor %}
 						</tbody>
 					</table>
 

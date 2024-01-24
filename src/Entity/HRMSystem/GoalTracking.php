@@ -33,11 +33,17 @@ class GoalTracking
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $endDate = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $rating = null;
 
     #[ORM\Column(length: 255)]
     private ?string $progress = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $status = null;
+
+    #[ORM\Column(length: 3000)]
+    private ?string $description = null;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "GoalTracking")]
     #[ORM\JoinColumn(name: "user_id", referencedColumnName: "id")]
@@ -152,6 +158,30 @@ class GoalTracking
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): static
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): static
+    {
+        $this->description = $description;
 
         return $this;
     }
