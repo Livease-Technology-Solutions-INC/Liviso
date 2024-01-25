@@ -355,7 +355,7 @@ html[data-sidenav-size="condensed"]:not([data-layout="topnav"]) {
                     display: none;
                     height: inherit !important;
                     transition: none !important;
-
+                    visibility: hidden;
                     .side-nav-second-level,
                     .side-nav-third-level,
                     .side-nav-forth-level {
@@ -392,7 +392,7 @@ html[data-sidenav-size="condensed"]:not([data-layout="topnav"]) {
                             min-width: calc($leftbar-width-sm - calc($menu-item-padding-x * 2));
                             font-size: 1.25rem;
                         }
-
+                        
                         &:hover,
                         &:active,
                         &:focus {
@@ -412,12 +412,12 @@ html[data-sidenav-size="condensed"]:not([data-layout="topnav"]) {
                     &:hover {
                         .side-nav-link {
                             position: relative;
-                            color: $white;
-                            background: $menu-condensed-link-bg;
+                            // color: $white;
+                            // background: $menu-condensed-link-bg;
                             width: $leftbar-width;
 
                             span {
-                                visibility: visible;
+                                visibility: hidden;
 
                                 &:not(.badge) {
                                     margin-left: $menu-item-padding-x;
