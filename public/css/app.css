@@ -14835,6 +14835,7 @@ html[data-sidenav-size=condensed]:not([data-layout=topnav]) .wrapper .leftside-m
   height: inherit !important;
   -webkit-transition: none !important;
   transition: none !important;
+  visibility: hidden;
 }
 html[data-sidenav-size=condensed]:not([data-layout=topnav]) .wrapper .leftside-menu .side-nav .collapse .side-nav-second-level,
 html[data-sidenav-size=condensed]:not([data-layout=topnav]) .wrapper .leftside-menu .side-nav .collapse .side-nav-third-level,
@@ -14895,12 +14896,10 @@ html[data-sidenav-size=condensed]:not([data-layout=topnav]) .wrapper .leftside-m
 }
 html[data-sidenav-size=condensed]:not([data-layout=topnav]) .wrapper .leftside-menu .side-nav .side-nav-item:hover .side-nav-link {
   position: relative;
-  color: #fff;
-  background: var(--ct-menu-condensed-link-bg);
   width: var(--ct-leftbar-width);
 }
 html[data-sidenav-size=condensed]:not([data-layout=topnav]) .wrapper .leftside-menu .side-nav .side-nav-item:hover .side-nav-link span {
-  visibility: visible;
+  visibility: hidden;
 }
 html[data-sidenav-size=condensed]:not([data-layout=topnav]) .wrapper .leftside-menu .side-nav .side-nav-item:hover .side-nav-link span:not(.badge) {
   margin-left: var(--ct-menu-item-padding-x);
@@ -18705,6 +18704,10 @@ html[data-bs-theme=dark] .auth-brand .logo-dark {
   padding: none;
   margin: none;
   text-align: left !important;
+}
+
+.rating-css input {
+  display: none;
 }
 
 .apex-charts {

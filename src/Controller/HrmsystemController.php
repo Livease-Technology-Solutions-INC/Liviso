@@ -91,7 +91,7 @@ class HrmsystemController extends AbstractController
         ]);
     }
     // delete manage leave
-    #[Route('/manage_leave/{id}/delete/{user_id}', name: 'manageleave_delete', methods: ["GET", "POST"])]
+    #[Route('/hrmsystem/manage_leave/{id}/delete/{user_id}', name: 'manageleave_delete', methods: ["GET", "POST"])]
     public function manageleaveDelete(Manageleave $Manageleave, int $id, int $user_id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
@@ -201,14 +201,81 @@ class HrmsystemController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-    #[Route('/hrmsystem/training_list', name: 'hrmsystem/training_list')]
-    public function trainingList(): Response
+    // delete goal Tracking
+    #[Route('/hrmsystem/goal_tracking/{id}/delete/{user_id}', name: 'goalTracking_delete', methods: ["GET", "POST"])]
+    public function goalTrackingDelete(goalTracking $goalTracking, int $id, int $user_id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        return $this->render('hrmsystem/trainingList.html.twig', [
-            'controller_name' => 'HrmsystemController',
+        $this->entityManager->remove($goalTracking);
+        $this->entityManager->flush();
+        return $this->redirectToRoute('hrmsystem/goal_tracking', ['id' => $user_id]);
+    }
+    // edit manage_leave
+    #[Route("/hrmsystem/goal_tracking/{id}/edit/{user_id}", name: "goalTracking_edit", methods: ["GET", "PUT", "POST"])]
+    public function goalTrackingEdit(Request $request, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $repository = $this->entityManager->getRepository(GoalTracking::class);
+        $goalTracking = $repository->find($id);
+        if (!$goalTracking) {
+            throw $this->createNotFoundException('goalTracking not found');
+        }
+        $form = $this->createForm(GoalTrackingType::class, $goalTracking,  ['current_user' => $this->getUser()]);
+        try {
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Persist the entity only if the form is submitted and valid
+                $goalTracking = $form->getData();
+                $this->entityManager->persist($goalTracking);
+                $this->entityManager->flush();
+                // Redirect after successful form submission (optional)
+                return $this->redirectToRoute('hrmsystem/goal_tracking', ['id' => $user_id]);
+            }
+        } catch (\Exception $error) {
+            $this->addFlash('danger', 'An error occurred while processing the form.');
+            throw $error;
+        }
+        $repository = $this->entityManager->getRepository(goalTracking::class);
+        $goalTrackings = $repository->findBy(['user' => $currentUser]);
+
+        return $this->render('hrmsystem/edit/goalTracking.html.twig', [
+            'controllername' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'goalTrackings' => $goalTrackings,
         ]);
     }
+    // #[Route('/hrmsystem/training_list/{id}', name: 'hrmsystem/training_list')]
+    // public function trainingList(Request $request, int $id): Response
+    // {
+    //     $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+    //     $currentUser = $this->getUser();
+    //     assert($currentUser instanceof User);
+    //     $trainingList = new TrainingList();
+    //     $user = $this->entityManager->getRepository(User::class)->find($id);
+    //     $trainingList->setUser($user);
+    //     $form = $this->createForm(TrainingListType::class, $trainingList, ['current_user' => $this->getUser()]);
+    //     $form->handleRequest($request);
+
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         // Persist the entity only if the form is submitted and valid
+    //         $this->entityManager->persist($trainingList);
+    //         $this->entityManager->flush();
+
+    //         // Redirect after successful form submission (optional)
+    //         return $this->redirectToRoute('trainingList', ['id' => $id]);
+    //     }
+
+    //     $repository = $this->entityManager->getRepository(TrainingList::class);
+    //     $trainingLists = $repository->findBy(['user' => $currentUser]);
+
+    //     return $this->render('hrmsystem/trainingList.html.twig', [
+    //         'controller_name' => 'MainController',
+    //         'trainingLists' => $trainingLists,
+    //         'form' => $form->createView(),
+    //     ]);
+    // }
     #[Route('/hrmsystem/trainer', name: 'hrmsystem/trainer')]
     public function trainer(): Response
     {

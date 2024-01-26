@@ -37,9 +37,6 @@ class GoalTracking
     private ?string $rating = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $progress = null;
-
-    #[ORM\Column(length: 255)]
     private ?string $status = null;
 
     #[ORM\Column(length: 3000)]
@@ -134,18 +131,6 @@ class GoalTracking
     public function setRating(string $rating): static
     {
         $this->rating = $rating;
-
-        return $this;
-    }
-
-    public function getProgress(): ?string
-    {
-        return $this->progress;
-    }
-
-    public function setProgress(string $progress): static
-    {
-        $this->progress = $progress;
 
         return $this;
     }

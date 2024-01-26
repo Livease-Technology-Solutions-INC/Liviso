@@ -111,6 +111,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(targetEntity: GoalTracking::class, mappedBy: "user")]
     private Collection $goalTracking;
+
+    // #[ORM\OneToMany(targetEntity: TrainingList::class, mappedBy: "user")]
+    // private Collection $trainingList;
     
     public function __construct()
     {
@@ -130,6 +133,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->manageLeave = new ArrayCollection();
         $this->resignation = new ArrayCollection();
         $this->goalTracking = new ArrayCollection();
+        // $this->trainingList = new ArrayCollection();
     }
 
     public function __toString()
@@ -710,4 +714,34 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    // /**
+    //  * @return Collection<int, TrainingList>
+    //  */
+    // public function getTrainingList(): Collection
+    // {
+    //     return $this->trainingList;
+    // }
+
+    // public function addTrainingList(TrainingList $trainingList): static
+    // {
+    //     if (!$this->trainingList->contains($trainingList)) {
+    //         $this->trainingList->add($trainingList);
+    //         $trainingList->setUser($this);
+    //     }
+
+    //     return $this;
+    // }
+
+    // public function removeTrainingList(TrainingList $trainingList): static
+    // {
+    //     if ($this->trainingList->removeElement($trainingList)) {
+    //         // set the owning side to null (unless already changed)
+    //         if ($trainingList->getUser() === $this) {
+    //             $trainingList->setUser(null);
+    //         }
+    //     }
+
+    //     return $this;
+    // }
 }
