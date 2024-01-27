@@ -5,8 +5,10 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\HRMSystem\Trip;
 use App\Form\HRMSystem\TripType;
+use App\Entity\HRMSystem\Trainer;
 use App\Entity\HRMSystem\Warning;
 use App\Entity\HRMSystem\Holidays;
+use App\Form\HRMSystem\TrainerType;
 use App\Form\HRMSystem\WarningType;
 use App\Entity\HRMSystem\Complaints;
 use App\Form\HRMSystem\HolidaysType;
@@ -276,12 +278,77 @@ class HrmsystemController extends AbstractController
     //         'form' => $form->createView(),
     //     ]);
     // }
-    #[Route('/hrmsystem/trainer', name: 'hrmsystem/trainer')]
-    public function trainer(): Response
+    #[Route('/hrmsystem/trainer/{id}', name: 'hrmsystem/trainer', methods: ["GET", "PUT", "POST"])]
+    public function trainer(Request $request, int $id, int $user_id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $trainer = new Trainer();
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $trainer->setUser($user);
+        $form = $this->createForm(TrainerType::class, $trainer, ['current_user' => $this->getUser()]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the entity only if the form is submitted and valid
+            $this->entityManager->persist($trainer);
+            $this->entityManager->flush();
+
+            // Redirect after successful form submission (optional)
+            return $this->redirectToRoute('trainer', ['id' => $id]);
+        }
+
+        $repository = $this->entityManager->getRepository(trainer::class);
+        $trainers = $repository->findBy(['user' => $currentUser]);
+
         return $this->render('hrmsystem/trainer.html.twig', [
-            'controller_name' => 'HrmsystemController',
+            'controller_name' => 'MainController',
+            'trainers' => $trainers,
+            'form' => $form->createView(),
+        ]);
+    }
+    #[Route('/hrmsystem/trainer/{id}/delete/{user_id}', name: 'trainer_delete', methods: ["GET", "POST"])]
+    public function trainerDelete(trainer $trainer, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->entityManager->remove($trainer);
+        $this->entityManager->flush();
+        return $this->redirectToRoute('hrmsystem/goal_tracking', ['id' => $user_id]);
+    }
+    #[Route('/hrmsystem/trainer/{id}/edit/{user_id}', name: 'trainer_edit', methods: ["GET", "PUT", "POST"])]
+    public function trainerEdit(Request $request, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $repository = $this->entityManager->getRepository(Trainer::class);
+        $trainer = $repository->find($id);
+        if (!$trainer) {
+            throw $this->createNotFoundException('trainer not found');
+        }
+        $form = $this->createForm(TrainerType::class, $trainer,  ['current_user' => $this->getUser()]);
+        try {
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Persist the entity only if the form is submitted and valid
+                $trainer = $form->getData();
+                $this->entityManager->persist($trainer);
+                $this->entityManager->flush();
+                // Redirect after successful form submission (optional)
+                return $this->redirectToRoute('hrmsystem/goal_tracking', ['id' => $user_id]);
+            }
+        } catch (\Exception $error) {
+            $this->addFlash('danger', 'An error occurred while processing the form.');
+            throw $error;
+        }
+        $repository = $this->entityManager->getRepository(trainer::class);
+        $trainers = $repository->findBy(['user' => $currentUser]);
+
+        return $this->render('hrmsystem/edit/trainer.html.twig', [
+            'controllername' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'trainers' => $trainers,
         ]);
     }
     #[Route('/hrmsystem/jobs', name: 'hrmsystem/jobs')]

@@ -2,18 +2,17 @@
 
 namespace App\Form\HRMSystem;
 
-use App\Entity\HRMSystem\Trip;
+use App\Entity\HRMSystem\Trainer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use App\Form\Account\DataTransformer\UserToIdTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
-class TripType extends AbstractType
+class TrainerType extends AbstractType
 {
     private UserToIdTransformer $userToIdTransformer;
     private EntityManagerInterface $entityManager;
@@ -68,7 +67,7 @@ class TripType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Trip::class,
+            'data_class' => Trainer::class,
             'current_user' => null,
         ]);
     }
