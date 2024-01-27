@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use App\Form\Account\DataTransformer\UserToIdTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -41,7 +42,7 @@ class TrainerType extends AbstractType
                 'label' => 'LastName',
                 'attr' => ['class' => 'form-control m-0'],
             ])
-            ->add('contact', TextType::class, [
+            ->add('contact', TelType::class, [
                 'label' => 'Contact',
                 'attr' => ['class' => 'form-control m-0'],
             ])
@@ -60,7 +61,7 @@ class TrainerType extends AbstractType
                 'attr' => [
                     'class' => 'form-control m-0',
                     'rows' => 5,
-                    'placeholder' => 'Enter your description',
+                    'placeholder' => 'Enter your address',
                 ]
             ]);
     }

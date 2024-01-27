@@ -367,10 +367,10 @@
 							<div class="collapse" id="sidebarhrmtrainingsetup">
 								<ul class="side-nav-third-level">
 									<li>
-										<a href="{{path("hrmsystem/training_list")}}">Training List</a>
+										<a href="{{path("hrmsystem/training_list", {id:app.user.id})}}">Training List</a>
 									</li>
 									<li>
-										<a href="{{path("hrmsystem/trainer")}}">Trainer</a>
+										<a href="{{path("hrmsystem/trainer", {id:app.user.id})}}">Trainer</a>
 									</li>
 								</ul>
 							</div>

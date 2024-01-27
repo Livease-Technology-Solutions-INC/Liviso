@@ -24,7 +24,7 @@ class Trainer
     #[ORM\Column(length: 255)]
     private ?string $lastName = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 20)]
     private ?string $contact = null;
 
     #[ORM\Column(length: 255)]

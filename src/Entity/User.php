@@ -7,6 +7,7 @@ use App\Entity\SupportSystem;
 use App\Entity\HRMSystem\Trip;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Account\UserImage;
+use App\Entity\HRMSystem\Trainer;
 use App\Entity\HRMSystem\Warning;
 use App\Entity\HRMSystem\Holidays;
 use App\Repository\UserRepository;
@@ -111,9 +112,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(targetEntity: GoalTracking::class, mappedBy: "user")]
     private Collection $goalTracking;
-
+    
+    
     // #[ORM\OneToMany(targetEntity: TrainingList::class, mappedBy: "user")]
     // private Collection $trainingList;
+
+    #[ORM\OneToMany(targetEntity: Trainer::class, mappedBy: "user")]
+    private Collection $trainer;
     
     public function __construct()
     {
@@ -134,6 +139,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->resignation = new ArrayCollection();
         $this->goalTracking = new ArrayCollection();
         // $this->trainingList = new ArrayCollection();
+        $this->trainer = new ArrayCollection();
     }
 
     public function __toString()
@@ -744,4 +750,34 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     //     return $this;
     // }
+
+    /**
+     * @return Collection<int, Trainer>
+     */
+    public function getTrainer(): Collection
+    {
+        return $this->trainer;
+    }
+
+    public function addTrainer(Trainer $trainer): static
+    {
+        if (!$this->trainer->contains($trainer)) {
+            $this->trainer->add($trainer);
+            $trainer->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTrainer(Trainer $trainer): static
+    {
+        if ($this->trainer->removeElement($trainer)) {
+            // set the owning side to null (unless already changed)
+            if ($trainer->getUser() === $this) {
+                $trainer->setUser(null);
+            }
+        }
+
+        return $this;
+    }
 }
