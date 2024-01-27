@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Entity\Zoom;
 use App\Entity\SupportSystem;
 use App\Entity\HRMSystem\Trip;
+use App\Entity\HRMSystem\Award;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Account\UserImage;
 use App\Entity\HRMSystem\Trainer;
@@ -120,6 +121,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Trainer::class, mappedBy: "user")]
     private Collection $trainer;
     
+    #[ORM\OneToMany(targetEntity: Award::class, mappedBy: "user")]
+    private Collection $award;
+    
     public function __construct()
     {
         $this->profile = new UserProfile();
@@ -140,6 +144,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->goalTracking = new ArrayCollection();
         // $this->trainingList = new ArrayCollection();
         $this->trainer = new ArrayCollection();
+        $this->award = new ArrayCollection();
     }
 
     public function __toString()
@@ -775,6 +780,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($trainer->getUser() === $this) {
                 $trainer->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Award>
+     */
+    public function getAward(): Collection
+    {
+        return $this->award;
+    }
+
+    public function addAward(Award $award): static
+    {
+        if (!$this->award->contains($award)) {
+            $this->award->add($award);
+            $award->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAward(Award $award): static
+    {
+        if ($this->award->removeElement($award)) {
+            // set the owning side to null (unless already changed)
+            if ($award->getUser() === $this) {
+                $award->setUser(null);
             }
         }
 
