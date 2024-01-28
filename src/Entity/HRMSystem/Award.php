@@ -5,7 +5,7 @@ namespace App\Entity\HRMSystem;
 use App\Entity\User;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\HRMSystem\AwardComplaintsRepository;
+use App\Repository\HRMSystem\AwardRepository;
 
 #[ORM\Entity(repositoryClass: AwardRepository::class)]
 class Award
@@ -21,9 +21,8 @@ class Award
     #[ORM\Column(length: 255)]
     private ?string $awardType = null;
 
-
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $Date = null;
+    private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(length: 255)]
     private ?string $gift= null;
@@ -66,12 +65,12 @@ class Award
 
     public function getDate(): ?\DateTimeInterface
     {
-        return $this->Date;
+        return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $Date): static
+    public function setDate(\DateTimeInterface $date): static
     {
-        $this->Date = $Date;
+        $this->date = $date;
 
         return $this;
     }

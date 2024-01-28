@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\HRMSystem\Trip;
+use App\Entity\HRMSystem\Award;
 use App\Form\HRMSystem\TripType;
 use App\Entity\HRMSystem\Trainer;
 use App\Entity\HRMSystem\Warning;
+use App\Form\HRMSystem\AwardType;
 use App\Entity\HRMSystem\Holidays;
 use App\Form\HRMSystem\TrainerType;
 use App\Form\HRMSystem\WarningType;
@@ -467,12 +469,79 @@ class HrmsystemController extends AbstractController
             'controller_name' => 'HrmsystemController',
         ]);
     }
-    #[Route('/hrmsystem/award', name: 'hrmsystem/award')]
-    public function award(): Response
+    #[Route('/hrmsystem/award/{id}', name: 'hrmsystem/award', methods: ["GET", "PUT", "POST"])]
+    public function award(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $award = new Award();
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $award->setUser($user);
+        $form = $this->createForm(AwardType::class, $award, ['current_user' => $this->getUser()]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the entity only if the form is submitted and valid
+            $this->entityManager->persist($award);
+            $this->entityManager->flush();
+
+            // Redirect after successful form submission (optional)
+            return $this->redirectToRoute('hrmsystem/award', ['id' => $id]);
+        }
+
+        $repository = $this->entityManager->getRepository(award::class);
+        $awards = $repository->findBy(['user' => $currentUser]);
+
         return $this->render('hrmsystem/award.html.twig', [
-            'controller_name' => 'HrmsystemController',
+            'controller_name' => 'MainController',
+            'awards' => $awards,
+            'form' => $form->createView(),
+        ]);
+    }
+    // delete award 
+    #[Route('/hrmsystem/award/{id}/delete/{user_id}', name: 'award_delete', methods: ["GET", "POST"])]
+    public function awardDelete(award $award, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->entityManager->remove($award);
+        $this->entityManager->flush();
+        return $this->redirectToRoute('hrmsystem/award', ['id' => $user_id]);
+    }
+    // edit award
+    #[Route("/hrmsystem/award/{id}/edit/{user_id}", name: "award_edit", methods: ["GET", "PUT", "POST"])]
+    public function awardEdit(Request $request, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $repository = $this->entityManager->getRepository(Award::class);
+        $award = $repository->find($id);
+        if (!$award) {
+            throw $this->createNotFoundException('award not found');
+        }
+        $form = $this->createForm(AwardType::class, $award,  ['current_user' => $this->getUser()]);
+        try {
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Persist the entity only if the form is submitted and valid
+                $award = $form->getData();
+                $this->entityManager->persist($award);
+                $this->entityManager->flush();
+                // Redirect after successful form submission (optional)
+                return $this->redirectToRoute('hrmsystem/award', ['id' => $user_id]);
+            }
+        } catch (\Exception $error) {
+            $this->addFlash('danger', 'An error occurred while processing the form.');
+            throw $error;
+        }
+        $repository = $this->entityManager->getRepository(award::class);
+        $awards = $repository->findBy(['user' => $currentUser]);
+
+        return $this->render('hrmsystem/edit/award.html.twig', [
+            'controllername' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'awards' => $awards,
         ]);
     }
     #[Route('/hrmsystem/transfer', name: 'hrmsystem/transfer')]

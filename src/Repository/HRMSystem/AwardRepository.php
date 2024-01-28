@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity\HRMSystem;
+namespace App\Repository\HRMSystem;
 
 use App\Entity\HRMSystem\Award;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
