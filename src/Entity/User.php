@@ -14,6 +14,7 @@ use App\Entity\HRMSystem\Holidays;
 use App\Entity\HRMSystem\Transfer;
 use App\Repository\UserRepository;
 use App\Entity\Account\UserProfile;
+use App\Entity\HRMSystem\Promotion;
 use App\Entity\HRMSystem\Complaints;
 use App\Entity\HRMSystem\ManageLeave;
 use App\Entity\HRMSystem\Resignation;
@@ -128,6 +129,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Transfer::class, mappedBy: "user")]
     private Collection $transfer;
     
+    #[ORM\OneToMany(targetEntity: Promotion::class, mappedBy: "user")]
+    private Collection $promotion;
+    
     public function __construct()
     {
         $this->profile = new UserProfile();
@@ -150,6 +154,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->trainer = new ArrayCollection();
         $this->award = new ArrayCollection();
         $this->transfer = new ArrayCollection();
+        $this->promotion = new ArrayCollection();
     }
 
     public function __toString()
@@ -845,6 +850,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($transfer->getUser() === $this) {
                 $transfer->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Promotion>
+     */
+    public function getPromotion(): Collection
+    {
+        return $this->promotion;
+    }
+
+    public function addPromotion(Promotion $promotion): static
+    {
+        if (!$this->promotion->contains($promotion)) {
+            $this->promotion->add($promotion);
+            $promotion->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePromotion(Promotion $promotion): static
+    {
+        if ($this->promotion->removeElement($promotion)) {
+            // set the owning side to null (unless already changed)
+            if ($promotion->getUser() === $this) {
+                $promotion->setUser(null);
             }
         }
 
