@@ -10,10 +10,12 @@ use App\Entity\HRMSystem\Trainer;
 use App\Entity\HRMSystem\Warning;
 use App\Form\HRMSystem\AwardType;
 use App\Entity\HRMSystem\Holidays;
+use App\Entity\HRMSystem\Transfer;
 use App\Form\HRMSystem\TrainerType;
 use App\Form\HRMSystem\WarningType;
 use App\Entity\HRMSystem\Complaints;
 use App\Form\HRMSystem\HolidaysType;
+use App\Form\HRMSystem\TransferType;
 use App\Entity\HRMSystem\ManageLeave;
 use App\Entity\HRMSystem\Resignation;
 use App\Entity\HRMSystem\GoalTracking;
@@ -544,12 +546,79 @@ class HrmsystemController extends AbstractController
             'awards' => $awards,
         ]);
     }
-    #[Route('/hrmsystem/transfer', name: 'hrmsystem/transfer')]
-    public function transfer(): Response
+    #[Route('/hrmsystem/transfer/{id}', name: 'hrmsystem/transfer',  methods: ["GET", "PUT", "POST"])]
+    public function transfer(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $transfer = new Transfer();
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $transfer->setUser($user);
+        $form = $this->createForm(TransferType::class, $transfer, ['current_user' => $this->getUser()]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the entity only if the form is submitted and valid
+            $this->entityManager->persist($transfer);
+            $this->entityManager->flush();
+
+            // Redirect after successful form submission (optional)
+            return $this->redirectToRoute('hrmsystem/transfer', ['id' => $id]);
+        }
+
+        $repository = $this->entityManager->getRepository(transfer::class);
+        $transfers = $repository->findBy(['user' => $currentUser]);
+
         return $this->render('hrmsystem/transfer.html.twig', [
             'controller_name' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'transfers' => $transfers
+        ]);
+    }
+    // delete transfer 
+    #[Route('/hrmsystem/transfer/{id}/delete/{user_id}', name: 'transfer_delete', methods: ["GET", "POST"])]
+    public function transferDelete(transfer $transfer, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->entityManager->remove($transfer);
+        $this->entityManager->flush();
+        return $this->redirectToRoute('hrmsystem/transfer', ['id' => $user_id]);
+    }
+    // edit transfer
+    #[Route("/hrmsystem/transfer/{id}/edit/{user_id}", name: "transfer_edit", methods: ["GET", "PUT", "POST"])]
+    public function transferEdit(Request $request, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $repository = $this->entityManager->getRepository(Transfer::class);
+        $transfer = $repository->find($id);
+        if (!$transfer) {
+            throw $this->createNotFoundException('transfer not found');
+        }
+        $form = $this->createForm(TransferType::class, $transfer,  ['current_user' => $this->getUser()]);
+        try {
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Persist the entity only if the form is submitted and valid
+                $transfer = $form->getData();
+                $this->entityManager->persist($transfer);
+                $this->entityManager->flush();
+                // Redirect after successful form submission (optional)
+                return $this->redirectToRoute('hrmsystem/transfer', ['id' => $user_id]);
+            }
+        } catch (\Exception $error) {
+            $this->addFlash('danger', 'An error occurred while processing the form.');
+            throw $error;
+        }
+        $repository = $this->entityManager->getRepository(transfer::class);
+        $transfers = $repository->findBy(['user' => $currentUser]);
+
+        return $this->render('hrmsystem/edit/transfer.html.twig', [
+            'controllername' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'transfers' => $transfers,
         ]);
     }
     // Resignation

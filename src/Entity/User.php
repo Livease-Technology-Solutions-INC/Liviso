@@ -11,6 +11,7 @@ use App\Entity\Account\UserImage;
 use App\Entity\HRMSystem\Trainer;
 use App\Entity\HRMSystem\Warning;
 use App\Entity\HRMSystem\Holidays;
+use App\Entity\HRMSystem\Transfer;
 use App\Repository\UserRepository;
 use App\Entity\Account\UserProfile;
 use App\Entity\HRMSystem\Complaints;
@@ -124,6 +125,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Award::class, mappedBy: "user")]
     private Collection $award;
     
+    #[ORM\OneToMany(targetEntity: Transfer::class, mappedBy: "user")]
+    private Collection $transfer;
+    
     public function __construct()
     {
         $this->profile = new UserProfile();
@@ -145,6 +149,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->trainingList = new ArrayCollection();
         $this->trainer = new ArrayCollection();
         $this->award = new ArrayCollection();
+        $this->transfer = new ArrayCollection();
     }
 
     public function __toString()
@@ -810,6 +815,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($award->getUser() === $this) {
                 $award->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Transfer>
+     */
+    public function getTransfer(): Collection
+    {
+        return $this->transfer;
+    }
+
+    public function addTransfer(Transfer $transfer): static
+    {
+        if (!$this->transfer->contains($transfer)) {
+            $this->transfer->add($transfer);
+            $transfer->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTransfer(Transfer $transfer): static
+    {
+        if ($this->transfer->removeElement($transfer)) {
+            // set the owning side to null (unless already changed)
+            if ($transfer->getUser() === $this) {
+                $transfer->setUser(null);
             }
         }
 
