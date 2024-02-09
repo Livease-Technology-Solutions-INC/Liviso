@@ -99,7 +99,6 @@ document.addEventListener('DOMContentLoaded', function() {
         tableRows.forEach(function(row) {
             var subprice = parseFloat(row.querySelector('.table-item-subprice').textContent.replace('$', ''));
             totalAmount += subprice;
-            console.log("total", totalAmount);
         });
         document.querySelector('.totalamount').textContent = '$' + totalAmount.toFixed(2);
     }
