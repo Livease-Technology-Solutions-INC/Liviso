@@ -2,17 +2,18 @@
 
 namespace App\Form\HRMSystem;
 
-use App\Entity\HRMSystem\Resignation;
+use App\Entity\HRMSystem\Promotion;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use App\Form\Account\DataTransformer\UserToIdTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
-class ResignationType extends AbstractType
+class PromotionType extends AbstractType
 {
     private UserToIdTransformer $userToIdTransformer;
     private EntityManagerInterface $entityManager;
@@ -30,18 +31,23 @@ class ResignationType extends AbstractType
                 'choices' => $this->getUserChoices(),
                 'attr' => ['class' => 'form-select m-0'],
             ])
-            ->add('noticeDate', DateType::class, [
-                'label' => 'Notice Date',
-                'html5' => true,
-                'widget' => 'single_text',
-                'attr' => [
-                    'class' => 'form-control m-0',
-                    'placeholder' => 'Select Date/Time',
-                    'required' => 'required',
+            ->add('designation', ChoiceType::class, [
+                'label' => 'Designation',
+                'choices' => [
+                    'Chartered' => 'Chartered',
+                    'Manager' => 'Manager',
+                    'CEO' => 'CEO',
+                    'Developers' => 'Developers',
+                    'Manager' => 'Manager'
                 ],
+                'attr' => ['class' => 'form-select m-0'],
             ])
-            ->add('resignationDate', DateType::class, [
-                'label' => 'Resignation Date',
+            ->add('promotionTitle', TextType::class, [
+                'label' => 'Promotion Title',
+                'attr' => ['class' => 'form-control m-0'],
+            ])
+            ->add('promotionDate', DateType::class, [
+                'label' => 'Promotion Date',
                 'html5' => true,
                 'widget' => 'single_text',
                 'attr' => [
@@ -53,7 +59,7 @@ class ResignationType extends AbstractType
             ->add('description', TextareaType::class, [
                 'attr' => [
                     'class' => 'form-control m-0',
-                    'rows' => 5, 
+                    'rows' => 5,
                     'placeholder' => 'Enter your description',
                 ]
             ]);
@@ -74,7 +80,7 @@ class ResignationType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Resignation::class,
+            'data_class' => Promotion::class,
             'current_user' => null,
         ]);
     }

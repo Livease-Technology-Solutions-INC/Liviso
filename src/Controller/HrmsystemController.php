@@ -11,6 +11,7 @@ use App\Entity\HRMSystem\Warning;
 use App\Form\HRMSystem\AwardType;
 use App\Entity\HRMSystem\Holidays;
 use App\Entity\HRMSystem\Transfer;
+use App\Entity\HRMSystem\Promotion;
 use App\Form\HRMSystem\TrainerType;
 use App\Form\HRMSystem\WarningType;
 use App\Entity\HRMSystem\Complaints;
@@ -18,6 +19,7 @@ use App\Form\HRMSystem\HolidaysType;
 use App\Form\HRMSystem\TransferType;
 use App\Entity\HRMSystem\ManageLeave;
 use App\Entity\HRMSystem\Resignation;
+use App\Form\HRMSystem\PromotionType;
 use App\Entity\HRMSystem\GoalTracking;
 use App\Form\HRMSystem\ComplaintsType;
 use App\Form\HRMSystem\ManageLeaveType;
@@ -784,12 +786,81 @@ class HrmsystemController extends AbstractController
     }
 
 
-    #[Route('/hrmsystem/promotion', name: 'hrmsystem/promotion')]
-    public function promotion(): Response
+    #[Route('/hrmsystem/promotion/{id}', name: 'hrmsystem/promotion')]
+    public function promotion(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $promotion = new Promotion();
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $promotion->setUser($user);
+        $form = $this->createForm(PromotionType::class, $promotion, ['current_user' => $this->getUser()]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the entity only if the form is submitted and valid
+            $this->entityManager->persist($promotion);
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('hrmsystem/promotion', ['id' => $id]);
+        }
+
+        $repository = $this->entityManager->getRepository(promotion::class);
+        $promotions = $repository->findBy(['user' => $currentUser]);
         return $this->render('hrmsystem/promotion.html.twig', [
             'controller_name' => 'HrmsystemController',
+            'promotions' => $promotions,
+            'form' => $form->createView(),
+        ]);
+    }
+    // delete promotion
+    #[Route('/hrmsystem/promotion/{id}/delete/{user_id}', name: 'promotion_delete', methods: ["GET", "POST"])]
+    public function promotionDelete(Promotion $promotion, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->entityManager->remove($promotion);
+        $this->entityManager->flush();
+        return $this->redirectToRoute('hrmsystem/promotion', ['id' => $user_id]);
+    }
+    // edit promotion
+    #[Route("/hrmsystem/promotion/{id}/edit/{user_id}", name: "promotion_edit", methods: ["GET", "PUT", "POST"])]
+    public function promotionEdit(Request $request, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $repository = $this->entityManager->getRepository(Promotion::class);
+        $promotion = $repository->find($id);
+
+        if (!$promotion) {
+            throw $this->createNotFoundException('promotion not found');
+        }
+
+        $form = $this->createForm(PromotionType::class, $promotion, ['current_user' => $this->getUser()]);
+        try {
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Persist the entity only if the form is submitted and valid
+                $promotion = $form->getData();
+                $this->entityManager->persist($promotion);
+                $this->entityManager->flush();
+
+                // Redirect after successful form submission (optional)
+                return $this->redirectToRoute('hrmsystem/promotion', ['id' => $user_id]);
+            }
+        } catch (\Exception $error) {
+            $this->addFlash('danger', 'An error occurred while processing the form.');
+            throw $error;
+        }
+        $repository = $this->entityManager->getRepository(Promotion::class);
+        $promotions = $repository->findBy(['user' => $currentUser]);
+
+        return $this->render('hrmsystem/edit/promotion.html.twig', [
+            'controller_name' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'promotions' => $promotions,
         ]);
     }
     #[Route('/hrmsystem/complaints/{id}', name: 'hrmsystem/complaints', methods: ["GET", "POST"])]
