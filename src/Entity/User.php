@@ -18,6 +18,7 @@ use App\Entity\HRMSystem\Promotion;
 use App\Entity\HRMSystem\Complaints;
 use App\Entity\HRMSystem\ManageLeave;
 use App\Entity\HRMSystem\Resignation;
+use App\Entity\HRMSystem\Termination;
 use App\Entity\HRMSystem\GoalTracking;
 use App\Entity\HRMSystem\CustomQuestions;
 use Doctrine\Common\Collections\Collection;
@@ -131,6 +132,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     
     #[ORM\OneToMany(targetEntity: Promotion::class, mappedBy: "user")]
     private Collection $promotion;
+
+    #[ORM\OneToMany(targetEntity: Termination::class, mappedBy: "user")]
+    private Collection $termination;
     
     public function __construct()
     {
@@ -155,6 +159,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->award = new ArrayCollection();
         $this->transfer = new ArrayCollection();
         $this->promotion = new ArrayCollection();
+        $this->termination = new ArrayCollection();
     }
 
     public function __toString()
@@ -880,6 +885,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($promotion->getUser() === $this) {
                 $promotion->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Termination>
+     */
+    public function getTermination(): Collection
+    {
+        return $this->termination;
+    }
+
+    public function addTermination(Termination $termination): static
+    {
+        if (!$this->termination->contains($termination)) {
+            $this->termination->add($termination);
+            $termination->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTermination(Termination $termination): static
+    {
+        if ($this->termination->removeElement($termination)) {
+            // set the owning side to null (unless already changed)
+            if ($termination->getUser() === $this) {
+                $termination->setUser(null);
             }
         }
 
