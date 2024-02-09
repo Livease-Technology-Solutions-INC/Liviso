@@ -19,6 +19,7 @@ use App\Entity\HRMSystem\Complaints;
 use App\Entity\HRMSystem\ManageLeave;
 use App\Entity\HRMSystem\Resignation;
 use App\Entity\HRMSystem\Termination;
+use App\Entity\HRMSystem\Announcement;
 use App\Entity\HRMSystem\GoalTracking;
 use App\Entity\HRMSystem\CustomQuestions;
 use Doctrine\Common\Collections\Collection;
@@ -135,6 +136,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(targetEntity: Termination::class, mappedBy: "user")]
     private Collection $termination;
+
+    #[ORM\OneToMany(targetEntity: Announcement::class, mappedBy: "user")]
+    private Collection $announcement;
     
     public function __construct()
     {
@@ -160,6 +164,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->transfer = new ArrayCollection();
         $this->promotion = new ArrayCollection();
         $this->termination = new ArrayCollection();
+        $this->announcement= new ArrayCollection();
     }
 
     public function __toString()
@@ -915,6 +920,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($termination->getUser() === $this) {
                 $termination->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Announcement>
+     */
+    public function getAnnouncement(): Collection
+    {
+        return $this->announcement;
+    }
+
+    public function addAnnouncement(Announcement $announcement): static
+    {
+        if (!$this->announcement->contains($announcement)) {
+            $this->announcement->add($announcement);
+            $announcement->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnnouncement(Announcement $announcement): static
+    {
+        if ($this->announcement->removeElement($announcement)) {
+            // set the owning side to null (unless already changed)
+            if ($announcement->getUser() === $this) {
+                $announcement->setUser(null);
             }
         }
 

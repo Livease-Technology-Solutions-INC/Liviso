@@ -21,11 +21,13 @@ use App\Entity\HRMSystem\ManageLeave;
 use App\Entity\HRMSystem\Resignation;
 use App\Entity\HRMSystem\Termination;
 use App\Form\HRMSystem\PromotionType;
+use App\Entity\HRMSystem\Announcement;
 use App\Entity\HRMSystem\GoalTracking;
 use App\Form\HRMSystem\ComplaintsType;
 use App\Form\HRMSystem\ManageLeaveType;
 use App\Form\HRMSystem\ResignationType;
 use App\Form\HRMSystem\TerminationType;
+use App\Form\HRMSystem\AnnouncementType;
 use App\Form\HRMSystem\GoalTrackingType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\HRMSystem\CustomQuestions;
@@ -1102,12 +1104,83 @@ class HrmsystemController extends AbstractController
             'terminations' => $terminations,
         ]);
     }
-    #[Route('/hrmsystem/announcement', name: 'hrmsystem/announcement')]
-    public function announcement(): Response
+    #[Route('/hrmsystem/announcement/{id}', name: 'hrmsystem/announcement')]
+    public function announcement(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $announcement = new Announcement();
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $announcement->setUser($user);
+        $form = $this->createForm(AnnouncementType::class, $announcement, ['current_user' => $this->getUser()]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the entity only if the form is submitted and valid
+            $this->entityManager->persist($announcement);
+            $this->entityManager->flush();
+
+            // Redirect after successful form submission (optional)
+            return $this->redirectToRoute('hrmsystem/announcement', ['id' => $id]);
+        }
+
+        $repository = $this->entityManager->getRepository(announcement::class);
+        $announcements = $repository->findBy(['user' => $currentUser]);
+
         return $this->render('hrmsystem/announcement.html.twig', [
             'controller_name' => 'HrmsystemController',
+            'announcements' => $announcements,
+            'form' => $form->createView(),
+        ]);
+    }
+    // announcement delete
+    #[Route('/hrmsystem/announcement/{id}/delete/{user_id}', name: 'announcement_delete', methods: ["GET", "POST"])]
+    public function announcementDelete(Announcement $announcement, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->entityManager->remove($announcement);
+        $this->entityManager->flush();
+        return $this->redirectToRoute('hrmsystem/announcement', ['id' => $user_id]);
+    }
+    // announcement edit
+    #[Route("/hrmsystem/announcement/{id}/edit/{user_id}", "announcement_edit", methods: ["GET", "PUT", "POST"])]
+    public function announcementEdit(Request $request, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $repository = $this->entityManager->getRepository(Announcement::class);
+        $announcement = $repository->find($id);
+
+        if (!$announcement) {
+            throw $this->createNotFoundException('announcement not found');
+        }
+
+        $form = $this->createForm(AnnouncementType::class, $announcement);
+        try {
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Persist the entity only if the form is submitted and valid
+                $announcement = $form->getData();
+                $this->entityManager->persist($announcement);
+                $this->entityManager->flush();
+
+                // Redirect after successful form submission (optional)
+                return $this->redirectToRoute('hrmsystem/announcement', ['id' => $user_id]);
+            }
+        } catch (\Exception $error) {
+            $this->addFlash('danger', 'An error occurred while processing the form.');
+            throw $error;
+        }
+        $repository = $this->entityManager->getRepository(Announcement::class);
+        $announcements = $repository->findBy(['user' => $currentUser]);
+
+        return $this->render('hrmsystem/edit/announcement.html.twig', [
+            'controller_name' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'announcements' => $announcements,
         ]);
     }
     #[Route('/hrmsystem/holidays/{id}', name: 'hrmsystem/holidays')]
