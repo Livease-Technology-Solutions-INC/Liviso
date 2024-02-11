@@ -370,13 +370,13 @@
 			<div class="card">
 				<div class="d-flex card-header justify-content-between align-items-center">
 					<h4 class="header-title">Top Selling Products</h4>
-					<a href="javascript:void(0);" class="btn btn-sm btn-info">Export
+					<a href="javascript:void(0);" class="btn btn-sm btn-info export-btn" data-table-id="table1">Export
 						<i class="ri-download-line ms-1"></i>
 					</a>
 				</div>
 				<div class="card-body p-0">
 					<div class="table-responsive">
-						<table class="table table-borderless table-hover table-nowrap table-centered m-0">
+						<table id="table1" class="table table-borderless table-hover table-nowrap table-centered m-0">
 							<thead class="border-top border-bottom bg-light-subtle border-light">
 								<tr>
 									<th class="py-1">Product</th>
@@ -454,7 +454,7 @@
 			<div class="card">
 				<div class="d-flex card-header justify-content-between align-items-center">
 					<h4 class="header-title">Channels</h4>
-					<a href="javascript:void(0);" class="btn btn-sm btn-success">Export
+					<a href="javascript:void(0);" class="btn btn-sm btn-success export-btn" data-table-id="table2">Export
 						<i class="ri-download-line ms-1"></i>
 					</a>
 				</div>
@@ -462,7 +462,7 @@
 				<div class="card-body p-0">
 
 					<div class="table-responsive">
-						<table class="table table-sm table-centered table-hover table-borderless mb-0">
+						<table id="table2" class="table table-sm table-centered table-hover table-borderless mb-0">
 							<thead class="border-top border-bottom bg-light-subtle border-light">
 								<tr>
 									<th>Channel</th>
@@ -531,7 +531,7 @@
 			<div class="card">
 				<div class="d-flex card-header justify-content-between align-items-center">
 					<h4 class="header-title">Social Media Traffic</h4>
-					<a href="javascript:void(0);" class="btn btn-sm btn-success">Export
+					<a href="javascript:void(0);" class="btn btn-sm btn-success export-btn" data-table-id="table3">Export
 						<i class="ri-download-line ms-1"></i>
 					</a>
 				</div>
@@ -539,7 +539,7 @@
 				<div class="card-body p-0">
 
 					<div class="table-responsive">
-						<table class="table table-sm table-centered table-hover table-borderless mb-0">
+						<table id="table3" class="table table-sm table-centered table-hover table-borderless mb-0">
 							<thead class="border-top border-bottom bg-light-subtle border-light">
 								<tr>
 									<th>Network</th>
@@ -608,7 +608,7 @@
 			<div class="card">
 				<div class="d-flex card-header justify-content-between align-items-center">
 					<h4 class="header-title">Engagement Overview</h4>
-					<a href="javascript:void(0);" class="btn btn-sm btn-success">Export
+					<a href="javascript:void(0);" class="btn btn-sm btn-success export-btn" data-table-id="table4">Export
 						<i class="ri-download-line ms-1"></i>
 					</a>
 				</div>
@@ -616,7 +616,7 @@
 				<div class="card-body p-0">
 
 					<div class="table-responsive">
-						<table class="table table-sm table-centered table-hover table-borderless mb-0">
+						<table  id="table4" class="table table-sm table-centered table-hover table-borderless mb-0">
 							<thead class="border-top border-bottom bg-light-subtle border-light">
 								<tr>
 									<th>Duration (Secs)</th>
@@ -679,4 +679,7 @@
 
 	<!-- Dashboard App js -->
 	<script src="/js/pages/demo.dashboard.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
+	<script src="/js/pages/demo.tableexport.js"></script>
+
 {% endblock %}
