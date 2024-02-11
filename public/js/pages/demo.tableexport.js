@@ -1,0 +1,1 @@
+document.addEventListener("DOMContentLoaded",function(){document.querySelectorAll(".export-btn").forEach(t=>{t.addEventListener("click",function(){var t=this.getAttribute("data-table-id"),e=document.getElementById(t),t=`table_${t}.xlsx`;e=XLSX.utils.table_to_book(e,{sheet:"Sheet JS"}),XLSX.writeFile(e,t)})})});
