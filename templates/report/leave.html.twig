@@ -17,7 +17,7 @@
 	<div class"row align-items-center d-flex">
 		<div class="col mt-2">
 			<div class="float-end mt-3">
-				<a href="http://localhost/other/export/accountstatement" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary" data-bs-original-title="Export">
+				<a href="javascript:void(0);" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary export-btn" data-bs-original-title="Export" data-table-id="report-dataTable" data-table-name="Leave">
 					<i class="bi bi-box-arrow-up"></i>
 				</a>
 			</div>
@@ -298,4 +298,8 @@
 
 	<!-- Datatable Demo Aapp js -->
 	<script src="/js/pages/demo.datatable-init.js"></script>
+
+	<!-- Table Export js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
+	<script src="/js/pages/demo.tableexport.js"></script>
 {% endblock %}

@@ -20,7 +20,7 @@
 				<a href="#" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary" data-bs-original-title="Import">
 					<i class="bi bi-file-earmark-arrow-down"></i>
 				</a>
-				<a href="#" class="btn btn-sm btn-primary" onclick="saveAsPDF()" data-bs-toggle="tooltip" title="" data-original-title="Download" data-bs-original-title="Export">
+				<a href="#" class="btn btn-sm btn-primary export-btn" onclick="saveAsPDF()" data-bs-toggle="tooltip" title="" data-original-title="Download" data-bs-original-title="Export" data-table-id="basic-datatable" data-table-name="Purchase">
 					<span class="btn-inner--icon">
 						<i class="bi bi-file-earmark-arrow-up"></i>
 					</span>
@@ -252,4 +252,7 @@
 
 	<!-- Datatable Demo Aapp js -->
 	<script src="/js/pages/demo.datatable-init.js"></script>
+	<!-- Table Export js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
+	<script src="/js/pages/demo.tableexport.js"></script>
 {% endblock %}

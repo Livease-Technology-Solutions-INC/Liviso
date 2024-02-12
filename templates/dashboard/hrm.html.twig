@@ -370,12 +370,12 @@
 			<div class="card">
 				<div class="d-flex card-header justify-content-between align-items-center">
 					<h4 class="header-title">Top Selling Products</h4>
-					<a href="javascript:void(0);" class="btn btn-sm btn-info">Export
+					<a href="javascript:void(0);" class="btn btn-sm btn-info export-btn" data-table-id="Top_Selling_Products" data-table-name="Top Selling Products">Export
 						<i class="ri-download-line ms-1"></i>
 					</a>
 				</div>
 				<div class="card-body p-0">
-					<div class="table-responsive">
+					<div id="Top_Selling_Products" class="table-responsive">
 						<table class="table table-borderless table-hover table-nowrap table-centered m-0">
 							<thead class="border-top border-bottom bg-light-subtle border-light">
 								<tr>
@@ -454,7 +454,7 @@
 			<div class="card">
 				<div class="d-flex card-header justify-content-between align-items-center">
 					<h4 class="header-title">Channels</h4>
-					<a href="javascript:void(0);" class="btn btn-sm btn-success">Export
+					<a href="javascript:void(0);" class="btn btn-sm btn-success export-btn" data-table-id="Channels" data-table-name="Channels">Export
 						<i class="ri-download-line ms-1"></i>
 					</a>
 				</div>
@@ -462,7 +462,7 @@
 				<div class="card-body p-0">
 
 					<div class="table-responsive">
-						<table class="table table-sm table-centered table-hover table-borderless mb-0">
+						<table id="Channels" class="table table-sm table-centered table-hover table-borderless mb-0">
 							<thead class="border-top border-bottom bg-light-subtle border-light">
 								<tr>
 									<th>Channel</th>
@@ -531,7 +531,7 @@
 			<div class="card">
 				<div class="d-flex card-header justify-content-between align-items-center">
 					<h4 class="header-title">Social Media Traffic</h4>
-					<a href="javascript:void(0);" class="btn btn-sm btn-success">Export
+					<a href="javascript:void(0);" class="btn btn-sm btn-success export-btn" data-table-id="Social_Media_Traffic" data-table-name="Social_Media_Traffic">Export
 						<i class="ri-download-line ms-1"></i>
 					</a>
 				</div>
@@ -539,7 +539,7 @@
 				<div class="card-body p-0">
 
 					<div class="table-responsive">
-						<table class="table table-sm table-centered table-hover table-borderless mb-0">
+						<table id="Social_Media_Traffic" class="table table-sm table-centered table-hover table-borderless mb-0">
 							<thead class="border-top border-bottom bg-light-subtle border-light">
 								<tr>
 									<th>Network</th>
@@ -608,7 +608,7 @@
 			<div class="card">
 				<div class="d-flex card-header justify-content-between align-items-center">
 					<h4 class="header-title">Engagement Overview</h4>
-					<a href="javascript:void(0);" class="btn btn-sm btn-success">Export
+					<a href="javascript:void(0);" class="btn btn-sm btn-success export-btn" data-table-id="Engagement_Overview" data-table-name="Engagement_Overview">Export
 						<i class="ri-download-line ms-1"></i>
 					</a>
 				</div>
@@ -616,7 +616,7 @@
 				<div class="card-body p-0">
 
 					<div class="table-responsive">
-						<table class="table table-sm table-centered table-hover table-borderless mb-0">
+						<table  id="Engagement_Overview" class="table table-sm table-centered table-hover table-borderless mb-0">
 							<thead class="border-top border-bottom bg-light-subtle border-light">
 								<tr>
 									<th>Duration (Secs)</th>
@@ -678,4 +678,8 @@
 
 	<!-- Dashboard App js -->
 	<script src="/js/pages/demo.dashboard.js"></script>
+	<!-- Table Export js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
+	<script src="/js/pages/demo.tableexport.js"></script>
+
 {% endblock %}
