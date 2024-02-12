@@ -18,11 +18,11 @@
 		<div class="col mt-2">
 			<div class="float-end mt-3">
 				<button type="button" class="p-0 m-0 border-0" data-bs-toggle="modal" data-bs-target="#employeeSetup" data-bs-whatever="@mdo">
-					<a href="http://localhost/other/export/accountstatement" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary" data-bs-original-title="Import">
+					<a  href="http://localhost/other/export/accountstatement" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary" data-bs-original-title="Import" >
 						<i class="bi bi-file-earmark-arrow-down"></i>
 					</a>
 				</button>
-				<a href="#" class="btn btn-sm btn-primary" onclick="saveAsPDF()" data-bs-toggle="tooltip" title="" data-original-title="Download" data-bs-original-title="Export">
+				<a href="#" class="btn btn-sm btn-primary export-btn" onclick="saveAsPDF()" data-bs-toggle="tooltip" title="" data-original-title="Download" data-bs-original-title="Export" data-table-id="basic-datatable" data-table-name="employee_setup">
 					<span class="btn-inner--icon">
 						<i class="bi bi-file-earmark-arrow-up"></i>
 					</span>
@@ -130,4 +130,7 @@
 
 	<!-- Datatable Demo Aapp js -->
 	<script src="/js/pages/demo.datatable-init.js"></script>
+	<!-- Table Export js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
+	<script src="/js/pages/demo.tableexport.js"></script>
 {% endblock %}
