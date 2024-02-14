@@ -30,7 +30,7 @@ class Termination
     #[ORM\Column(type: 'text')]
     private ?string $description = null;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "trip")]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "termination")]
     #[ORM\JoinColumn(name: "user_id", referencedColumnName: "id")]
     private ?User $user = null;
 

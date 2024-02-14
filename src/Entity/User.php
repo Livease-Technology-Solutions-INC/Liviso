@@ -8,6 +8,7 @@ use App\Entity\HRMSystem\Trip;
 use App\Entity\HRMSystem\Award;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Account\UserImage;
+use App\Entity\HRMSystem\Meeting;
 use App\Entity\HRMSystem\Trainer;
 use App\Entity\HRMSystem\Warning;
 use App\Entity\HRMSystem\Holidays;
@@ -139,6 +140,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(targetEntity: Announcement::class, mappedBy: "user")]
     private Collection $announcement;
+
+    #[ORM\OneToMany(targetEntity: Meeting::class, mappedBy: "user")]
+    private Collection $meeting;
     
     public function __construct()
     {
@@ -165,6 +169,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->promotion = new ArrayCollection();
         $this->termination = new ArrayCollection();
         $this->announcement= new ArrayCollection();
+        $this->meeting= new ArrayCollection();
     }
 
     public function __toString()
@@ -950,6 +955,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($announcement->getUser() === $this) {
                 $announcement->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Meeting>
+     */
+    public function getMeeting(): Collection
+    {
+        return $this->meeting;
+    }
+
+    public function addMeeting(Meeting $meeting): static
+    {
+        if (!$this->meeting->contains($meeting)) {
+            $this->meeting->add($meeting);
+            $meeting->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMeeting(Meeting $meeting): static
+    {
+        if ($this->meeting->removeElement($meeting)) {
+            // set the owning side to null (unless already changed)
+            if ($meeting->getUser() === $this) {
+                $meeting->setUser(null);
             }
         }
 

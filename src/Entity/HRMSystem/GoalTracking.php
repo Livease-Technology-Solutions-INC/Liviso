@@ -42,7 +42,7 @@ class GoalTracking
     #[ORM\Column(length: 3000)]
     private ?string $description = null;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "GoalTracking")]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "goalTracking")]
     #[ORM\JoinColumn(name: "user_id", referencedColumnName: "id")]
     private ?User $user = null;
 

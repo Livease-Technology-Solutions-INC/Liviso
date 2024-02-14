@@ -30,7 +30,7 @@ class Promotion
     #[ORM\Column(type: 'text')]
     private ?string $description = null;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "holidays")]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "promotion")]
     #[ORM\JoinColumn(name: "user_id", referencedColumnName: "id")]
     private ?User $user = null;
 
