@@ -17,7 +17,7 @@
 	<div class"row align-items-center d-flex">
 		<div class="col mt-2">
 			<div class="float-end mt-3">
-				<a href="#" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary" data-bs-original-title="Export">
+				<a href="#" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary export-btn" data-bs-original-title="Export" data-table-id="tax" data-table-name="tax">
 					<i class="bi bi-box-arrow-up"></i>
 				</a>
 			</div>
@@ -114,7 +114,7 @@
 					<div class="col-sm-12">
 						<h5>Income</h5>
 						<div class="table-responsive mt-3 mb-3">
-							<table class="table">
+							<table id ="tax" class="table">
 								<thead>
 									<tr>
 										<th>Tax</th>
@@ -192,4 +192,7 @@
 
 	<!-- Datatable Demo Aapp js -->
 	<script src="/js/pages/demo.datatable-init.js"></script>
+	<!-- Table Export js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
+	<script src="/js/pages/demo.tableexport.js"></script>
 {% endblock %}
