@@ -1373,12 +1373,143 @@ class HrmsystemController extends AbstractController
             'controller_name' => 'HrmsystemController',
         ]);
     }
-    #[Route('/hrmsystem/hrm_system_setup', name: 'hrmsystem/hrm_system_setup')]
-    public function hrmSystemSetup(): Response
+
+    #[Route('/hrmsystem/hrm_system_setup/branch', name: 'hrmsystem/hrm_system_setup/branch')]
+    public function hrmSystemSetupBranch(): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        return $this->render('hrmsystem/hrmSystemSetup.html.twig', [
+        return $this->render('hrmsystem/hrmsystemsetup/branch.html.twig', [
             'controller_name' => 'HrmsystemController',
         ]);
     }
+    #[Route('/hrmsystem/hrm_system_setup/department', name: 'hrmsystem/hrm_system_setup/department')]
+    public function hrmSystemSetupDepartment(): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        return $this->render('hrmsystem/hrmsystemsetup/department.html.twig', [
+            'controller_name' => 'HrmsystemController',
+        ]);
+    }
+   
+    #[Route('/hrmsystem/hrm_system_setup/designation', name: 'hrmsystem/hrm_system_setup/designation')]
+    public function hrmSystemSetupDesignation(): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        return $this->render('hrmsystem/hrmsystemsetup/designation.html.twig', [
+            'controller_name' => 'HrmsystemController',
+        ]);
+    }
+    #[Route('/hrmsystem/hrm_system_setup/leave-type', name: 'hrmsystem/hrm_system_setup/leave-type')]
+    public function hrmSystemSetupLeaveType(): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        return $this->render('hrmsystem/hrmsystemsetup/leaveType.html.twig', [
+            'controller_name' => 'HrmsystemController',
+        ]);
+    }
+    #[Route('/hrmsystem/hrm_system_setup/document-type', name: 'hrmsystem/hrm_system_setup/document-type')]
+    public function hrmSystemSetupDocumentType(): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        return $this->render('hrmsystem/hrmsystemsetup/documentType.html.twig', [
+            'controller_name' => 'HrmsystemController',
+        ]);
+    }
+    #[Route('/hrmsystem/hrm_system_setup/payslip-type', name: 'hrmsystem/hrm_system_setup/payslip-type')]
+    public function hrmSystemSetupPaySlipType(): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        return $this->render('hrmsystem/hrmsystemsetup/paySlipType.html.twig', [
+            'controller_name' => 'HrmsystemController',
+        ]);
+    }
+    #[Route('/hrmsystem/hrm_system_setup/allowance-option', name: 'hrmsystem/hrm_system_setup/allowance-option')]
+    public function hrmSystemSetupAllowanceOption(): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        return $this->render('hrmsystem/hrmsystemsetup/allowanceOption.html.twig', [
+            'controller_name' => 'HrmsystemController',
+        ]);
+    }
+    #[Route('/hrmsystem/hrm_system_setup/loan-option', name: 'hrmsystem/hrm_system_setup/loan-option')]
+    public function hrmSystemSetupLoanOption(): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        return $this->render('hrmsystem/hrmsystemsetup/loanOption.html.twig', [
+            'controller_name' => 'HrmsystemController',
+        ]);
+    }
+    #[Route('/hrmsystem/hrm_system_setup/deduction-option', name: 'hrmsystem/hrm_system_setup/deduction-option')]
+    public function hrmSystemSetupDeductionOption(): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        return $this->render('hrmsystem/hrmsystemsetup/deductionOption.html.twig', [
+            'controller_name' => 'HrmsystemController',
+        ]);
+    }
+    #[Route('/hrmsystem/hrm_system_setup/goal-type', name: 'hrmsystem/hrm_system_setup/goal-type')]
+    public function hrmSystemSetupGoalType(): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        return $this->render('hrmsystem/hrmsystemsetup/goalType.html.twig', [
+            'controller_name' => 'HrmsystemController',
+        ]);
+    }
+    #[Route('/hrmsystem/hrm_system_setup/training-type', name: 'hrmsystem/hrm_system_setup/training-type')]
+    public function hrmSystemSetupTrainingType(): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        return $this->render('hrmsystem/hrmsystemsetup/trainingType.html.twig', [
+            'controller_name' => 'HrmsystemController',
+        ]);
+    }
+    #[Route('/hrmsystem/hrm_system_setup/award-type', name: 'hrmsystem/hrm_system_setup/award-type')]
+    public function hrmSystemSetupAwardType(): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        return $this->render('hrmsystem/hrmsystemsetup/awardType.html.twig', [
+            'controller_name' => 'HrmsystemController',
+        ]);
+    }
+    #[Route('/hrmsystem/hrm_system_setup/termination-type', name: 'hrmsystem/hrm_system_setup/termination-type')]
+    public function hrmSystemSetupTerminationType(): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        return $this->render('hrmsystem/hrmsystemsetup/terminationType.html.twig', [
+            'controller_name' => 'HrmsystemController',
+        ]);
+    }
+    #[Route('/hrmsystem/hrm_system_setup/job-category', name: 'hrmsystem/hrm_system_setup/job-category')]
+    public function hrmSystemSetupJobCategory(): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        return $this->render('hrmsystem/hrmsystemsetup/jobCategory.html.twig', [
+            'controller_name' => 'HrmsystemController',
+        ]);
+    }
+    #[Route('/hrmsystem/hrm_system_setup/job-stage', name: 'hrmsystem/hrm_system_setup/job-stage')]
+    public function hrmSystemSetupJobStage(): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        return $this->render('hrmsystem/hrmsystemsetup/jobStage.html.twig', [
+            'controller_name' => 'HrmsystemController',
+        ]);
+    }
+    #[Route('/hrmsystem/hrm_system_setup/performance-type', name: 'hrmsystem/hrm_system_setup/performance-type')]
+    public function hrmSystemSetupPerformanceType(): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        return $this->render('hrmsystem/hrmsystemsetup/performanceType.html.twig', [
+            'controller_name' => 'HrmsystemController',
+        ]);
+    }
+    #[Route('/hrmsystem/hrm_system_setup/competencies', name: 'hrmsystem/hrm_system_setup/competencies')]
+    public function hrmSystemSetupCompetencies(): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        return $this->render('hrmsystem/hrmsystemsetup/competencies.html.twig', [
+            'controller_name' => 'HrmsystemController',
+        ]);
+    }
+
 }

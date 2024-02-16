@@ -1,0 +1,232 @@
+{% extends 'partials/layout-vertical.html.twig' %}
+
+{% block title %}HRM System Setup
+{% endblock %}
+
+{% block css %}
+	<!-- Datatables css -->
+	<link href="/vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-fixedcolumns-bs5/css/fixedColumns.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/vendor/datatables.net-select-bs5/css/select.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block pagetitle %}
+	<div class"row align-items-center d-flex">
+		<div class="col mt-2">
+			<div class="float-end mt-3">
+				<button type="button" class="p-0 m-0 border-0" data-bs-toggle="modal" data-bs-target="#hrmSystemSetup" data-bs-whatever="@mdo">
+					<a href="#" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary" data-bs-original-title="Import">
+						<i class="bi bi-plus"></i>
+					</a>
+				</button>
+			</div>
+		</div>
+		<div class="col auto">
+			{{ include('partials/page-title.html.twig', { sub_title: 'HRM System Setup', page_title: 'HRM System Setup' }) }}
+		</div>
+	</div>
+	<div class="modal fade rounded-3" id="hrmSystemSetup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog rounded-3">
+			<div class="modal-content rounded-3">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Create New Branch</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-12">
+								<div class="form-group">
+									<label for="name" class="form-label">Name</label>
+									<input class="form-control" placeholder="Enter Branch Name" name="name" type="text" id="name">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-primary rounded-2">Create</button>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block body %}
+
+	<div class="row">
+		<div class="col-3 rounded-3">
+			<div class="card sticky-top rounded-3" style="top:100px; z-index: 1;">
+				<div class="list-group list-group-flush rounded-3" id="useradd-sidenav">
+					<a href="{{path("hrmsystem/hrm_system_setup/branch")}}" class="list-group-item list-group-item-action border-0 " data-table="branch">Branch
+						<div class="float-end">
+							<i class="bi bi-chevron-right"></i>
+						</div>
+					</a>
+
+					<a href="{{path("hrmsystem/hrm_system_setup/department")}}" class="list-group-item list-group-item-action border-0 " data-table="department">Department<div class="float-end">
+							<i class="bi bi-chevron-right"></i>
+						</div>
+					</a>
+
+					<a href="{{path("hrmsystem/hrm_system_setup/designation")}}" class="list-group-item list-group-item-action border-0 " data-table="designation">Designation<div class="float-end">
+							<i class="bi bi-chevron-right"></i>
+						</div>
+					</a>
+
+					<a href="{{path("hrmsystem/hrm_system_setup/leave-type")}}" class="list-group-item list-group-item-action border-0 " data-table="leave-type">Leave Type<div class="float-end">
+							<i class="bi bi-chevron-right"></i>
+						</div>
+					</a>
+
+					<a href="{{path("hrmsystem/hrm_system_setup/document-type")}}" class="list-group-item list-group-item-action border-0 active" data-table="document-type">Document Type<div class="float-end">
+							<i class="bi bi-chevron-right"></i>
+						</div>
+					</a>
+
+					<a href="{{path("hrmsystem/hrm_system_setup/payslip-type")}}" class="list-group-item list-group-item-action border-0 " data-table="payslip-type">Payslip Type<div class="float-end">
+							<i class="bi bi-chevron-right"></i>
+						</div>
+					</a>
+
+					<a href="{{path("hrmsystem/hrm_system_setup/allowance-option")}}" class="list-group-item list-group-item-action border-0 " data-table="allowance-option">Allowance Option<div class="float-end">
+							<i class="bi bi-chevron-right"></i>
+						</div>
+					</a>
+
+					<a href="{{path("hrmsystem/hrm_system_setup/loan-option")}}" class="list-group-item list-group-item-action border-0 " data-table="loan-option">Loan Option<div class="float-end">
+							<i class="bi bi-chevron-right"></i>
+						</div>
+					</a>
+
+					<a href="{{path("hrmsystem/hrm_system_setup/deduction-option")}}" class="list-group-item list-group-item-action border-0 " data-table="deduction-option">Deduction Option<div class="float-end">
+							<i class="bi bi-chevron-right"></i>
+						</div>
+					</a>
+
+					<a href="{{path("hrmsystem/hrm_system_setup/goal-type")}}" class="list-group-item list-group-item-action border-0 " data-table="goal-type">Goal Type<div class="float-end">
+							<i class="bi bi-chevron-right"></i>
+						</div>
+					</a>
+
+					<a href="{{path("hrmsystem/hrm_system_setup/training-type")}}" class="list-group-item list-group-item-action border-0 " data-table="training-type">Training Type<div class="float-end">
+							<i class="bi bi-chevron-right"></i>
+						</div>
+					</a>
+
+					<a href="{{path("hrmsystem/hrm_system_setup/award-type")}}" class="list-group-item list-group-item-action border-0 " data-table="award-type">Award Type<div class="float-end">
+							<i class="bi bi-chevron-right"></i>
+						</div>
+					</a>
+
+					<a href="{{path("hrmsystem/hrm_system_setup/termination-type")}}" class="list-group-item list-group-item-action border-0 " data-table="termination-type">Termination Type<div class="float-end">
+							<i class="bi bi-chevron-right"></i>
+						</div>
+					</a>
+
+					<a href="{{path("hrmsystem/hrm_system_setup/job-category")}}" class="list-group-item list-group-item-action border-0 " data-table="job-category">Job Category<div class="float-end">
+							<i class="bi bi-chevron-right"></i>
+						</div>
+					</a>
+
+					<a href="{{path("hrmsystem/hrm_system_setup/job-stage")}}" class="list-group-item list-group-item-action border-0 " data-table="job-stage">Job Stage<div class="float-end">
+							<i class="bi bi-chevron-right"></i>
+						</div>
+					</a>
+
+					<a href="{{path("hrmsystem/hrm_system_setup/performance-type")}}" class="list-group-item list-group-item-action border-0 " data-table="performance-type">Performance Type<div class="float-end">
+							<i class="bi bi-chevron-right"></i>
+						</div>
+					</a>
+
+					<a href="{{path("hrmsystem/hrm_system_setup/competencies")}}" class="list-group-item list-group-item-action border-0 " data-table="competencies">Competencies<div class="float-end">
+							<i class="bi bi-chevron-right"></i>
+						</div>
+					</a>
+
+				</div>
+			</div>
+		</div>
+		<div class="col-9">
+			<div class="card">
+				<div class="card-body table-border-style">
+
+					<div class="table-responsive">
+						<div class="dataTable-wrapper dataTable-loading dataTable-empty no-footer sortable searchable fixed-columns">
+							<div class="dataTable-top">
+								<div class="dataTable-dropdown">
+									<label>
+										<select class="dataTable-selector">
+											<option value="5">5</option>
+											<option value="10" selected="">10</option>
+											<option value="15">15</option>
+											<option value="20">20</option>
+											<option value="25">25</option>
+										</select>
+										entries per page</label>
+								</div>
+								<div class="dataTable-search"><input class="dataTable-input" placeholder="Search..." type="text"></div>
+							</div>
+							<div class="dataTable-container">	
+								<table id="document-type" class="table datatable dataTable-table">
+									<thead>
+										<tr>
+											<th data-sortable="" style="width: 50%;">
+												<a href="#" class="dataTable-sorter">Document Type</a>
+											</th>
+											<th width="200px" data-sortable="" style="width: 40%;">
+												<a href="#" class="dataTable-sorter">Required Field</a>
+											</th>
+											<th width="200px" data-sortable="" style="width: 10%;">
+												<a href="#" class="dataTable-sorter">Action</a>
+											</th>
+										</tr>
+									</thead>
+									<tbody class="font-style">
+										<tr>
+											<td class="dataTables" colspan="1">Certificate</td>
+											<td class="dataTables" colspan="1">Required</td>
+
+										</tr>
+										<tr>
+											<td class="dataTables" colspan="1">Photo
+											</td>
+											<td class="dataTables" colspan="1">Not Required</td>
+										</tr>
+									</tbody>
+								</table>
+								
+							</div>
+							<div class="dataTable-bottom">
+								<div class="dataTable-info"></div>
+								<nav class="dataTable-pagination">
+									<ul class="dataTable-pagination-list"></ul>
+								</nav>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascript %}
+	<!-- Datatables js -->
+	<script src="/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script src="/vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+	<script src="/vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+	<script src="/vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+	<script src="/vendor/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
+	<script src="/vendor/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+	<script src="/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
+
+{% endblock %}
