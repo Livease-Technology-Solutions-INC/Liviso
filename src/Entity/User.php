@@ -25,8 +25,25 @@ use App\Entity\HRMSystem\GoalTracking;
 use App\Entity\HRMSystem\CustomQuestions;
 use Doctrine\Common\Collections\Collection;
 use App\Entity\HRMSystem\EmployeesAssetSetup;
+use App\Entity\HRMSystem\HRM_System_Setup\Goal;
+use App\Entity\HRMSystem\HRM_System_Setup\Loan;
+use App\Entity\HRMSystem\HRM_System_Setup\Leave;
 use Doctrine\Common\Collections\ArrayCollection;
+use App\Entity\HRMSystem\HRM_System_Setup\Branch;
+use App\Entity\HRMSystem\HRM_System_Setup\Payslip;
+use App\Entity\HRMSystem\HRM_System_Setup\AwardHRM;
+use App\Entity\HRMSystem\HRM_System_Setup\Document;
+use App\Entity\HRMSystem\HRM_System_Setup\JobStage;
+use App\Entity\HRMSystem\HRM_System_Setup\Training;
+use App\Entity\HRMSystem\HRM_System_Setup\Allowance;
+use App\Entity\HRMSystem\HRM_System_Setup\Deduction;
+use App\Entity\HRMSystem\HRM_System_Setup\Department;
+use App\Entity\HRMSystem\HRM_System_Setup\Designation;
+use App\Entity\HRMSystem\HRM_System_Setup\JobCategory;
+use App\Entity\HRMSystem\HRM_System_Setup\Performance;
+use App\Entity\HRMSystem\HRM_System_Setup\Competencies;
 use Symfony\Component\Security\Core\User\UserInterface;
+use App\Entity\HRMSystem\HRM_System_Setup\TerminationHRM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
@@ -143,6 +160,57 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(targetEntity: Meeting::class, mappedBy: "user")]
     private Collection $meeting;
+
+    #[ORM\OneToMany(targetEntity: Branch::class, mappedBy: "user")]
+    private Collection $branch;
+
+    #[ORM\OneToMany(targetEntity: Department::class, mappedBy: "user")]
+    private Collection $department;
+
+    #[ORM\OneToMany(targetEntity: Designation::class, mappedBy: "user")]
+    private Collection $designation;
+
+    #[ORM\OneToMany(targetEntity: Leave::class, mappedBy: "user")]
+    private Collection $leave;
+
+    #[ORM\OneToMany(targetEntity: Document::class, mappedBy: "user")]
+    private Collection $document;
+
+    #[ORM\OneToMany(targetEntity: Payslip::class, mappedBy: "user")]
+    private Collection $payslip;
+
+    #[ORM\OneToMany(targetEntity: Allowance::class, mappedBy: "user")]
+    private Collection $allowance;
+
+    #[ORM\OneToMany(targetEntity: Loan::class, mappedBy: "user")]
+    private Collection $loan;
+
+    #[ORM\OneToMany(targetEntity: Deduction::class, mappedBy: "user")]
+    private Collection $deduction;
+
+    #[ORM\OneToMany(targetEntity: Goal::class, mappedBy: "user")]
+    private Collection $goal;
+
+    #[ORM\OneToMany(targetEntity: Training::class, mappedBy: "user")]
+    private Collection $training;
+
+    #[ORM\OneToMany(targetEntity: AwardHRM::class, mappedBy: "user")]
+    private Collection $awardHRM;
+
+    #[ORM\OneToMany(targetEntity: TerminationHRM::class, mappedBy: "user")]
+    private Collection $terminationHRM;
+
+    #[ORM\OneToMany(targetEntity: JobCategory::class, mappedBy: "user")]
+    private Collection $jobCategory;
+
+    #[ORM\OneToMany(targetEntity: JobStage::class, mappedBy: "user")]
+    private Collection $jobStage;
+
+    #[ORM\OneToMany(targetEntity: Performance::class, mappedBy: "user")]
+    private Collection $performance;
+
+    #[ORM\OneToMany(targetEntity: Competencies::class, mappedBy: "user")]
+    private Collection $competencies;
     
     public function __construct()
     {
@@ -168,8 +236,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->transfer = new ArrayCollection();
         $this->promotion = new ArrayCollection();
         $this->termination = new ArrayCollection();
-        $this->announcement= new ArrayCollection();
-        $this->meeting= new ArrayCollection();
+        $this->announcement = new ArrayCollection();
+        $this->meeting = new ArrayCollection();
+        $this->branch = new ArrayCollection();
+        $this->department = new ArrayCollection();
+        $this->designation = new ArrayCollection();
+        $this->leave = new ArrayCollection();
+        $this->document = new ArrayCollection();
+        $this->payslip = new ArrayCollection();
+        $this->allowance = new ArrayCollection();
+        $this->loan = new ArrayCollection();
+        $this->deduction = new ArrayCollection();
+        $this->goal = new ArrayCollection();
+        $this->training = new ArrayCollection();
+        $this->awardHRM = new ArrayCollection();
+        $this->terminationHRM = new ArrayCollection();
+        $this->jobCategory = new ArrayCollection();
+        $this->jobStage = new ArrayCollection();
+        $this->performance = new ArrayCollection();
+        $this->competencies = new ArrayCollection();
     }
 
     public function __toString()
@@ -985,6 +1070,516 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($meeting->getUser() === $this) {
                 $meeting->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Branch>
+     */
+    public function getBranch(): Collection
+    {
+        return $this->branch;
+    }
+
+    public function addBranch(Branch $branch): static
+    {
+        if (!$this->branch->contains($branch)) {
+            $this->branch->add($branch);
+            $branch->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBranch(Branch $branch): static
+    {
+        if ($this->branch->removeElement($branch)) {
+            // set the owning side to null (unless already changed)
+            if ($branch->getUser() === $this) {
+                $branch->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Department>
+     */
+    public function getDepartment(): Collection
+    {
+        return $this->department;
+    }
+
+    public function addDepartment(Department $department): static
+    {
+        if (!$this->department->contains($department)) {
+            $this->department->add($department);
+            $department->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDepartment(Department $department): static
+    {
+        if ($this->department->removeElement($department)) {
+            // set the owning side to null (unless already changed)
+            if ($department->getUser() === $this) {
+                $department->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Designation>
+     */
+    public function getDesignation(): Collection
+    {
+        return $this->designation;
+    }
+
+    public function addDesignation(Designation $designation): static
+    {
+        if (!$this->designation->contains($designation)) {
+            $this->designation->add($designation);
+            $designation->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDesignation(Designation $designation): static
+    {
+        if ($this->designation->removeElement($designation)) {
+            // set the owning side to null (unless already changed)
+            if ($designation->getUser() === $this) {
+                $designation->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Leave>
+     */
+    public function getLeave(): Collection
+    {
+        return $this->leave;
+    }
+
+    public function addLeave(Leave $leave): static
+    {
+        if (!$this->leave->contains($leave)) {
+            $this->leave->add($leave);
+            $leave->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLeave(Leave $leave): static
+    {
+        if ($this->leave->removeElement($leave)) {
+            // set the owning side to null (unless already changed)
+            if ($leave->getUser() === $this) {
+                $leave->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Document>
+     */
+    public function getDocument(): Collection
+    {
+        return $this->document;
+    }
+
+    public function addDocument(Document $document): static
+    {
+        if (!$this->document->contains($document)) {
+            $this->document->add($document);
+            $document->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDocument(Document $document): static
+    {
+        if ($this->document->removeElement($document)) {
+            // set the owning side to null (unless already changed)
+            if ($document->getUser() === $this) {
+                $document->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Payslip>
+     */
+    public function getPayslip(): Collection
+    {
+        return $this->payslip;
+    }
+
+    public function addPayslip(Payslip $payslip): static
+    {
+        if (!$this->payslip->contains($payslip)) {
+            $this->payslip->add($payslip);
+            $payslip->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePayslip(Payslip $payslip): static
+    {
+        if ($this->payslip->removeElement($payslip)) {
+            // set the owning side to null (unless already changed)
+            if ($payslip->getUser() === $this) {
+                $payslip->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Allowance>
+     */
+    public function getAllowance(): Collection
+    {
+        return $this->allowance;
+    }
+
+    public function addAllowance(Allowance $allowance): static
+    {
+        if (!$this->allowance->contains($allowance)) {
+            $this->allowance->add($allowance);
+            $allowance->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAllowance(Allowance $allowance): static
+    {
+        if ($this->allowance->removeElement($allowance)) {
+            // set the owning side to null (unless already changed)
+            if ($allowance->getUser() === $this) {
+                $allowance->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Loan>
+     */
+    public function getLoan(): Collection
+    {
+        return $this->loan;
+    }
+
+    public function addLoan(Loan $loan): static
+    {
+        if (!$this->loan->contains($loan)) {
+            $this->loan->add($loan);
+            $loan->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLoan(Loan $loan): static
+    {
+        if ($this->loan->removeElement($loan)) {
+            // set the owning side to null (unless already changed)
+            if ($loan->getUser() === $this) {
+                $loan->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Deduction>
+     */
+    public function getDeduction(): Collection
+    {
+        return $this->deduction;
+    }
+
+    public function addDeduction(Deduction $deduction): static
+    {
+        if (!$this->deduction->contains($deduction)) {
+            $this->deduction->add($deduction);
+            $deduction->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDeduction(Deduction $deduction): static
+    {
+        if ($this->deduction->removeElement($deduction)) {
+            // set the owning side to null (unless already changed)
+            if ($deduction->getUser() === $this) {
+                $deduction->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Goal>
+     */
+    public function getGoal(): Collection
+    {
+        return $this->goal;
+    }
+
+    public function addGoal(Goal $goal): static
+    {
+        if (!$this->goal->contains($goal)) {
+            $this->goal->add($goal);
+            $goal->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGoal(Goal $goal): static
+    {
+        if ($this->goal->removeElement($goal)) {
+            // set the owning side to null (unless already changed)
+            if ($goal->getUser() === $this) {
+                $goal->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Training>
+     */
+    public function getTraining(): Collection
+    {
+        return $this->training;
+    }
+
+    public function addTraining(Training $training): static
+    {
+        if (!$this->training->contains($training)) {
+            $this->training->add($training);
+            $training->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTraining(Training $training): static
+    {
+        if ($this->training->removeElement($training)) {
+            // set the owning side to null (unless already changed)
+            if ($training->getUser() === $this) {
+                $training->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, AwardHRM>
+     */
+    public function getAwardHRM(): Collection
+    {
+        return $this->awardHRM;
+    }
+
+    public function addAwardHRM(AwardHRM $awardHRM): static
+    {
+        if (!$this->awardHRM->contains($awardHRM)) {
+            $this->awardHRM->add($awardHRM);
+            $awardHRM->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAwardHRM(AwardHRM $awardHRM): static
+    {
+        if ($this->awardHRM->removeElement($awardHRM)) {
+            // set the owning side to null (unless already changed)
+            if ($awardHRM->getUser() === $this) {
+                $awardHRM->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TerminationHRM>
+     */
+    public function getTerminationHRM(): Collection
+    {
+        return $this->terminationHRM;
+    }
+
+    public function addTerminationHRM(TerminationHRM $terminationHRM): static
+    {
+        if (!$this->terminationHRM->contains($terminationHRM)) {
+            $this->terminationHRM->add($terminationHRM);
+            $terminationHRM->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTerminationHRM(TerminationHRM $terminationHRM): static
+    {
+        if ($this->terminationHRM->removeElement($terminationHRM)) {
+            // set the owning side to null (unless already changed)
+            if ($terminationHRM->getUser() === $this) {
+                $terminationHRM->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, JobCategory>
+     */
+    public function getJobCategory(): Collection
+    {
+        return $this->jobCategory;
+    }
+
+    public function addJobCategory(JobCategory $jobCategory): static
+    {
+        if (!$this->jobCategory->contains($jobCategory)) {
+            $this->jobCategory->add($jobCategory);
+            $jobCategory->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJobCategory(JobCategory $jobCategory): static
+    {
+        if ($this->jobCategory->removeElement($jobCategory)) {
+            // set the owning side to null (unless already changed)
+            if ($jobCategory->getUser() === $this) {
+                $jobCategory->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, JobStage>
+     */
+    public function getJobStage(): Collection
+    {
+        return $this->jobStage;
+    }
+
+    public function addJobStage(JobStage $jobStage): static
+    {
+        if (!$this->jobStage->contains($jobStage)) {
+            $this->jobStage->add($jobStage);
+            $jobStage->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJobStage(JobStage $jobStage): static
+    {
+        if ($this->jobStage->removeElement($jobStage)) {
+            // set the owning side to null (unless already changed)
+            if ($jobStage->getUser() === $this) {
+                $jobStage->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Performance>
+     */
+    public function getPerformance(): Collection
+    {
+        return $this->performance;
+    }
+
+    public function addPerformance(Performance $performance): static
+    {
+        if (!$this->performance->contains($performance)) {
+            $this->performance->add($performance);
+            $performance->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePerformance(Performance $performance): static
+    {
+        if ($this->performance->removeElement($performance)) {
+            // set the owning side to null (unless already changed)
+            if ($performance->getUser() === $this) {
+                $performance->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Competencies>
+     */
+    public function getCompetencies(): Collection
+    {
+        return $this->competencies;
+    }
+
+    public function addCompetency(Competencies $competency): static
+    {
+        if (!$this->competencies->contains($competency)) {
+            $this->competencies->add($competency);
+            $competency->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompetency(Competencies $competency): static
+    {
+        if ($this->competencies->removeElement($competency)) {
+            // set the owning side to null (unless already changed)
+            if ($competency->getUser() === $this) {
+                $competency->setUser(null);
             }
         }
 
