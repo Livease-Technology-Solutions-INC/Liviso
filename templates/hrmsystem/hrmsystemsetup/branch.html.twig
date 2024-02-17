@@ -37,19 +37,20 @@
 				</div>
 				<div class="modal-body">
 					<div class="modal-body">
+						{{form_start(form)}}
 						<div class="row">
 							<div class="col-12">
 								<div class="form-group">
-									<label for="name" class="form-label">Name</label>
-									<input class="form-control" placeholder="Enter Branch Name" name="name" type="text" id="name">
+									{{form_row(form.branch)}}
 								</div>
 							</div>
 						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
+							<button type="submit" class="btn btn-primary rounded-2">Create</button>
+						</div>
+						{{form_end(form)}}
 					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
-					<button type="submit" class="btn btn-primary rounded-2">Create</button>
 				</div>
 			</div>
 		</div>
@@ -62,7 +63,7 @@
 		<div class="col-3 rounded-3">
 			<div class="card sticky-top rounded-3" style="top:100px; z-index: 1;">
 				<div class="list-group list-group-flush rounded-3" id="useradd-sidenav">
-					<a href="{{path("hrmsystem/hrm_system_setup/branch")}}" class="list-group-item list-group-item-action border-0 active" data-table="branch">Branch
+					<a href="{{path("hrmsystem/hrm_system_setup/branch", {id: app.user.id})}}" class="list-group-item list-group-item-action border-0 active" data-table="branch">Branch
 						<div class="float-end">
 							<i class="bi bi-chevron-right"></i>
 						</div>
@@ -164,7 +165,23 @@
 									</tr>
 								</thead>
 								<tbody>
-									
+									{% for branch in branchs %}
+										<tr>
+											<td>{{branch.branch}}</td>
+											<td class="">
+												<div class="d-flex justify-content-center align-items-center gap-2">
+													<button type="button" class="p-0 m-0 border-0 open-edit-modal">
+														<a href="{{ path('branch_edit', {'id': branch.id, 'user_id': app.user.id}) }}" data-bs-toggle="tooltip" title="" class="p-1 rounded-3 bg-info text-white border-0" data-bs-original-title="Edit">
+															<i class="bi bi-pen"></i>
+														</a>
+													</button>
+													<a href="{{ path('branch_delete', {'id': branch.id, 'user_id': app.user.id}) }}" class="p-1 rounded-3 bg-danger text-white border-0">
+														<i class="bi bi-trash"></i>
+													</a>
+												</div>
+											</td>
+										</tr>
+									{% endfor %}
 								</tbody>
 							</table>
 						</div>

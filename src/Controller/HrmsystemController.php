@@ -37,6 +37,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Form\HRMSystem\EmployeesAssetSetupType;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\HRMSystem\HRM_System_Setup\Branch;
+use App\Form\HRMSystem\HRM_System_Setup\BranchType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HrmsystemController extends AbstractController
@@ -1294,7 +1296,6 @@ class HrmsystemController extends AbstractController
             // Persist the entity only if the form is submitted and valid
             $this->entityManager->persist($employeesAssetSetup);
             $this->entityManager->flush();
-
             // Redirect after successful form submission (optional)
             return $this->redirectToRoute('hrmsystem/employees_asset_setup',  ['id' => $id]);
         }
@@ -1374,12 +1375,83 @@ class HrmsystemController extends AbstractController
         ]);
     }
 
-    #[Route('/hrmsystem/hrm_system_setup/branch', name: 'hrmsystem/hrm_system_setup/branch')]
-    public function hrmSystemSetupBranch(): Response
+    #[Route('/hrmsystem/hrm_system_setup/branch/{id}', name: 'hrmsystem/hrm_system_setup/branch')]
+    public function hrmSystemSetupBranch(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $branch = new Branch();
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $branch->setUser($user);
+        $form = $this->createForm(BranchType::class, $branch, ['current_user' => $this->getUser()]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the entity only if the form is submitted and valid
+            $this->entityManager->persist($branch);
+            $this->entityManager->flush();
+
+            // Redirect after successful form submission (optional)
+            return $this->redirectToRoute('hrmsystem/hrm_system_setup/branch',  ['id' => $id]);
+        }
+
+        $repository = $this->entityManager->getRepository(branch::class);
+        $branchs = $repository->findBy(['user' => $currentUser]);
+
         return $this->render('hrmsystem/hrmsystemsetup/branch.html.twig', [
             'controller_name' => 'HrmsystemController',
+            'branchs' => $branchs,
+            'form' => $form->createView(),
+        ]);
+    }
+    // delete branch
+    #[Route('/hrmsystem/hrm_system_setup/{id}/delete/{user_id}', name: 'branch_delete', methods: ["GET", "POST"])]
+    public function hrmSystemSetupBranchDelete(Branch $branch, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->entityManager->remove($branch);
+        $this->entityManager->flush();
+        return $this->redirectToRoute('hrmsystem/hrm_system_setup/branch', ['id' => $user_id]);
+    }
+    // edit resignation
+    #[Route("/hrmsystem/hrm_system_setup/{id}/edit/{user_id}", name: "branch_edit", methods: ["GET", "PUT", "POST"])]
+    public function hrmSystemSetupBranchEdit(Request $request, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $repository = $this->entityManager->getRepository(Branch::class);
+        $branch = $repository->find($id);
+
+        if (!$branch) {
+            throw $this->createNotFoundException('branch not found');
+        }
+
+        $form = $this->createForm(BranchType::class, $branch);
+        try {
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Persist the entity only if the form is submitted and valid
+                $branch = $form->getData();
+                $this->entityManager->persist($branch);
+                $this->entityManager->flush();
+
+                // Redirect after successful form submission (optional)
+                return $this->redirectToRoute('hrmsystem/employees_asset_setup', ['id' => $user_id]);
+            }
+        } catch (\Exception $error) {
+            $this->addFlash('danger', 'An error occurred while processing the form.');
+            throw $error;
+        }
+        $repository = $this->entityManager->getRepository(Branch::class);
+        $branchs = $repository->findBy(['user' => $currentUser]);
+
+        return $this->render('hrmsystem/edit/branch.html.twig', [
+            'controller_name' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'branchs' => $branchs,
         ]);
     }
     #[Route('/hrmsystem/hrm_system_setup/department', name: 'hrmsystem/hrm_system_setup/department')]
@@ -1390,7 +1462,7 @@ class HrmsystemController extends AbstractController
             'controller_name' => 'HrmsystemController',
         ]);
     }
-   
+
     #[Route('/hrmsystem/hrm_system_setup/designation', name: 'hrmsystem/hrm_system_setup/designation')]
     public function hrmSystemSetupDesignation(): Response
     {
@@ -1511,5 +1583,4 @@ class HrmsystemController extends AbstractController
             'controller_name' => 'HrmsystemController',
         ]);
     }
-
 }
