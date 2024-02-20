@@ -62,7 +62,7 @@
 		<div class="col-3 rounded-3">
 			<div class="card sticky-top rounded-3" style="top:100px; z-index: 1;">
 				<div class="list-group list-group-flush rounded-3" id="useradd-sidenav">
-					<a href="{{path("hrmsystem/hrm_system_setup/branch")}}" class="list-group-item list-group-item-action border-0 " data-table="branch">Branch
+					<a href="{{path("hrmsystem/hrm_system_setup/branch", {id: app.user.id})}}" class="list-group-item list-group-item-action border-0 " data-table="branch">Branch
 						<div class="float-end">
 							<i class="bi bi-chevron-right"></i>
 						</div>

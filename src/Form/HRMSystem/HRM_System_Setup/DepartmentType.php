@@ -48,7 +48,18 @@ class DepartmentType extends AbstractType
 
         $choices = [];
         foreach ($users as $user) {
-            $choices[$user->getfullName()] = $user;
+            $branches = $user->getBranch();
+
+            foreach ($branches as $branch) {
+                $branchName = $branch->getBranch();
+
+                // Use a unique key based on branch name and user ID
+                // $key = $branchName . '_' . $user->getId();
+                $key = $branchName;
+
+                // Store the branch name as the choice value and user as the choice label
+                $choices[$key] = $branchName;
+            }
         }
 
         return $choices;

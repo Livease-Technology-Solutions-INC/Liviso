@@ -39,6 +39,8 @@ use App\Form\HRMSystem\EmployeesAssetSetupType;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\HRMSystem\HRM_System_Setup\Branch;
 use App\Form\HRMSystem\HRM_System_Setup\BranchType;
+use App\Entity\HRMSystem\HRM_System_Setup\Department;
+use App\Form\HRMSystem\HRM_System_Setup\DepartmentType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HrmsystemController extends AbstractController
@@ -1454,15 +1456,85 @@ class HrmsystemController extends AbstractController
             'branchs' => $branchs,
         ]);
     }
-    #[Route('/hrmsystem/hrm_system_setup/department', name: 'hrmsystem/hrm_system_setup/department')]
-    public function hrmSystemSetupDepartment(): Response
+    #[Route('/hrmsystem/hrm_system_setup/department/{id}', name: 'hrmsystem/hrm_system_setup/department')]
+    public function hrmSystemSetupDepartment(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $department = new Department();
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $department->setUser($user);
+        $form = $this->createForm(DepartmentType::class, $department, ['current_user' => $this->getUser()]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the entity only if the form is submitted and valid
+            $this->entityManager->persist($department);
+            $this->entityManager->flush();
+
+            // Redirect after successful form submission (optional)
+            return $this->redirectToRoute('hrmsystem/hrm_system_setup/department',  ['id' => $id]);
+        }
+
+        $repository = $this->entityManager->getRepository(department::class);
+        $departments = $repository->findBy(['user' => $currentUser]);
+
         return $this->render('hrmsystem/hrmsystemsetup/department.html.twig', [
             'controller_name' => 'HrmsystemController',
+            'departments' => $departments,
+            'form' => $form->createView(),
         ]);
     }
+    // delete department
+    #[Route('/hrmsystem/hrm_system_setup/department/{id}/delete/{user_id}', name: 'department_delete', methods: ["GET", "POST"])]
+    public function hrmSystemSetupDepartmentDelete(Department $department, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->entityManager->remove($department);
+        $this->entityManager->flush();
+        return $this->redirectToRoute('hrmsystem/hrm_system_setup/department', ['id' => $user_id]);
+    }
+    // edit department
+    #[Route("/hrmsystem/hrm_system_setup/department/{id}/edit/{user_id}", name: "department_edit", methods: ["GET", "PUT", "POST"])]
+    public function hrmSystemSetupdepartmentEdit(Request $request, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $repository = $this->entityManager->getRepository(department::class);
+        $department = $repository->find($id);
 
+        if (!$department) {
+            throw $this->createNotFoundException('department not found');
+        }
+
+        $form = $this->createForm(DepartmentType::class, $department);
+        try {
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Persist the entity only if the form is submitted and valid
+                $department = $form->getData();
+                $this->entityManager->persist($department);
+                $this->entityManager->flush();
+
+                // Redirect after successful form submission (optional)
+                return $this->redirectToRoute('hrmsystem/employees_asset_setup', ['id' => $user_id]);
+            }
+        } catch (\Exception $error) {
+            $this->addFlash('danger', 'An error occurred while processing the form.');
+            throw $error;
+        }
+        $repository = $this->entityManager->getRepository(Department::class);
+        $departments = $repository->findBy(['user' => $currentUser]);
+
+        return $this->render('hrmsystem/edit/department.html.twig', [
+            'controller_name' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'departments' => $departments,
+        ]);
+    }
     #[Route('/hrmsystem/hrm_system_setup/designation', name: 'hrmsystem/hrm_system_setup/designation')]
     public function hrmSystemSetupDesignation(): Response
     {
