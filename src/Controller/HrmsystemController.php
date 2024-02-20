@@ -37,9 +37,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Form\HRMSystem\EmployeesAssetSetupType;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\HRMSystem\HRM_System_Setup\Leave;
 use App\Entity\HRMSystem\HRM_System_Setup\Branch;
+use App\Entity\HRMSystem\HRM_System_Setup\Payslip;
+use App\Form\HRMSystem\HRM_System_Setup\LeaveType;
+use App\Entity\HRMSystem\HRM_System_Setup\Document;
 use App\Form\HRMSystem\HRM_System_Setup\BranchType;
+use App\Form\HRMSystem\HRM_System_Setup\PayslipType;
 use App\Entity\HRMSystem\HRM_System_Setup\Department;
+use App\Form\HRMSystem\HRM_System_Setup\DocumentType;
 use App\Entity\HRMSystem\HRM_System_Setup\Designation;
 use App\Form\HRMSystem\HRM_System_Setup\DepartmentType;
 use App\Form\HRMSystem\HRM_System_Setup\DesignationType;
@@ -1600,7 +1606,7 @@ class HrmsystemController extends AbstractController
                 $this->entityManager->flush();
 
                 // Redirect after successful form submission (optional)
-                return $this->redirectToRoute('hrmsystem/employees_asset_setup', ['id' => $user_id]);
+                return $this->redirectToRoute('hrmsystem/designation', ['id' => $user_id]);
             }
         } catch (\Exception $error) {
             $this->addFlash('danger', 'An error occurred while processing the form.');
@@ -1615,29 +1621,200 @@ class HrmsystemController extends AbstractController
             'designations' => $designations,
         ]);
     }
-    #[Route('/hrmsystem/hrm_system_setup/leave-type', name: 'hrmsystem/hrm_system_setup/leave-type')]
-    public function hrmSystemSetupLeaveType(): Response
+    #[Route('/hrmsystem/hrm_system_setup/leave-type/{id}', name: 'hrmsystem/hrm_system_setup/leave-type')]
+    public function hrmSystemSetupLeaveType(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $leave = new Leave();
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $leave->setUser($user);
+        $form = $this->createForm(LeaveType::class, $leave, ['current_user' => $this->getUser()]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the entity only if the form is submitted and valid
+            $this->entityManager->persist($leave);
+            $this->entityManager->flush();
+
+            // Redirect after successful form submission (optional)
+            return $this->redirectToRoute('hrmsystem/hrm_system_setup/leave-type',  ['id' => $id]);
+        }
+
+        $repository = $this->entityManager->getRepository(leave::class);
+        $leaves = $repository->findBy(['user' => $currentUser]);
         return $this->render('hrmsystem/hrmsystemsetup/leaveType.html.twig', [
             'controller_name' => 'HrmsystemController',
+            'leaves' => $leaves,
+            'form' => $form->createView(),
         ]);
     }
-    #[Route('/hrmsystem/hrm_system_setup/document-type', name: 'hrmsystem/hrm_system_setup/document-type')]
-    public function hrmSystemSetupDocumentType(): Response
+    // delete leave
+    #[Route('/hrmsystem/hrm_system_setup/leave/{id}/delete/{user_id}', name: 'leave_delete', methods: ["GET", "POST"])]
+    public function hrmSystemSetupleaveDelete(Leave $leave, int $id, int $user_id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->entityManager->remove($leave);
+        $this->entityManager->flush();
+        return $this->redirectToRoute('hrmsystem/hrm_system_setup/leave-type', ['id' => $user_id]);
+    }
+    // edit leave
+    #[Route("/hrmsystem/hrm_system_setup/leave/{id}/edit/{user_id}", name: "leave_edit", methods: ["GET", "PUT", "POST"])]
+    public function hrmSystemSetupleaveEdit(Request $request, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $repository = $this->entityManager->getRepository(Leave::class);
+        $leave = $repository->find($id);
+
+        if (!$leave) {
+            throw $this->createNotFoundException('leave not found');
+        }
+
+        $form = $this->createForm(LeaveType::class, $leave);
+        try {
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Persist the entity only if the form is submitted and valid
+                $leave = $form->getData();
+                $this->entityManager->persist($leave);
+                $this->entityManager->flush();
+
+                // Redirect after successful form submission (optional)
+                return $this->redirectToRoute('hrmsystem/leave-type', ['id' => $user_id]);
+            }
+        } catch (\Exception $error) {
+            $this->addFlash('danger', 'An error occurred while processing the form.');
+            throw $error;
+        }
+        $repository = $this->entityManager->getRepository(leave::class);
+        $leaves = $repository->findBy(['user' => $currentUser]);
+
+        return $this->render('hrmsystem/edit/leave.html.twig', [
+            'controller_name' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'leaves' => $leaves,
+        ]);
+    }
+    #[Route('/hrmsystem/hrm_system_setup/document-type/{id}', name: 'hrmsystem/hrm_system_setup/document-type')]
+    public function hrmSystemSetupDocumentType(Request $request, int $id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $document = new Document();
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $document->setUser($user);
+        $form = $this->createForm(DocumentType::class, $document, ['current_user' => $this->getUser()]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the entity only if the form is submitted and valid
+            $this->entityManager->persist($document);
+            $this->entityManager->flush();
+
+            // Redirect after successful form submission (optional)
+            return $this->redirectToRoute('hrmsystem/hrm_system_setup/document-type',  ['id' => $id]);
+        }
+
+        $repository = $this->entityManager->getRepository(document::class);
+        $documents = $repository->findBy(['user' => $currentUser]);
+
         return $this->render('hrmsystem/hrmsystemsetup/documentType.html.twig', [
             'controller_name' => 'HrmsystemController',
+            'documents' => $documents,
+            'form' => $form->createView(),
         ]);
     }
-    #[Route('/hrmsystem/hrm_system_setup/payslip-type', name: 'hrmsystem/hrm_system_setup/payslip-type')]
-    public function hrmSystemSetupPaySlipType(): Response
+    // delete document
+    #[Route('/hrmsystem/hrm_system_setup/document/{id}/delete/{user_id}', name: 'document_delete', methods: ["GET", "POST"])]
+    public function hrmSystemSetupdocumentDelete(Document $document, int $id, int $user_id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->entityManager->remove($document);
+        $this->entityManager->flush();
+        return $this->redirectToRoute('hrmsystem/hrm_system_setup/document-type', ['id' => $user_id]);
+    }
+    // edit document
+    #[Route("/hrmsystem/hrm_system_setup/document/{id}/edit/{user_id}", name: "document_edit", methods: ["GET", "PUT", "POST"])]
+    public function hrmSystemSetupdocumentEdit(Request $request, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $repository = $this->entityManager->getRepository(Document::class);
+        $document = $repository->find($id);
+
+        if (!$document) {
+            throw $this->createNotFoundException('document not found');
+        }
+
+        $form = $this->createForm(DocumentType::class, $document);
+        try {
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Persist the entity only if the form is submitted and valid
+                $document = $form->getData();
+                $this->entityManager->persist($document);
+                $this->entityManager->flush();
+
+                // Redirect after successful form submission (optional)
+                return $this->redirectToRoute('hrmsystem/document-type', ['id' => $user_id]);
+            }
+        } catch (\Exception $error) {
+            $this->addFlash('danger', 'An error occurred while processing the form.');
+            throw $error;
+        }
+        $repository = $this->entityManager->getRepository(document::class);
+        $documents = $repository->findBy(['user' => $currentUser]);
+
+        return $this->render('hrmsystem/edit/document.html.twig', [
+            'controller_name' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'documents' => $documents,
+        ]);
+    }
+    #[Route('/hrmsystem/hrm_system_setup/payslip-type/{id}', name: 'hrmsystem/hrm_system_setup/payslip-type')]
+    public function hrmSystemSetupPaySlipType(Request $request, int $id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $payslip = new Payslip();
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $payslip->setUser($user);
+        $form = $this->createForm(PayslipType::class, $payslip, ['current_user' => $this->getUser()]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the entity only if the form is submitted and valid
+            $this->entityManager->persist($payslip);
+            $this->entityManager->flush();
+
+            // Redirect after successful form submission (optional)
+            return $this->redirectToRoute('hrmsystem/hrm_system_setup/payslip-type',  ['id' => $id]);
+        }
+
+        $repository = $this->entityManager->getRepository(payslip::class);
+        $payslips = $repository->findBy(['user' => $currentUser]);
+
         return $this->render('hrmsystem/hrmsystemsetup/paySlipType.html.twig', [
             'controller_name' => 'HrmsystemController',
+            'payslips' => $payslips,
+            'form' => $form->createView(),
         ]);
+    } // delete payslip
+    #[Route('/hrmsystem/hrm_system_setup/payslip/{id}/delete/{user_id}', name: 'payslip_delete', methods: ["GET", "POST"])]
+    public function hrmSystemSetupPayslipDelete(Payslip $payslip, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->entityManager->remove($payslip);
+        $this->entityManager->flush();
+        return $this->redirectToRoute('hrmsystem/hrm_system_setup/payslip-type', ['id' => $user_id]);
     }
     #[Route('/hrmsystem/hrm_system_setup/allowance-option', name: 'hrmsystem/hrm_system_setup/allowance-option')]
     public function hrmSystemSetupAllowanceOption(): Response
