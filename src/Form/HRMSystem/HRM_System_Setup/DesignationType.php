@@ -2,7 +2,7 @@
 
 namespace App\Form\HRMSystem\HRM_System_Setup;
 
-use App\Entity\HRMSystem\HRM_System_Setup\Department;
+use App\Entity\HRMSystem\HRM_System_Setup\Designation;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -13,7 +13,7 @@ use App\Form\Account\DataTransformer\UserToIdTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
-class DepartmentType extends AbstractType
+class DesignationType extends AbstractType
 {
     private UserToIdTransformer $userToIdTransformer;
     private EntityManagerInterface $entityManager;
@@ -26,15 +26,15 @@ class DepartmentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('branch', ChoiceType::class, [
-                'label' => 'Branch',
+            ->add('department', ChoiceType::class, [
+                'label' => 'Department',
                 'choices' => $this->getUserChoices(),
                 'attr' => [
                     'class' => 'form-select m-0',
                 ],
             ])
-            ->add('department', TextType::class, [
-                'label' => 'Department',
+            ->add('designation', TextType::class, [
+                'label' => 'Designation',
                 'attr' => [
                     'class' => 'form-control m-0',
                     'placeholder' => 'Enter Department Name'
@@ -48,17 +48,17 @@ class DepartmentType extends AbstractType
 
         $choices = [];
         foreach ($users as $user) {
-            $branches = $user->getBranch();
+            $departments = $user->getDepartment();
 
-            foreach ($branches as $branch) {
-                $branchName = $branch->getBranch();
+            foreach ($departments as $department) {
+                $departmentName = $department->getDepartment();
 
-                // Use a unique key based on branch name and user ID
-                // $key = $branchName . '_' . $user->getId();
-                $key = $branchName;
+                // Use a unique key based on department name and user ID
+                // $key = $departmentName . '_' . $user->getId();
+                $key = $departmentName;
 
-                // Store the branch name as the choice value and user as the choice label
-                $choices[$key] = $branchName;
+                // Store the department name as the choice value and user as the choice label
+                $choices[$key] = $departmentName;
             }
         }
 
@@ -68,7 +68,7 @@ class DepartmentType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Department::class,
+            'data_class' => Designation::class,
             'current_user' => null,
         ]);
     }

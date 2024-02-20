@@ -40,7 +40,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\HRMSystem\HRM_System_Setup\Branch;
 use App\Form\HRMSystem\HRM_System_Setup\BranchType;
 use App\Entity\HRMSystem\HRM_System_Setup\Department;
+use App\Entity\HRMSystem\HRM_System_Setup\Designation;
 use App\Form\HRMSystem\HRM_System_Setup\DepartmentType;
+use App\Form\HRMSystem\HRM_System_Setup\DesignationType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HrmsystemController extends AbstractController
@@ -1535,12 +1537,82 @@ class HrmsystemController extends AbstractController
             'departments' => $departments,
         ]);
     }
-    #[Route('/hrmsystem/hrm_system_setup/designation', name: 'hrmsystem/hrm_system_setup/designation')]
-    public function hrmSystemSetupDesignation(): Response
+    #[Route('/hrmsystem/hrm_system_setup/designation/{id}', name: 'hrmsystem/hrm_system_setup/designation')]
+    public function hrmSystemSetupDesignation(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $designation = new Designation();
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $designation->setUser($user);
+        $form = $this->createForm(DesignationType::class, $designation, ['current_user' => $this->getUser()]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the entity only if the form is submitted and valid
+            $this->entityManager->persist($designation);
+            $this->entityManager->flush();
+
+            // Redirect after successful form submission (optional)
+            return $this->redirectToRoute('hrmsystem/hrm_system_setup/designation',  ['id' => $id]);
+        }
+
+        $repository = $this->entityManager->getRepository(designation::class);
+        $designations = $repository->findBy(['user' => $currentUser]);
         return $this->render('hrmsystem/hrmsystemsetup/designation.html.twig', [
             'controller_name' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'designations' => $designations,
+        ]);
+    }
+    // delete designation
+    #[Route('/hrmsystem/hrm_system_setup/designation/{id}/delete/{user_id}', name: 'designation_delete', methods: ["GET", "POST"])]
+    public function hrmSystemSetupDesignationDelete(Designation $designation, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->entityManager->remove($designation);
+        $this->entityManager->flush();
+        return $this->redirectToRoute('hrmsystem/hrm_system_setup/designation', ['id' => $user_id]);
+    }
+    // edit designation
+    #[Route("/hrmsystem/hrm_system_setup/designation/{id}/edit/{user_id}", name: "designation_edit", methods: ["GET", "PUT", "POST"])]
+    public function hrmSystemSetupDesignationEdit(Request $request, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $repository = $this->entityManager->getRepository(Designation::class);
+        $designation = $repository->find($id);
+
+        if (!$designation) {
+            throw $this->createNotFoundException('designation not found');
+        }
+
+        $form = $this->createForm(DesignationType::class, $designation);
+        try {
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Persist the entity only if the form is submitted and valid
+                $designation = $form->getData();
+                $this->entityManager->persist($designation);
+                $this->entityManager->flush();
+
+                // Redirect after successful form submission (optional)
+                return $this->redirectToRoute('hrmsystem/employees_asset_setup', ['id' => $user_id]);
+            }
+        } catch (\Exception $error) {
+            $this->addFlash('danger', 'An error occurred while processing the form.');
+            throw $error;
+        }
+        $repository = $this->entityManager->getRepository(designation::class);
+        $designations = $repository->findBy(['user' => $currentUser]);
+
+        return $this->render('hrmsystem/edit/designation.html.twig', [
+            'controller_name' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'designations' => $designations,
         ]);
     }
     #[Route('/hrmsystem/hrm_system_setup/leave-type', name: 'hrmsystem/hrm_system_setup/leave-type')]
