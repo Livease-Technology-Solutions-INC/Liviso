@@ -1816,6 +1816,46 @@ class HrmsystemController extends AbstractController
         $this->entityManager->flush();
         return $this->redirectToRoute('hrmsystem/hrm_system_setup/payslip-type', ['id' => $user_id]);
     }
+    // edit payslip
+    #[Route("/hrmsystem/hrm_system_setup/payslip/{id}/edit/{user_id}", name: "payslip_edit", methods: ["GET", "PUT", "POST"])]
+    public function hrmSystemSetuppayslipEdit(Request $request, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $repository = $this->entityManager->getRepository(Payslip::class);
+        $payslip = $repository->find($id);
+
+        if (!$payslip) {
+            throw $this->createNotFoundException('payslip not found');
+        }
+
+        $form = $this->createForm(PayslipType::class, $payslip);
+        try {
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Persist the entity only if the form is submitted and valid
+                $payslip = $form->getData();
+                $this->entityManager->persist($payslip);
+                $this->entityManager->flush();
+
+                // Redirect after successful form submission (optional)
+                return $this->redirectToRoute('hrmsystem/payslip-type', ['id' => $user_id]);
+            }
+        } catch (\Exception $error) {
+            $this->addFlash('danger', 'An error occurred while processing the form.');
+            throw $error;
+        }
+        $repository = $this->entityManager->getRepository(payslip::class);
+        $payslips = $repository->findBy(['user' => $currentUser]);
+
+        return $this->render('hrmsystem/edit/payslip.html.twig', [
+            'controller_name' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'payslips' => $payslips,
+        ]);
+    }
     #[Route('/hrmsystem/hrm_system_setup/allowance-option', name: 'hrmsystem/hrm_system_setup/allowance-option')]
     public function hrmSystemSetupAllowanceOption(): Response
     {

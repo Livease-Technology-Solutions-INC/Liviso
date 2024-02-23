@@ -26,7 +26,7 @@ class PayslipType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Payslip', TextType::class, [
+            ->add('payslip', TextType::class, [
                 'label' => 'Name',
                 'attr' => [
                     'class' => 'form-control m-0',

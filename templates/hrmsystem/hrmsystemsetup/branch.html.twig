@@ -36,21 +36,19 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<div class="modal-body">
-						{{form_start(form)}}
-						<div class="row">
-							<div class="col-12">
-								<div class="form-group">
-									{{form_row(form.branch)}}
-								</div>
+					{{form_start(form)}}
+					<div class="row">
+						<div class="col-12">
+							<div class="form-group">
+								{{form_row(form.branch)}}
 							</div>
 						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
-							<button type="submit" class="btn btn-primary rounded-2">Create</button>
-						</div>
-						{{form_end(form)}}
 					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
+						<button type="submit" class="btn btn-primary rounded-2">Create</button>
+					</div>
+					{{form_end(form)}}
 				</div>
 			</div>
 		</div>
