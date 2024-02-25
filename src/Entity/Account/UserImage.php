@@ -19,6 +19,8 @@ class UserImage
     #[ORM\Column(type: "text", nullable: 'true')]
     private ?string $imageUrl = null;
 
+    private ?string $imagePath = null;
+
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "userImages")]
     private ?User $user = null;
 
