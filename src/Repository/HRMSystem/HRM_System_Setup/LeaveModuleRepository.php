@@ -2,26 +2,26 @@
 
 namespace App\Repository\HRMSystem\HRM_System_Setup;
 
-use App\Entity\HRMSystem\HRM_System_Setup\Leave;
+use App\Entity\HRMSystem\HRM_System_Setup\LeaveModule;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Leave>
+ * @extends ServiceEntityRepository<LeaveModule>
  *
- * @method Leave|null find($id, $lockMode = null, $lockVersion = null)
- * @method Leave|null findOneBy(array $criteria, array $orderBy = null)
- * @method Leave[]    findAll()
- * @method Leave[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method LeaveModule|null find($id, $lockMode = null, $lockVersion = null)
+ * @method LeaveModule|null findOneBy(array $criteria, array $orderBy = null)
+ * @method LeaveModule[]    findAll()
+ * @method LeaveModule[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class LeaveRepository extends ServiceEntityRepository
+class LeaveModuleRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Leave::class);
+        parent::__construct($registry, LeaveModule::class);
     }
 
-    public function save(Leave $entity, bool $flush = false): void
+    public function save(LeaveModule $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class LeaveRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Leave $entity, bool $flush = false): void
+    public function remove(LeaveModule $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class LeaveRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Leave[] Returns an array of Leave objects
+//     * @return LeaveModule[] Returns an array of LeaveModule objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class LeaveRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Leave
+//    public function findOneBySomeField($value): ?LeaveModule
 //    {
 //        return $this->createQueryBuilder('l')
 //            ->andWhere('l.exampleField = :val')

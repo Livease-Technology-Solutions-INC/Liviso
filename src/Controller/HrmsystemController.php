@@ -35,18 +35,25 @@ use App\Form\HRMSystem\CustomQuestionsType;
 use App\Entity\HRMSystem\EmployeesAssetSetup;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Entity\HRMSystem\HRM_System_Setup\Loan;
 use App\Form\HRMSystem\EmployeesAssetSetupType;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\HRMSystem\HRM_System_Setup\Leave;
 use App\Entity\HRMSystem\HRM_System_Setup\Branch;
+use App\Form\HRMSystem\HRM_System_Setup\LoanType;
 use App\Entity\HRMSystem\HRM_System_Setup\Payslip;
 use App\Form\HRMSystem\HRM_System_Setup\LeaveType;
 use App\Entity\HRMSystem\HRM_System_Setup\Document;
 use App\Form\HRMSystem\HRM_System_Setup\BranchType;
+use App\Entity\HRMSystem\HRM_System_Setup\Allowance;
+use App\Entity\HRMSystem\HRM_System_Setup\Deduction;
 use App\Form\HRMSystem\HRM_System_Setup\PayslipType;
 use App\Entity\HRMSystem\HRM_System_Setup\Department;
 use App\Form\HRMSystem\HRM_System_Setup\DocumentType;
 use App\Entity\HRMSystem\HRM_System_Setup\Designation;
+use App\Entity\HRMSystem\HRM_System_Setup\LeaveModule;
+use App\Form\HRMSystem\HRM_System_Setup\AllowanceType;
+use App\Form\HRMSystem\HRM_System_Setup\DeductionType;
 use App\Form\HRMSystem\HRM_System_Setup\DepartmentType;
 use App\Form\HRMSystem\HRM_System_Setup\DesignationType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -1627,7 +1634,7 @@ class HrmsystemController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $currentUser = $this->getUser();
         assert($currentUser instanceof User);
-        $leave = new Leave();
+        $leave = new LeaveModule();
         $user = $this->entityManager->getRepository(User::class)->find($id);
         $leave->setUser($user);
         $form = $this->createForm(LeaveType::class, $leave, ['current_user' => $this->getUser()]);
@@ -1642,7 +1649,7 @@ class HrmsystemController extends AbstractController
             return $this->redirectToRoute('hrmsystem/hrm_system_setup/leave-type',  ['id' => $id]);
         }
 
-        $repository = $this->entityManager->getRepository(leave::class);
+        $repository = $this->entityManager->getRepository(LeaveModule::class);
         $leaves = $repository->findBy(['user' => $currentUser]);
         return $this->render('hrmsystem/hrmsystemsetup/leaveType.html.twig', [
             'controller_name' => 'HrmsystemController',
@@ -1652,7 +1659,7 @@ class HrmsystemController extends AbstractController
     }
     // delete leave
     #[Route('/hrmsystem/hrm_system_setup/leave/{id}/delete/{user_id}', name: 'leave_delete', methods: ["GET", "POST"])]
-    public function hrmSystemSetupleaveDelete(Leave $leave, int $id, int $user_id): Response
+    public function hrmSystemSetupleaveDelete(LeaveModule $leave, int $id, int $user_id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $this->entityManager->remove($leave);
@@ -1666,7 +1673,7 @@ class HrmsystemController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $currentUser = $this->getUser();
         assert($currentUser instanceof User);
-        $repository = $this->entityManager->getRepository(Leave::class);
+        $repository = $this->entityManager->getRepository(LeaveModule::class);
         $leave = $repository->find($id);
 
         if (!$leave) {
@@ -1690,7 +1697,7 @@ class HrmsystemController extends AbstractController
             $this->addFlash('danger', 'An error occurred while processing the form.');
             throw $error;
         }
-        $repository = $this->entityManager->getRepository(leave::class);
+        $repository = $this->entityManager->getRepository(LeaveModule::class);
         $leaves = $repository->findBy(['user' => $currentUser]);
 
         return $this->render('hrmsystem/edit/leave.html.twig', [
@@ -1807,7 +1814,7 @@ class HrmsystemController extends AbstractController
             'payslips' => $payslips,
             'form' => $form->createView(),
         ]);
-    } // delete payslip
+    }
     #[Route('/hrmsystem/hrm_system_setup/payslip/{id}/delete/{user_id}', name: 'payslip_delete', methods: ["GET", "POST"])]
     public function hrmSystemSetupPayslipDelete(Payslip $payslip, int $id, int $user_id): Response
     {
@@ -1856,28 +1863,239 @@ class HrmsystemController extends AbstractController
             'payslips' => $payslips,
         ]);
     }
-    #[Route('/hrmsystem/hrm_system_setup/allowance-option', name: 'hrmsystem/hrm_system_setup/allowance-option')]
-    public function hrmSystemSetupAllowanceOption(): Response
+    #[Route('/hrmsystem/hrm_system_setup/allowance-option/{id}', name: 'hrmsystem/hrm_system_setup/allowance-option')]
+    public function hrmSystemSetupAllowanceOption(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $allowance = new Allowance();
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $allowance->setUser($user);
+        $form = $this->createForm(AllowanceType::class, $allowance, ['current_user' => $this->getUser()]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the entity only if the form is submitted and valid
+            $this->entityManager->persist($allowance);
+            $this->entityManager->flush();
+
+            // Redirect after successful form submission (optional)
+            return $this->redirectToRoute('hrmsystem/hrm_system_setup/allowance-type',  ['id' => $id]);
+        }
+
+        $repository = $this->entityManager->getRepository(Allowance::class);
+        $allowances = $repository->findBy(['user' => $currentUser]);
+
         return $this->render('hrmsystem/hrmsystemsetup/allowanceOption.html.twig', [
             'controller_name' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'allowances' => $allowances,
         ]);
     }
-    #[Route('/hrmsystem/hrm_system_setup/loan-option', name: 'hrmsystem/hrm_system_setup/loan-option')]
-    public function hrmSystemSetupLoanOption(): Response
+    #[Route('/hrmsystem/hrm_system_setup/allowance-option/{id}/delete/{user_id}', name: 'payslip_delete', methods: ["GET", "POST"])]
+    public function hrmSystemSetupallowanceDelete(Allowance $allowance, int $id, int $user_id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->entityManager->remove($allowance);
+        $this->entityManager->flush();
+        return $this->redirectToRoute('hrmsystem/hrm_system_setup/payslip-type', ['id' => $user_id]);
+    }
+    // edit allowance
+    #[Route("/hrmsystem/hrm_system_setup/allowance/{id}/edit/{user_id}", name: "allowance_edit", methods: ["GET", "PUT", "POST"])]
+    public function hrmSystemSetupallowanceEdit(Request $request, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $repository = $this->entityManager->getRepository(Allowance::class);
+        $allowance = $repository->find($id);
+
+        if (!$allowance) {
+            throw $this->createNotFoundException('allowance not found');
+        }
+
+        $form = $this->createForm(AllowanceType::class, $allowance);
+        try {
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Persist the entity only if the form is submitted and valid
+                $allowance = $form->getData();
+                $this->entityManager->persist($allowance);
+                $this->entityManager->flush();
+
+                // Redirect after successful form submission (optional)
+                return $this->redirectToRoute('hrmsystem/allowance-type', ['id' => $user_id]);
+            }
+        } catch (\Exception $error) {
+            $this->addFlash('danger', 'An error occurred while processing the form.');
+            throw $error;
+        }
+        $repository = $this->entityManager->getRepository(allowance::class);
+        $allowances = $repository->findBy(['user' => $currentUser]);
+
+        return $this->render('hrmsystem/edit/allowance.html.twig', [
+            'controller_name' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'allowances' => $allowances,
+        ]);
+    }
+    #[Route('/hrmsystem/hrm_system_setup/loan-option/{id}', name: 'hrmsystem/hrm_system_setup/loan-option')]
+    public function hrmSystemSetupLoanOption(Request $request, int $id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $loan = new Loan();
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $loan->setUser($user);
+        $form = $this->createForm(LoanType::class, $loan, ['current_user' => $this->getUser()]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the entity only if the form is submitted and valid
+            $this->entityManager->persist($loan);
+            $this->entityManager->flush();
+
+            // Redirect after successful form submission (optional)
+            return $this->redirectToRoute('hrmsystem/hrm_system_setup/loan-option',  ['id' => $id]);
+        }
+
+        $repository = $this->entityManager->getRepository(loan::class);
+        $loans = $repository->findBy(['user' => $currentUser]);
+
         return $this->render('hrmsystem/hrmsystemsetup/loanOption.html.twig', [
             'controller_name' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'loans' => $loans,
         ]);
     }
-    #[Route('/hrmsystem/hrm_system_setup/deduction-option', name: 'hrmsystem/hrm_system_setup/deduction-option')]
-    public function hrmSystemSetupDeductionOption(): Response
+    // delete loan option
+    #[Route('/hrmsystem/hrm_system_setup/loan-option/{id}/delete/{user_id}', name: 'loan_delete', methods: ["GET", "POST"])]
+    public function hrmSystemSetupLoanOptionDelete(Loan $loan, int $id, int $user_id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->entityManager->remove($loan);
+        $this->entityManager->flush();
+        return $this->redirectToRoute('hrmsystem/hrm_system_setup/loan-option', ['id' => $user_id]);
+    }
+    // edit loan option
+    #[Route("/hrmsystem/hrm_system_setup/loan-option/{id}/edit/{user_id}", name: 'loan_edit', methods: ["GET", "PUT", "POST"])]
+    public function hrmSystemSetupLoanOptionEdit(Request $request, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $repository = $this->entityManager->getRepository(Loan::class);
+        $loan = $repository->find($id);
+
+        if (!$loan) {
+            throw $this->createNotFoundException('loan not found');
+        }
+
+        $form = $this->createForm(LoanType::class, $loan);
+        try {
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Persist the entity only if the form is submitted and valid
+                $loan = $form->getData();
+                $this->entityManager->persist($loan);
+                $this->entityManager->flush();
+
+                // Redirect after successful form submission (optional)
+                return $this->redirectToRoute('hrmsystem/loan-option', ['id' => $user_id]);
+            }
+        } catch (\Exception $error) {
+            $this->addFlash('danger', 'An error occurred while processing the form.');
+            throw $error;
+        }
+        $repository = $this->entityManager->getRepository(Loan::class);
+        $loans = $repository->findBy(['user' => $currentUser]);
+
+        return $this->render('hrmsystem/edit/loan.html.twig', [
+            'controller_name' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'loans' => $loans,
+        ]);
+    }
+    #[Route('/hrmsystem/hrm_system_setup/deduction-option/{id}', name: 'hrmsystem/hrm_system_setup/deduction-option')]
+    public function hrmSystemSetupDeductionOption(Request $request, int $id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $deduction = new Deduction();
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $deduction->setUser($user);
+        $form = $this->createForm(DeductionType::class, $deduction, ['current_user' => $this->getUser()]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the entity only if the form is submitted and valid
+            $this->entityManager->persist($deduction);
+            $this->entityManager->flush();
+
+            // Redirect after successful form submission (optional)
+            return $this->redirectToRoute('hrmsystem/hrm_system_setup/deduction-option',  ['id' => $id]);
+        }
+
+        $repository = $this->entityManager->getRepository(Deduction::class);
+        $deductions = $repository->findBy(['user' => $currentUser]);
         return $this->render('hrmsystem/hrmsystemsetup/deductionOption.html.twig', [
             'controller_name' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'deductions' => $deductions,
+        ]);
+    }
+    // delete deduction option
+    #[Route('/hrmsystem/hrm_system_setup/deduction-option/{id}/delete/{user_id}', name: 'deduction_delete', methods: ["GET", "POST"])]
+    public function hrmSystemSetupdeductionOptionDelete(Deduction $deduction, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->entityManager->remove($deduction);
+        $this->entityManager->flush();
+        return $this->redirectToRoute('hrmsystem/hrm_system_setup/deduction-option', ['id' => $user_id]);
+    }
+    // edit deduction option
+    #[Route("/hrmsystem/hrm_system_setup/deduction-option/{id}/edit/{user_id}", name: 'deduction_edit', methods: ["GET", "PUT", "POST"])]
+    public function hrmSystemSetupdeductionOptionEdit(Request $request, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $repository = $this->entityManager->getRepository(Deduction::class);
+        $deduction = $repository->find($id);
+
+        if (!$deduction) {
+            throw $this->createNotFoundException('deduction not found');
+        }
+
+        $form = $this->createForm(DeductionType::class, $deduction);
+        try {
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Persist the entity only if the form is submitted and valid
+                $deduction = $form->getData();
+                $this->entityManager->persist($deduction);
+                $this->entityManager->flush();
+
+                // Redirect after successful form submission (optional)
+                return $this->redirectToRoute('hrmsystem/deduction-option', ['id' => $user_id]);
+            }
+        } catch (\Exception $error) {
+            $this->addFlash('danger', 'An error occurred while processing the form.');
+            throw $error;
+        }
+        $repository = $this->entityManager->getRepository(Deduction::class);
+        $deductions = $repository->findBy(['user' => $currentUser]);
+
+        return $this->render('hrmsystem/edit/deduction.html.twig', [
+            'controller_name' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'deductions' => $deductions,
         ]);
     }
     #[Route('/hrmsystem/hrm_system_setup/goal-type', name: 'hrmsystem/hrm_system_setup/goal-type')]

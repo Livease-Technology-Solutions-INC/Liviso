@@ -16,7 +16,7 @@ class AwardHRM
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $loan = null;
+    private ?string $award = null;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "awardHRM")]
     #[ORM\JoinColumn(name: "user_id", referencedColumnName: "id")]
@@ -27,14 +27,14 @@ class AwardHRM
         return $this->id;
     }
 
-    public function getLoan(): ?string
+    public function getAward(): ?string
     {
-        return $this->loan;
+        return $this->award;
     }
 
-    public function setLoan(string $loan): static
+    public function setAward(string $award): static
     {
-        $this->loan = $loan;
+        $this->award = $award;
 
         return $this;
     }
