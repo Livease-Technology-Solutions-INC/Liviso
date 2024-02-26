@@ -35,27 +35,35 @@ use App\Form\HRMSystem\CustomQuestionsType;
 use App\Entity\HRMSystem\EmployeesAssetSetup;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Entity\HRMSystem\HRM_System_Setup\Goal;
 use App\Entity\HRMSystem\HRM_System_Setup\Loan;
 use App\Form\HRMSystem\EmployeesAssetSetupType;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\HRMSystem\HRM_System_Setup\Leave;
 use App\Entity\HRMSystem\HRM_System_Setup\Branch;
+use App\Form\HRMSystem\HRM_System_Setup\GoalType;
 use App\Form\HRMSystem\HRM_System_Setup\LoanType;
 use App\Entity\HRMSystem\HRM_System_Setup\Payslip;
 use App\Form\HRMSystem\HRM_System_Setup\LeaveType;
+use App\Entity\HRMSystem\HRM_System_Setup\AwardHRM;
 use App\Entity\HRMSystem\HRM_System_Setup\Document;
+use App\Entity\HRMSystem\HRM_System_Setup\Training;
 use App\Form\HRMSystem\HRM_System_Setup\BranchType;
 use App\Entity\HRMSystem\HRM_System_Setup\Allowance;
 use App\Entity\HRMSystem\HRM_System_Setup\Deduction;
 use App\Form\HRMSystem\HRM_System_Setup\PayslipType;
 use App\Entity\HRMSystem\HRM_System_Setup\Department;
+use App\Form\HRMSystem\HRM_System_Setup\AwardHRMType;
 use App\Form\HRMSystem\HRM_System_Setup\DocumentType;
+use App\Form\HRMSystem\HRM_System_Setup\TrainingType;
 use App\Entity\HRMSystem\HRM_System_Setup\Designation;
 use App\Entity\HRMSystem\HRM_System_Setup\LeaveModule;
 use App\Form\HRMSystem\HRM_System_Setup\AllowanceType;
 use App\Form\HRMSystem\HRM_System_Setup\DeductionType;
 use App\Form\HRMSystem\HRM_System_Setup\DepartmentType;
 use App\Form\HRMSystem\HRM_System_Setup\DesignationType;
+use App\Entity\HRMSystem\HRM_System_Setup\TerminationHRM;
+use App\Form\HRMSystem\HRM_System_Setup\TerminationHRMType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HrmsystemController extends AbstractController
@@ -2098,36 +2106,218 @@ class HrmsystemController extends AbstractController
             'deductions' => $deductions,
         ]);
     }
-    #[Route('/hrmsystem/hrm_system_setup/goal-type', name: 'hrmsystem/hrm_system_setup/goal-type')]
-    public function hrmSystemSetupGoalType(): Response
+    #[Route('/hrmsystem/hrm_system_setup/goal-type/{id}', name: 'hrmsystem/hrm_system_setup/goal-type')]
+    public function hrmSystemSetupGoalType(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $goal = new Goal();
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $goal->setUser($user);
+        $form = $this->createForm(GoalType::class, $goal, ['current_user' => $this->getUser()]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the entity only if the form is submitted and valid
+            $this->entityManager->persist($goal);
+            $this->entityManager->flush();
+
+            // Redirect after successful form submission (optional)
+            return $this->redirectToRoute('hrmsystem/hrm_system_setup/goal-option',  ['id' => $id]);
+        }
+
+        $repository = $this->entityManager->getRepository(goal::class);
+        $goals = $repository->findBy(['user' => $currentUser]);
         return $this->render('hrmsystem/hrmsystemsetup/goalType.html.twig', [
             'controller_name' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'goals' => $goals,
         ]);
     }
-    #[Route('/hrmsystem/hrm_system_setup/training-type', name: 'hrmsystem/hrm_system_setup/training-type')]
-    public function hrmSystemSetupTrainingType(): Response
+    // delete goal option
+    #[Route('/hrmsystem/hrm_system_setup/goal-option/{id}/delete/{user_id}', name: 'goal_delete', methods: ["GET", "POST"])]
+    public function hrmSystemSetupGoalOptionDelete(Goal $goal, int $id, int $user_id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->entityManager->remove($goal);
+        $this->entityManager->flush();
+        return $this->redirectToRoute('hrmsystem/hrm_system_setup/goal-option', ['id' => $user_id]);
+    }
+    // edit goal option
+    #[Route("/hrmsystem/hrm_system_setup/goal-option/{id}/edit/{user_id}", name: 'goal_edit', methods: ["GET", "PUT", "POST"])]
+    public function hrmSystemSetupgoalOptionEdit(Request $request, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $repository = $this->entityManager->getRepository(goal::class);
+        $goal = $repository->find($id);
+
+        if (!$goal) {
+            throw $this->createNotFoundException('goal not found');
+        }
+
+        $form = $this->createForm(goalType::class, $goal);
+        try {
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Persist the entity only if the form is submitted and valid
+                $goal = $form->getData();
+                $this->entityManager->persist($goal);
+                $this->entityManager->flush();
+
+                // Redirect after successful form submission (optional)
+                return $this->redirectToRoute('hrmsystem/goal-option', ['id' => $user_id]);
+            }
+        } catch (\Exception $error) {
+            $this->addFlash('danger', 'An error occurred while processing the form.');
+            throw $error;
+        }
+        $repository = $this->entityManager->getRepository(goal::class);
+        $goals = $repository->findBy(['user' => $currentUser]);
+
+        return $this->render('hrmsystem/edit/goal.html.twig', [
+            'controller_name' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'goals' => $goals,
+        ]);
+    }
+    #[Route('/hrmsystem/hrm_system_setup/training-type/{id}', name: 'hrmsystem/hrm_system_setup/training-type')]
+    public function hrmSystemSetupTrainingType(Request $request, int $id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $training = new Training();
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $training->setUser($user);
+        $form = $this->createForm(TrainingType::class, $training, ['current_user' => $this->getUser()]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the entity only if the form is submitted and valid
+            $this->entityManager->persist($training);
+            $this->entityManager->flush();
+
+            // Redirect after successful form submission (optional)
+            return $this->redirectToRoute('hrmsystem/hrm_system_setup/training-option',  ['id' => $id]);
+        }
+
+        $repository = $this->entityManager->getRepository(training::class);
+        $trainings = $repository->findBy(['user' => $currentUser]);
         return $this->render('hrmsystem/hrmsystemsetup/trainingType.html.twig', [
             'controller_name' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'trainings' => $trainings,
         ]);
     }
-    #[Route('/hrmsystem/hrm_system_setup/award-type', name: 'hrmsystem/hrm_system_setup/award-type')]
-    public function hrmSystemSetupAwardType(): Response
+    // delete training option
+    #[Route('/hrmsystem/hrm_system_setup/training-type/{id}/delete/{user_id}', name: 'training_delete', methods: ["GET", "POST"])]
+    public function hrmSystemSetuptrainingTypeDelete(training $training, int $id, int $user_id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->entityManager->remove($training);
+        $this->entityManager->flush();
+        return $this->redirectToRoute('hrmsystem/hrm_system_setup/training-type', ['id' => $user_id]);
+    }
+    // edit goal option
+    #[Route("/hrmsystem/hrm_system_setup/training-type/{id}/edit/{user_id}", name: 'goal_edit', methods: ["GET", "PUT", "POST"])]
+    public function hrmSystemSetupTrainingTypeEdit(Request $request, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $repository = $this->entityManager->getRepository(goal::class);
+        $training = $repository->find($id);
+
+        if (!$training) {
+            throw $this->createNotFoundException('training not found');
+        }
+
+        $form = $this->createForm(TrainingType::class, $training);
+        try {
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Persist the entity only if the form is submitted and valid
+                $training = $form->getData();
+                $this->entityManager->persist($training);
+                $this->entityManager->flush();
+
+                // Redirect after successful form submission (optional)
+                return $this->redirectToRoute('hrmsystem/training-option', ['id' => $user_id]);
+            }
+        } catch (\Exception $error) {
+            $this->addFlash('danger', 'An error occurred while processing the form.');
+            throw $error;
+        }
+        $repository = $this->entityManager->getRepository(Training::class);
+        $trainings = $repository->findBy(['user' => $currentUser]);
+
+        return $this->render('hrmsystem/edit/training.html.twig', [
+            'controller_name' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'trainings' => $trainings,
+        ]);
+    }
+    #[Route('/hrmsystem/hrm_system_setup/award-type/{id}', name: 'hrmsystem/hrm_system_setup/award-type')]
+    public function hrmSystemSetupAwardType(Request $request, int $id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $award = new AwardHRM();
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $award->setUser($user);
+        $form = $this->createForm(AwardHRMType::class, $award, ['current_user' => $this->getUser()]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the entity only if the form is submitted and valid
+            $this->entityManager->persist($award);
+            $this->entityManager->flush();
+
+            // Redirect after successful form submission (optional)
+            return $this->redirectToRoute('hrmsystem/hrm_system_setup/award-option',  ['id' => $id]);
+        }
+
+        $repository = $this->entityManager->getRepository(award::class);
+        $awards = $repository->findBy(['user' => $currentUser]);
         return $this->render('hrmsystem/hrmsystemsetup/awardType.html.twig', [
             'controller_name' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'awards' => $awards,
         ]);
     }
-    #[Route('/hrmsystem/hrm_system_setup/termination-type', name: 'hrmsystem/hrm_system_setup/termination-type')]
-    public function hrmSystemSetupTerminationType(): Response
+    #[Route('/hrmsystem/hrm_system_setup/termination-type/{id}', name: 'hrmsystem/hrm_system_setup/termination-type')]
+    public function hrmSystemSetupTerminationType(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $termination = new TerminationHRM();
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $termination->setUser($user);
+        $form = $this->createForm(TerminationHRMType::class, $termination, ['current_user' => $this->getUser()]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the entity only if the form is submitted and valid
+            $this->entityManager->persist($termination);
+            $this->entityManager->flush();
+
+            // Redirect after successful form submission (optional)
+            return $this->redirectToRoute('hrmsystem/hrm_system_setup/termination-option',  ['id' => $id]);
+        }
+
+        $repository = $this->entityManager->getRepository(terminationHRM::class);
+        $terminations = $repository->findBy(['user' => $currentUser]);
         return $this->render('hrmsystem/hrmsystemsetup/terminationType.html.twig', [
             'controller_name' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'terminations' => $terminations,
         ]);
     }
     #[Route('/hrmsystem/hrm_system_setup/job-category', name: 'hrmsystem/hrm_system_setup/job-category')]
