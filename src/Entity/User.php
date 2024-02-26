@@ -25,9 +25,9 @@ use App\Entity\HRMSystem\GoalTracking;
 use App\Entity\HRMSystem\CustomQuestions;
 use Doctrine\Common\Collections\Collection;
 use App\Entity\HRMSystem\EmployeesAssetSetup;
+use App\Entity\AccountingSystem\FinancialGoal;
 use App\Entity\HRMSystem\HRM_System_Setup\Goal;
 use App\Entity\HRMSystem\HRM_System_Setup\Loan;
-use App\Entity\HRMSystem\HRM_System_Setup\Leave;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\HRMSystem\HRM_System_Setup\Branch;
 use App\Entity\HRMSystem\HRM_System_Setup\Payslip;
@@ -40,6 +40,7 @@ use App\Entity\HRMSystem\HRM_System_Setup\Deduction;
 use App\Entity\HRMSystem\HRM_System_Setup\Department;
 use App\Entity\HRMSystem\HRM_System_Setup\Designation;
 use App\Entity\HRMSystem\HRM_System_Setup\JobCategory;
+use App\Entity\HRMSystem\HRM_System_Setup\LeaveModule;
 use App\Entity\HRMSystem\HRM_System_Setup\Performance;
 use App\Entity\HRMSystem\HRM_System_Setup\Competencies;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -58,23 +59,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToOne(targetEntity: UserProfile::class, mappedBy: "user", cascade: ["persist", "remove"])]
     private ?UserProfile $profile = null;
-    
+
     #[ORM\OneToMany(targetEntity: UserImage::class, mappedBy: "user", cascade: ["persist", "remove"])]
     private $userImages;
-    
+
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
-    
+
     #[ORM\Column]
     private array $roles = [];
-    
+
     /**
      * @var string The hashed password
      */
     #[ORM\Column]
     private ?string $password = null;
     // ...
-    
+
     /**
      */
     #[ORM\Column]
@@ -85,21 +86,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(nullable: true)]
     private ?string $location = null;
-    
+
     // ...
-    
+
     /**
      * @var Collection|User[]
      */
     #[ORM\OneToMany(targetEntity: User::class, mappedBy: "parentUser")]
     private $linkedUsers;
-    
+
     /**
      * @var User|null
      */
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "linkedUsers")]
     private ?User $parentUser = null;
-    
+
     #[ORM\OneToMany(targetEntity: Zoom::class, mappedBy: "user")]
     private Collection $zoomMeetings;
 
@@ -123,7 +124,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(targetEntity: Trip::class, mappedBy: "user")]
     private Collection $trip;
-    
+
     #[ORM\OneToMany(targetEntity: Warning::class, mappedBy: "user")]
     private Collection $warning;
 
@@ -135,20 +136,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(targetEntity: GoalTracking::class, mappedBy: "user")]
     private Collection $goalTracking;
-    
-    
+
+
     // #[ORM\OneToMany(targetEntity: TrainingList::class, mappedBy: "user")]
     // private Collection $trainingList;
 
     #[ORM\OneToMany(targetEntity: Trainer::class, mappedBy: "user")]
     private Collection $trainer;
-    
+
     #[ORM\OneToMany(targetEntity: Award::class, mappedBy: "user")]
     private Collection $award;
-    
+
     #[ORM\OneToMany(targetEntity: Transfer::class, mappedBy: "user")]
     private Collection $transfer;
-    
+
     #[ORM\OneToMany(targetEntity: Promotion::class, mappedBy: "user")]
     private Collection $promotion;
 
@@ -170,8 +171,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Designation::class, mappedBy: "user")]
     private Collection $designation;
 
-    #[ORM\OneToMany(targetEntity: Leave::class, mappedBy: "user")]
-    private Collection $leave;
+    #[ORM\OneToMany(targetEntity: LeaveModule::class, mappedBy: "user")]
+    private Collection $leaveModule;
 
     #[ORM\OneToMany(targetEntity: Document::class, mappedBy: "user")]
     private Collection $document;
@@ -211,7 +212,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(targetEntity: Competencies::class, mappedBy: "user")]
     private Collection $competencies;
-    
+
+
     public function __construct()
     {
         $this->profile = new UserProfile();
@@ -241,7 +243,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->branch = new ArrayCollection();
         $this->department = new ArrayCollection();
         $this->designation = new ArrayCollection();
-        $this->leave = new ArrayCollection();
+        $this->leaveModule = new ArrayCollection();
         $this->document = new ArrayCollection();
         $this->payslip = new ArrayCollection();
         $this->allowance = new ArrayCollection();
@@ -259,7 +261,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __toString()
     {
-        return $this->getFullName(); 
+        return $this->getFullName();
     }
     public function getFullName(): ?string
     {
@@ -1167,36 +1169,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Leave>
-     */
-    public function getLeave(): Collection
-    {
-        return $this->leave;
-    }
-
-    public function addLeave(Leave $leave): static
-    {
-        if (!$this->leave->contains($leave)) {
-            $this->leave->add($leave);
-            $leave->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeLeave(Leave $leave): static
-    {
-        if ($this->leave->removeElement($leave)) {
-            // set the owning side to null (unless already changed)
-            if ($leave->getUser() === $this) {
-                $leave->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, Document>
      */
     public function getDocument(): Collection
@@ -1580,6 +1552,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($competency->getUser() === $this) {
                 $competency->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, LeaveModule>
+     */
+    public function getLeaveModule(): Collection
+    {
+        return $this->leaveModule;
+    }
+
+    public function addLeaveModule(LeaveModule $leaveModule): static
+    {
+        if (!$this->leaveModule->contains($leaveModule)) {
+            $this->leaveModule->add($leaveModule);
+            $leaveModule->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLeaveModule(LeaveModule $leaveModule): static
+    {
+        if ($this->leaveModule->removeElement($leaveModule)) {
+            // set the owning side to null (unless already changed)
+            if ($leaveModule->getUser() === $this) {
+                $leaveModule->setUser(null);
             }
         }
 

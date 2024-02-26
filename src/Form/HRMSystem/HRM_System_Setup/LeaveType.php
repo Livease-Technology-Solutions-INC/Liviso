@@ -2,7 +2,7 @@
 
 namespace App\Form\HRMSystem\HRM_System_Setup;
 
-use App\Entity\HRMSystem\HRM_System_Setup\Leave;
+use App\Entity\HRMSystem\HRM_System_Setup\LeaveModule;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -68,7 +68,7 @@ class LeaveType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Leave::class,
+            'data_class' => LeaveModule::class,
             'current_user' => null,
         ]);
     }

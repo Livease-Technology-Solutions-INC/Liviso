@@ -5,10 +5,10 @@ namespace App\Entity\HRMSystem\HRM_System_Setup;
 use App\Entity\User;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\HRMSystem\HRM_System_Setup\LeaveRepository;
+use App\Repository\HRMSystem\HRM_System_Setup\LeaveModuleRepository;
 
-#[ORM\Entity(repositoryClass: LeaveRepository::class)]
-class Leave
+#[ORM\Entity(repositoryClass: LeaveModuleRepository::class)]
+class LeaveModule
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -21,7 +21,7 @@ class Leave
     #[ORM\Column(length: 255)]
     private ?string $daysPerYear = null;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "leaveType")]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "leaveModuleType")]
     #[ORM\JoinColumn(name: "user_id", referencedColumnName: "id")]
     private ?User $user = null;
 
@@ -65,4 +65,6 @@ class Leave
 
         return $this;
     }
+
+
 }
