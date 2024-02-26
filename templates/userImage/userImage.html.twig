@@ -1,0 +1,26 @@
+{% extends 'partials/layout-vertical.html.twig' %}
+
+{% block title %}Upload Profile Image{% endblock %}
+
+{% block pagetitle %}
+    {{ include('partials/page-title.html.twig', { sub_title: 'Pages', page_title: 'Upload Profile Image' }) }}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xl-6 col-lg-8">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="header-title">Upload Profile Image</h4>
+                    <form action="{{ path('upload_image') }}" method="post" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="imageInput" class="form-label">Choose Image</label>
+                            <input type="file" class="form-control" id="imageInput" name="imagePath">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Upload</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
