@@ -63,7 +63,7 @@ class UserImageController extends AbstractController
             return $this->redirectToRoute('my_account', ['user_id' => $user->getId()]);
         }
 
-        return $this->render('user/myAccount.html.twig', [
+        return $this->render('userImage/userImage.html.twig', [
             'form' => $form->createView(),
         ]);
     }
