@@ -12,15 +12,6 @@
 		<div class="col-xl-4 col-lg-5">
 			<div class="card text-center">
 				<div class="card-body">
-					{# {% for form in userProfileImageForms %} #}
-						{# {{ form_start(form) }} #}
-						<label for="fileInput">
-							{# {{ form_row(form.imageUrl) }} #}
-							{# <img id="profileImage" src="/images/users/avatar-1.jpg"/> #}
-						</label>
-						<input type="file" id="fileInput" style="display: none;">
-						{# {{ form_end(form) }} #}
-					{# {% endfor %} #}
 					<h4 class="mb-1 mt-2">{{app.user.fullName}}</h4>
 					<p class="text-muted">Founder</p>
 					<div class="text-start mt-3">
@@ -43,11 +34,7 @@
 							<strong>Email :</strong>
 							<span class="ms-2 ">{{email}}</span>
 						</p>
-
-						<p class="text-muted mb-1">
-							<strong>Location :</strong>
-							<span class="ms-2">{{userProfile.country}}</span>
-						</p>
+						
 					</div>
 
 					<ul class="social-list list-inline mt-3 mb-0">
