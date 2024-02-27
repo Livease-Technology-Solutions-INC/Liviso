@@ -16,7 +16,7 @@ class JobCategory
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $loan = null;
+    private ?string $category = null;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "jobCategory")]
     #[ORM\JoinColumn(name: "user_id", referencedColumnName: "id")]
@@ -26,19 +26,6 @@ class JobCategory
     {
         return $this->id;
     }
-
-    public function getLoan(): ?string
-    {
-        return $this->loan;
-    }
-
-    public function setLoan(string $loan): static
-    {
-        $this->loan = $loan;
-
-        return $this;
-    }
-
     public function getUser(): ?User
     {
         return $this->user;
@@ -47,6 +34,18 @@ class JobCategory
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getCategory(): ?string
+    {
+        return $this->category;
+    }
+
+    public function setCategory(string $category): static
+    {
+        $this->category = $category;
 
         return $this;
     }

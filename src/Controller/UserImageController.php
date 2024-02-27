@@ -21,8 +21,8 @@ class UserImageController extends AbstractController
         $this->doctrine = $doctrine;
     }
 
-    #[Route('/uploadImage', name: 'upload_image')]
-    public function uploadImage(Request $request): Response
+    #[Route('/uploadImage/{id}', name: 'upload_image')]
+    public function uploadImage(Request $request, int $id): Response
     {
         // Retrieve the current user
         $user = $this->getUser();
