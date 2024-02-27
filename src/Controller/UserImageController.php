@@ -2,10 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use App\Form\UserImageType;
 use App\Entity\Account\UserImage;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,28 +15,26 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class UserImageController extends AbstractController
 {
     private $doctrine;
+    private $security;
 
-    public function __construct(ManagerRegistry $doctrine)
+    public function __construct(ManagerRegistry $doctrine, Security $security)
     {
         $this->doctrine = $doctrine;
+        $this->security = $security;
     }
 
     #[Route('/uploadImage', name: 'upload_image')]
     public function uploadImage(Request $request): Response
     {
-        // Retrieve the current user
-        $user = $this->getUser();
-
-        // Ensure the user is authenticated
-        if (!$user instanceof User) {
-            throw $this->createAccessDeniedException('User not authenticated.');
-        }
-
-        // Create a new UserImage entity and set the user
         $userImage = new UserImage();
+        
+        // Get the current user
+        $user = $this->security->getUser();
+        
+        // Set the user for the user image
         $userImage->setUser($user);
-
-        // Create a form for uploading the image
+        
+        $userImage = new UserImage();
         $form = $this->createForm(UserImageType::class, $userImage);
         $form->handleRequest($request);
 
@@ -44,14 +42,14 @@ class UserImageController extends AbstractController
             // Handle file upload
             $imageFile = $form->get('imagePath')->getData();
             if ($imageFile) {
-                // Generate a unique filename and move the file to the desired directory
                 $newFilename = uniqid() . '.' . $imageFile->guessExtension();
+
+                // Move the file to the directory where images are stored
                 $imageFile->move(
                     $this->getParameter('profileImage_dir'),
                     $newFilename
                 );
 
-                // Set the image URL in the UserImage entity
                 $userImage->setImageUrl($newFilename);
             }
 
@@ -59,8 +57,7 @@ class UserImageController extends AbstractController
             $entityManager->persist($userImage);
             $entityManager->flush();
 
-            // Redirect to some page (e.g., user's profile) after successful upload
-            return $this->redirectToRoute('my_account', ['user_id' => $user->getId()]);
+            //return $this->redirectToRoute('my_account/{user_id}');
         }
 
         return $this->render('userImage/userImage.html.twig', [
