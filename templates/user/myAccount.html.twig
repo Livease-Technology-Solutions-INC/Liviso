@@ -12,10 +12,15 @@
 		<div class="col-xl-4 col-lg-5">
 			<div class="card text-center">
 				<div class="card-body">
-					<label for="fileInput">
-						<img id="profileImage" src="{{ asset('images/users/avatar-1.jpg') }}" alt="Profile Image"/>
-					</label>
-					<input type="file" id="fileInput" style="display: none;">
+					<form method="post" action="{{ path('upload_image') }}" enctype="multipart/form-data">
+						<label for="fileInput">
+							<img id="profileImage" src="{{ asset('images/users/avatar-1.jpg') }}" alt="Profile Image"/>
+						</label>
+						<input type="file" id="fileInput" name="user_image[imagePath]" style="display: none;">
+						<br> <!-- Add a line break -->
+						<br> <!-- Add a line break -->
+						<button type="submit">Upload Image</button>
+					</form>
 
 					<h4 class="mb-1 mt-2">{{app.user.fullName}}</h4>
 					<p class="text-muted">Founder</p>
