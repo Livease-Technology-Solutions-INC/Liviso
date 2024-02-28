@@ -44,10 +44,12 @@ class MainController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $file = $request->files->get(key: 'support_system')['image'];
             if ($file) {
-                $fileName = md5(uniqid()) . '.' . $file->guessClientExtension();
+                $fileName = md5(uniqid()) . '.' . $file->guessExtension();
                 try {
-                    $file->move($this->getParameter(name: 'support_dir'));
-                    $fileName;
+                    $file->move(
+                        $this->getParameter('support_dir'),
+                        $fileName
+                    );
                 } catch (\Exception $e) {
                     $this->addFlash('error', 'There was an issue with the image');
                     return $this->redirectToRoute('support');
