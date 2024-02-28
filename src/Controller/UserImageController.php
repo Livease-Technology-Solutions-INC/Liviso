@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-
 class UserImageController extends AbstractController
 {
     private $doctrine;
@@ -21,7 +20,7 @@ class UserImageController extends AbstractController
         $this->doctrine = $doctrine;
     }
 
-    #[Route('/uploadImage', name: 'upload_image')]
+    #[Route('/upload_image', name: 'upload_image')]
     public function uploadImage(Request $request): Response
     {
         // Retrieve the current user
@@ -55,6 +54,7 @@ class UserImageController extends AbstractController
                 $userImage->setImageUrl($newFilename);
             }
 
+            // Get the entity manager and persist the UserImage entity
             $entityManager = $this->doctrine->getManager();
             $entityManager->persist($userImage);
             $entityManager->flush();
@@ -63,7 +63,7 @@ class UserImageController extends AbstractController
             //return $this->redirectToRoute('my_account', ['user_id' => $user->getId()]);
         }
 
-        return $this->render('userImage/userImage.html.twig', [
+        return $this->render('user_image/upload.html.twig', [
             'form' => $form->createView(),
         ]);
     }

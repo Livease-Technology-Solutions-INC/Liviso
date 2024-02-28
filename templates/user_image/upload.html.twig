@@ -1,0 +1,16 @@
+{# templates/user_image/upload.html.twig #}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Upload User Image</title>
+</head>
+<body>
+    <h1>Upload User Image</h1>
+    {{ form_start(form) }}
+        {{ form_row(form.imagePath) }}
+        <button type="submit">Upload</button>
+    {{ form_end(form) }}
+</body>
+</html>
