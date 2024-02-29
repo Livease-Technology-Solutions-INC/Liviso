@@ -1,1 +1,1 @@
-document.getElementById("profileImage").addEventListener("click",function(){document.getElementById("fileInput").click()}),document.getElementById("fileInput").addEventListener("change",function(){var e,t=this,n=document.getElementById("profileImage");t.files&&t.files[0]&&((e=new FileReader).onload=function(e){n.src=e.target.result},e.readAsDataURL(t.files[0]))});
+function uploadFileAndRedirect(e){var t=document.getElementById("fileInput"),t=(document.getElementById("uploadForm").submit(),t.getAttribute("data-user-id"));window.location.href="/upload-image/"+t}

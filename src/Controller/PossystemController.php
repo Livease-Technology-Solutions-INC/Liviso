@@ -2,12 +2,23 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\User;
+use App\Entity\POSSystem\Purchase;
+use App\Form\POSSystem\PurchaseType;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PossystemController extends AbstractController
 {
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
     #[Route('/pos/warehouse', name: 'pos_system/warehouse')]
     public function warehouse(): Response
     {
@@ -16,12 +27,83 @@ class PossystemController extends AbstractController
             'controller_name' => 'PossystemController',
         ]);
     }
-    #[Route('/pos/purchase', name: 'pos_system/purchase')]
-    public function purchase(): Response
+    #[Route('/pos/purchase/{id}', name: 'pos_system/purchase')]
+    public function purchase(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $purchase = new Purchase();
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $purchase->setUser($user);
+        $form = $this->createForm(PurchaseType::class, $purchase, ['current_user' => $this->getUser()]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the entity only if the form is submitted and valid
+            $this->entityManager->persist($purchase);
+            $this->entityManager->flush();
+
+            // Redirect after successful form submission (optional)
+            return $this->redirectToRoute('pos_system/purchase',  ['id' => $id]);
+        }
+
+        $repository = $this->entityManager->getRepository(purchase::class);
+        $purchases = $repository->findBy(['user' => $currentUser]);
+
         return $this->render('possystem/purchase.html.twig', [
             'controller_name' => 'PossystemController',
+            'purchases' => $purchases,
+            'form' => $form->createView(),
+        ]);
+    }
+    // delete purchase
+    #[Route('/possystem/purchase/{id}/delete/{user_id}', name: 'purchase_delete', methods: ["GET", "POST"])]
+    public function purchaseDelete(purchase $purchase, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->entityManager->remove($purchase);
+        $this->entityManager->flush();
+        return $this->redirectToRoute('pos_system/purchase', ['id' => $user_id]);
+    }
+    // edit purchase
+    #[Route("/pos_system/purchase/{id}/edit/{user_id}", name: "purchase_edit", methods: ["GET", "PUT", "POST"])]
+    public function purchaseEdit(Request $request, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $repository = $this->entityManager->getRepository(purchase::class);
+        $purchase = $repository->find($id);
+
+        if (!$purchase) {
+            throw $this->createNotFoundException('purchase not found');
+        }
+
+        $form = $this->createForm(purchaseType::class, $purchase,  ['current_user' => $this->getUser()]);
+        try {
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Persist the entity only if the form is submitted and valid
+                $purchase = $form->getData();
+                $this->entityManager->persist($purchase);
+                $this->entityManager->flush();
+
+                // Redirect after successful form submission (optional)
+                return $this->redirectToRoute('pos_system/purchase', ['id' => $user_id]);
+            }
+        } catch (\Exception $error) {
+            $this->addFlash('danger', 'An error occurred while processing the form.');
+            throw $error;
+        }
+        $repository = $this->entityManager->getRepository(purchase::class);
+        $purchases = $repository->findBy(['user' => $currentUser]);
+
+        return $this->render('pos_system/edit/purchase.html.twig', [
+            'controllername' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'purchases' => $purchases,
         ]);
     }
     #[Route('/pos/add_pos', name: 'pos_system/add_pos')]

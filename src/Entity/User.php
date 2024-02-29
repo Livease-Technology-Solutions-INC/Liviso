@@ -13,6 +13,7 @@ use App\Entity\HRMSystem\Trainer;
 use App\Entity\HRMSystem\Warning;
 use App\Entity\HRMSystem\Holidays;
 use App\Entity\HRMSystem\Transfer;
+use App\Entity\POSSystem\Purchase;
 use App\Repository\UserRepository;
 use App\Entity\Account\UserProfile;
 use App\Entity\HRMSystem\Promotion;
@@ -213,6 +214,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Competencies::class, mappedBy: "user")]
     private Collection $competencies;
 
+    #[ORM\OneToMany(targetEntity: Purchase::class, mappedBy: "user")]
+    private Collection $purchase;
+
 
     public function __construct()
     {
@@ -257,6 +261,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->jobStage = new ArrayCollection();
         $this->performance = new ArrayCollection();
         $this->competencies = new ArrayCollection();
+        $this->purchase = new ArrayCollection();
     }
 
     public function __toString()
@@ -1582,6 +1587,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($leaveModule->getUser() === $this) {
                 $leaveModule->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Purchase>
+     */
+    public function getPurchase(): Collection
+    {
+        return $this->purchase;
+    }
+
+    public function addPurchase(Purchase $purchase): static
+    {
+        if (!$this->purchase->contains($purchase)) {
+            $this->purchase->add($purchase);
+            $purchase->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePurchase(Purchase $purchase): static
+    {
+        if ($this->purchase->removeElement($purchase)) {
+            // set the owning side to null (unless already changed)
+            if ($purchase->getUser() === $this) {
+                $purchase->setUser(null);
             }
         }
 

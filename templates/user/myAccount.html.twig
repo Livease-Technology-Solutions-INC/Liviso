@@ -15,7 +15,7 @@
 					<label for="fileInput">
 						<img id="profileImage" src="{{ asset('images/users/avatar-1.jpg') }}" alt="Profile Image"/>
 					</label>
-					<input type="file" id="fileInput" style="display: none;">
+					<input type="file" id="fileInput" style="display: none;" data-user-id="{{ app.user.id }}" onchange="uploadFileAndRedirect()">
 
 					<h4 class="mb-1 mt-2">{{app.user.fullName}}</h4>
 					<p class="text-muted">Founder</p>

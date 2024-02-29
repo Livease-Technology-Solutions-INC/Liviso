@@ -1,19 +1,17 @@
-document.getElementById('profileImage').addEventListener('click', function() {
-    document.getElementById('fileInput').click();
-});
+function uploadFileAndRedirect(id) {
+    // Assuming you are using vanilla JavaScript, adjust if using a framework like jQuery
 
-// Show selected image preview
-document.getElementById('fileInput').addEventListener('change', function() {
-    var input = this;
-    var img = document.getElementById('profileImage');
-    
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
+    var fileInput = document.getElementById('fileInput');
+    var uploadForm = document.getElementById('uploadForm');
 
-        reader.onload = function (e) {
-            img.src = e.target.result;
-        };
+    // You may want to perform additional validation on the file here
 
-        reader.readAsDataURL(input.files[0]);
-    }
-});
+    // Submit the form (upload the file)
+    uploadForm.submit();
+
+    // Retrieve the user ID from the data attribute
+    var userId = fileInput.getAttribute('data-user-id');
+
+    // Redirect to your desired route after the form is submitted
+    window.location.href = "/upload-image/" + userId;
+}

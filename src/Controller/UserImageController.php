@@ -20,8 +20,8 @@ class UserImageController extends AbstractController
         $this->doctrine = $doctrine;
     }
 
-    #[Route('/upload_image', name: 'upload_image')]
-    public function uploadImage(Request $request): Response
+    #[Route('/upload_image/{id}', name: 'upload_image')]
+    public function uploadImage(Request $request, int $id): Response
     {
         // Retrieve the current user
         $user = $this->getUser();
@@ -60,11 +60,10 @@ class UserImageController extends AbstractController
             $entityManager->flush();
 
             // Redirect to some page (e.g., user's profile) after successful upload
-            //return $this->redirectToRoute('my_account', ['user_id' => $user->getId()]);
+            return $this->redirectToRoute('my_account', ['user_id' => $id]);
         }
-
-        return $this->render('user_image/upload.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        // return $this->render('user_image/upload.html.twig', [
+        //     'form' => $form->createView(),
+        // ]);
     }
 }
