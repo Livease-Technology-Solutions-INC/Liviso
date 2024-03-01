@@ -1,1 +1,1 @@
-function uploadFileAndRedirect(e){var t=document.getElementById("fileInput"),t=(document.getElementById("uploadForm").submit(),t.getAttribute("data-user-id"));window.location.href="/upload-image/"+t}
+document.addEventListener("DOMContentLoaded",()=>{document.getElementById("fileInput").addEventListener("change",e=>{var a,e=e.target.files[0];e&&((a=new FormData).append("image",e),saveImage(a).then(e=>{console.log("Image saved successfully:",e)}).catch(e=>{console.error("Error saving image:",e)}))})});

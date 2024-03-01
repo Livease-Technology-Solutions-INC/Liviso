@@ -41,6 +41,7 @@ class UserImageController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // Handle file upload
+            // $file = $request->files->get('fileInput');
             $imageFile = $form->get('imagePath')->getData();
             if ($imageFile) {
                 // Generate a unique filename and move the file to the desired directory
@@ -62,8 +63,8 @@ class UserImageController extends AbstractController
             // Redirect to some page (e.g., user's profile) after successful upload
             return $this->redirectToRoute('my_account', ['user_id' => $id]);
         }
-        // return $this->render('user_image/upload.html.twig', [
-        //     'form' => $form->createView(),
-        // ]);
+        return $this->render('user_image/upload.html.twig',[
+            'form' => $form->createView(),
+        ]);
     }
 }

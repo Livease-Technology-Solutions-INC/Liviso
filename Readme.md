@@ -16,7 +16,7 @@ and Analytics<br> Scalability
 ### Client
 
 Here you'll find the
-[Docs](https://drive.google.com/drive/folders/1htbenS7ox1W4sgiWiVxJKxC99aASIzNP)
+[Docs](https://drive.google.com/drive/folders/1XDO5tmF38wL0DU92T2T52ZV6gbQ0xL-L)
 
 ### Server
 
