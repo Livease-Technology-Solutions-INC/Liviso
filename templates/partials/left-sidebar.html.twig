@@ -732,7 +732,7 @@
 				<div class="collapse" id="sidebarpossystem">
 					<ul class="side-nav-second-level">
 						<li>
-							<a href="{{path("pos_system/warehouse")}}">Warehouse</a>
+							<a href="{{path("pos_system/warehouse", {id: app.user.id})}}">Warehouse</a>
 						</li>
 						<li>
 							<a href="{{path("pos_system/purchase", {id: app.user.id})}}">Purchase</a>

@@ -36,30 +36,29 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<div class="modal-body">
-						<div class="row">
-							<div class="form-group col-md-12">
-								<label for="name" class="form-label">Name</label>
-								<input class="form-control" required="required" name="name" type="text" value="" id="name">
-							</div>
-							<div class="form-group col-md-12">
-								<label for="address" class="form-label">Address</label>
-								<textarea class="form-control" rows="3" name="address" cols="50" id="address"></textarea>
-							</div>
-							<div class="form-group col-md-6">
-								<label for="city" class="form-label">City</label>
-								<input class="form-control" name="city" type="text" id="city">
-							</div>
-							<div class="form-group col-md-6">
-								<label for="city_zip" class="form-label">Zip Code</label>
-								<input class="form-control" name="city_zip" type="text" id="city_zip">
-							</div>
+					{{form_start(form)}}
+					<div class="row">
+						<div class="form-group col-md-12 mb-1">
+							{{form_row(form.name)}}
+						</div>
+						<div class="form-group col-md-6 mb-1">
+							{{form_row(form.address)}}
+						</div>
+						<div class="form-group col-md-6 mb-1">
+							{{form_row(form.city)}}
+						</div>
+						<div class="form-group col-md-6 mb-1">
+							{{form_row(form.zipCode)}}
+						</div>
+						<div class="form-group col-md-6 mb-1">
+							{{form_row(form.status)}}
 						</div>
 					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-primary rounded-2">Create</button>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
+						<button type="submit" class="btn btn-primary rounded-2">Create</button>
+					</div>
+					{{form_end(form)}}
 				</div>
 			</div>
 		</div>
@@ -84,13 +83,27 @@
 						</thead>
 						<tbody>
 
-							<tr>
-								<td>Cara Stevens</td>
-								<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-								<td>New York</td>
-								<td>46</td>
-								<td>2011/12/06</td>
-							</tr>
+							{% for warehouse in warehouses %}
+								<tr>
+									<td>{{warehouse.name}}</td>
+									<td>{{warehouse.address}}</td>
+									<td>{{warehouse.city}}</td>
+									<td>{{ warehouse.zipCode}}</td>
+									<td>{{warehouse.status}}</td>
+									<td class="">
+										<div class="d-flex justify-content-center align-items-center gap-2">
+											<button type="button" class="p-0 m-0 border-0 open-edit-modal">
+												<a href="{{ path('warehouse_edit', {'id': warehouse.id, 'user_id': app.user.id}) }}" data-bs-toggle="tooltip" title="" class="p-1 rounded-3 bg-info text-white border-0" data-bs-original-title="Edit">
+													<i class="bi bi-pen"></i>
+												</a>
+											</button>
+											<a href="{{ path('warehouse_delete', {'id': warehouse.id, 'user_id': app.user.id}) }}" class="p-1 rounded-3 bg-danger text-white border-0">
+												<i class="bi bi-trash"></i>
+											</a>
+										</div>
+									</td>
+								</tr>
+							{% endfor %}
 						</tbody>
 					</table>
 
