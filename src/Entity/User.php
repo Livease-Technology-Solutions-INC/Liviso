@@ -14,6 +14,7 @@ use App\Entity\HRMSystem\Warning;
 use App\Entity\HRMSystem\Holidays;
 use App\Entity\HRMSystem\Transfer;
 use App\Entity\POSSystem\Purchase;
+use App\Entity\POSSystem\WareHouse;
 use App\Repository\UserRepository;
 use App\Entity\Account\UserProfile;
 use App\Entity\HRMSystem\Promotion;
@@ -217,6 +218,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Purchase::class, mappedBy: "user")]
     private Collection $purchase;
 
+    #[ORM\OneToMany(targetEntity: WareHouse::class, mappedBy: "user")]
+    private Collection $wareHouse;
+
 
     public function __construct()
     {
@@ -262,6 +266,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->performance = new ArrayCollection();
         $this->competencies = new ArrayCollection();
         $this->purchase = new ArrayCollection();
+        $this->wareHouse = new ArrayCollection();
     }
 
     public function __toString()
@@ -1617,6 +1622,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($purchase->getUser() === $this) {
                 $purchase->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Purchase>
+     */
+    public function getWareHouse(): Collection
+    {
+        return $this->wareHouse;
+    }
+
+    public function addWareHouse(WareHouse $wareHouse): static
+    {
+        if (!$this->wareHouse->contains($wareHouse)) {
+            $this->wareHouse->add($wareHouse);
+            $wareHouse->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWareHouse(WareHouse $wareHouse): static
+    {
+        if ($this->$wareHouse->removeElement($wareHouse)) {
+            // set the owning side to null (unless already changed)
+            if ($wareHouse->getUser() === $this) {
+                $wareHouse->setUser(null);
             }
         }
 
