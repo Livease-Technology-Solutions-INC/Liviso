@@ -40,3 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 })
+function simple(){
+    console.log("uploaded")
+}
+simple()
