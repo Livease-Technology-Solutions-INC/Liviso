@@ -57,6 +57,10 @@ class PossystemController extends AbstractController
     public function warehouseDelete(warehouse $wareHouse, int $id, int $user_id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        if (!$wareHouse) {
+            throw $this->createNotFoundException('WareHouse not found');
+        }
+
         $this->entityManager->remove($wareHouse);
         $this->entityManager->flush();
         return $this->redirectToRoute('pos_system/warehouse', ['id' => $user_id]);

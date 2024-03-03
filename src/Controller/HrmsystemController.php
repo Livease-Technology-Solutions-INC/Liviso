@@ -70,8 +70,10 @@ use App\Form\HRMSystem\HRM_System_Setup\DesignationType;
 use App\Form\HRMSystem\HRM_System_Setup\JobCategoryType;
 use App\Form\HRMSystem\HRM_System_Setup\PerformanceType;
 use App\Entity\HRMSystem\HRM_System_Setup\TerminationHRM;
+use App\Entity\HRMSystem\Meeting;
 use App\Form\HRMSystem\HRM_System_Setup\CompetenciesType;
 use App\Form\HRMSystem\HRM_System_Setup\TerminationHRMType;
+use App\Form\HRMSystem\MeetingType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HrmsystemController extends AbstractController
@@ -1305,14 +1307,96 @@ class HrmsystemController extends AbstractController
             'controller_name' => 'HrmsystemController',
         ]);
     }
-    #[Route('/hrmsystem/meeting', name: 'hrmsystem/meeting')]
-    public function meeting(): Response
+    #[Route('/hrmsystem/meeting{id}', name: 'hrmsystem/meeting')]
+    public function meeting(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $meeting = new Meeting();
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $meeting->setUser($user);
+        $form = $this->createForm(MeetingType::class, $meeting, ['current_user' => $this->getUser()]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the entity only if the form is submitted and valid
+            $this->entityManager->persist($meeting);
+            $this->entityManager->flush();
+            
+            $this->addFlash('success', 'Meeting created successfully.');
+
+            // Redirect after successful form submission
+            return $this->redirectToRoute('hrmsystem/meeting',  ['id' => $id]);
+        }
+
+        $repository = $this->entityManager->getRepository(meeting::class);
+        $meetings = $repository->findBy(['user' => $currentUser]);
+
         return $this->render('hrmsystem/meeting.html.twig', [
             'controller_name' => 'HrmsystemController',
+            'meetings' => $meetings,
+            'form' => $form->createView(),
         ]);
     }
+
+    //delete meeting
+    #[Route('/hrmsystem/meeting/{id}/delete/{user_id}', name: 'meeting_delete', methods: ["GET", "POST"])]
+    public function meetingDelete(Meeting $meeting, int $id, int $user_id, EntityManagerInterface $entityManager): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        if (!$meeting) {
+            throw $this->createNotFoundException('Meeting not found');
+        }
+
+        $entityManager->remove($meeting);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('hrmsystem/meeting', ['id' => $user_id]);
+    }
+
+    // edit meeting
+    #[Route("/hrmsystem/meeting/{id}/edit/{user_id}", name: "meeting_edit", methods: ["GET", "PUT", "POST"])]
+    public function meetingEdit(Request $request, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $repository = $this->entityManager->getRepository(Meeting::class);
+        $meeting = $repository->find($id);
+
+        if (!$meeting) {
+            throw $this->createNotFoundException('meeting not found');
+        }
+
+        $form = $this->createForm(MeetingType::class, $meeting,  ['current_user' => $this->getUser()]);
+        try {
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Persist the entity only if the form is submitted and valid
+                $meeting = $form->getData();
+                $this->entityManager->persist($meeting);
+                $this->entityManager->flush();
+
+                // Redirect after successful form submission (optional)
+                return $this->redirectToRoute('hrmsystem/meeting', ['id' => $user_id]);
+            }
+        } catch (\Exception $error) {
+            $this->addFlash('danger', 'An error occurred while processing the form.');
+            throw $error;
+        }
+        $repository = $this->entityManager->getRepository(meeting::class);
+        $meetings = $repository->findBy(['user' => $currentUser]);
+
+        return $this->render('hrmsystem/edit/meeting.html.twig', [
+            'controllername' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'meetings' => $meetings,
+        ]);
+    }
+
     #[Route('/hrmsystem/employees_asset_setup/{id}', name: 'hrmsystem/employees_asset_setup', methods: ["GET", "POST"])]
     public function employeesAssetSetup(Request $request, int $id): Response
     {

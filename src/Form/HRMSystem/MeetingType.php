@@ -11,6 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use App\Form\Account\DataTransformer\UserToIdTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class MeetingType extends AbstractType
 {
@@ -48,7 +50,7 @@ class MeetingType extends AbstractType
                 ],
             ])
             ->add('department', ChoiceType::class, [
-                'label' => 'Branch',
+                'label' => 'Department',
                 'choices' => [
                     'All Branch' => 'All Branch',
                     'China' => 'China',
@@ -73,8 +75,8 @@ class MeetingType extends AbstractType
                     'placeholder' => 'Enter Meeting Title'
                 ],
             ])
-            ->add('startDate', DateType::class, [
-                'label' => 'Start Date',
+            ->add('meetingDate', DateType::class, [
+                'label' => 'meeting date',
                 'html5' => true,
                 'widget' => 'single_text',
                 'attr' => [
@@ -83,14 +85,22 @@ class MeetingType extends AbstractType
                     'required' => 'required',
                 ],
             ])
-            ->add('endDate', DateType::class, [
-                'label' => 'End Date',
+            ->add('meetingTime', TimeType::class, [
+                'label' => 'meeting time',
                 'html5' => true,
                 'widget' => 'single_text',
                 'attr' => [
                     'class' => 'form-control m-0',
                     'placeholder' => 'Select Date/Time',
                     'required' => 'required',
+                ],
+            ])
+            ->add('meetingNote', TextareaType::class, [
+                'label' => 'Meeting Note',
+                'attr' => [
+                    'class' => 'form-control m-0',
+                    'autocomplete' => 'off',
+                    'placeholder' => 'Enter Meeting Note'
                 ],
             ]);
     }
