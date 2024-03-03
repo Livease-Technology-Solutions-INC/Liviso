@@ -39,7 +39,10 @@
 		<div class="leftbar-user p-3 text-white">
 			<a href="{{ path('my_account', {'user_id': app.user.id}) }}" class="d-flex align-items-center text-reset">
 				<div class="flex-shrink-0">
-					<img src="/images/users/avatar-1.jpg" alt="user-image" height="42" class="rounded-circle shadow">
+					{% if app.user.userImages|length > 0 %}
+						{% set latestImage = app.user.userImages.last() %}
+						<img id="profileImagePreview" src="{{ asset('user/profileimage/' ~ latestImage.imageUrl) }}" height="42" class="rounded-circle shadow" alt="user-image" accept="image/*"/>
+					{% endif %}
 				</div>
 				<div class="flex-grow-1 ms-2">
 					<span class="fw-semibold fs-15 d-block">{{app.user.fullName}}</span>
@@ -436,7 +439,7 @@
 										<a href="{{path("hrmsystem/promotion", {id: app.user.id})}}">Promotion</a>
 									</li>
 									<li>
-										<a href="{{path("hrmsystem/complaints",  {id: app.user.id})}}">Complaints</a>
+										<a href="{{path("hrmsystem/complaints", {id: app.user.id})}}">Complaints</a>
 									</li>
 									<li>
 										<a href="{{path("hrmsystem/warning", {id: app.user.id})}}">Warning</a>
@@ -918,7 +921,7 @@
 				<div class="collapse" id="sidebarsetting">
 					<ul class="side-nav-second-level">
 						<li>
-							<a href="{{path("system",  {'id': app.user.id}) }}">System Settings</a>
+							<a href="{{path("system", {'id': app.user.id}) }}">System Settings</a>
 						</li>
 						<li>
 							<a href="{{path("setup_subcription_plan")}}">Setup Subscription Plan</a>

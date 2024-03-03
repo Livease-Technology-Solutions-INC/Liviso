@@ -16,22 +16,13 @@
 						<label for="fileInput">
 							{% if app.user.userImages|length > 0 %}
 								{% set latestImage = app.user.userImages.last() %}
-								<img id="profileImagePreview" src="{{ asset('user/profileimage/' ~ latestImage.imageUrl) }}" alt="Profile Image" accept="image/*"/>
+								<img id="profileImagePreview" src="{{ asset('user/profileimage/' ~ latestImage.imageUrl) }}" class="rounded-circle avatar-lg img-thumbnail" alt="Profile Image" accept="image/*"/>
 							{% else %}
-								<img id="profileImagePreview" src="{{ asset('images/users/avatar-1.jpg') }}" alt="Profile Image" accept="image/*"/>
+								<img id="profileImagePreview" src="{{ asset('images/users/avatar-1.jpg') }}" class="rounded-circle avatar-lg img-thumbnail" alt="Profile Image" accept="image/*"/>
 							{% endif %}
 							<input type="file" id="fileInput" name="fileInput" style="display: none;" data-user-id="{{ app.user.id }}" onchange="uploadFileAndRedirect()">
 						</label>
 					</form>
-
-					{# {% if app.user.userImages|length > 1 %}
-						<div id="otherImagesContainer">
-							{% for userImage in app.user.userImages|slice(1) %}
-								<img src="{{ asset('path/to/your/image/directory/' ~ userImage.imageUrl) }}" alt="Profile Image" accept="image/*"/>
-							{% endfor %}
-						</div>
-					{% endif %} #}
-
 					<h4 class="mb-1 mt-2">{{app.user.fullName}}</h4>
 					<p class="text-muted">Founder</p>
 					<div class="text-start mt-3">
