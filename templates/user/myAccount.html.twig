@@ -12,12 +12,26 @@
 		<div class="col-xl-4 col-lg-5">
 			<div class="card text-center">
 				<div class="card-body">
-					<form id='profileImage' action="{{path('upload_image', {id:app.user.id})}}" method='post' enctype="multipart/form-data">
+					<form id='profileImage' action="{{ path('upload_image', { id: app.user.id }) }}" method='post' enctype="multipart/form-data">
 						<label for="fileInput">
-							<img id="profileImagePreview" src="{{ asset('images/users/avatar-1.jpg') }}" alt="Profile Image" accept="image/*"/>
-							<input type="file" id="fileInput" style="display: none;" data-user-id="{{ app.user.id }}" onchange="uploadFileAndRedirect()">
+							{% if app.user.userImages|length > 0 %}
+								{% set latestImage = app.user.userImages.last() %}
+								<img id="profileImagePreview" src="{{ asset('user/profileimage/' ~ latestImage.imageUrl) }}" alt="Profile Image" accept="image/*"/>
+							{% else %}
+								<img id="profileImagePreview" src="{{ asset('images/users/avatar-1.jpg') }}" alt="Profile Image" accept="image/*"/>
+							{% endif %}
+							<input type="file" id="fileInput" name="fileInput" style="display: none;" data-user-id="{{ app.user.id }}" onchange="uploadFileAndRedirect()">
 						</label>
 					</form>
+
+					{# {% if app.user.userImages|length > 1 %}
+						<div id="otherImagesContainer">
+							{% for userImage in app.user.userImages|slice(1) %}
+								<img src="{{ asset('path/to/your/image/directory/' ~ userImage.imageUrl) }}" alt="Profile Image" accept="image/*"/>
+							{% endfor %}
+						</div>
+					{% endif %} #}
+
 					<h4 class="mb-1 mt-2">{{app.user.fullName}}</h4>
 					<p class="text-muted">Founder</p>
 					<div class="text-start mt-3">
@@ -272,9 +286,9 @@
 											<span class="ms-2 fs-12">Year: 2015 - 18</span>
 										</p>
 										<p class="text-muted mt-2 mb-0 pb-3">Everyone realizes why a new common language
-																																																																																																																																																																																																																																																																																																																																																																																																																																												                                                                would be desirable: one could refuse to pay expensive translators.
-																																																																																																																																																																																																																																																																																																																																																																																																																																												                                                                To achieve this, it would be necessary to have uniform grammar,
-																																																																																																																																																																																																																																																																																																																																																																																																																																												                                                                pronunciation and more common words.</p>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																													                                                                would be desirable: one could refuse to pay expensive translators.
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																													                                                                To achieve this, it would be necessary to have uniform grammar,
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																													                                                                pronunciation and more common words.</p>
 									</div>
 								</div>
 
@@ -286,9 +300,9 @@
 											<span class="ms-2 fs-12">Year: 2012 - 15</span>
 										</p>
 										<p class="text-muted mt-2 mb-0 pb-3">If several languages coalesce, the grammar
-																																																																																																																																																																																																																																																																																																																																																																																																																																												                                                                of the resulting language is more simple and regular than that of
-																																																																																																																																																																																																																																																																																																																																																																																																																																												                                                                the individual languages. The new common language will be more
-																																																																																																																																																																																																																																																																																																																																																																																																																																												                                                                simple and regular than the existing European languages.</p>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																													                                                                of the resulting language is more simple and regular than that of
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																													                                                                the individual languages. The new common language will be more
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																													                                                                simple and regular than the existing European languages.</p>
 									</div>
 								</div>
 
@@ -300,9 +314,9 @@
 											<span class="ms-2 fs-12">Year: 2010 - 12</span>
 										</p>
 										<p class="text-muted mt-2 mb-0 pb-2">The European languages are members of
-																																																																																																																																																																																																																																																																																																																																																																																																																																												                                                                the same family. Their separate existence is a myth. For science
-																																																																																																																																																																																																																																																																																																																																																																																																																																												                                                                music sport etc, Europe uses the same vocabulary. The languages
-																																																																																																																																																																																																																																																																																																																																																																																																																																												                                                                only differ in their grammar their pronunciation.</p>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																													                                                                the same family. Their separate existence is a myth. For science
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																													                                                                music sport etc, Europe uses the same vocabulary. The languages
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																													                                                                only differ in their grammar their pronunciation.</p>
 									</div>
 								</div>
 
@@ -355,10 +369,10 @@
 								<div class="fs-16 text-center fst-italic text-dark">
 									<i class="ri-double-quotes-l fs-20"></i>
 									Cras sit amet nibh libero, in
-																																																																																																																																																																																																																																																																																																																																																														                                                        gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras
-																																																																																																																																																																																																																																																																																																																																																														                                                        purus odio, vestibulum in vulputate at, tempus viverra turpis. Duis
-																																																																																																																																																																																																																																																																																																																																																														                                                        sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper
-																																																																																																																																																																																																																																																																																																																																																														                                                        porta. Mauris massa.
+																																																																																																																																																																																																																																																																																																																																																																																									                                                        gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras
+																																																																																																																																																																																																																																																																																																																																																																																									                                                        purus odio, vestibulum in vulputate at, tempus viverra turpis. Duis
+																																																																																																																																																																																																																																																																																																																																																																																									                                                        sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper
+																																																																																																																																																																																																																																																																																																																																																																																									                                                        porta. Mauris massa.
 								</div>
 
 								<div class="mx-n2 p-2 mt-3 bg-light">
@@ -611,22 +625,25 @@
 	<script src="/js/pages/updateProfileImage.js"></script>
 	<script>
 		function uploadFileAndRedirect() {
-		console.log("clicked")
-		// Assuming you are using vanilla JavaScript, adjust if using a framework like jQuery
+var fileInput = document.getElementById('fileInput');
+var userId = fileInput.getAttribute('data-user-id');
 
-		var fileInput = document.getElementById('fileInput');
-		var uploadForm = document.getElementById('profileImage');
+// Check if a file is selected
+if (fileInput.files.length > 0) {
+var form = document.getElementById('profileImage');
+var formData = new FormData(form);
 
-		// You may want to perform additional validation on the file here
+// Make an asynchronous request to the server to submit the form
+var xhr = new XMLHttpRequest();
+xhr.open('POST', form.action, true);
 
-		// Submit the form (upload the file)
-		uploadForm.submit();
+xhr.onload = function () {
+window.location.href = "{{ path('my_account', {user_id: app.user.id}) }}";
+};
 
-		// Retrieve the user ID from the data attribute
-		var userId = fileInput.getAttribute('data-user-id');
-
-		// Redirect to your desired route after the form is submitted
-		window.location.href = "/upload-image/" + userId;
+// Send the form data
+xhr.send(formData);
+}
 }
 	</script>
 {% endblock %}

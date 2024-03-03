@@ -30,30 +30,23 @@ class UserImageController extends AbstractController
         if (!$user instanceof User) {
             throw $this->createAccessDeniedException('User not authenticated.');
         }
+        // Check if the request has files
+        if ($request->files->count() > 0) {
+            $imageFile = $request->files->get('fileInput');
 
-        // Create a new UserImage entity and set the user
-        $userImage = new UserImage();
-        $userImage->setUser($user);
+            // Generate a unique filename
+            $newFilename = uniqid() . '.' . $imageFile->guessExtension();
 
-        // Create a form for uploading the image
-        $form = $this->createForm(UserImageType::class, $userImage);
-        $form->handleRequest($request);
+            // Move the file to the desired directory
+            $imageFile->move(
+                $this->getParameter('profileImage_dir'),
+                $newFilename
+            );
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Handle file upload
-            // $file = $request->files->get('fileInput');
-            $imageFile = $form->get('imagePath')->getData();
-            if ($imageFile) {
-                // Generate a unique filename and move the file to the desired directory
-                $newFilename = uniqid() . '.' . $imageFile->guessExtension();
-                $imageFile->move(
-                    $this->getParameter('profileImage_dir'),
-                    $newFilename
-                );
-
-                // Set the image URL in the UserImage entity
-                $userImage->setImageUrl($newFilename);
-            }
+            // Create a new UserImage entity and set the user and image URL
+            $userImage = new UserImage();
+            $userImage->setUser($user);
+            $userImage->setImageUrl($newFilename);
 
             // Get the entity manager and persist the UserImage entity
             $entityManager = $this->doctrine->getManager();
@@ -63,8 +56,5 @@ class UserImageController extends AbstractController
             // Redirect to some page (e.g., user's profile) after successful upload
             return $this->redirectToRoute('my_account', ['user_id' => $id]);
         }
-        return $this->render('user_image/upload.html.twig',[
-            'form' => $form->createView(),
-        ]);
     }
 }
