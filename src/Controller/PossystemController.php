@@ -63,6 +63,7 @@ class PossystemController extends AbstractController
 
         $this->entityManager->remove($wareHouse);
         $this->entityManager->flush();
+        
         return $this->redirectToRoute('pos_system/warehouse', ['id' => $user_id]);
     }
 
