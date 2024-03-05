@@ -63,11 +63,11 @@ class PossystemController extends AbstractController
 
         $this->entityManager->remove($wareHouse);
         $this->entityManager->flush();
-        
+
         return $this->redirectToRoute('pos_system/warehouse', ['id' => $user_id]);
     }
 
-    // edit purchase
+    // edit warehouse
     #[Route("/pos_system/warehouse/{id}/edit/{user_id}", name: "warehouse_edit", methods: ["GET", "PUT", "POST"])]
     public function warehouseEdit(Request $request, int $id, int $user_id): Response
     {
@@ -102,7 +102,7 @@ class PossystemController extends AbstractController
         $wareHouses = $repository->findBy(['user' => $currentUser]);
 
         return $this->render('pos_system/edit/warehouse.html.twig', [
-            'controllername' => 'HrmsystemController',
+            'controllername' => 'PossystemController',
             'form' => $form->createView(),
             'wareHouses' => $wareHouses,
         ]);

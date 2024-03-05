@@ -70,9 +70,11 @@ use App\Form\HRMSystem\HRM_System_Setup\DesignationType;
 use App\Form\HRMSystem\HRM_System_Setup\JobCategoryType;
 use App\Form\HRMSystem\HRM_System_Setup\PerformanceType;
 use App\Entity\HRMSystem\HRM_System_Setup\TerminationHRM;
+use App\Entity\HRMSystem\Performance\Indicator;
 use App\Entity\HRMSystem\Meeting;
 use App\Form\HRMSystem\HRM_System_Setup\CompetenciesType;
 use App\Form\HRMSystem\HRM_System_Setup\TerminationHRMType;
+use App\Form\HRMSystem\Performance\IndicatorType;
 use App\Form\HRMSystem\MeetingType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -204,14 +206,93 @@ class HrmsystemController extends AbstractController
             'controller_name' => 'HrmsystemController',
         ]);
     }
-    #[Route('/hrmsystem/indicator', name: 'hrmsystem/indicator')]
-    public function indicator(): Response
+    #[Route('/hrmsystem/indicator{id}', name: 'hrmsystem/indicator')]
+    public function indicator(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $indicator = new Indicator();
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $indicator->setUser($user);
+        $form = $this->createForm(IndicatorType::class, $indicator, ['current_user' => $this->getUser()]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the entity only if the form is submitted and valid
+            $this->entityManager->persist($indicator);
+            $this->entityManager->flush();
+            
+            $this->addFlash('success', 'indicator created successfully.');
+
+            // Redirect after successful form submission
+            return $this->redirectToRoute('hrmsystem/indicator',  ['id' => $id]);
+        }
+        $repository = $this->entityManager->getRepository(indicator::class);
+        $indicators = $repository->findBy(['user' => $currentUser]);
+
         return $this->render('hrmsystem/indicator.html.twig', [
             'controller_name' => 'HrmsystemController',
+            'indicators' => $indicators,
+            'form' => $form->createView(),
         ]);
     }
+    //delete indicator
+    #[Route('/hrmsystem/indicator/{id}/delete/{user_id}', name: 'indicator_delete', methods: ["GET", "POST"])]
+    public function indicatorDelete(indicator $indicatior, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        if (!$indicatior) {
+            throw $this->createNotFoundException('indicator not found');
+        }
+
+        $this->entityManager->remove($indicatior);
+        $this->entityManager->flush();
+        
+        return $this->redirectToRoute('hrmsystem/indicator', ['id' => $user_id]);
+    }
+
+    // edit indicator
+    #[Route("/hrmsystem/indicator/{id}/edit/{user_id}", name: "indicator_edit", methods: ["GET", "PUT", "POST"])]
+    public function indicatorEdit(Request $request, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $repository = $this->entityManager->getRepository(indicator::class);
+        $indicator = $repository->find($id);
+
+        if (!$indicator) {
+            throw $this->createNotFoundException('indicator not found');
+        }
+
+        $form = $this->createForm(IndicatorType::class, $indicator,  ['current_user' => $this->getUser()]);
+        try {
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Persist the entity only if the form is submitted and valid
+                $indicator = $form->getData();
+                $this->entityManager->persist($indicator);
+                $this->entityManager->flush();
+
+                // Redirect after successful form submission (optional)
+                return $this->redirectToRoute('hrmsystem/indicator', ['id' => $user_id]);
+            }
+        } catch (\Exception $error) {
+            $this->addFlash('danger', 'An error occurred while processing the form.');
+            throw $error;
+        }
+        $repository = $this->entityManager->getRepository(indicator::class);
+        $indicators = $repository->findBy(['user' => $currentUser]);
+
+        return $this->render('hrmsystem/edit/indicator.html.twig', [
+            'controllername' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'wareHouses' => $indicators,
+        ]);
+    }
+
     #[Route('/hrmsystem/appraisal', name: 'hrmsystem/appraisal')]
     public function appraisal(): Response
     {
