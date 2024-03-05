@@ -36,38 +36,35 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<div class="modal-body">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="form-group">
-									<label for="branch" class="form-label">Branch</label>
-									<select class="form-control select" required="required" id="branch" name="branch"></select>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="department" class="form-label">Department</label>
-									<select class="form-control select" required="required" id="department" name="department">
-										<option value="" selected="selected">Select Department</option>
-									</select>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="designation" class="form-label">Designation</label>
-									<select class="select form-control select2-multiple" id="designation_id" name="designation" data-toggle="select2" data-placeholder="Select Designation ..." required=""></select>
-								</div>
-							</div>
-
-						</div>
+                    {{form_start(form)}}
+                    <div class="row">
+                        <div class="form-group col-md-12 mb-1">
+                            {{form_row(form.branch)}}
+                        </div>
+                        <div class="form-group col-md-6 mb-1">
+                            {{form_row(form.department)}}
+                        </div>
+                        <div class="form-group col-md-6 mb-1">
+                            {{form_row(form.designation)}}
+                        </div>
+                        <div class="form-group col-md-6 mb-1">
+                            {{form_row(form.overallRating)}}
+                        </div>
+                        <div class="form-group col-md-6 mb-1">
+                            {{form_row(form.addedBy)}}
+                        </div>
+                        <div class="form-group col-md-6 mb-1">
+                            {{form_row(form.createdBy)}}
+                        </div>
+                    </div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
+						<button type="submit" class="btn btn-primary rounded-2">Create</button>
 					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-primary rounded-2">Create</button>
-				</div>
-			</div>
-		</div>
+					{{form_end(form)}}
+			    </div>
+		    </div>
+	    </div>
 	</div>
 {% endblock %}
 
@@ -83,21 +80,35 @@
 								<th>Branch</th>
 								<th>Department</th>
 								<th>Designation</th>
-								<th>Overall rating</th>
-								<th>Added by</th>
+								<th>Overall Rating</th>
+								<th>Added By</th>
 								<th>Created By</th>
 								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
-							{# <tr>
-																																				<td>Cara Stevens</td>
-																																				<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-																																				<td>New York</td>
-																																				<td>46</td>
-																																				<td>2011/12/06</td>
-																																				<td>2011/12/06</td>
-																																			</tr> #}
+							{% for indicator in indicators %}
+								<tr>
+									<td>{{indicator.branch}}</td>
+									<td>{{indicator.department}}</td>
+									<td>{{indicator.designation}}</td>
+									<td>{{indicator.overallRating}}</td>
+									<td>{{ indicator.addedBy|date('Y-m-d H:i:s') }}</td>
+									<td>{{indicator.createdBy}}</td>
+									<td class="">
+										<div class="d-flex justify-content-center align-items-center gap-2">
+											<button type="button" class="p-0 m-0 border-0 open-edit-modal">
+												<a href="{{ path('indicator_edit', {'id': indicator.id, 'user_id': app.user.id}) }}" data-bs-toggle="tooltip" title="" class="p-1 rounded-3 bg-info text-white border-0" data-bs-original-title="Edit">
+													<i class="bi bi-pen"></i>
+												</a>
+											</button>
+											<a href="{{ path('indicator_delete', {'id': indicator.id, 'user_id': app.user.id}) }}" class="p-1 rounded-3 bg-danger text-white border-0">
+												<i class="bi bi-trash"></i>
+											</a>
+										</div>
+									</td>
+								</tr>
+							{% endfor %}																										</tr> #}
 						</tbody>
 					</table>
 
