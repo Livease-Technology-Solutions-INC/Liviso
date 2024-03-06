@@ -22,8 +22,10 @@ use App\Entity\HRMSystem\Complaints;
 use App\Entity\HRMSystem\ManageLeave;
 use App\Entity\HRMSystem\Resignation;
 use App\Entity\HRMSystem\Termination;
+use App\Entity\HRMSystem\Performance\Indicator;
+use App\Entity\HRMSystem\Performance\Appraisals;
 use App\Entity\HRMSystem\Announcement;
-use App\Entity\HRMSystem\GoalTracking;
+use App\Entity\HRMSystem\Performance\GoalTrackings;
 use App\Entity\HRMSystem\CustomQuestions;
 use Doctrine\Common\Collections\Collection;
 use App\Entity\HRMSystem\EmployeesAssetSetup;
@@ -136,9 +138,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Resignation::class, mappedBy: "user")]
     private Collection $resignation;
 
-    #[ORM\OneToMany(targetEntity: GoalTracking::class, mappedBy: "user")]
-    private Collection $goalTracking;
+    #[ORM\OneToMany(targetEntity: GoalTrackings::class, mappedBy: "user")]
+    private Collection $goalTrackings;
 
+    #[ORM\OneToMany(targetEntity: Appraisals::class, mappedBy: "user")]
+    private Collection $appraisal;
+
+    #[ORM\OneToMany(targetEntity: Indicator::class, mappedBy: "user")]
+    private Collection $indicator;
 
     // #[ORM\OneToMany(targetEntity: TrainingList::class, mappedBy: "user")]
     // private Collection $trainingList;
@@ -239,7 +246,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->warning = new ArrayCollection();
         $this->manageLeave = new ArrayCollection();
         $this->resignation = new ArrayCollection();
-        $this->goalTracking = new ArrayCollection();
         // $this->trainingList = new ArrayCollection();
         $this->trainer = new ArrayCollection();
         $this->award = new ArrayCollection();
@@ -267,6 +273,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->competencies = new ArrayCollection();
         $this->purchase = new ArrayCollection();
         $this->wareHouse = new ArrayCollection();
+        $this->appraisal = new ArrayCollection();
+        $this->indicator = new ArrayCollection();
+        $this->goalTrackings = new ArrayCollection();
     }
 
     public function __toString()
@@ -814,36 +823,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLocation(string $location): static
     {
         $this->location = $location;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, GoalTracking>
-     */
-    public function getGoalTracking(): Collection
-    {
-        return $this->goalTracking;
-    }
-
-    public function addGoalTracking(GoalTracking $goalTracking): static
-    {
-        if (!$this->goalTracking->contains($goalTracking)) {
-            $this->goalTracking->add($goalTracking);
-            $goalTracking->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeGoalTracking(GoalTracking $goalTracking): static
-    {
-        if ($this->goalTracking->removeElement($goalTracking)) {
-            // set the owning side to null (unless already changed)
-            if ($goalTracking->getUser() === $this) {
-                $goalTracking->setUser(null);
-            }
-        }
 
         return $this;
     }
@@ -1652,6 +1631,96 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($wareHouse->getUser() === $this) {
                 $wareHouse->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Appraisals>
+     */
+    public function getAppraisal(): Collection
+    {
+        return $this->appraisal;
+    }
+
+    public function addAppraisal(Appraisals $appraisal): static
+    {
+        if (!$this->appraisal->contains($appraisal)) {
+            $this->appraisal->add($appraisal);
+            $appraisal->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAppraisal(Appraisals $appraisal): static
+    {
+        if ($this->appraisal->removeElement($appraisal)) {
+            // set the owning side to null (unless already changed)
+            if ($appraisal->getUser() === $this) {
+                $appraisal->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Indicator>
+     */
+    public function getIndicator(): Collection
+    {
+        return $this->indicator;
+    }
+
+    public function addIndicator(Indicator $indicator): static
+    {
+        if (!$this->indicator->contains($indicator)) {
+            $this->indicator->add($indicator);
+            $indicator->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIndicator(Indicator $indicator): static
+    {
+        if ($this->indicator->removeElement($indicator)) {
+            // set the owning side to null (unless already changed)
+            if ($indicator->getUser() === $this) {
+                $indicator->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, GoalTrackings>
+     */
+    public function getGoalTrackings(): Collection
+    {
+        return $this->goalTrackings;
+    }
+
+    public function addGoalTracking(GoalTrackings $goalTracking): static
+    {
+        if (!$this->goalTrackings->contains($goalTracking)) {
+            $this->goalTrackings->add($goalTracking);
+            $goalTracking->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGoalTracking(GoalTrackings $goalTracking): static
+    {
+        if ($this->goalTrackings->removeElement($goalTracking)) {
+            // set the owning side to null (unless already changed)
+            if ($goalTracking->getUser() === $this) {
+                $goalTracking->setUser(null);
             }
         }
 

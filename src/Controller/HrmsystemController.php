@@ -22,13 +22,11 @@ use App\Entity\HRMSystem\Resignation;
 use App\Entity\HRMSystem\Termination;
 use App\Form\HRMSystem\PromotionType;
 use App\Entity\HRMSystem\Announcement;
-use App\Entity\HRMSystem\GoalTracking;
 use App\Form\HRMSystem\ComplaintsType;
 use App\Form\HRMSystem\ManageLeaveType;
 use App\Form\HRMSystem\ResignationType;
 use App\Form\HRMSystem\TerminationType;
 use App\Form\HRMSystem\AnnouncementType;
-use App\Form\HRMSystem\GoalTrackingType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\HRMSystem\CustomQuestions;
 use App\Form\HRMSystem\CustomQuestionsType;
@@ -72,10 +70,14 @@ use App\Form\HRMSystem\HRM_System_Setup\PerformanceType;
 use App\Entity\HRMSystem\HRM_System_Setup\TerminationHRM;
 use App\Entity\HRMSystem\Performance\Indicator;
 use App\Entity\HRMSystem\Meeting;
+use App\Form\HRMSystem\Performance\GoalTrackingType;
+use App\Entity\HRMSystem\Performance\Appraisals;
 use App\Form\HRMSystem\HRM_System_Setup\CompetenciesType;
 use App\Form\HRMSystem\HRM_System_Setup\TerminationHRMType;
 use App\Form\HRMSystem\Performance\IndicatorType;
 use App\Form\HRMSystem\MeetingType;
+use App\Form\HRMSystem\Performance\AppraisalType;
+use App\Entity\HRMSystem\Performance\GoalTrackings;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HrmsystemController extends AbstractController
@@ -206,6 +208,7 @@ class HrmsystemController extends AbstractController
             'controller_name' => 'HrmsystemController',
         ]);
     }
+    
     #[Route('/hrmsystem/indicator{id}', name: 'hrmsystem/indicator')]
     public function indicator(Request $request, int $id): Response
     {
@@ -289,25 +292,103 @@ class HrmsystemController extends AbstractController
         return $this->render('hrmsystem/edit/indicator.html.twig', [
             'controllername' => 'HrmsystemController',
             'form' => $form->createView(),
-            'wareHouses' => $indicators,
+            'indicator' => $indicators,
         ]);
     }
 
-    #[Route('/hrmsystem/appraisal', name: 'hrmsystem/appraisal')]
-    public function appraisal(): Response
+    #[Route('/hrmsystem/appraisal{id}', name: 'hrmsystem/appraisal')]
+    public function appraisal(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $appraisal = new Appraisals();
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $appraisal->setUser($user);
+        $form = $this->createForm(AppraisalType::class, $appraisal, ['current_user' => $this->getUser()]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the entity only if the form is submitted and valid
+            $this->entityManager->persist($appraisal);
+            $this->entityManager->flush();
+
+            // Redirect after successful form submission (optional)
+            return $this->redirectToRoute('hrmsystem/appraisal',  ['id' => $id]);
+        }
+        $repository = $this->entityManager->getRepository(appraisals::class);
+        $appraisals = $repository->findBy(['user' => $currentUser]);
+
         return $this->render('hrmsystem/appraisal.html.twig', [
             'controller_name' => 'HrmsystemController',
+            'appraisals' => $appraisals,
+            'form' => $form->createView(),
         ]);
     }
+    //delete appraisal
+    #[Route('/hrmsystem/appraisal/{id}/delete/{user_id}', name: 'appraisal_delete', methods: ["GET", "POST"])]
+    public function appraisalDelete(appraisals $appraisal, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        if (!$appraisal) {
+            throw $this->createNotFoundException('appraisal not found');
+        }
+
+        $this->entityManager->remove($appraisal);
+        $this->entityManager->flush();
+        
+        return $this->redirectToRoute('hrmsystem/appraisal', ['id' => $user_id]);
+    }
+
+    // edit appraisal
+    #[Route("/hrmsystem/appraisal/{id}/edit/{user_id}", name: "appraisal_edit", methods: ["GET", "PUT", "POST"])]
+    public function appraisalEdit(Request $request, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $repository = $this->entityManager->getRepository(Appraisals::class);
+        $appraisal = $repository->find($id);
+
+        if (!$appraisal) {
+            throw $this->createNotFoundException('appraisal not found');
+        }
+
+        $form = $this->createForm(AppraisalType::class, $appraisal,  ['current_user' => $this->getUser()]);
+        try {
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Persist the entity only if the form is submitted and valid
+                $appraisal = $form->getData();
+                $this->entityManager->persist($appraisal);
+                $this->entityManager->flush();
+
+                // Redirect after successful form submission (optional)
+                return $this->redirectToRoute('hrmsystem/appraisal', ['id' => $user_id]);
+            }
+        } catch (\Exception $error) {
+            $this->addFlash('danger', 'An error occurred while processing the form.');
+            throw $error;
+        }
+        $repository = $this->entityManager->getRepository(appraisals::class);
+        $appraisals = $repository->findBy(['user' => $currentUser]);
+
+        return $this->render('hrmsystem/edit/appraisal.html.twig', [
+            'controllername' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'appraisal' => $appraisals,
+        ]);
+    }
+
+
     #[Route('/hrmsystem/goal_tracking/{id}', name: 'hrmsystem/goal_tracking')]
     public function goalTracking(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $currentUser = $this->getUser();
         assert($currentUser instanceof User);
-        $goalTracking = new GoalTracking();
+        $goalTracking = new GoalTrackings();
         $user = $this->entityManager->getRepository(User::class)->find($id);
         $goalTracking->setUser($user);
         $form = $this->createForm(GoalTrackingType::class, $goalTracking, ['current_user' => $this->getUser()]);
@@ -319,10 +400,10 @@ class HrmsystemController extends AbstractController
             $this->entityManager->flush();
 
             // Redirect after successful form submission (optional)
-            return $this->redirectToRoute('goalTracking', ['id' => $id]);
+            return $this->redirectToRoute('hrmsystem/goal_tracking', ['id' => $id]);
         }
 
-        $repository = $this->entityManager->getRepository(goalTracking::class);
+        $repository = $this->entityManager->getRepository(goalTrackings::class);
         $goalTrackings = $repository->findBy(['user' => $currentUser]);
 
         return $this->render('hrmsystem/goalTracking.html.twig', [
@@ -333,21 +414,21 @@ class HrmsystemController extends AbstractController
     }
     // delete goal Tracking
     #[Route('/hrmsystem/goal_tracking/{id}/delete/{user_id}', name: 'goalTracking_delete', methods: ["GET", "POST"])]
-    public function goalTrackingDelete(goalTracking $goalTracking, int $id, int $user_id): Response
+    public function goalTrackingDelete(goalTrackings $goalTracking, int $id, int $user_id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $this->entityManager->remove($goalTracking);
         $this->entityManager->flush();
         return $this->redirectToRoute('hrmsystem/goal_tracking', ['id' => $user_id]);
     }
-    // edit manage_leave
+    // edit goal tracking
     #[Route("/hrmsystem/goal_tracking/{id}/edit/{user_id}", name: "goalTracking_edit", methods: ["GET", "PUT", "POST"])]
     public function goalTrackingEdit(Request $request, int $id, int $user_id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $currentUser = $this->getUser();
         assert($currentUser instanceof User);
-        $repository = $this->entityManager->getRepository(GoalTracking::class);
+        $repository = $this->entityManager->getRepository(GoalTrackings::class);
         $goalTracking = $repository->find($id);
         if (!$goalTracking) {
             throw $this->createNotFoundException('goalTracking not found');
@@ -367,7 +448,7 @@ class HrmsystemController extends AbstractController
             $this->addFlash('danger', 'An error occurred while processing the form.');
             throw $error;
         }
-        $repository = $this->entityManager->getRepository(goalTracking::class);
+        $repository = $this->entityManager->getRepository(goalTrackings::class);
         $goalTrackings = $repository->findBy(['user' => $currentUser]);
 
         return $this->render('hrmsystem/edit/goalTracking.html.twig', [

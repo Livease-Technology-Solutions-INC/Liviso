@@ -2,26 +2,26 @@
 
 namespace App\Repository\HRMSystem;
 
-use App\Entity\HRMSystem\GoalTracking;
+use App\Entity\HRMSystem\Performance\GoalTrackings;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<GoalTracking>
+ * @extends ServiceEntityRepository<GoalTrackings>
  *
- * @method GoalTracking|null find($id, $lockMode = null, $lockVersion = null)
- * @method GoalTracking|null findOneBy(array $criteria, array $orderBy = null)
- * @method GoalTracking[]    findAll()
- * @method GoalTracking[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method GoalTrackings|null find($id, $lockMode = null, $lockVersion = null)
+ * @method GoalTrackings|null findOneBy(array $criteria, array $orderBy = null)
+ * @method GoalTrackings[]    findAll()
+ * @method GoalTrackings[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class GoalTrackingRepository extends ServiceEntityRepository
+class GoalTrackingsRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, GoalTracking::class);
+        parent::__construct($registry, GoalTrackings::class);
     }
 
-    public function save(GoalTracking $entity, bool $flush = false): void
+    public function save(GoalTrackings $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class GoalTrackingRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(GoalTracking $entity, bool $flush = false): void
+    public function remove(GoalTrackings $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class GoalTrackingRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return GoalTracking[] Returns an array of GoalTracking objects
+//     * @return GoalTrackings[] Returns an array of GoalTrackings objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class GoalTrackingRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?GoalTracking
+//    public function findOneBySomeField($value): ?GoalTrackings
 //    {
 //        return $this->createQueryBuilder('g')
 //            ->andWhere('g.exampleField = :val')

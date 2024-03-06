@@ -36,56 +36,38 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<div class="modal-body">
-						<div class="modal-body">
-							<div class="row">
-								<div class="col-md-12">
-									<div class="form-group">
-										<label for="branch" class="form-label">Branch*</label>
-
-										<select name="branch" id="branch" required="" class="form-control ">
-											<option selected="" disabled="" value="0">Select Branch</option>
-
-										</select>
-									</div>
-								</div>
-
-
-								<div class="col-md-6 mt-2">
-									<div class="form-group">
-										<label for="employee" class="form-label">Employee*</label>
-
-										<div class="employee_div">
-
-											<select name="employee" id="employee" class="form-control " required=""></select>
-										</div>
-									</div>
-								</div>
-
-
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="appraisal_date" class="col-form-label">Select Month*</label>
-										<input class="form-control " autocomplete="off" required="required" name="appraisal_date" type="month" value="" id="appraisal_date">
-									</div>
-								</div>
-								<div class="col-md-12">
-									<div class="form-group">
-										<label for="remark" class="col-form-label">Remarks</label>
-										<textarea class="form-control" rows="3" placeholder="Enter remark" name="remark" cols="50" id="remark"></textarea>
-									</div>
-								</div>
-							</div>
-							<div class="row" id="stares"></div>
-						</div>
+					{{form_start(form)}}
+					<div class="row">
+                        <div class="form-group col-md-12 mb-1">
+                            {{form_row(form.branch)}}
+                        </div>
+                        <div class="form-group col-md-6 mb-1">
+                            {{form_row(form.department)}}
+                        </div>
+						<div class="form-group col-md-6 mb-1">
+                            {{form_row(form.designation)}}
+                        </div>
+                        <div class="form-group col-md-6 mb-1">
+                            {{form_row(form.employee)}}
+                        </div>
+                        <div class="form-group col-md-6 mb-1">
+                            {{form_row(form.targetRating)}}
+                        </div>
+                        <div class="form-group col-md-6 mb-1">
+                            {{form_row(form.overallRating)}}
+                        </div>
+                        <div class="form-group col-md-6 mb-1">
+                            {{form_row(form.appraisalDate)}}
+                        </div>
+                    </div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
+						<button type="submit" class="btn btn-primary rounded-2">Create</button>
 					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-primary rounded-2">Create</button>
-				</div>
-			</div>
-		</div>
+					{{form_end(form)}}
+			    </div>
+		    </div>
+	    </div>
 	</div>
 {% endblock %}
 
@@ -109,14 +91,30 @@
 							</tr>
 						</thead>
 						<tbody>
-							{# <tr>
-																													<td>Cara Stevens</td>
-																													<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-																													<td>New York</td>
-																													<td>46</td>
-																													<td>2011/12/06</td>
-																													<td>2011/12/06</td>
-																												</tr> #}
+
+							{% for appraisal in appraisals %}
+								<tr>
+									<td>{{appraisal.branch}}</td>
+									<td>{{appraisal.department}}</td>
+									<td>{{appraisal.designation}}</td>
+									<td>{{appraisal.employee}}</td>
+									<td>{{appraisal.targetRating}}</td>
+									<td>{{appraisal.overallRating}}</td>
+									<td>{{appraisal.appraisalDate|date('Y-m-d') }}</td>
+									<td class="">
+										<div class="d-flex justify-content-center align-items-center gap-2">
+											<button type="button" class="p-0 m-0 border-0 open-edit-modal">
+												<a href="{{ path('appraisal_edit', {'id': appraisal.id, 'user_id': app.user.id}) }}" data-bs-toggle="tooltip" title="" class="p-1 rounded-3 bg-info text-white border-0" data-bs-original-title="Edit">
+													<i class="bi bi-pen"></i>
+												</a>
+											</button>
+											<a href="{{ path('appraisal_delete', {'id': appraisal.id, 'user_id': app.user.id}) }}" class="p-1 rounded-3 bg-danger text-white border-0">
+												<i class="bi bi-trash"></i>
+											</a>
+										</div>
+									</td>
+								</tr>
+							{% endfor %}
 						</tbody>
 					</table>
 
