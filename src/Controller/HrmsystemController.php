@@ -110,7 +110,7 @@ class HrmsystemController extends AbstractController
             'controller_name' => 'HrmsystemController',
         ]);
     }
-    #[Route('/hrmsystem/manage_leave/{id}', name: 'hrmsystem/manage_leave')]
+   #[Route('/hrmsystem/manage_leave/{id}', name: 'hrmsystem/manage_leave')]
     public function manageLeave(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
@@ -124,7 +124,7 @@ class HrmsystemController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Persist the entity only if the form is submitted and valid
+// Persist the entity only if the form is submitted and valid
             $this->entityManager->persist($manageleave);
             $this->entityManager->flush();
 
@@ -141,6 +141,44 @@ class HrmsystemController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+     // edit manage_leave
+     #[Route("/hrmsystem/manage_leave/{id}/edit/{user_id}", name: "manageleave_edit", methods: ["GET", "PUT", "POST"])]
+     public function manage_leaveEdit(Request $request, int $id, int $user_id): Response
+      {    
+         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+         
+         $currentUser = $this->getUser();
+         assert($currentUser instanceof User);
+         $data = json_decode($request->getContent(), true);
+         
+         $repository = $this->entityManager->getRepository(Manageleave::class);
+ 
+         $manageleave = $repository->find($id);
+     
+         if (!$manageleave) {
+ 
+             throw $this->createNotFoundException('Manageleave not found');
+         }
+         try {
+             
+         empty($data['employee']) ? true : $manageleave->setUser($data['employee']);
+         empty($data['leaveReason']) ? true : $manageleave->setLeaveReason($data['leaveReason']);
+         empty($data['leaveType']) ? true : $manageleave->setLeaveType($data['leaveType']);
+         empty($data['startDate']) ? true : $manageleave->setStartDate(new \DateTime($data['startDate']));
+         empty($data['endDate']) ? true : $manageleave->setEndDate(new \DateTime($data['endDate']));
+         empty($data['remark']) ? true : $manageleave->setRemark($data['remark']);
+     
+         $this->entityManager->persist($manageleave);
+         $this->entityManager->flush();
+     
+         return $this->redirectToRoute('hrmsystem/manage_leave', ['id' => $user_id]);
+             
+         } catch (\Exception $error) {
+             $this->addFlash('danger', 'An error occurred while processing the form.');
+             throw $error;
+         }
+     }
+ 
     // delete manage leave
     #[Route('/hrmsystem/manage_leave/{id}/delete/{user_id}', name: 'manageleave_delete', methods: ["GET", "POST"])]
     public function manageleaveDelete(Manageleave $Manageleave, int $id, int $user_id): Response
@@ -150,46 +188,7 @@ class HrmsystemController extends AbstractController
         $this->entityManager->flush();
         return $this->redirectToRoute('hrmsystem/manage_leave', ['id' => $user_id]);
     }
-    // edit manage_leave
-    #[Route("/hrmsystem/manage_leave/{id}/edit/{user_id}", name: "manageleave_edit", methods: ["GET", "PUT", "POST"])]
-    public function manage_leaveEdit(Request $request, int $id, int $user_id): Response
-    {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        $currentUser = $this->getUser();
-        assert($currentUser instanceof User);
-        $repository = $this->entityManager->getRepository(Manageleave::class);
-        $manageleave = $repository->find($id);
-
-        if (!$manageleave) {
-            throw $this->createNotFoundException('manageleave not found');
-        }
-
-        $form = $this->createForm(ManageleaveType::class, $manageleave,  ['current_user' => $this->getUser()]);
-        try {
-            $form->handleRequest($request);
-
-            if ($form->isSubmitted() && $form->isValid()) {
-                // Persist the entity only if the form is submitted and valid
-                $manageleave = $form->getData();
-                $this->entityManager->persist($manageleave);
-                $this->entityManager->flush();
-
-                // Redirect after successful form submission (optional)
-                return $this->redirectToRoute('hrmsystem/manage_leave', ['id' => $user_id]);
-            }
-        } catch (\Exception $error) {
-            $this->addFlash('danger', 'An error occurred while processing the form.');
-            throw $error;
-        }
-        $repository = $this->entityManager->getRepository(Manageleave::class);
-        $manageleaves = $repository->findBy(['user' => $currentUser]);
-
-        return $this->render('hrmsystem/edit/manageleave.html.twig', [
-            'controllername' => 'HrmsystemController',
-            'form' => $form->createView(),
-            'manageLeaves' => $manageleaves,
-        ]);
-    }
+    
     #[Route('/hrmsystem/bulk_attendance', name: 'hrmsystem/bulk_attendance')]
     public function bulkAttendance(): Response
     {
