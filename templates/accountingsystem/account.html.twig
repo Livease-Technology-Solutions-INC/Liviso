@@ -36,70 +36,35 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<div class="modal-body">
-						<div class="row">
-							<div class="form-group col-12">
-								<label for"account" class"form-select">Account</label>
-							</div>
-							<div class="form-group col-md-6">
-								<label for="holder_name" class="form-label">Bank Holder Name</label>
-								<div class="form-icon-user">
-									<span>
-										<i class="ti ti-address-card"></i>
-									</span>
-									<input class="form-control" required="required" name="holder_name" type="text" value="" id="holder_name">
-								</div>
-							</div>
-							<div class="form-group  col-md-6">
-								<label for="bank_name" class="form-label">Bank Name</label>
-								<div class="form-icon-user">
-									<span>
-										<i class="ti ti-university"></i>
-									</span>
-									<input class="form-control" required="required" name="bank_name" type="text" value="" id="bank_name">
-								</div>
-							</div>
-							<div class="form-group  col-md-6">
-								<label for="account_number" class="form-label">Account Number</label>
-								<div class="form-icon-user">
-									<span>
-										<i class="ti ti-notes-medical"></i>
-									</span>
-									<input class="form-control" required="required" name="account_number" type="text" value="" id="account_number">
-								</div>
-							</div>
-							<div class="form-group  col-md-6">
-								<label for="opening_balance" class="form-label">Opening Balance</label>
-								<div class="form-icon-user">
-									<span>
-										<i class="ti ti-dollar-sign"></i>
-									</span>
-									<input class="form-control" required="required" step="0.01" name="opening_balance" type="number" value="" id="opening_balance">
-								</div>
-							</div>
-							<div class="form-group  col-md-12">
-								<label for="contact_number" class="form-label">Contact Number</label>
-								<div class="form-icon-user">
-									<span>
-										<i class="ti ti-mobile-alt"></i>
-									</span>
-									<input class="form-control" required="required" name="contact_number" type="text" value="" id="contact_number">
-								</div>
-							</div>
-							<div class="form-group  col-md-12">
-								<label for="bank_address" class="form-label">Bank Address</label>
-								<textarea class="form-control" rows="3" required="required" name="bank_address" cols="50" id="bank_address"></textarea>
-							</div>
-
-						</div>
+					{{form_start(form)}}
+					<div class="row">
+                        <div class="form-group col-md-12 mb-1">
+                            {{form_row(form.accountName)}}
+                        </div>
+                        <div class="form-group col-md-6 mb-1">
+                            {{form_row(form.bankName)}}
+                        </div>
+						<div class="form-group col-md-6 mb-1">
+                            {{form_row(form.accountNumber)}}
+                        </div>
+                        <div class="form-group col-md-6 mb-1">
+                            {{form_row(form.currentBalance)}}
+                        </div>
+                        <div class="form-group col-md-6 mb-1">
+                            {{form_row(form.contactNumber)}}
+                        </div>
+                        <div class="form-group col-md-6 mb-1">
+                            {{form_row(form.bankBranch)}}
+                        </div>
+                    </div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
+						<button type="submit" class="btn btn-primary rounded-2">Create</button>
 					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-primary rounded-2">Create</button>
-				</div>
-			</div>
-		</div>
+					{{form_end(form)}}
+			    </div>
+		    </div>
+	    </div>
 	</div>
 {% endblock %}
 
@@ -122,14 +87,29 @@
 							</tr>
 						</thead>
 						<tbody>
-							{# <tr>
-																						<td>Cara Stevens</td>
-																						<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-																						<td>New York</td>
-																						<td>46</td>
-																						<td>2011/12/06</td>
-																						<td>2011/12/06</td>
-																					</tr> #}
+
+							{% for account in accounts %}
+								<tr>
+									<td>{{account.accountName}}</td>
+									<td>{{account.bankName}}</td>
+									<td>{{account.accountNumber}}</td>
+									<td>{{account.currentBalance}}</td>
+									<td>{{account.contactNumber}}</td>
+									<td>{{account.bankBranch}}</td>
+									<td class="">
+										<div class="d-flex justify-content-center align-items-center gap-2">
+											<button type="button" class="p-0 m-0 border-0 open-edit-modal">
+												<a href="{{ path('account_edit', {'id': account.id, 'user_id': app.user.id}) }}" data-bs-toggle="tooltip" title="" class="p-1 rounded-3 bg-info text-white border-0" data-bs-original-title="Edit">
+													<i class="bi bi-pen"></i>
+												</a>
+											</button>
+											<a href="{{ path('account_delete', {'id': account.id, 'user_id': app.user.id}) }}" class="p-1 rounded-3 bg-danger text-white border-0">
+												<i class="bi bi-trash"></i>
+											</a>
+										</div>
+									</td>
+								</tr>
+							{% endfor %}
 						</tbody>
 					</table>
 
