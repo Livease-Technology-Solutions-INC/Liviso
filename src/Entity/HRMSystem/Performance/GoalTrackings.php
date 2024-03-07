@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Entity\HRMSystem;
+namespace App\Entity\HRMSystem\Performance;
 
 use App\Entity\User;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\HRMSystem\GoalTrackingRepository;
+use App\Repository\HRMSystem\GoalTrackingsRepository;
 
-#[ORM\Entity(repositoryClass: GoalTrackingRepository::class)]
-class GoalTracking
+#[ORM\Entity(repositoryClass: GoalTrackingsRepository::class)]
+class GoalTrackings
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -128,21 +128,9 @@ class GoalTracking
         return $this->rating;
     }
 
-    public function setRating(string $rating): static
+    public function setRating(?string $rating): static
     {
         $this->rating = $rating;
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): static
-    {
-        $this->user = $user;
 
         return $this;
     }
@@ -171,4 +159,15 @@ class GoalTracking
         return $this;
     }
 
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
+
+        return $this;
+    }
 }
