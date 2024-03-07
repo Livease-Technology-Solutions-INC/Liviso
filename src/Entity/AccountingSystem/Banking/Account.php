@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity\Account\Banking;
+namespace App\Entity\AccountingSystem\Banking;
 
 use App\Entity\User;
 use Doctrine\DBAL\Types\Types;

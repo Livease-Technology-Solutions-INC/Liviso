@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form\Account\DataTransformer;
+namespace App\Form\AccountingSystem\DataTransformer;
 
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
