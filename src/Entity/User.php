@@ -29,6 +29,7 @@ use App\Entity\HRMSystem\Performance\GoalTrackings;
 use App\Entity\HRMSystem\CustomQuestions;
 use Doctrine\Common\Collections\Collection;
 use App\Entity\HRMSystem\EmployeesAssetSetup;
+use App\Entity\Account\Banking\Account;
 use App\Entity\AccountingSystem\FinancialGoal;
 use App\Entity\HRMSystem\HRM_System_Setup\Goal;
 use App\Entity\HRMSystem\HRM_System_Setup\Loan;
@@ -228,6 +229,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: WareHouse::class, mappedBy: "user")]
     private Collection $wareHouse;
 
+    #[ORM\OneToMany(targetEntity: Account::class, mappedBy: "user")]
+    private Collection $account;
+
 
     public function __construct()
     {
@@ -276,6 +280,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->appraisal = new ArrayCollection();
         $this->indicator = new ArrayCollection();
         $this->goalTrackings = new ArrayCollection();
+        $this->account = new ArrayCollection();
     }
 
     public function __toString()
@@ -1721,6 +1726,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($goalTracking->getUser() === $this) {
                 $goalTracking->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Account>
+     */
+    public function getAccount(): Collection
+    {
+        return $this->account;
+    }
+
+    public function addAccount(Account $account): static
+    {
+        if (!$this->account->contains($account)) {
+            $this->account->add($account);
+            $account->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAccount(Account $account): static
+    {
+        if ($this->account->removeElement($account)) {
+            // set the owning side to null (unless already changed)
+            if ($account->getUser() === $this) {
+                $account->setUser(null);
             }
         }
 
