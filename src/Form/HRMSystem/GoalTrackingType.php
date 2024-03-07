@@ -4,8 +4,8 @@ namespace App\Form\HRMSystem;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
-use App\Entity\HRMSystem\GoalTracking;
 use Symfony\Component\Form\FormBuilderInterface;
+use App\Entity\HRMSystem\Performance\GoalTrackings;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -97,7 +97,7 @@ class GoalTrackingType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => GoalTracking::class,
+            'data_class' => GoalTrackings::class,
             'current_user' => null,
         ]);
     }
