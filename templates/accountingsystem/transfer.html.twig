@@ -1,6 +1,6 @@
 {% extends 'partials/layout-vertical.html.twig' %}
 
-{% block title %}Customer
+{% block title %}Transfer
 {% endblock %}
 
 {% block css %}
@@ -25,7 +25,7 @@
 			</div>
 		</div>
 		<div class="col auto">
-			{{ include('partials/page-title.html.twig', { sub_title: 'Customer', page_title: 'Customer' }) }}
+			{{ include('partials/page-title.html.twig', { sub_title: 'Transfer', page_title: 'Transfer' }) }}
 		</div>
 	</div>
 	<div class="modal fade rounded-3" id="transfer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -36,127 +36,41 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<div class="modal-body">
-						<div class="row">
-							<div class="form-group  col-md-6">
-								<label for="from_account" class="form-label">From Account</label>
-								<select class="form-control select" required="required" id="from_account" name="from_account">
-									<option value="51">
-										cash</option>
-									<option value="71">sbi ramu</option>
-								</select>
-							</div>
-							<div class="form-group  col-md-6">
-								<label for="to_account" class="form-label">To Account</label>
-								<select class="form-control select" required="required" id="to_account" name="to_account">
-									<option value="51">
-										cash</option>
-									<option value="71">sbi ramu</option>
-								</select>
-							</div>
-							<div class="form-group  col-md-6">
-								<label for="amount" class="form-label">Amount</label>
-								<input class="form-control" required="required" step="0.01" name="amount" type="number" value="" id="amount">
-							</div>
-							<div class="form-group  col-md-6">
-								<label for="date" class="form-label">Date</label>
-								<input class="form-control" required="required" name="date" type="date" id="date">
-							</div>
-							<div class="form-group  col-md-6">
-								<label for="reference" class="form-label">Reference</label>
-								<input class="form-control" name="reference" type="text" value="" id="reference">
-							</div>
-							<div class="form-group  col-md-12">
-								<label for="description" class="form-label">Description</label>
-								<textarea class="form-control" rows="3" name="description" cols="50" id="description"></textarea>
-							</div>
-
-						</div>
+					{{form_start(form)}}
+					<div class="row">
+                        <div class="form-group col-md-12 mb-1">
+                            {{form_row(form.date)}}
+                        </div>
+                        <div class="form-group col-md-6 mb-1">
+                            {{form_row(form.fromAccount)}}
+                        </div>
+						<div class="form-group col-md-6 mb-1">
+                            {{form_row(form.toAccount)}}
+                        </div>
+                        <div class="form-group col-md-6 mb-1">
+                            {{form_row(form.amount)}}
+                        </div>
+						
+						<div class="form-group col-md-6 mb-1">
+                            {{form_row(form.reference)}}
+                        </div>
+                        <div class="form-group col-md-6 mb-1">
+                            {{form_row(form.description)}}
+                        </div>
+                    </div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
+						<button type="submit" class="btn btn-primary rounded-2">Create</button>
 					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-primary rounded-2">Create</button>
-				</div>
-			</div>
-		</div>
+					{{form_end(form)}}
+			    </div>
+		    </div>
+	    </div>
 	</div>
 {% endblock %}
 
 {% block body %}
-	<div class="row">
-		<div class="col-sm-12">
-			<div class=" mt-2 " id="multiCollapseExample1">
-				<div class="card">
-					<div class="card-body">
-						<form method="GET" action="#" accept-charset="UTF-8" id="transfer_form">
-							<div class="row align-items-center justify-content-end">
-								<div class="col-xl-10">
-									<div class="row">
 
-										<div class="col-3"></div>
-
-										<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 month">
-											<div class="btn-box">
-												<label for="date" class="form-label">Date</label>
-												<input class="form-control month-btn flatpickr-input" id="pc-daterangepicker-1" readonly="readonly" name="date" type="text">
-
-											</div>
-										</div>
-										<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 date">
-											<div class="btn-box">
-												<label for="f_account" class="form-label">From Account</label>
-												<select class="form-control select" id="f_account" name="f_account">
-													<option value="" selected="selected">Select Account</option>
-													<option value="51">cash</option>
-													<option value="71">ramu</option>
-												</select>
-											</div>
-										</div>
-
-										<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
-											<div class="btn-box">
-												<label for="t_account" class="form-label">To Account</label>
-												<select class="form-control select" id="t_account" name="t_account">
-													<option value="" selected="selected">Select Account</option>
-													<option value="51">cash</option>
-													<option value="71">ramu</option>
-												</select>
-											</div>
-										</div>
-
-
-									</div>
-								</div>
-								<div class="col-auto mt-4">
-									<div class="row">
-										<div class="col-auto">
-
-											<a href="#" class="btn btn-sm btn-primary" onclick="document.getElementById('transfer_form').submit(); return false;" data-bs-toggle="tooltip" title="" data-original-title="apply" data-bs-original-title="Apply">
-												<span class="btn-inner--icon">
-													<i class="bi bi-search"></i>
-												</span>
-											</a>
-
-											<a href="#" class="btn btn-sm btn-danger " data-bs-toggle="tooltip" title="" data-original-title="Reset" data-bs-original-title="Reset">
-												<span class="btn-inner--icon">
-													<i class="bi bi-trash"></i>
-												</span>
-											</a>
-
-
-										</div>
-
-									</div>
-								</div>
-							</div>
-						</form>
-					</div>
-
-				</div>
-			</div>
-		</div>
-	</div>
 	<div class="row">
 		<div class="col-12">
 			<div class="card">
@@ -174,14 +88,29 @@
 							</tr>
 						</thead>
 						<tbody>
-							{# <tr>
-																													<td>Cara Stevens</td>
-																													<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-																													<td>New York</td>
-																													<td>46</td>
-																													<td>2011/12/06</td>
-																													<td>2011/12/06</td>
-																												</tr> #}
+
+							{% for transfer in transfers %}
+								<tr>
+									<td>{{transfer.date|date('Y-m-d H:i:s')}}</td>
+									<td>{{transfer.fromAccount}}</td>
+									<td>{{transfer.toAccount}}</td>
+									<td>{{transfer.amount}}</td>
+									<td>{{transfer.reference}}</td>
+									<td>{{transfer.description}}</td>
+									<td class="">
+										<div class="d-flex justify-content-center align-items-center gap-2">
+											<button type="button" class="p-0 m-0 border-0 open-edit-modal">
+												<a href="{{ path('transfer_edit', {'id': transfer.id, 'user_id': app.user.id}) }}" data-bs-toggle="tooltip" title="" class="p-1 rounded-3 bg-info text-white border-0" data-bs-original-title="Edit">
+													<i class="bi bi-pen"></i>
+												</a>
+											</button>
+											<a href="{{ path('transfer_delete', {'id': transfer.id, 'user_id': app.user.id}) }}" class="p-1 rounded-3 bg-danger text-white border-0">
+												<i class="bi bi-trash"></i>
+											</a>
+										</div>
+									</td>
+								</tr>
+							{% endfor %}
 						</tbody>
 					</table>
 

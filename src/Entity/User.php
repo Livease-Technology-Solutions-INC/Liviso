@@ -30,6 +30,7 @@ use App\Entity\HRMSystem\CustomQuestions;
 use Doctrine\Common\Collections\Collection;
 use App\Entity\HRMSystem\EmployeesAssetSetup;
 use App\Entity\AccountingSystem\Banking\Account;
+use App\Entity\AccountingSystem\Income\Revenue;
 use App\Entity\AccountingSystem\FinancialGoal;
 use App\Entity\HRMSystem\HRM_System_Setup\Goal;
 use App\Entity\HRMSystem\HRM_System_Setup\Loan;
@@ -232,6 +233,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Account::class, mappedBy: "user")]
     private Collection $account;
 
+    #[ORM\OneToMany(targetEntity: Transfer::class, mappedBy: "user")]
+    private Collection $transfers;
+
+    #[ORM\OneToMany(targetEntity: Revenue::class, mappedBy: "user")]
+    private Collection $revenue;
+
 
     public function __construct()
     {
@@ -281,6 +288,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->indicator = new ArrayCollection();
         $this->goalTrackings = new ArrayCollection();
         $this->account = new ArrayCollection();
+        $this->transfers = new ArrayCollection();
+        $this->revenue = new ArrayCollection();
     }
 
     public function __toString()
@@ -1756,6 +1765,44 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($account->getUser() === $this) {
                 $account->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Transfer>
+     */
+    public function getTransfers(): Collection
+    {
+        return $this->transfers;
+    }
+
+    /**
+     * @return Collection<int, Revenue>
+     */
+    public function getRevenue(): Collection
+    {
+        return $this->revenue;
+    }
+
+    public function addRevenue(Revenue $revenue): static
+    {
+        if (!$this->revenue->contains($revenue)) {
+            $this->revenue->add($revenue);
+            $revenue->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRevenue(Revenue $revenue): static
+    {
+        if ($this->revenue->removeElement($revenue)) {
+            // set the owning side to null (unless already changed)
+            if ($revenue->getUser() === $this) {
+                $revenue->setUser(null);
             }
         }
 
