@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Account\Banking\Account;
+use App\Entity\AccountingSystem\Banking\Account;
 use App\Entity\User;
-use App\Form\Account\Banking\AccountType;
+use App\Form\AccountingSystem\Banking\AccountType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

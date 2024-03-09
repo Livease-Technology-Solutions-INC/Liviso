@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Form\Account\Banking;
+namespace App\Form\AccountingSystem\Banking;
 
-use App\Entity\Account\Banking\Account;
+use App\Entity\AccountingSystem\Banking\Account;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use App\Form\Account\DataTransformer\UserToIdTransformer;
+use App\Form\AccountingSystem\DataTransformer\UserToIdTransformer;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class AccountType extends AbstractType
@@ -78,7 +78,7 @@ class AccountType extends AbstractType
                         'message' => 'The contact number should be exactly 10 digits.',
                     ]),
                 ],
-                
+
                 'label' => 'Contact Number',
                 'attr' => [
                     'class' => 'form-control m-0',

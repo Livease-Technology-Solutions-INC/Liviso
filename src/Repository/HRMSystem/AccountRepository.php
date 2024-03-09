@@ -2,7 +2,7 @@
 
 namespace App\Repository\HRMSystem;
 
-use App\Entity\Account\Banking\Account;
+use App\Entity\AccountingSystem\Banking\Account;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
