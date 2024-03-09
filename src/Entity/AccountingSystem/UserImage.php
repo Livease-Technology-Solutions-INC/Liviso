@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity\Account;
+namespace App\Entity\AccountingSystem;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;

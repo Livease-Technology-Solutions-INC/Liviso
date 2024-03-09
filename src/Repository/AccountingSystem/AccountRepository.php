@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository\HRMSystem;
+namespace App\Repository\AccountingSystem;
 
 use App\Entity\AccountingSystem\Banking\Account;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;

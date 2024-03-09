@@ -1,18 +1,24 @@
 <?php
 
-namespace App\Form\Account\Banking;
+namespace App\Form\AccountingSystem\Banking;
 
-use App\Entity\Account\Banking\Account;
+use Doctrine\DBAL\Types\FloatType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
+use phpDocumentor\Reflection\Types\Float_;
+use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints as Assert;
+use App\Entity\AccountingSystem\Banking\Transfers;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use App\Form\Account\DataTransformer\UserToIdTransformer;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use App\Form\AccountingSystem\DataTransformer\UserToIdTransformer;
 
-class AccountType extends AbstractType
+class TransferType extends AbstractType
 {
     private UserToIdTransformer $userToIdTransformer;
     private EntityManagerInterface $entityManager;
@@ -25,74 +31,62 @@ class AccountType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-
-            ->add('accountName', TextType::class, [
-                'label' => 'Account Name',
+            
+            ->add('date', DateType::class, [
+                'label' => 'Date',
+                'html5' => true,
+                'widget' => 'single_text',
                 'attr' => [
                     'class' => 'form-control m-0',
-                    'autocomplete' => 'off',
-                    'placeholder' => 'Account Name'
+                    'placeholder' => 'Select Date/Time',
+                    'required' => 'required',
                 ],
             ])
 
-            ->add('bankName', TextType::class, [
-                'label' => 'Bank Name',
+            
+            ->add('fromAccount', TextType::class, [
+                'label' => 'From Account',
                 'attr' => [
                     'class' => 'form-control m-0',
                     'autocomplete' => 'off',
-                    'placeholder' => 'Bank Name'
+                    'placeholder' => 'From Account'
                 ],
             ])
 
-            ->add('accountNumber', TextType::class, [
-                'constraints' => [
-                    new Assert\NotBlank(),
-                    new Assert\Regex([
-                        'pattern' => '/^\d{10}$/',
-                        'message' => 'The contact number should be exactly 10 digits.',
-                    ]),
-                ],
-
-                'label' => 'Account Number',
+            ->add('toAccount', TextType::class, [
+                'label' => 'To Account',
                 'attr' => [
                     'class' => 'form-control m-0',
                     'autocomplete' => 'off',
-                    'placeholder' => 'Account Number'
+                    'placeholder' => 'To Account'
                 ],
             ])
 
-            ->add('currentBalance', NumberType::class, [
-                'label' => 'Current Balance',
+            ->add('amount', IntegerType::class, [
+                'label' => 'Amount',
                 'attr' => [
                     'class' => 'form-control m-0',
                     'autocomplete' => 'off',
-                    'placeholder' => 'Current Balance'
+                    'placeholder' => 'Amount'
                 ],
             ])
 
-            ->add('contactNumber', TextType::class, [
-                'constraints' => [
-                    new Assert\NotBlank(),
-                    new Assert\Regex([
-                        'pattern' => '/^\d{10}$/',
-                        'message' => 'The contact number should be exactly 10 digits.',
-                    ]),
-                ],
-                
-                'label' => 'Contact Number',
+            ->add('reference', TextType::class, [
+                'label' => 'Reference',
                 'attr' => [
                     'class' => 'form-control m-0',
                     'autocomplete' => 'off',
-                    'placeholder' => 'Contact Number'
+                    'placeholder' => 'Reference'
                 ],
             ])
 
-            ->add('bankBranch', TextType::class, [
-                'label' => 'Bank Branch',
+            ->add('description', TextareaType::class, [
+                'label' => 'Description',
                 'attr' => [
                     'class' => 'form-control m-0',
                     'autocomplete' => 'off',
-                    'placeholder' => 'Bank Branch'
+                    'rows' => 5,
+                    'placeholder' => 'Description'
                 ],
             ]);
         }
@@ -100,7 +94,7 @@ class AccountType extends AbstractType
         public function configureOptions(OptionsResolver $resolver): void
         {
             $resolver->setDefaults([
-                'data_class' => Account::class,
+                'data_class' => Transfers::class,
                 'current_user' => null,
             ]);
         }

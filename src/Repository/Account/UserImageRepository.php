@@ -2,7 +2,7 @@
 
 namespace App\Repository\Account;
 
-use App\Entity\Account\UserImage;
+use App\Entity\AccountingSystem\UserImage;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
