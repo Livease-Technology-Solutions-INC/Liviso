@@ -510,7 +510,7 @@
 										<a href="{{path("accountingsystem/account", {id: app.user.id})}}">Account</a>
 									</li>
 									<li>
-										<a href="{{path("accountingsystem/transfer")}}">Transfer</a>
+										<a href="{{path("accountingsystem/transfer", {id: app.user.id})}}">Transfer</a>
 									</li>
 								</ul>
 							</div>
@@ -525,13 +525,13 @@
 							<div class="collapse" id="sidebaraccountingincome">
 								<ul class="side-nav-third-level">
 									<li>
-										<a href="{{path("accountingsystem/invoice")}}">Invoice</a>
+										<a href="{{path("accountingsystem/invoice", {id: app.user.id})}}">Invoice</a>
 									</li>
 									<li>
-										<a href="{{path("accountingsystem/revenue")}}">Revenue</a>
+										<a href="{{path("accountingsystem/revenue", {id: app.user.id})}}">Revenue</a>
 									</li>
 									<li>
-										<a href="{{path("accountingsystem/credit_note")}}">Credit Note</a>
+										<a href="{{path("accountingsystem/credit_note", {id: app.user.id})}}">Credit Note</a>
 									</li>
 								</ul>
 							</div>

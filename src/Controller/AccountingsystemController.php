@@ -3,8 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\AccountingSystem\Banking\Account;
+use App\Entity\AccountingSystem\Banking\Transfers;
+use App\Entity\AccountingSystem\Income\Revenue;
 use App\Entity\User;
 use App\Form\AccountingSystem\Banking\AccountType;
+use App\Form\AccountingSystem\Banking\TransferType;
+use App\Form\AccountingSystem\Income\RevenueType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -125,18 +129,97 @@ class AccountingsystemController extends AbstractController
         return $this->render('accountingsystem/edit/account.html.twig', [
             'controllername' => 'HrmsystemController',
             'form' => $form->createView(),
-            'appraisal' => $accounts,
+            'accounts' => $accounts,
         ]);
     }
 
-    #[Route('/accountingsystem/transfer', name: 'accountingsystem/transfer')]
-    public function transfer(): Response
+    #[Route('/accountingsystem/transfer{id}', name: 'accountingsystem/transfer')]
+    public function transfer(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $transfer = new Transfers();
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $transfer->setUser($user);
+        $form = $this->createForm(TransferType::class, $transfer, ['current_user' => $this->getUser()]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the entity only if the form is submitted and valid
+            $this->entityManager->persist($transfer);
+            $this->entityManager->flush();
+
+            // Redirect after successful form submission (optional)
+            return $this->redirectToRoute('accountingsystem/transfer',  ['id' => $id]);
+        }
+
+        $repository = $this->entityManager->getRepository(Transfers::class);
+        $transfers = $repository->findBy(['user' => $currentUser]);
+
         return $this->render('accountingsystem/transfer.html.twig', [
             'controller_name' => 'AccountingsystemController',
+            'transfers' => $transfers,
+            'form' => $form->createView(),
         ]);
     }
+
+    //delete transfer
+    #[Route('/accountingsystem/transfer/{id}/delete/{user_id}', name: 'transfer_delete', methods: ["GET", "POST"])]
+    public function transferDelete(transfers $transfer, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        if (!$transfer) {
+            throw $this->createNotFoundException('transfer not found');
+        }
+
+        $this->entityManager->remove($transfer);
+        $this->entityManager->flush();
+        
+        return $this->redirectToRoute('accountingsystem/transfer', ['id' => $user_id]);
+    }
+
+    // edit appraisal
+    #[Route("/accountingsystem/transfer/{id}/edit/{user_id}", name: "transfer_edit", methods: ["GET", "PUT", "POST"])]
+    public function transferEdit(Request $request, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $repository = $this->entityManager->getRepository(Transfers::class);
+        $transfer = $repository->find($id);
+
+        if (!$transfer) {
+            throw $this->createNotFoundException('transfer not found');
+        }
+
+        $form = $this->createForm(TransferType::class, $transfer,  ['current_user' => $this->getUser()]);
+        try {
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Persist the entity only if the form is submitted and valid
+                $transfer = $form->getData();
+                $this->entityManager->persist($transfer);
+                $this->entityManager->flush();
+
+                // Redirect after successful form submission
+                return $this->redirectToRoute('accountingsystem/transfer', ['id' => $user_id]);
+            }
+        } catch (\Exception $error) {
+            $this->addFlash('danger', 'An error occurred while processing the form.');
+            throw $error;
+        }
+        $repository = $this->entityManager->getRepository(transfers::class);
+        $transfers = $repository->findBy(['user' => $currentUser]);
+
+        return $this->render('accountingsystem/edit/transfer.html.twig', [
+            'controllername' => 'AccountingsystemController',
+            'form' => $form->createView(),
+            'transfers' => $transfers,
+        ]);
+    }
+
     #[Route('/accountingsystem/invoice', name: 'accountingsystem/invoice')]
     public function invoice(): Response
     {
@@ -145,14 +228,105 @@ class AccountingsystemController extends AbstractController
             'controller_name' => 'AccountingsystemController',
         ]);
     }
-    #[Route('/accountingsystem/revenue', name: 'accountingsystem/revenue')]
-    public function revenue(): Response
+    #[Route('/accountingsystem/revenue{id}', name: 'accountingsystem/revenue')]
+    public function revenue(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $revenue = new Revenue();
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $revenue->setUser($user);
+        $form = $this->createForm(RevenueType::class, $revenue, ['current_user' => $this->getUser()]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $file = $request->files->get(key: 'revenue')['paymentReceipt']?? null;
+            if ($file) {
+                $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+                try {
+                    $file->move(
+                        $this->getParameter('support_dir'),
+                        $fileName
+                    );
+                } catch (\Exception $e) {
+                    $this->addFlash('error', 'There was an issue with the image');
+                    return $this->redirectToRoute('revenue');
+                }
+                $revenue->setPaymentReceipt($fileName);
+            }
+
+            $this->entityManager->persist($revenue);
+            $this->entityManager->flush();
+
+            // Redirect after successful form submission
+            return $this->redirectToRoute('accountingsystem/revenue',  ['id' => $id]);
+        }
+
+        $repository = $this->entityManager->getRepository(revenue::class);
+        $revenues = $repository->findBy(['user' => $currentUser]);
+
         return $this->render('accountingsystem/revenue.html.twig', [
             'controller_name' => 'AccountingsystemController',
+            'revenues' => $revenues,
+            'form' => $form->createView(),
         ]);
     }
+    //delete revenue
+    #[Route('/accountingsystem/revenue/{id}/delete/{user_id}', name: 'revenue_delete', methods: ["GET", "POST"])]
+    public function revenueDelete(revenue $revenue, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        if (!$revenue) {
+            throw $this->createNotFoundException('revenue not found');
+        }
+
+        $this->entityManager->remove($revenue);
+        $this->entityManager->flush();
+
+        return $this->redirectToRoute('accountingsystem/revenue', ['id' => $user_id]);
+    }
+
+    #[Route("/accountingsystem/revenue/{id}/edit/{user_id}", name: "revenue_edit", methods: ["GET", "PUT", "POST"])]
+    public function revenueEdit(Request $request, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $repository = $this->entityManager->getRepository(revenue::class);
+        $revenue = $repository->find($id);
+
+        if (!$revenue) {
+            throw $this->createNotFoundException('revenue not found');
+        }
+
+        $form = $this->createForm(RevenueType::class, $revenue,  ['current_user' => $this->getUser()]);
+        try {
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Persist the entity only if the form is submitted and valid
+                $revenue = $form->getData();
+                $this->entityManager->persist($revenue);
+                $this->entityManager->flush();
+
+                // Redirect after successful form submission (optional)
+                return $this->redirectToRoute('accountingsystem/revenue', ['id' => $user_id]);
+            }
+        } catch (\Exception $error) {
+            $this->addFlash('danger', 'An error occurred while processing the form.');
+            throw $error;
+        }
+        $repository = $this->entityManager->getRepository(revenue::class);
+        $revenues = $repository->findBy(['user' => $currentUser]);
+
+        return $this->render('accountingsystem/edit/revenue.html.twig', [
+            'controllername' => 'AccountingsystemController',
+            'form' => $form->createView(),
+            'revenues' => $revenues,
+        ]);
+    }
+
     #[Route('/accountingsystem/credit_note', name: 'accountingsystem/credit_note')]
     public function creditNote(): Response
     {

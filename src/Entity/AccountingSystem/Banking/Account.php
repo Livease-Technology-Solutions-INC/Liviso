@@ -5,7 +5,7 @@ namespace App\Entity\AccountingSystem\Banking;
 use App\Entity\User;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\HRMSystem\AccountRepository;
+use App\Repository\AccountingSystem\AccountRepository;
 
 #[ORM\Entity(repositoryClass: AccountRepository::class)]
 class Account
