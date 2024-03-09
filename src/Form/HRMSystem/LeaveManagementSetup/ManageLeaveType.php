@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Form\HRMSystem;
+namespace App\Form\HRMSystem\LeaveManagementSetup;
 
-use App\Entity\HRMSystem\ManageLeave;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use App\Form\Account\DataTransformer\UserToIdTransformer;
+use App\Entity\HRMSystem\LeaveManagementSetup\ManageLeave;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 

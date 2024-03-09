@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repository\HRMSystem;
+namespace App\Repository\HRMSystem\LeaveManagementSetup;
 
-use App\Entity\HRMSystem\ManageLeave;
+use App\Entity\HRMSystem\LeaveManagementSetup\ManageLeave;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

@@ -6,24 +6,24 @@ use App\Entity\User;
 use App\Entity\HRMSystem\Trip;
 use App\Entity\HRMSystem\Award;
 use App\Form\HRMSystem\TripType;
+use App\Entity\HRMSystem\Meeting;
 use App\Entity\HRMSystem\Trainer;
 use App\Entity\HRMSystem\Warning;
 use App\Form\HRMSystem\AwardType;
 use App\Entity\HRMSystem\Holidays;
 use App\Entity\HRMSystem\Transfer;
 use App\Entity\HRMSystem\Promotion;
+use App\Form\HRMSystem\MeetingType;
 use App\Form\HRMSystem\TrainerType;
 use App\Form\HRMSystem\WarningType;
 use App\Entity\HRMSystem\Complaints;
 use App\Form\HRMSystem\HolidaysType;
 use App\Form\HRMSystem\TransferType;
-use App\Entity\HRMSystem\ManageLeave;
 use App\Entity\HRMSystem\Resignation;
 use App\Entity\HRMSystem\Termination;
 use App\Form\HRMSystem\PromotionType;
 use App\Entity\HRMSystem\Announcement;
 use App\Form\HRMSystem\ComplaintsType;
-use App\Form\HRMSystem\ManageLeaveType;
 use App\Form\HRMSystem\ResignationType;
 use App\Form\HRMSystem\TerminationType;
 use App\Form\HRMSystem\AnnouncementType;
@@ -35,22 +35,28 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\HRMSystem\HRM_System_Setup\Goal;
 use App\Entity\HRMSystem\HRM_System_Setup\Loan;
+use App\Entity\HRMSystem\Performance\Indicator;
 use App\Form\HRMSystem\EmployeesAssetSetupType;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\HRMSystem\HRM_System_Setup\Leave;
+use App\Entity\HRMSystem\Performance\Appraisals;
 use App\Entity\HRMSystem\HRM_System_Setup\Branch;
 use App\Form\HRMSystem\HRM_System_Setup\GoalType;
 use App\Form\HRMSystem\HRM_System_Setup\LoanType;
+use App\Form\HRMSystem\Performance\AppraisalType;
+use App\Form\HRMSystem\Performance\IndicatorType;
 use App\Entity\HRMSystem\HRM_System_Setup\Payslip;
 use App\Form\HRMSystem\HRM_System_Setup\LeaveType;
 use App\Entity\HRMSystem\HRM_System_Setup\AwardHRM;
 use App\Entity\HRMSystem\HRM_System_Setup\Document;
 use App\Entity\HRMSystem\HRM_System_Setup\JobStage;
 use App\Entity\HRMSystem\HRM_System_Setup\Training;
+use App\Entity\HRMSystem\Performance\GoalTrackings;
 use App\Form\HRMSystem\HRM_System_Setup\BranchType;
 use App\Entity\HRMSystem\HRM_System_Setup\Allowance;
 use App\Entity\HRMSystem\HRM_System_Setup\Deduction;
 use App\Form\HRMSystem\HRM_System_Setup\PayslipType;
+use App\Form\HRMSystem\Performance\GoalTrackingType;
 use App\Entity\HRMSystem\HRM_System_Setup\Department;
 use App\Form\HRMSystem\HRM_System_Setup\AwardHRMType;
 use App\Form\HRMSystem\HRM_System_Setup\DocumentType;
@@ -68,16 +74,10 @@ use App\Form\HRMSystem\HRM_System_Setup\DesignationType;
 use App\Form\HRMSystem\HRM_System_Setup\JobCategoryType;
 use App\Form\HRMSystem\HRM_System_Setup\PerformanceType;
 use App\Entity\HRMSystem\HRM_System_Setup\TerminationHRM;
-use App\Entity\HRMSystem\Performance\Indicator;
-use App\Entity\HRMSystem\Meeting;
-use App\Form\HRMSystem\Performance\GoalTrackingType;
-use App\Entity\HRMSystem\Performance\Appraisals;
 use App\Form\HRMSystem\HRM_System_Setup\CompetenciesType;
+use App\Entity\HRMSystem\LeaveManagementSetup\ManageLeave;
 use App\Form\HRMSystem\HRM_System_Setup\TerminationHRMType;
-use App\Form\HRMSystem\Performance\IndicatorType;
-use App\Form\HRMSystem\MeetingType;
-use App\Form\HRMSystem\Performance\AppraisalType;
-use App\Entity\HRMSystem\Performance\GoalTrackings;
+use App\Form\HRMSystem\LeaveManagementSetup\ManageLeaveType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HrmsystemController extends AbstractController
@@ -112,7 +112,7 @@ class HrmsystemController extends AbstractController
             'controller_name' => 'HrmsystemController',
         ]);
     }
-   #[Route('/hrmsystem/manage_leave/{id}', name: 'hrmsystem/manage_leave')]
+    #[Route('/hrmsystem/manage_leave/{id}', name: 'hrmsystem/manage_leave')]
     public function manageLeave(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
@@ -126,7 +126,7 @@ class HrmsystemController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-// Persist the entity only if the form is submitted and valid
+            // Persist the entity only if the form is submitted and valid
             $this->entityManager->persist($manageleave);
             $this->entityManager->flush();
 
@@ -143,44 +143,43 @@ class HrmsystemController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-     // edit manage_leave
-     #[Route("/hrmsystem/manage_leave/{id}/edit/{user_id}", name: "manageleave_edit", methods: ["GET", "PUT", "POST"])]
-     public function manage_leaveEdit(Request $request, int $id, int $user_id): Response
-      {    
-         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-         
-         $currentUser = $this->getUser();
-         assert($currentUser instanceof User);
-         $data = json_decode($request->getContent(), true);
-         
-         $repository = $this->entityManager->getRepository(Manageleave::class);
- 
-         $manageleave = $repository->find($id);
-     
-         if (!$manageleave) {
- 
-             throw $this->createNotFoundException('Manageleave not found');
-         }
-         try {
-             
-         empty($data['employee']) ? true : $manageleave->setUser($data['employee']);
-         empty($data['leaveReason']) ? true : $manageleave->setLeaveReason($data['leaveReason']);
-         empty($data['leaveType']) ? true : $manageleave->setLeaveType($data['leaveType']);
-         empty($data['startDate']) ? true : $manageleave->setStartDate(new \DateTime($data['startDate']));
-         empty($data['endDate']) ? true : $manageleave->setEndDate(new \DateTime($data['endDate']));
-         empty($data['remark']) ? true : $manageleave->setRemark($data['remark']);
-     
-         $this->entityManager->persist($manageleave);
-         $this->entityManager->flush();
-     
-         return $this->redirectToRoute('hrmsystem/manage_leave', ['id' => $user_id]);
-             
-         } catch (\Exception $error) {
-             $this->addFlash('danger', 'An error occurred while processing the form.');
-             throw $error;
-         }
-     }
- 
+    // edit manage_leave
+    #[Route("/hrmsystem/manage_leave/{id}/edit/{user_id}", name: "manageleave_edit", methods: ["GET", "PUT", "POST"])]
+    public function manage_leaveEdit(Request $request, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $data = json_decode($request->getContent(), true);
+
+        $repository = $this->entityManager->getRepository(Manageleave::class);
+
+        $manageleave = $repository->find($id);
+
+        if (!$manageleave) {
+
+            throw $this->createNotFoundException('Manageleave not found');
+        }
+        try {
+
+            empty($data['employee']) ? true : $manageleave->setUser($data['employee']);
+            empty($data['leaveReason']) ? true : $manageleave->setLeaveReason($data['leaveReason']);
+            empty($data['leaveType']) ? true : $manageleave->setLeaveType($data['leaveType']);
+            empty($data['startDate']) ? true : $manageleave->setStartDate(new \DateTime($data['startDate']));
+            empty($data['endDate']) ? true : $manageleave->setEndDate(new \DateTime($data['endDate']));
+            empty($data['remark']) ? true : $manageleave->setRemark($data['remark']);
+
+            $this->entityManager->persist($manageleave);
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('hrmsystem/manage_leave', ['id' => $user_id]);
+        } catch (\Exception $error) {
+            $this->addFlash('danger', 'An error occurred while processing the form.');
+            throw $error;
+        }
+    }
+
     // delete manage leave
     #[Route('/hrmsystem/manage_leave/{id}/delete/{user_id}', name: 'manageleave_delete', methods: ["GET", "POST"])]
     public function manageleaveDelete(Manageleave $Manageleave, int $id, int $user_id): Response
@@ -190,7 +189,7 @@ class HrmsystemController extends AbstractController
         $this->entityManager->flush();
         return $this->redirectToRoute('hrmsystem/manage_leave', ['id' => $user_id]);
     }
-    
+
     #[Route('/hrmsystem/bulk_attendance', name: 'hrmsystem/bulk_attendance')]
     public function bulkAttendance(): Response
     {
@@ -207,7 +206,7 @@ class HrmsystemController extends AbstractController
             'controller_name' => 'HrmsystemController',
         ]);
     }
-    
+
     #[Route('/hrmsystem/indicator{id}', name: 'hrmsystem/indicator')]
     public function indicator(Request $request, int $id): Response
     {
@@ -224,7 +223,7 @@ class HrmsystemController extends AbstractController
             // Persist the entity only if the form is submitted and valid
             $this->entityManager->persist($indicator);
             $this->entityManager->flush();
-            
+
             $this->addFlash('success', 'indicator created successfully.');
 
             // Redirect after successful form submission
@@ -250,7 +249,7 @@ class HrmsystemController extends AbstractController
 
         $this->entityManager->remove($indicatior);
         $this->entityManager->flush();
-        
+
         return $this->redirectToRoute('hrmsystem/indicator', ['id' => $user_id]);
     }
 
@@ -261,38 +260,32 @@ class HrmsystemController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $currentUser = $this->getUser();
         assert($currentUser instanceof User);
-        $repository = $this->entityManager->getRepository(indicator::class);
+        $data = json_decode($request->getContent(), true);
+
+        $repository = $this->entityManager->getRepository(Indicator::class);
+
         $indicator = $repository->find($id);
 
         if (!$indicator) {
             throw $this->createNotFoundException('indicator not found');
         }
-
-        $form = $this->createForm(IndicatorType::class, $indicator,  ['current_user' => $this->getUser()]);
         try {
-            $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                // Persist the entity only if the form is submitted and valid
-                $indicator = $form->getData();
-                $this->entityManager->persist($indicator);
-                $this->entityManager->flush();
+            empty($data['branch']) ? true : $indicator->setBranch($data['branch']);
+            empty($data['department']) ? true : $indicator->setDepartment($data['department']);
+            empty($data['designation']) ? true : $indicator->setDesignation($data['designation']);
+            empty($data['overallRating']) ? true : $indicator->setOverallRating(($data['OverallRating']));
+            empty($data['addedBy']) ? true : $indicator->setAddedBy(($data['AddedBy']));
+            empty($data['createdBy']) ? true : $indicator->setCreatedBy($data['CreatedBy']);
 
-                // Redirect after successful form submission (optional)
-                return $this->redirectToRoute('hrmsystem/indicator', ['id' => $user_id]);
-            }
+            $this->entityManager->persist($indicator);
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('hrmsystem/indicator', ['id' => $user_id]);
         } catch (\Exception $error) {
             $this->addFlash('danger', 'An error occurred while processing the form.');
             throw $error;
         }
-        $repository = $this->entityManager->getRepository(indicator::class);
-        $indicators = $repository->findBy(['user' => $currentUser]);
-
-        return $this->render('hrmsystem/edit/indicator.html.twig', [
-            'controllername' => 'HrmsystemController',
-            'form' => $form->createView(),
-            'indicator' => $indicators,
-        ]);
     }
 
     #[Route('/hrmsystem/appraisal{id}', name: 'hrmsystem/appraisal')]
@@ -335,7 +328,7 @@ class HrmsystemController extends AbstractController
 
         $this->entityManager->remove($appraisal);
         $this->entityManager->flush();
-        
+
         return $this->redirectToRoute('hrmsystem/appraisal', ['id' => $user_id]);
     }
 
@@ -1484,7 +1477,7 @@ class HrmsystemController extends AbstractController
             // Persist the entity only if the form is submitted and valid
             $this->entityManager->persist($meeting);
             $this->entityManager->flush();
-            
+
             $this->addFlash('success', 'Meeting created successfully.');
 
             // Redirect after successful form submission

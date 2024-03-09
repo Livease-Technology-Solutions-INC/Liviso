@@ -76,80 +76,84 @@
 			</div>
 		</div>
 	</div>
-</div>{% endblock %}{% block body %}
+{% endblock %}
+{% block body %}
 
-<div class="row">
-	<div class="col-12">
-		<div class="card">
-			<div class="card-body">
-				<table id="basic-datatable" class="table table-striped dt-responsive nowrap w-100">
-					<thead>
-						<tr>
-							<th>Employee</th>
-							<th>Leave Type</th>
-							<th>Applied ON</th>
-							<th>Start Date</th>
-							<th>End Date</th>
-							<th>Total Days</th>
-							<th>Leave Reason</th>
-							<th>Status</th>
-							<th>Action</th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for manageLeave in manageLeaves %}
+	<div class="row">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-body">
+					<table id="basic-datatable" class="table table-striped dt-responsive nowrap w-100">
+						<thead>
 							<tr>
-								<td class="manage_leave_employee">{{manageLeave.employee}}</td>
-								<td class="manage_leave_leaveType">{{manageLeave.leaveType}}</td>
-								<td>New York</td>
-								<td class="manage_leave_startDate">{{manageLeave.startDate|date('Y-m-d') }}</td>
-								<td class="manage_leave_endDate">{{manageLeave.endDate|date('Y-m-d') }}</td>
-								<td>2011/12/06</td>
-								<td class="manage_leave_leaveReason">{{manageLeave.leaveReason}}</td>
-								<td class="manage_leave_remark">{{manageLeave.remark}}</td>
-								<td>
-									<div class="d-flex justify-content-center align-items-center gap-2">
-										<button type="button" class="p-0 m-0 border-0 open-edit-modal" data-leave-id="{{ manageLeave.id }}" user-id="{{app.user.id}}">
-											<a href="#" data-bs-toggle="tooltip" title="" class="p-1 rounded-3 bg-info text-white border-0" data-bs-original-title="Edit">
-												<i class="bi bi-pen"></i>
-											</a>
-										</button>
-										<button type="button" class="p-0 m-0 border-0 delete-leave" data-leave-id="{{ manageLeave.id }}" user-id="{{app.user.id}}">
-											<a href="#" class="p-1 rounded-3 bg-danger text-white border-0">
-												<i class="bi bi-trash"></i>
-											</a>
-										</button>
-									</div>
-								</td>
+								<th>Employee</th>
+								<th>Leave Type</th>
+								<th>Applied ON</th>
+								<th>Start Date</th>
+								<th>End Date</th>
+								<th>Total Days</th>
+								<th>Leave Reason</th>
+								<th>Status</th>
+								<th>Action</th>
 							</tr>
-						{% endfor %}
+						</thead>
+						<tbody>
+							{% for manageLeave in manageLeaves %}
+								<tr>
+									<td class="manage_leave_employee">{{manageLeave.employee}}</td>
+									<td class="manage_leave_leaveType">{{manageLeave.leaveType}}</td>
+									<td>New York</td>
+									<td class="manage_leave_startDate">{{manageLeave.startDate|date('Y-m-d') }}</td>
+									<td class="manage_leave_endDate">{{manageLeave.endDate|date('Y-m-d') }}</td>
+									<td>2011/12/06</td>
+									<td class="manage_leave_leaveReason">{{manageLeave.leaveReason}}</td>
+									<td class="manage_leave_remark">{{manageLeave.remark}}</td>
+									<td>
+										<div class="d-flex justify-content-center align-items-center gap-2">
+											<button type="button" class="p-0 m-0 border-0 open-edit-modal" data-leave-id="{{ manageLeave.id }}" user-id="{{app.user.id}}">
+												<a href="#" data-bs-toggle="tooltip" title="" class="p-1 rounded-3 bg-info text-white border-0" data-bs-original-title="Edit">
+													<i class="bi bi-pen"></i>
+												</a>
+											</button>
+											<button type="button" class="p-0 m-0 border-0 delete-leave" data-leave-id="{{ manageLeave.id }}" user-id="{{app.user.id}}">
+												<a href="#" class="p-1 rounded-3 bg-danger text-white border-0">
+													<i class="bi bi-trash"></i>
+												</a>
+											</button>
+										</div>
+									</td>
+								</tr>
+							{% endfor %}
 
-					</tbody>
-				</table>
+						</tbody>
+					</table>
 
+				</div>
+				<!-- end card body-->
 			</div>
-			<!-- end card body-->
+			<!-- end card -->
 		</div>
-		<!-- end card -->
+		<!-- end col-->
 	</div>
-	<!-- end col-->
-</div>
-<!-- end row-->{% endblock %}{% block javascript %}
-<!-- Datatables js -->
-<script src="/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="/vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
-<script src="/vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-<script src="/vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
-<script src="/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-<script src="/vendor/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js"></script>
-<script src="/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
-<script src="/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
-<script src="/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
-<script src="/vendor/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-<script src="/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
+	<!-- end row-->
+{% endblock %}
+{% block javascript %}
+	<!-- Datatables js -->
+	<script src="/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script src="/vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+	<script src="/vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+	<script src="/vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+	<script src="/vendor/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
+	<script src="/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
+	<script src="/vendor/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+	<script src="/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
 
-<!-- Datatable Demo Aapp js -->
-<script src="/js/pages/demo.datatable-init.js"></script>
+	<!-- Datatable Demo Aapp js -->
+	<script src="/js/pages/demo.datatable-init.js"></script>
 
-<!-- edit and delete handler js -->
-<script src="/js/pages/edit.modal.js"></script>{% endblock %}
+	<!-- edit and delete handler js -->
+	<script src="/js/pages/edit.modal.js"></script>
+{% endblock %}

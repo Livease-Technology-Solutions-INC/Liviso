@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Entity\HRMSystem;
+namespace App\Entity\HRMSystem\LeaveManagementSetup;
 
 use App\Entity\User;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\HRMSystem\ManageLeaveRepository;
+use App\Repository\HRMSystem\LeaveManagementSetup\ManageLeaveRepository;
 
 #[ORM\Entity(repositoryClass: ManageLeaveRepository::class)]
 class ManageLeave
