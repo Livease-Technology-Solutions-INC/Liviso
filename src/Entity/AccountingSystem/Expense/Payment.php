@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Entity\AccountingSystem\Income;
+namespace App\Entity\AccountingSystem\Expense;
 
 use App\Entity\User;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\AccountingSystem\RevenueRepository;
+use App\Repository\AccountingSystem\PaymentRepository;
 
-#[ORM\Entity(repositoryClass: RevenueRepository::class)]
-class Revenue
+#[ORM\Entity(repositoryClass: PaymentRepository::class)]
+class Payment
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -25,7 +25,7 @@ class Revenue
     private ?string $account = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $customer = null;
+    private ?string $vendor = null;
 
     #[ORM\Column(length: 255)]
     private ?string $category = null;
@@ -39,7 +39,7 @@ class Revenue
     #[ORM\Column(length: 255)]
     private ?string $paymentReceipt = null;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "revenue")]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "payment")]
     #[ORM\JoinColumn(name: "user_id", referencedColumnName: "id")]
     private ?User $user = null;
 
@@ -84,14 +84,14 @@ class Revenue
         return $this;
     }
 
-    public function getCustomer(): ?string
+    public function getVendor(): ?string
     {
-        return $this->customer;
+        return $this->vendor;
     }
 
-    public function setCustomer(string $customer): static
+    public function setVendor(string $vendor): static
     {
-        $this->customer = $customer;
+        $this->vendor = $vendor;
 
         return $this;
     }

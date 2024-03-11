@@ -26,6 +26,7 @@ use App\Entity\HRMSystem\CustomQuestions;
 use Doctrine\Common\Collections\Collection;
 use App\Entity\HRMSystem\EmployeesAssetSetup;
 use App\Entity\AccountingSystem\Banking\Account;
+use App\Entity\AccountingSystem\Expense\Payment;
 use App\Entity\AccountingSystem\Income\Revenue;
 use App\Entity\AccountingSystem\FinancialGoal;
 use App\Entity\HRMSystem\HRM_System_Setup\Goal;
@@ -239,6 +240,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Revenue::class, mappedBy: "user")]
     private Collection $revenue;
 
+    #[ORM\OneToMany(targetEntity: Payment::class, mappedBy: "user")]
+    private Collection $payment;
+
 
     public function __construct()
     {
@@ -290,6 +294,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->account = new ArrayCollection();
         $this->transfers = new ArrayCollection();
         $this->revenue = new ArrayCollection();
+        $this->payment = new ArrayCollection();
     }
 
     public function __toString()
@@ -1803,6 +1808,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($revenue->getUser() === $this) {
                 $revenue->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Payment>
+     */
+    public function getPayment(): Collection
+    {
+        return $this->payment;
+    }
+
+    public function addPayment(Payment $payment): static
+    {
+        if (!$this->payment->contains($payment)) {
+            $this->payment->add($payment);
+            $payment->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePayment(Payment $payment): static
+    {
+        if ($this->payment->removeElement($payment)) {
+            // set the owning side to null (unless already changed)
+            if ($payment->getUser() === $this) {
+                $payment->setUser(null);
             }
         }
 
