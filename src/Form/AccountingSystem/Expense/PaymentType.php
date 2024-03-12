@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Form\AccountingSystem\Income;
+namespace App\Form\AccountingSystem\Expense;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use phpDocumentor\Reflection\Types\Integer;
-use App\Entity\AccountingSystem\Income\Revenue;
+use App\Entity\AccountingSystem\Expense\Payment;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -17,7 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use App\Form\AccountingSystem\DataTransformer\UserToIdTransformer;
 
-class RevenueType extends AbstractType
+class PaymentType extends AbstractType
 {
     private UserToIdTransformer $userToIdTransformer;
     private EntityManagerInterface $entityManager;
@@ -70,12 +70,12 @@ class RevenueType extends AbstractType
                 ],
             ])
 
-            ->add('customer', TextType::class, [
-                'label' => 'Customer',
+            ->add('vendor', TextType::class, [
+                'label' => 'Vendor',
                 'attr' => [
                     'class' => 'form-control m-0',
                     'autocomplete' => 'off',
-                    'placeholder' => 'Customer'
+                    'placeholder' => 'Vendor'
                 ],
             ])
 
@@ -83,8 +83,8 @@ class RevenueType extends AbstractType
                 'label' => 'Category',
                 'choices' => [
                     'All Category' => 'All Category',
-                    'Maintenance Sales' => 'Maintenance Sales',
-                    'Product Sales' => 'Product Sales',
+                    'Rent' => 'Rent',
+                    'Travel' => 'Travel',
                 ],
                 'attr' => [
                     'class' => 'form-control m-0',
@@ -120,7 +120,7 @@ class RevenueType extends AbstractType
         public function configureOptions(OptionsResolver $resolver): void
         {
             $resolver->setDefaults([
-                'data_class' => Revenue::class,
+                'data_class' => Payment::class,
                 'current_user' => null,
             ]);
         }
