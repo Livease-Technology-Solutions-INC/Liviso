@@ -58,7 +58,7 @@ class RevenueType extends AbstractType
                     new Assert\NotBlank(),
                     new Assert\Regex([
                         'pattern' => '/^\d{10}$/',
-                        'message' => 'The contact number should be exactly 10 digits.',
+                        'message' => 'The account number should be exactly 10 digits.',
                     ]),
                 ],
 
@@ -70,12 +70,12 @@ class RevenueType extends AbstractType
                 ],
             ])
 
-            ->add('customer', TextType::class, [
-                'label' => 'Customer',
+            ->add('customers', TextType::class, [
+                'label' => 'Customers',
                 'attr' => [
                     'class' => 'form-control m-0',
                     'autocomplete' => 'off',
-                    'placeholder' => 'Customer'
+                    'placeholder' => 'Customers'
                 ],
             ])
 

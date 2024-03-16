@@ -489,7 +489,7 @@
 				<div class="collapse" id="sidebaraccounting">
 					<ul class="side-nav-second-level">
 						<li>
-							<a href="{{path("accountingsystem/customer")}}">Customer</a>
+							<a href="{{path("accountingsystem/customer", {id: app.user.id})}}">Customer</a>
 						</li>
 						<li>
 							<a href="{{path("accountingsystem/vendor")}}">Vendor</a>
