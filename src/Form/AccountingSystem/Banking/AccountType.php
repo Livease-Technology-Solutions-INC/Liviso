@@ -49,7 +49,7 @@ class AccountType extends AbstractType
                     new Assert\NotBlank(),
                     new Assert\Regex([
                         'pattern' => '/^\d{10}$/',
-                        'message' => 'The contact number should be exactly 10 digits.',
+                        'message' => 'The account number should be exactly 10 digits.',
                     ]),
                 ],
 

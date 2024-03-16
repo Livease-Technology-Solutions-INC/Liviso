@@ -28,6 +28,7 @@ use App\Entity\HRMSystem\EmployeesAssetSetup;
 use App\Entity\AccountingSystem\Banking\Account;
 use App\Entity\AccountingSystem\Expense\Payment;
 use App\Entity\AccountingSystem\Income\Revenue;
+use App\Entity\AccountingSystem\Customer;
 use App\Entity\AccountingSystem\FinancialGoal;
 use App\Entity\HRMSystem\HRM_System_Setup\Goal;
 use App\Entity\HRMSystem\HRM_System_Setup\Loan;
@@ -243,6 +244,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Payment::class, mappedBy: "user")]
     private Collection $payment;
 
+    #[ORM\OneToMany(targetEntity: Customer::class, mappedBy: "user")]
+    private Collection $customer;
+
 
     public function __construct()
     {
@@ -293,8 +297,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->goalTrackings = new ArrayCollection();
         $this->account = new ArrayCollection();
         $this->transfers = new ArrayCollection();
-        $this->revenue = new ArrayCollection();
         $this->payment = new ArrayCollection();
+        $this->revenue = new ArrayCollection();
+        $this->customer = new ArrayCollection();
     }
 
     public function __toString()
@@ -1785,6 +1790,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
+     * @return Collection<int, Payment>
+     */
+    public function getPayment(): Collection
+    {
+        return $this->payment;
+    }
+
+    public function addPayment(Payment $payment): static
+    {
+        if (!$this->payment->contains($payment)) {
+            $this->payment->add($payment);
+            $payment->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePayment(Payment $payment): static
+    {
+        if ($this->payment->removeElement($payment)) {
+            // set the owning side to null (unless already changed)
+            if ($payment->getUser() === $this) {
+                $payment->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * @return Collection<int, Revenue>
      */
     public function getRevenue(): Collection
@@ -1815,29 +1850,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Payment>
+     * @return Collection<int, Customer>
      */
-    public function getPayment(): Collection
+    public function getCustomer(): Collection
     {
-        return $this->payment;
+        return $this->customer;
     }
 
-    public function addPayment(Payment $payment): static
+    public function addCustomer(Customer $customer): static
     {
-        if (!$this->payment->contains($payment)) {
-            $this->payment->add($payment);
-            $payment->setUser($this);
+        if (!$this->customer->contains($customer)) {
+            $this->customer->add($customer);
+            $customer->setUser($this);
         }
 
         return $this;
     }
 
-    public function removePayment(Payment $payment): static
+    public function removeCustomer(Customer $customer): static
     {
-        if ($this->payment->removeElement($payment)) {
+        if ($this->customer->removeElement($customer)) {
             // set the owning side to null (unless already changed)
-            if ($payment->getUser() === $this) {
-                $payment->setUser(null);
+            if ($customer->getUser() === $this) {
+                $customer->setUser(null);
             }
         }
 

@@ -3,6 +3,7 @@
 namespace App\Entity\AccountingSystem\Income;
 
 use App\Entity\User;
+use App\Entity\AccountingSystem\Customer;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\AccountingSystem\RevenueRepository;
@@ -25,7 +26,7 @@ class Revenue
     private ?string $account = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $customer = null;
+    private ?string $customers = null;
 
     #[ORM\Column(length: 255)]
     private ?string $category = null;
@@ -42,6 +43,11 @@ class Revenue
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "revenue")]
     #[ORM\JoinColumn(name: "user_id", referencedColumnName: "id")]
     private ?User $user = null;
+
+    #[ORM\OneToOne(targetEntity: Customer::class, mappedBy: "revenue", cascade: ["persist", "remove"])]
+    private ?Customer $customer = null;
+    
+
 
     public function getId(): ?int
     {
@@ -60,12 +66,12 @@ class Revenue
         return $this;
     }
 
-    public function getAmount(): ?string
+    public function getAmount(): ?float
     {
         return $this->amount;
     }
 
-    public function setAmount(string $amount): static
+    public function setAmount(float $amount): static
     {
         $this->amount = $amount;
 
@@ -80,18 +86,6 @@ class Revenue
     public function setAccount(string $account): static
     {
         $this->account = $account;
-
-        return $this;
-    }
-
-    public function getCustomer(): ?string
-    {
-        return $this->customer;
-    }
-
-    public function setCustomer(string $customer): static
-    {
-        $this->customer = $customer;
 
         return $this;
     }
@@ -152,6 +146,40 @@ class Revenue
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getCustomers(): ?string
+    {
+        return $this->customers;
+    }
+
+    public function setCustomers(string $customers): static
+    {
+        $this->customers = $customers;
+
+        return $this;
+    }
+
+    public function getCustomer(): ?Customer
+    {
+        return $this->customer;
+    }
+
+    public function setCustomer(?Customer $customer): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($customer === null && $this->customer !== null) {
+            $this->customer->setRevenue(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($customer !== null && $customer->getRevenue() !== $this) {
+            $customer->setRevenue($this);
+        }
+
+        $this->customer = $customer;
 
         return $this;
     }
