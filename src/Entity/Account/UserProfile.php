@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity\AccountingSystem;
+namespace App\Entity\Account;
 
 use App\Entity\User;
 use Doctrine\DBAL\Types\Types;
@@ -52,7 +52,7 @@ class UserProfile
     #[ORM\Column(length: 180, type: "text", nullable: 'true')]
     private ?string $github = null;
 
-    public function getId(): ?string
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -62,117 +62,9 @@ class UserProfile
         return $this->bio;
     }
 
-    public function setBio(string $bio): static
+    public function setBio(?string $bio): static
     {
         $this->bio = $bio;
-
-        return $this;
-    }
-
-    public function getCompanyName(): ?string
-    {
-        return $this->companyName;
-    }
-
-    public function setCompanyName(string $companyName): static
-    {
-        $this->companyName = $companyName;
-
-        return $this;
-    }
-
-    public function getCompanyWebsite(): ?string
-    {
-        return $this->companyWebsite;
-    }
-
-    public function setCompanyWebsite(string $companyWebsite): static
-    {
-        $this->companyWebsite = $companyWebsite;
-
-        return $this;
-    }
-
-    public function getFacebook(): ?string
-    {
-        return $this->facebook;
-    }
-
-    public function setFacebook(string $facebook): static
-    {
-        $this->facebook = $facebook;
-
-        return $this;
-    }
-
-    public function getTwitter(): ?string
-    {
-        return $this->twitter;
-    }
-
-    public function setTwitter(string $twitter): static
-    {
-        $this->twitter = $twitter;
-
-        return $this;
-    }
-
-    public function getInstagram(): ?string
-    {
-        return $this->instagram;
-    }
-
-    public function setInstagram(string $instagram): static
-    {
-        $this->instagram = $instagram;
-
-        return $this;
-    }
-
-    public function getLinkedin(): ?string
-    {
-        return $this->linkedin;
-    }
-
-    public function setLinkedin(string $linkedin): static
-    {
-        $this->linkedin = $linkedin;
-
-        return $this;
-    }
-
-    public function getSkype(): ?string
-    {
-        return $this->skype;
-    }
-
-    public function setSkype(string $skype): static
-    {
-        $this->skype = $skype;
-
-        return $this;
-    }
-
-    public function getGithub(): ?string
-    {
-        return $this->github;
-    }
-
-    public function setGithub(string $github): static
-    {
-        $this->github = $github;
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): static
-    {
-        $this->user = $user;
 
         return $this;
     }
@@ -197,6 +89,114 @@ class UserProfile
     public function setCountry(?string $country): static
     {
         $this->country = $country;
+
+        return $this;
+    }
+
+    public function getCompanyName(): ?string
+    {
+        return $this->companyName;
+    }
+
+    public function setCompanyName(?string $companyName): static
+    {
+        $this->companyName = $companyName;
+
+        return $this;
+    }
+
+    public function getCompanyWebsite(): ?string
+    {
+        return $this->companyWebsite;
+    }
+
+    public function setCompanyWebsite(?string $companyWebsite): static
+    {
+        $this->companyWebsite = $companyWebsite;
+
+        return $this;
+    }
+
+    public function getFacebook(): ?string
+    {
+        return $this->facebook;
+    }
+
+    public function setFacebook(?string $facebook): static
+    {
+        $this->facebook = $facebook;
+
+        return $this;
+    }
+
+    public function getTwitter(): ?string
+    {
+        return $this->twitter;
+    }
+
+    public function setTwitter(?string $twitter): static
+    {
+        $this->twitter = $twitter;
+
+        return $this;
+    }
+
+    public function getInstagram(): ?string
+    {
+        return $this->instagram;
+    }
+
+    public function setInstagram(?string $instagram): static
+    {
+        $this->instagram = $instagram;
+
+        return $this;
+    }
+
+    public function getLinkedin(): ?string
+    {
+        return $this->linkedin;
+    }
+
+    public function setLinkedin(?string $linkedin): static
+    {
+        $this->linkedin = $linkedin;
+
+        return $this;
+    }
+
+    public function getSkype(): ?string
+    {
+        return $this->skype;
+    }
+
+    public function setSkype(?string $skype): static
+    {
+        $this->skype = $skype;
+
+        return $this;
+    }
+
+    public function getGithub(): ?string
+    {
+        return $this->github;
+    }
+
+    public function setGithub(?string $github): static
+    {
+        $this->github = $github;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

@@ -1,8 +1,8 @@
 <?php
-namespace App\Form;
+namespace App\Form\Account;
 
 use App\Entity\User;
-use App\Entity\AccountingSystem\UserImage;
+use App\Entity\Account\UserImage;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;

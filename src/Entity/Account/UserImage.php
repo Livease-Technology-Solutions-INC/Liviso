@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity\AccountingSystem;
+namespace App\Entity\Account;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -32,7 +32,7 @@ class UserImage
         return $this->imageUrl;
     }
 
-    public function setImageUrl(?string $imageUrl): self
+    public function setImageUrl(?string $imageUrl): static
     {
         $this->imageUrl = $imageUrl;
 
@@ -44,7 +44,7 @@ class UserImage
         return $this->user;
     }
 
-    public function setUser(?User $user): self
+    public function setUser(?User $user): static
     {
         $this->user = $user;
 
