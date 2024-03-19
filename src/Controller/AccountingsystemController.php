@@ -7,11 +7,13 @@ use App\Entity\AccountingSystem\Banking\Transfers;
 use App\Entity\AccountingSystem\Expense\Payment;
 use App\Entity\AccountingSystem\Income\Revenue;
 use App\Entity\AccountingSystem\Customer;
+use App\Entity\AccountingSystem\FinancialGoal;
 use App\Entity\User;
 use App\Form\AccountingSystem\Banking\AccountType;
 use App\Form\AccountingSystem\Banking\TransferType;
 use App\Form\AccountingSystem\CustomerType;
 use App\Form\AccountingSystem\Expense\PaymentType;
+use App\Form\AccountingSystem\Income\FinancialGoalType;
 use App\Form\AccountingSystem\Income\RevenueType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -587,14 +589,96 @@ class AccountingsystemController extends AbstractController
             'controller_name' => 'AccountingsystemController',
         ]);
     }
-    #[Route('/accountingsystem/financial_goal', name: 'accountingsystem/financial_goal')]
-    public function financialGoal(): Response
+
+    #[Route('/accountingsystem/financial_goal{id}', name: 'accountingsystem/financial_goal')]
+    public function financialGoal(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $financialGoal = new FinancialGoal();
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $financialGoal->setUser($user);
+        $form = $this->createForm(FinancialGoalType::class, $financialGoal, ['current_user' => $this->getUser()]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $this->entityManager->persist($financialGoal);
+            $this->entityManager->flush();
+
+            // Redirect after successful form submission
+            return $this->redirectToRoute('accountingsystem/financial_goal',  ['id' => $id]);
+        }
+
+        $repository = $this->entityManager->getRepository(financialGoal::class);
+        $financialGoals = $repository->findBy(['user' => $currentUser]);
+
         return $this->render('accountingsystem/financialGoal.html.twig', [
             'controller_name' => 'AccountingsystemController',
+            'financialGoals' => $financialGoals,
+            'form' => $form->createView(),
         ]);
     }
+
+    //delete financial goal
+    #[Route('/accountingsystem/financial_goal/{id}/delete/{user_id}', name: 'financial_goal_delete', methods: ["GET", "POST"])]
+    public function financialGoalDelete(financialGoal $financialGoal, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        if (!$financialGoal) {
+            throw $this->createNotFoundException('financial goal not found');
+        }
+
+        $this->entityManager->remove($financialGoal);
+        $this->entityManager->flush();
+
+        return $this->redirectToRoute('accountingsystem/financial_goal', ['id' => $user_id]);
+    }
+    
+    //edit financial goal
+    #[Route("/accountingsystem/financial_goal/{id}/edit/{user_id}", name: "financial_goal_edit", methods: ["GET", "PUT", "POST"])]
+    public function financialGoalEdit(Request $request, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $repository = $this->entityManager->getRepository(FinancialGoal::class);
+        $financialGoal = $repository->find($id);
+
+        if (!$financialGoal) {
+            throw $this->createNotFoundException('financial Goal not found');
+        }
+
+        $form = $this->createForm(FinancialGoalType::class, $financialGoal,  ['current_user' => $this->getUser()]);
+        try {
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Persist the entity only if the form is submitted and valid
+                $financialGoal = $form->getData();
+                $this->entityManager->persist($financialGoal);
+                $this->entityManager->flush();
+
+                // Redirect after successful form submission
+                return $this->redirectToRoute('accountingsystem/financial_goal', ['id' => $user_id]);
+            }
+        } catch (\Exception $error) {
+            $this->addFlash('danger', 'An error occurred while processing the form.');
+            throw $error;
+        }
+
+        $repository = $this->entityManager->getRepository(financialGoal::class);
+        $financialGoals = $repository->findBy(['user' => $currentUser]);
+
+        return $this->render('accountingsystem/edit/financialGoal.html.twig', [
+            'controller_name' => 'AccountingsystemController',
+            'form' => $form->createView(),
+            'payments' => $financialGoals,
+        ]);
+    }
+
+
     #[Route('/accountingsystem/accounting_setup', name: 'accountingsystem/accounting_setup')]
     public function accountingSetup(): Response
     {
