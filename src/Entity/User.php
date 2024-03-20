@@ -247,6 +247,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Customer::class, mappedBy: "user")]
     private Collection $customer;
 
+    #[ORM\OneToMany(targetEntity: FinancialGoal::class, mappedBy: "user")]
+    private Collection $financialGoal;
+
 
     public function __construct()
     {
@@ -300,6 +303,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->payment = new ArrayCollection();
         $this->revenue = new ArrayCollection();
         $this->customer = new ArrayCollection();
+        $this->financialGoal = new ArrayCollection();
     }
 
     public function __toString()
@@ -1873,6 +1877,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($customer->getUser() === $this) {
                 $customer->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, FinancialGoal>
+     */
+    public function getFinancialGoal(): Collection
+    {
+        return $this->financialGoal;
+    }
+
+    public function addFinancialGoal(FinancialGoal $financialGoal): static
+    {
+        if (!$this->financialGoal->contains($financialGoal)) {
+            $this->financialGoal->add($financialGoal);
+            $financialGoal->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFinancialGoal(FinancialGoal $financialGoal): static
+    {
+        if ($this->financialGoal->removeElement($financialGoal)) {
+            // set the owning side to null (unless already changed)
+            if ($financialGoal->getUser() === $this) {
+                $financialGoal->setUser(null);
             }
         }
 
