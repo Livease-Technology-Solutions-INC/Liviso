@@ -145,11 +145,11 @@
 									<td>{{customer.name}}</td>
 									<td>{{customer.contact}}</td>
 									<td>{{customer.email}}</td>
-									{% if customer is not null and customer.revenue is not null %}
-                                        <td>{{ customer.revenue.amount }}</td>
-									{% else %}
+									{# {% if customer is not null and customer.revenue is not null %} #}
+                                        {# <td>{{ customer.revenue.amount }}</td> #}
+									{# {% else %} #}
 										<td>00.0</td>
-									{% endif %}
+									{# {% endif %} #}
 						                <td class="">
 										<div class="d-flex justify-content-center align-items-center gap-2">
 											<button type="button" class="p-0 m-0 border-0 open-edit-modal">

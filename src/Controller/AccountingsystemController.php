@@ -43,7 +43,6 @@ class AccountingsystemController extends AbstractController
         $customer = new Customer();
         $user = $this->entityManager->getRepository(User::class)->find($id);
         $customer->setUser($user);
-        $customer->setRevenue($revenue);
         
         $form = $this->createForm(CustomerType::class, $customer, ['current_user' => $this->getUser()]);
         $form->handleRequest($request);

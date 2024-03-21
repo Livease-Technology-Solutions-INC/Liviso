@@ -81,15 +81,6 @@ class CustomerType extends AbstractType
                 ],
             ])
 
-            ->add('taxNumber', TextType::class, [
-                'label' => 'Tax Number',
-                'attr' => [
-                    'class' => 'form-control m-0',
-                    'autocomplete' => 'off',
-                    'placeholder' => 'Tax Number'
-                ],
-            ])
-
             ->add('phone', TextType::class, [
                 'constraints' => [
                     new Assert\NotBlank(),
@@ -188,14 +179,6 @@ class CustomerType extends AbstractType
                 ],
             ])
 
-            ->add('city', TextType::class, [
-                'label' => 'City',
-                'attr' => [
-                    'class' => 'form-control m-0',
-                    'autocomplete' => 'off',
-                    'placeholder' => 'City'
-                ],
-            ])
 
             ->add('shippingState', TextType::class, [
                 'label' => 'Shipping State',
