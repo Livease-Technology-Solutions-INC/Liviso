@@ -13,7 +13,7 @@ use App\Form\AccountingSystem\Banking\AccountType;
 use App\Form\AccountingSystem\Banking\TransferType;
 use App\Form\AccountingSystem\CustomerType;
 use App\Form\AccountingSystem\Expense\PaymentType;
-use App\Form\AccountingSystem\Income\FinancialGoalType;
+use App\Form\AccountingSystem\FinancialGoalType;
 use App\Form\AccountingSystem\Income\RevenueType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
