@@ -30,6 +30,8 @@ use App\Entity\AccountingSystem\Expense\Payment;
 use App\Entity\AccountingSystem\Income\Revenue;
 use App\Entity\AccountingSystem\Customer;
 use App\Entity\AccountingSystem\FinancialGoal;
+use App\Entity\CRMSystem\Contract;
+use App\Entity\CRMSystem\FormBuilder;
 use App\Entity\HRMSystem\HRM_System_Setup\Goal;
 use App\Entity\HRMSystem\HRM_System_Setup\Loan;
 use App\Entity\HRMSystem\Performance\Indicator;
@@ -250,6 +252,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: FinancialGoal::class, mappedBy: "user")]
     private Collection $financialGoal;
 
+    #[ORM\OneToMany(targetEntity: Contract::class, mappedBy: "user")]
+    private Collection $contract;
+
+    #[ORM\OneToMany(targetEntity: FormBuilder::class, mappedBy: "user")]
+    private Collection $formBuilder;
+
 
     public function __construct()
     {
@@ -304,6 +312,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->revenue = new ArrayCollection();
         $this->customer = new ArrayCollection();
         $this->financialGoal = new ArrayCollection();
+        $this->contract = new ArrayCollection();
+        $this->formBuilder = new ArrayCollection();
     }
 
     public function __toString()
@@ -1907,6 +1917,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($financialGoal->getUser() === $this) {
                 $financialGoal->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Contract>
+     */
+    public function getContract(): Collection
+    {
+        return $this->contract;
+    }
+
+    public function addContract(Contract $contract): static
+    {
+        if (!$this->contract->contains($contract)) {
+            $this->contract->add($contract);
+            $contract->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContract(Contract $contract): static
+    {
+        if ($this->contract->removeElement($contract)) {
+            // set the owning side to null (unless already changed)
+            if ($contract->getUser() === $this) {
+                $contract->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, FormBuilder>
+     */
+    public function getFormBuilder(): Collection
+    {
+        return $this->formBuilder;
+    }
+
+    public function addFormBuilder(FormBuilder $formBuilder): static
+    {
+        if (!$this->formBuilder->contains($formBuilder)) {
+            $this->formBuilder->add($formBuilder);
+            $formBuilder->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFormBuilder(FormBuilder $formBuilder): static
+    {
+        if ($this->formBuilder->removeElement($formBuilder)) {
+            // set the owning side to null (unless already changed)
+            if ($formBuilder->getUser() === $this) {
+                $formBuilder->setUser(null);
             }
         }
 

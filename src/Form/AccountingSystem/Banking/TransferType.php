@@ -2,18 +2,13 @@
 
 namespace App\Form\AccountingSystem\Banking;
 
-use Doctrine\DBAL\Types\FloatType;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Form\AbstractType;
-use phpDocumentor\Reflection\Types\Float_;
-use phpDocumentor\Reflection\Types\Integer;
+use Symfony\Component\Form\AbstractType;;
 use Symfony\Component\Form\FormBuilderInterface;
 use App\Entity\AccountingSystem\Banking\Transfers;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use App\Form\AccountingSystem\DataTransformer\UserToIdTransformer;

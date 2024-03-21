@@ -91,7 +91,7 @@
 
 							{% for transfer in transfers %}
 								<tr>
-									<td>{{transfer.date|date('Y-m-d H:i:s')}}</td>
+									<td>{{transfer.date|date('Y-m-d')}}</td>
 									<td>{{transfer.fromAccount}}</td>
 									<td>{{transfer.toAccount}}</td>
 									<td>{{transfer.amount}}</td>
