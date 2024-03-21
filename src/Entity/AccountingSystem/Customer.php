@@ -73,9 +73,6 @@ class Customer
     #[ORM\JoinColumn(name: "user_id", referencedColumnName: "id")]
     private ?User $user = null;
 
-    #[ORM\OneToOne(targetEntity: Revenue::class, inversedBy: "customer")]
-    private ?Revenue $revenue = null;
-
 
     public function getId(): ?int
     {
@@ -306,18 +303,6 @@ class Customer
     public function setUser(?User $user): static
     {
         $this->user = $user;
-
-        return $this;
-    }
-
-    public function getRevenue(): ?Revenue
-    {
-        return $this->revenue;
-    }
-
-    public function setRevenue(?Revenue $revenue): static
-    {
-        $this->revenue = $revenue;
 
         return $this;
     }

@@ -43,9 +43,6 @@ class Revenue
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "revenue")]
     #[ORM\JoinColumn(name: "user_id", referencedColumnName: "id")]
     private ?User $user = null;
-
-    #[ORM\OneToOne(targetEntity: Customer::class, mappedBy: "revenue", cascade: ["persist", "remove"])]
-    private ?Customer $customer = null;
     
 
 
@@ -158,28 +155,6 @@ class Revenue
     public function setCustomers(string $customers): static
     {
         $this->customers = $customers;
-
-        return $this;
-    }
-
-    public function getCustomer(): ?Customer
-    {
-        return $this->customer;
-    }
-
-    public function setCustomer(?Customer $customer): static
-    {
-        // unset the owning side of the relation if necessary
-        if ($customer === null && $this->customer !== null) {
-            $this->customer->setRevenue(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($customer !== null && $customer->getRevenue() !== $this) {
-            $customer->setRevenue($this);
-        }
-
-        $this->customer = $customer;
 
         return $this;
     }

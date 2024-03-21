@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form\AccountingSystem\Income;
+namespace App\Form\AccountingSystem;
 
 use App\Entity\AccountingSystem\FinancialGoal;
 use Doctrine\ORM\EntityManagerInterface;

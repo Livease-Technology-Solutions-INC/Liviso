@@ -13,7 +13,7 @@ use App\Form\AccountingSystem\Banking\AccountType;
 use App\Form\AccountingSystem\Banking\TransferType;
 use App\Form\AccountingSystem\CustomerType;
 use App\Form\AccountingSystem\Expense\PaymentType;
-use App\Form\AccountingSystem\Income\FinancialGoalType;
+use App\Form\AccountingSystem\FinancialGoalType;
 use App\Form\AccountingSystem\Income\RevenueType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -43,7 +43,6 @@ class AccountingsystemController extends AbstractController
         $customer = new Customer();
         $user = $this->entityManager->getRepository(User::class)->find($id);
         $customer->setUser($user);
-        $customer->setRevenue($revenue);
         
         $form = $this->createForm(CustomerType::class, $customer, ['current_user' => $this->getUser()]);
         $form->handleRequest($request);
