@@ -716,10 +716,10 @@
 				<div class="collapse" id="productsystem">
 					<ul class="side-nav-second-level">
 						<li>
-							<a href="{{path("productsystem/product_services")}}">Product & Services</a>
+							<a href="{{path("productsystem/product_services", {id: app.user.id})}}">Product & Services</a>
 						</li>
 						<li>
-							<a href="{{path("productsystem/product_stock")}}">Product Stock</a>
+							<a href="{{path("productsystem/product_stock", {id: app.user.id})}}">Product Stock</a>
 						</li>
 					</ul>
 				</div>

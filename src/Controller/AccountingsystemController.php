@@ -673,7 +673,7 @@ class AccountingsystemController extends AbstractController
         return $this->render('accountingsystem/edit/financialGoal.html.twig', [
             'controller_name' => 'AccountingsystemController',
             'form' => $form->createView(),
-            'payments' => $financialGoals,
+            'financialGoals' => $financialGoals,
         ]);
     }
 

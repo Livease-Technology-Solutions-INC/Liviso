@@ -55,6 +55,7 @@ use App\Entity\HRMSystem\HRM_System_Setup\Competencies;
 use Symfony\Component\Security\Core\User\UserInterface;
 use App\Entity\HRMSystem\HRM_System_Setup\TerminationHRM;
 use App\Entity\HRMSystem\LeaveManagementSetup\ManageLeave;
+use App\Entity\ProductsSystem\ProductServices;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
@@ -258,6 +259,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: FormBuilder::class, mappedBy: "user")]
     private Collection $formBuilder;
 
+    #[ORM\OneToMany(targetEntity: ProductServices::class, mappedBy: "user")]
+    private Collection $productServices;
+
 
     public function __construct()
     {
@@ -314,6 +318,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->financialGoal = new ArrayCollection();
         $this->contract = new ArrayCollection();
         $this->formBuilder = new ArrayCollection();
+        $this->productServices = new ArrayCollection();
     }
 
     public function __toString()
@@ -1977,6 +1982,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($formBuilder->getUser() === $this) {
                 $formBuilder->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProductServices>
+     */
+    public function getProductServices(): Collection
+    {
+        return $this->productServices;
+    }
+
+    public function addProductService(ProductServices $productService): static
+    {
+        if (!$this->productServices->contains($productService)) {
+            $this->productServices->add($productService);
+            $productService->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductService(ProductServices $productService): static
+    {
+        if ($this->productServices->removeElement($productService)) {
+            // set the owning side to null (unless already changed)
+            if ($productService->getUser() === $this) {
+                $productService->setUser(null);
             }
         }
 
