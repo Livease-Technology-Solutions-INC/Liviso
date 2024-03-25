@@ -44,118 +44,51 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<div class="modal-body">
+				    {{form_start(form)}}
 						<div class="row">
 							<div class="col-md-6">
-								<div class="form-group">
-									<label for="name" class="form-label mb-0">Name</label>
-									<span class="text-danger">*</span>
-									<input class="form-control mb-1" required="required" name="name" type="text" value="" id="name">
-								</div>
+								{{form_row(form.name)}}
 							</div>
 							<div class="col-md-6">
-								<div class="form-group">
-									<label for="sku" class="form-label mb-0">SKU</label>
-									<span class="text-danger">*</span>
-									<input class="form-control mb-1" required="required" name="sku" type="text" value="" id="sku">
-								</div>
+								{{form_row(form.sku)}}
 							</div>
 							<div class="form-group col-md-12">
-								<label for="description" class="form-label mb-0">Description</label>
-								<textarea class="form-control mb-1" rows="2" name="description" cols="50" id="description"></textarea>
+								{{form_row(form.description)}}
 							</div>
 							<div class="col-md-6">
-								<div class="form-group">
-									<label for="sale_price" class="form-label mb-0">Sale Price</label>
-									<span class="text-danger">*</span>
-									<input class="form-control mb-1" required="required" step="0.01" name="sale_price" type="number" value="" id="sale_price">
-								</div>
+								{{form_row(form.salePrice)}}
 							</div>
 							<div class="col-md-6">
-								<div class="form-group">
-									<label for="purchase_price" class="form-label mb-0">Purchase Price</label>
-									<span class="text-danger">*</span>
-									<input class="form-control mb-1" required="required" step="0.01" name="purchase_price" type="number" value="" id="purchase_price">
-								</div>
+								{{form_row(form.purchaseDate)}}
+							</div>
+							<div class="col-md-6">
+								{{form_row(form.tax)}}
 							</div>
 
 							<div class="form-group col-md-6">
-								<label for="tax_id" class="form-label mb-0">Tax</label>
-								<div class="choices" data-type="select-multiple" role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-expanded="false">
-									<div class="choices__inner">
-										<select class="form-control select2 choices__input" id="choices-multiple1" multiple="" name="tax_id[]" hidden="" tabindex="-1" data-choice="active"></select>
-										<div class="choices__list choices__list--multiple"></div><input type="text" class="choices__input choices__input--cloned" autocomplete="off" autocapitalize="off" spellcheck="false" role="textbox" aria-autocomplete="list" aria-label="null"></div>
-									<div class="choices__list choices__list--dropdown" aria-expanded="false">
-										<div class="choices__list" aria-multiselectable="true" role="listbox">
-											<div class="choices__item choices__item--choice has-no-choices">No choices to choose from</div>
-										</div>
-									</div>
-								</div>
+								{{form_row(form.category)}}
 							</div>
 							<div class="form-group col-md-6">
-								<label for="category_id" class="form-label mb-0">Category</label>
-								<span class="text-danger">*</span>
-								<select class="form-control select" required="required" id="category_id" name="category_id"></select>
-
-								<small class=" text-xs">
-									Please add constant category.
-									<a href="#">
-										<b>Add Category</b>
-									</a>
-								</small>
+								{{form_row(form.unit)}}
 							</div>
-							<div class="form-group col-md-6">
-								<label for="unit_id" class="form-label mb-0">Unit</label>
-								<span class="text-danger">*</span>
-								<select class="form-control select" required="required" id="unit_id" name="unit_id"></select>
+							<div class="form-group col-md-6 quantity ">
+								{{form_row(form.quantity)}}
+							</div>
+							<div class="col-md-6">
+                                {{form_row(form.type)}}
 							</div>
 							<div class="col-md-6 form-group">
-								<label for="pro_image" class="form-label mb-0">Product Image</label>
-								<div class="choose-file ">
-									<label for="pro_image" class="form-label">
-										<input type="file" class="form-control" name="pro_image" id="pro_image" data-filename="pro_image_create">
-										<img id="image" class="mt-3" style="width:25%;">
-
-									</label>
-								</div>
-							</div>
-
-							<div class="col-md-6">
-								<div class="form-group">
-									<div class="btn-box">
-										<label class="d-block form-label">Type</label>
-										<div class="row">
-											<div class="col-md-6">
-												<div class="form-check form-check-inline">
-													<input type="radio" class="form-check-input type" id="customRadio5" name="type" value="product" checked="checked">
-													<label class="custom-control-label form-label" for="customRadio5">Product</label>
-												</div>
-											</div>
-											<div class="col-md-6">
-												<div class="form-check form-check-inline">
-													<input type="radio" class="form-check-input type" id="customRadio6" name="type" value="service">
-													<label class="custom-control-label form-label" for="customRadio6">Service</label>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="form-group col-md-6 quantity ">
-								<label for="quantity" class="form-label mb-0">Quantity</label>
-								<span class="text-danger">*</span>
-								<input class="form-control" name="quantity" type="text" id="quantity">
+								{{form_row(form.productImage)}}
 							</div>
 						</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
+						<button type="submit" class="btn btn-primary rounded-2">Create</button>
 					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-primary rounded-2">Create</button>
-				</div>
-			</div>
-		</div>
+					{{form_end(form)}}
+			    </div>
+		    </div>
+	    </div>
 	</div>
 {% endblock %}
 
@@ -215,14 +148,31 @@
 							</tr>
 						</thead>
 						<tbody>
-							{# <tr>
-																																											<td>Cara Stevens</td>
-																																											<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-																																											<td>New York</td>
-																																											<td>46</td>
-																																											<td>2011/12/06</td>
-																																											<td>2011/12/06</td>
-																																										</tr> #}
+							{% for productService in productServices %}
+									<tr>
+										<td>{{productService.name}}</td>
+										<td>{{productService.sku}}</td>
+										<td>{{productService.salePrice}}</td>
+										<td>{{productService.purchaseDate|date('Y-m-d')}}</td>
+										<td>{{productService.tax}}</td>
+										<td>{{productService.category}}</td>
+										<td>{{productService.unit}}
+										<td>{{productService.quantity}}
+										<td>{{productService.type}}
+											<td class="">
+											<div class="d-flex justify-content-center align-items-center gap-2">
+												<button type="button" class="p-0 m-0 border-0 open-edit-modal">
+													<a href="{{ path('product_services_edit', {'id': productService.id, 'user_id': app.user.id}) }}" data-bs-toggle="tooltip" title="" class="p-1 rounded-3 bg-info text-white border-0" data-bs-original-title="Edit">
+														<i class="bi bi-pen"></i>
+													</a>
+												</button>
+												<a href="{{ path('product_services_delete', {'id': productService.id, 'user_id': app.user.id}) }}" class="p-1 rounded-3 bg-danger text-white border-0">
+													<i class="bi bi-trash"></i>
+												</a>
+											</div>
+										</td>
+									</tr>
+							{% endfor %}
 						</tbody>
 					</table>
 

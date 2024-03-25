@@ -98,7 +98,7 @@
 
 							{% for revenue in revenues %}
 								<tr>
-									<td>{{revenue.date|date('Y-m-d H:i:s')}}</td>
+									<td>{{revenue.date|date('Y-m-d')}}</td>
 									<td>{{revenue.amount}}</td>
 									<td>{{revenue.account}}</td>
 									<td>{{revenue.customers}}</td>

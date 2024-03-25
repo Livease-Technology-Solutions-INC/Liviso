@@ -166,7 +166,7 @@
 
 							{% for payment in payments %}
 								<tr>
-									<td>{{payment.date|date('Y-m-d H:i:s')}}</td>
+									<td>{{payment.date|date('Y-m-d')}}</td>
 									<td>{{payment.amount}}</td>
 									<td>{{payment.account}}</td>
 									<td>{{payment.vendor}}</td>

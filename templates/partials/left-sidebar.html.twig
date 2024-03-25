@@ -618,10 +618,10 @@
 							<a href="{{path("crmsystem/deals")}}">Deal</a>
 						</li>
 						<li>
-							<a href="{{path("crmsystem/form_builder")}}">Form Builder</a>
+							<a href="{{path("crmsystem/form_builder", {id: app.user.id})}}">Form Builder</a>
 						</li>
 						<li>
-							<a href="{{path("crmsystem/contract")}}">Contract</a>
+							<a href="{{path("crmsystem/contract", {id: app.user.id})}}">Contract</a>
 						</li>
 						<li>
 							<a href="{{path("crmsystem/crm_system_setup")}}">CRM System Setup</a>
@@ -716,10 +716,10 @@
 				<div class="collapse" id="productsystem">
 					<ul class="side-nav-second-level">
 						<li>
-							<a href="{{path("productsystem/product_services")}}">Product & Services</a>
+							<a href="{{path("productsystem/product_services", {id: app.user.id})}}">Product & Services</a>
 						</li>
 						<li>
-							<a href="{{path("productsystem/product_stock")}}">Product Stock</a>
+							<a href="{{path("productsystem/product_stock", {id: app.user.id})}}">Product Stock</a>
 						</li>
 					</ul>
 				</div>

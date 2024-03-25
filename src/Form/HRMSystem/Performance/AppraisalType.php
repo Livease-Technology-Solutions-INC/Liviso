@@ -94,7 +94,7 @@ class AppraisalType extends AbstractType
             ]);
         }
 
-        private function getUserChoices()
+    private function getUserChoices()
     {
         $userRepository = $this->entityManager->getRepository('App\Entity\User');
         $users = $userRepository->findAll();
@@ -106,11 +106,11 @@ class AppraisalType extends AbstractType
 
         return $choices;
     }
-        public function configureOptions(OptionsResolver $resolver): void
-        {
-            $resolver->setDefaults([
-                'data_class' => Appraisals::class,
-                'current_user' => null,
-            ]);
-        }
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => Appraisals::class,
+            'current_user' => null,
+        ]);
     }
+}
