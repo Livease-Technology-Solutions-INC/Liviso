@@ -48,7 +48,7 @@ class ProductServices
     #[ORM\Column(length: 255)]
     private ?string $productImage = null;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "payment")]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "productServices")]
     #[ORM\JoinColumn(name: "user_id", referencedColumnName: "id")]
     private ?User $user = null;
 

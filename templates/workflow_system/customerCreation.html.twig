@@ -29,7 +29,6 @@
 			{{ include('partials/page-title.html.twig', { sub_title: 'customer creation', page_title: 'customer creation' }) }}
 		</div>
 	</div>
-	<form id="customerCreation" method="post" action="{{path("workflowsystem/customercreation")}}" name="customerCreation">
 		<div class="modal fade rounded-3" id="client" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog rounded-3">
 				<div class="modal-content rounded-3">
@@ -37,120 +36,97 @@
 						<h5 class="modal-title" id="exampleModalLabel">Create</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
-					<div
-						class="modal-body">
-						{# first row #}
-						<div class="row">
-							<div class="col-md-4 mb-1">
-								<div class="form-group">
-									<label for="customerCompanyName" class="form-label m-0">Company Name</label>
-									<input class="form-control" placeholder="Enter Company Name" required="required" name="customerCompanyName" type="text" value="" id="customerCompanyName">
+					<div class="modal-body">
+						{{form_start(form)}}
+							{# first row #}
+							<div class="row">
+								<div class="col-md-4 mb-1">
+									<div class="form-group">
+										{{form_row(form.companyName)}}
+									</div>
+								</div>
+								<div class="col-md-4 mb-1">
+									<div class="form-group">
+										{{form_row(form.companyAddress)}}
+									</div>
+								</div>
+								<div class="col-md-4 mb-1">
+									<div class="form-group">
+										{{form_row(form.country)}}
+									</div>
 								</div>
 							</div>
-							<div class="col-md-4 mb-1">
-								<div class="form-group">
-									<label for="Address" class="form-label m-0">Company Address</label>
-									<input class="form-control" placeholder="Enter Company Address" required="required" name="companyAddress" type="text" value="" id="companyAddress">
+							{# second row #}
+							<div class="row">
+								<div class="col-md-4 mb-1">
+									<div class="form-group">
+										{{form_row(form.authorizedPerson)}}
+									</div>
 								</div>
-							</div>
-							<div class="col-md-4 mb-1">
-								<div class="form-group">
-									<label for="countrySupplier" class="form-label m-0">Country</label>
-									<select class="form-control select3 m-0" id="countrySupplier" name="country"></select>
+								<div class="col-md-4 mb-1">
+									<div class="form-group">
+										{{form_row(form.phoneNumber)}}
+									</div>
 								</div>
-							</div>
-						</div>
-						{# second row #}
-						<div class="row">
-							<div class="col-md-4 mb-1">
-								<div class="form-group">
-									<label for="authorizedPerson" class="form-label m-0">Authorized Person</label>
-									<input class="form-control" placeholder="Enter authorizedPerson" required="required" authorizedperson="authorizedPerson" type="text" value="" id="authorizedPerson">
+								<div class="col-md-4 mb-1">
+									<div class="form-group">
+										{{form_row(form.contactEmail)}}
+									</div>
 								</div>
-							</div>
-							<div class="col-md-4 mb-1">
-								<div class="form-group">
-									<label for="contactNumber" class="form-label m-0">Phone Number</label>
-									<input class="form-control" placeholder="Enter contacct number" required="required" contactnumber="contactNumber" type="phonenumber" value="" id="contactNumber">
-								</div>
-							</div>
-							<div class="col-md-4 mb-1">
-								<div class="form-group">
-									<label for="contactEmailID" class="form-label m-0">Contact Email</label>
-									<input class="form-control" placeholder="Enter contacct email" required="required" contactemailid="contactEmailID" type="phonenumber" value="" id="contactEmailID">
-								</div>
-							</div>
 
 
-						</div>
-						{# thrid row #}
-						<div class="row">
-							<div class="col-md-4 mb-1">
-								<div class="form-group">
-									<label for="branch1" class="form-label m-0">Branch1</label>
-									<input class="form-control" placeholder="Enter product code" required="required" name="branch1" type="text" value="" id="branch1">
+							</div>
+							{# thrid row #}
+							<div class="row">
+								<div class="col-md-4 mb-1">
+									<div class="form-group">
+										{{form_row(form.branch1)}}
+									</div>
+								</div>
+								<div class="col-md-4 mb-1">
+									<div class="form-group">
+										{{form_row(form.branch2)}}
+									</div>
+								</div>
+								<div class="col-md-4 mb-1">
+									<div class="form-group">
+										{{form_row(form.preferredDeliveryLocation)}}
+									</div>
 								</div>
 							</div>
-							<div class="col-md-4 mb-1">
-								<div class="form-group">
-									<label for="branch2" class="form-label m-0">Branch2</label>
-									<input class="form-control" placeholder="Enter product code" required="required" name="branch2" type="text" value="" id="branch2">
+							{# fourth row #}
+							<div class="row">
+								<div class="col-md-4 mb-1">
+									<div class="form-group">
+										{{form_row(form.contactNumberOfReceiver)}}
+									</div>
 								</div>
-							</div>
-							<div class="col-md-4 mb-1">
-								<div class="form-group">
-									<label for="preferredDeliveryLocation" class="form-label m-0">Preferred Delivery Location</label>
-									<input class="form-control" placeholder="Enter product code" required="required" name="preferredDeliveryLocation" type="text" value="" id="preferredDeliveryLocation">
+								<div class="col-md-4 mb-1">
+									<div class="form-group">
+										{{form_row(form.tradeLicense)}}
+									</div>
 								</div>
-							</div>
-						</div>
-						{# fourth row #}
-						<div class="row">
-							<div class="col-md-4 mb-1">
-								<div class="form-group">
-									<label for="contactNumberAndNameOfReceiver" class="form-label m-0">Contact Number Of Receiver</label>
-									<input class="form-control" placeholder="Enter contact number of reciver " required="required" name="contactNumberAndNameOfReceiver" type="contactNumberAndNameOfReceiver" value="" id="contactNumberAndNameOfReceiver">
+								<div class="col-md-4 mb-1">
+									<div class="form-group">
+										{{form_row(form.partnerPassportId)}}
+									</div>
 								</div>
-							</div>
-							<div class="col-md-4 mb-1">
-								<div class="form-group">
-									<label for="tradeLicense" class="form-label m-0">Trade License</label>
-									<input class="form-control" placeholder="Enter product code" required="required" name="tradeLicense" type="file" value="" id="tradeLicense">
-								</div>
-							</div>
-							<div class="col-md-4 mb-1">
-								<div class="form-group">
-									<label for="partnerPassport/ID" class="form-label m-0">Partner Passport/ID</label>
-									<input class="form-control" placeholder="Enter product code" required="required" name="partnerPassport/ID" type="file" value="" id="partnerPassport/ID">
-								</div>
-							</div>
-						</div>
-						{# fifth row #}
-						<div class="col-md-4 mb-1">
-							<div class="form-group">
-								<label for="creditTerms" class="form-label m-0">Credit Terms</label>
-								<select class="form-control select creditTerms m-0" id="creditTerms" data-toggle="select" name="creditTerms">
-									<option value="0" selected="selected">1 week</option>
-									<option value="1" selected="selected">10 days</option>
-									<option value="2" selected="selected">30 days</option>
-									<option value="3" selected="selected">60 days</option>
-									<option value="4" selected="selected">90 days</option>
-									<option value="5" selected="selected">120 days</option>
-								</select>
+								<div class="col-md-4 mb-1">
+									<div class="form-group">
+										{{form_row(form.creditTerms)}}
+									</div>
+							    </div>
 							</div>
 						</div>
-
-
-					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
-						<button type="button" class="btn btn-primary rounded-2">Create</button>
+						<button type="submit" class="btn btn-primary rounded-2">Create</button>
 					</div>
-				</div>
-			</div>
-		</div>
-
-	</form>
+					{{form_end(form)}}
+			    </div>
+		    </div>
+	    </div>
+	</div>
 {% endblock %}
 
 {% block body %}
@@ -174,17 +150,39 @@
 								<th>Trade License</th>
 								<th>Partners Passort/ID</th>
 								<th>Credit Terms</th>
+								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
-							{# <tr>
-																																																																																																																																																																																																																																																																																													<td>Cara Stevens</td>
-																																																																																																																																																																																																																																																																																													<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-																																																																																																																																																																																																																																																																																													<td>New York</td>
-																																																																																																																																																																																																																																																																																													<td>46</td>
-																																																																																																																																																																																																																																																																																													<td>2011/12/06</td>
-																																																																																																																																																																																																																																																																																													<td>2011/12/06</td>
-																																																																																																																																																																																																																																																																																												</tr> #}
+							{% for customerCreate in customerCreates %}
+									<tr>
+										<td>{{customerCreate.companyName}}</td>
+										<td>{{customerCreate.companyAddress}}</td>
+										<td>{{customerCreate.country}}</td>
+										<td>{{customerCreate.authorizedPerson}}</td>
+										<td>{{customerCreate.phoneNumber}}</td>
+										<td>{{customerCreate.contactEmail}}</td>
+										<td>{{customerCreate.branch1}}</td>
+										<td>{{customerCreate.branch2}}</td>
+										<td>{{customerCreate.preferredDeliveryLocation}}</td>
+										<td>{{customerCreate.contactNumberOfReceiver}}</td>
+										<td>{{customerCreate.tradeLicense}}</td>
+										<td>{{customerCreate.partnerPassportId}}</td>
+										<td>{{customerCreate.creditTerms}}</td>
+											<td class="">
+											<div class="d-flex justify-content-center align-items-center gap-2">
+												<button type="button" class="p-0 m-0 border-0 open-edit-modal">
+													<a href="{{ path('customer_create_edit', {'id': customerCreate.id, 'user_id': app.user.id}) }}" data-bs-toggle="tooltip" title="" class="p-1 rounded-3 bg-info text-white border-0" data-bs-original-title="Edit">
+														<i class="bi bi-pen"></i>
+													</a>
+												</button>
+												<a href="{{ path('customer_create_delete', {'id': customerCreate.id, 'user_id': app.user.id}) }}" class="p-1 rounded-3 bg-danger text-white border-0">
+													<i class="bi bi-trash"></i>
+												</a>
+											</div>
+										</td>
+									</tr>
+							{% endfor %}
 						</tbody>
 					</table>
 

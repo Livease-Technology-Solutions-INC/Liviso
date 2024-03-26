@@ -99,7 +99,7 @@ class ContractType extends AbstractType
 
         }
 
-        private function getUserChoices()
+    private function getUserChoices()
     {
         $userRepository = $this->entityManager->getRepository('App\Entity\User');
         $users = $userRepository->findAll();

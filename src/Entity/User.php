@@ -56,6 +56,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use App\Entity\HRMSystem\HRM_System_Setup\TerminationHRM;
 use App\Entity\HRMSystem\LeaveManagementSetup\ManageLeave;
 use App\Entity\ProductsSystem\ProductServices;
+use App\Entity\WorkFlowSystem\Sales\CustomerCreate;
+use App\Entity\WorkFlowSystem\Sales\EnquiryCreation;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
@@ -262,6 +264,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: ProductServices::class, mappedBy: "user")]
     private Collection $productServices;
 
+    #[ORM\OneToMany(targetEntity: CustomerCreate::class, mappedBy: "user")]
+    private Collection $customerCreate;
+
+    #[ORM\OneToMany(targetEntity: EnquiryCreation::class, mappedBy: "user")]
+    private Collection $enquiryCreation;
+
+
 
     public function __construct()
     {
@@ -319,6 +328,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->contract = new ArrayCollection();
         $this->formBuilder = new ArrayCollection();
         $this->productServices = new ArrayCollection();
+        $this->customerCreate = new ArrayCollection();
+        $this->enquiryCreation = new ArrayCollection();
     }
 
     public function __toString()
@@ -2012,6 +2023,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($productService->getUser() === $this) {
                 $productService->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CustomerCreate>
+     */
+    public function getCustomerCreate(): Collection
+    {
+        return $this->customerCreate;
+    }
+
+    public function addCustomerCreate(CustomerCreate $customerCreate): static
+    {
+        if (!$this->customerCreate->contains($customerCreate)) {
+            $this->customerCreate->add($customerCreate);
+            $customerCreate->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCustomerCreate(CustomerCreate $customerCreate): static
+    {
+        if ($this->customerCreate->removeElement($customerCreate)) {
+            // set the owning side to null (unless already changed)
+            if ($customerCreate->getUser() === $this) {
+                $customerCreate->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EnquiryCreation>
+     */
+    public function getEnquiryCreation(): Collection
+    {
+        return $this->enquiryCreation;
+    }
+
+    public function addEnquiryCreation(EnquiryCreation $enquiryCreation): static
+    {
+        if (!$this->enquiryCreation->contains($enquiryCreation)) {
+            $this->enquiryCreation->add($enquiryCreation);
+            $enquiryCreation->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEnquiryCreation(EnquiryCreation $enquiryCreation): static
+    {
+        if ($this->enquiryCreation->removeElement($enquiryCreation)) {
+            // set the owning side to null (unless already changed)
+            if ($enquiryCreation->getUser() === $this) {
+                $enquiryCreation->setUser(null);
             }
         }
 
