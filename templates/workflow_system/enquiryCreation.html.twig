@@ -30,7 +30,6 @@
 			{{ include('partials/page-title.html.twig', { sub_title: 'enquiry creation', page_title: 'Enquiry Creation' }) }}
 		</div>
 	</div>
-	<form id="Enquiry Creation" method="post" action="{{path("workflowsystem/enquirycreation")}}" name="Enquiry Creation">
 		<div class="modal fade rounded-3" id="client" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog rounded-3">
 				<div class="modal-content rounded-3">
@@ -40,28 +39,22 @@
 					</div>
 					<div
 						class="modal-body">
+						{{form_start(form)}}
 						{# first row #}
 						<div class="row mb-1">
 							<div class="col-md-4 mb-1">
 								<div class="form-group">
-									<label for="productCode" class="form-label m-0">Product Code</label>
-									<select class="form-control select3 m-0" id="productCode" name="productCode">
-										<option value="0">Auto</option>
-									</select>
+									{{form_row(form.productCode)}}
 								</div>
 							</div>
 							<div class="col-md-4 mb-1">
 								<div class="form-group">
-									<label for="productQty" class="form-label m-0">Product Qty</label>
-									<input class="form-control" placeholder="Enter product Qty" required="required" qty="productQty" type="number" value="" id="productQty"/>
+									{{form_row(form.productQty)}}
 								</div>
 							</div>
 							<div class="col-md-4 mb-1">
 								<div class="form-group">
-									<label for="requiredDate" class="form-label m-0">Required Date</label>
-									<select class="form-control select3 m-0" id="requiredDate" name="requiredDate">
-										<option value="0">Auto</option>
-									</select>
+									{{form_row(form.requiredDate)}}
 								</div>
 							</div>
 						</div>
@@ -69,29 +62,17 @@
 						<div class="row mb-1">
 							<div class="col-md-4 mb-1">
 								<div class="form-group">
-									<label for="orderType" class="form-label m-0">Product Code</label>
-									<select class="form-control select3 m-0" id="orderType" name="orderType">
-										<option value="0">Confirmed</option>
-										<option value="1">Guaranteed Sale</option>
-										<option value="2">Forecast</option>
-									</select>
+									{{form_row(form.productCode2)}}
 								</div>
 							</div>
 							<div class="col-md-4 mb-1">
 								<div class="form-group">
-									<label for="orderBy" class="form-label m-0">Order By</label>
-									<select class="form-control select3 m-0" id="orderBy" name="orderBy">
-										<option value="0">Auto</option>
-									</select>
+									{{form_row(form.orderBy)}}
 								</div>
 							</div>
 							<div class="col-md-4 mb-1">
 								<div class="form-group">
-									<label for="orderUnder" class="form-label m-0">Order Under</label>
-									<select class="form-control select3 m-0" id="orderUnder" name="orderUnder">
-										<option value="0">Sales Man</option>
-										<option value="1">Dept</option>
-									</select>
+									{{form_row(form.orderUnder)}}
 								</div>
 							</div>
 						</div>
@@ -99,28 +80,25 @@
 						<div class="row">
 							<div class="col-md-4 mb-1">
 								<div class="form-group">
-									<label for="orderFor" class="form-label m-0">Order For</label>
-									<select class="form-control select3 m-0" id="orderFor" name="orderFor">
-										<option value="0">Client Name</option>
-									</select>
+									{{form_row(form.orderFor)}}
 								</div>
 							</div>
 							<div class="col-md-4 mb-1">
 								<div class="form-group">
-									<label for="requiredPrice" class="form-label m-0">Required Price</label>
-									<input class="form-control select3 m-0" id="requiredPrice" name="requiredPrice" type="text"/>
+									{{form_row(form.requiredPrice)}}
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary rounded-2" data-bs-dismiss="modal">Cancel</button>
-						<button type="button" class="btn btn-primary rounded-2">Create</button>
+						<button type="submit" class="btn btn-primary rounded-2">Create</button>
 					</div>
-				</div>
-			</div>
-		</div>
-	</form>
+					{{form_end(form)}}
+			    </div>
+		    </div>
+	    </div>
+	</div>
 {% endblock %}
 {% block body %}
 	<div class="row">
@@ -142,14 +120,30 @@
 							</tr>
 						</thead>
 						<tbody>
-							{# <tr>
-																																																																																																																																																																																																																																																																																																																																											<td>Cara Stevens</td>
-																																																																																																																																																																																																																																																																																																																																											<td>723 N. Tillamook Street Portland, OR Portland, United States</td>
-																																																																																																																																																																																																																																																																																																																																											<td>New York</td>
-																																																																																																																																																																																																																																																																																																																																											<td>46</td>
-																																																																																																																																																																																																																																																																																																																																											<td>2011/12/06</td>
-																																																																																																																																																																																																																																																																																																																																											<td>2011/12/06</td>
-																																																																																																																																																																																																																																																																																																																																										</tr> #}
+							{% for enquiryCreation in enquiryCreations %}
+									<tr>
+										<td>{{enquiryCreation.productCode}}</td>
+										<td>{{enquiryCreation.productQty}}</td>
+										<td>{{enquiryCreation.requiredDate}}</td>
+										<td>{{enquiryCreation.productCode2}}</td>
+										<td>{{enquiryCreation.orderBy}}</td>
+										<td>{{enquiryCreation.orderUnder}}</td>
+										<td>{{enquiryCreation.orderFor}}</td>
+										<td>{{enquiryCreation.requiredPrice}}</td>
+											<td class="">
+											<div class="d-flex justify-content-center align-items-center gap-2">
+												<button type="button" class="p-0 m-0 border-0 open-edit-modal">
+													<a href="{{ path('enquiry_creation_edit', {'id': enquiryCreation.id, 'user_id': app.user.id}) }}" data-bs-toggle="tooltip" title="" class="p-1 rounded-3 bg-info text-white border-0" data-bs-original-title="Edit">
+														<i class="bi bi-pen"></i>
+													</a>
+												</button>
+												<a href="{{ path('enquiry_creation_delete', {'id': enquiryCreation.id, 'user_id': app.user.id}) }}" class="p-1 rounded-3 bg-danger text-white border-0">
+													<i class="bi bi-trash"></i>
+												</a>
+											</div>
+										</td>
+									</tr>
+							{% endfor %}
 						</tbody>
 					</table>
 

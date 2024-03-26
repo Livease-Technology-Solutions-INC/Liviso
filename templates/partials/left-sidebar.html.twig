@@ -775,10 +775,10 @@
 							<div class="collapse" id="sidebarsales">
 								<ul class="side-nav-third-level">
 									<li>
-										<a href="{{path("workflowsystem/customercreation")}}">Customer Creation</a>
+										<a href="{{path("workflowsystem/customercreation", {id: app.user.id})}}">Customer Creation</a>
 									</li>
 									<li>
-										<a href="{{path("workflowsystem/enquirycreation")}}">Enquiry Creation</a>
+										<a href="{{path("workflowsystem/enquirycreation", {id: app.user.id})}}">Enquiry Creation</a>
 									</li>
 									<li>
 										<a href="{{path("workflowsystem/salesorder")}}">Sales Order</a>
