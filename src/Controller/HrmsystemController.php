@@ -31,6 +31,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\HRMSystem\CustomQuestions;
 use App\Form\HRMSystem\CustomQuestionsType;
 use App\Entity\HRMSystem\EmployeesAssetSetup;
+use App\Entity\HRMSystem\EmployeeSetupCreate;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\HRMSystem\HRM_System_Setup\Goal;
@@ -40,6 +41,7 @@ use App\Form\HRMSystem\EmployeesAssetSetupType;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\HRMSystem\HRM_System_Setup\Leave;
 use App\Entity\HRMSystem\Performance\Appraisals;
+use App\Form\HRMSystem\EmployeesSetupCreateType;
 use App\Entity\HRMSystem\HRM_System_Setup\Branch;
 use App\Form\HRMSystem\HRM_System_Setup\GoalType;
 use App\Form\HRMSystem\HRM_System_Setup\LoanType;
@@ -70,6 +72,7 @@ use App\Form\HRMSystem\HRM_System_Setup\AllowanceType;
 use App\Form\HRMSystem\HRM_System_Setup\DeductionType;
 use App\Entity\HRMSystem\HRM_System_Setup\Competencies;
 use App\Form\HRMSystem\HRM_System_Setup\DepartmentType;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use App\Form\HRMSystem\HRM_System_Setup\DesignationType;
 use App\Form\HRMSystem\HRM_System_Setup\JobCategoryType;
 use App\Form\HRMSystem\HRM_System_Setup\PerformanceType;
@@ -96,14 +99,113 @@ class HrmsystemController extends AbstractController
             'controller_name' => 'HrmsystemController',
         ]);
     }
-    #[Route('/hrmsystem/employee_setup/create', name: 'hrmsystem/employee_setup/create')]
-    public function employeeSetupCreate(): Response
+
+    #[Route('/hrmsystem/employee_setup/create/{id}', name: 'hrmsystem/employee_setup/create')]
+    public function employeeSetupCreate(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $employeeSetupCreate = new EmployeeSetupCreate();
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $employeeSetupCreate->setUser($user);
+        $form = $this->createForm(EmployeesSetupCreateType::class, $employeeSetupCreate, ['current_user' => $this->getUser()]);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $uploadedFiles = $request->files->get('employeeSetup_Create');
+        
+            foreach (['certificate', 'photo'] as $field) {
+                $file = $uploadedFiles[$field] ?? null;
+        
+                if ($file instanceof UploadedFile) {
+                    $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+                    try {
+                        $file->move(
+                            $this->getParameter('support_dir'),
+                            $fileName
+                        );
+                    } catch (\Exception $e) {
+                        $this->addFlash('error', 'There was an issue with one of the files');
+                        return $this->redirectToRoute('employee_setup/create');
+                    }
+                    // Set the filename in the entity
+                    $setter = 'set' . ucfirst($field);
+                    $employeeSetupCreate->$setter($fileName);
+                }
+            }
+                  
+            $this->entityManager->persist($employeeSetupCreate);
+            $this->entityManager->flush();
+
+            // Redirect after successful form submission
+            return $this->redirectToRoute('hrmsystem/employee_setup/create',  ['id' => $id]);
+        }
+        $repository = $this->entityManager->getRepository(EmployeeSetupCreate::class);
+        $employeeSetupCreates = $repository->findBy(['user' => $currentUser]);
+
         return $this->render('hrmsystem/employeeSetupCreate.html.twig', [
             'controller_name' => 'HrmsystemController',
+            'employeeSetupCreates' => $employeeSetupCreates,
+            'form' => $form->createView(),
         ]);
     }
+
+    //delete employeeSetup create
+    #[Route('/hrmsystem/employee_setup/delete/{id}/delete/{user_id}', name: 'employee_setup_delete', methods: ["GET", "POST"])]
+    public function employeeSetupDelete(EmployeeSetupCreate $employeeSetupCreate, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        if (!$employeeSetupCreate) {
+            throw $this->createNotFoundException('employee setup create not found');
+        }
+
+        $this->entityManager->remove($employeeSetupCreate);
+        $this->entityManager->flush();
+
+        return $this->redirectToRoute('hrmsystem/employee_setup/create', ['id' => $user_id]);
+    }
+
+    #[Route("/hrmsystem/employee_setup/{id}/edit/{user_id}", name: "employee_setup_edit", methods: ["GET", "PUT", "POST"])]
+    public function employeeSetupEdit(Request $request, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $repository = $this->entityManager->getRepository(EmployeeSetupCreate::class);
+        $employeeSetupCreate = $repository->find($id);
+
+        if (!$employeeSetupCreate) {
+            throw $this->createNotFoundException('employee setup create not found');
+        }
+
+        $form = $this->createForm(EmployeesSetupCreateType::class, $employeeSetupCreate,  ['current_user' => $this->getUser()]);
+        try {
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Persist the entity only if the form is submitted and valid
+                $employeeSetupCreate = $form->getData();
+                $this->entityManager->persist($employeeSetupCreate);
+                $this->entityManager->flush();
+
+                // Redirect after successful form submission
+                return $this->redirectToRoute('workflowsystem/customercreation', ['id' => $user_id]);
+            }
+        } catch (\Exception $error) {
+            $this->addFlash('danger', 'An error occurred while processing the form.');
+            throw $error;
+        }
+        $repository = $this->entityManager->getRepository(EmployeeSetupCreate::class);
+        $employeeSetupCreates = $repository->findBy(['user' => $currentUser]);
+
+        return $this->render('workflowsystem/edit/customerCreation.html.twig', [
+            'controllername' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'employeeSetupCreates' => $employeeSetupCreates,
+        ]);
+    }
+
     #[Route('/hrmsystem/set_salary', name: 'hrmsystem/set_salary')]
     public function setSalary(): Response
     {
