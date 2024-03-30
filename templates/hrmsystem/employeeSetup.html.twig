@@ -30,7 +30,7 @@
 					</span>
 				</a>
 				<button type="button" class="p-0 m-0 border-0" data-bs-toggle="modal" data-bs-target="#" data-bs-whatever="@mdo">
-					<a href="{{path("hrmsystem/employee_setup/create")}}" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary" data-bs-original-title="create">
+					<a href="{{path("hrmsystem/employee_setup/create", {id: app.user.id})}}" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary" data-bs-original-title="create">
 						<i class="bi bi-plus"></i>
 					</a>
 				</button>

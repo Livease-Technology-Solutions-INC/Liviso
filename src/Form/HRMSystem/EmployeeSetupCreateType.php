@@ -32,6 +32,8 @@ class EmployeesSetupCreateType extends AbstractType
 
             ->add('phone', TelType::class, [
                 'label' => 'Phone',
+                'attr' => ['class' => 'form-control m-0',
+                'autocomplete' => 'off'],
                 'constraints' => [
                     new NotBlank(),
                     new Length(['max' => 255]),
