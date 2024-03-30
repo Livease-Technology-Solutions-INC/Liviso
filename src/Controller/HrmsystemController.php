@@ -96,6 +96,14 @@ class HrmsystemController extends AbstractController
             'controller_name' => 'HrmsystemController',
         ]);
     }
+    #[Route('/hrmsystem/employee_setup/create', name: 'hrmsystem/employee_setup/create')]
+    public function employeeSetupCreate(): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        return $this->render('hrmsystem/employeeSetupCreate.html.twig', [
+            'controller_name' => 'HrmsystemController',
+        ]);
+    }
     #[Route('/hrmsystem/set_salary', name: 'hrmsystem/set_salary')]
     public function setSalary(): Response
     {
