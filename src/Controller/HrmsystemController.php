@@ -91,17 +91,8 @@ class HrmsystemController extends AbstractController
     {
         $this->entityManager = $entityManager;
     }
-    #[Route('/hrmsystem/employee_setup', name: 'hrmsystem/employee_setup')]
-    public function employeeSetup(): Response
-    {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        return $this->render('hrmsystem/employeeSetup.html.twig', [
-            'controller_name' => 'HrmsystemController',
-        ]);
-    }
-
-    #[Route('/hrmsystem/employee_setup/create/{id}', name: 'hrmsystem/employee_setup/create')]
-    public function employeeSetupCreate(Request $request, int $id): Response
+    #[Route('/hrmsystem/employee_setup/{id}', name: 'hrmsystem/employee_setup')]
+    public function employeeSetup(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
@@ -144,7 +135,7 @@ class HrmsystemController extends AbstractController
         $repository = $this->entityManager->getRepository(EmployeeSetupCreate::class);
         $employeeSetupCreates = $repository->findBy(['user' => $currentUser]);
 
-        return $this->render('hrmsystem/employeeSetupCreate.html.twig', [
+        return $this->render('hrmsystem/employeeSetup.html.twig', [
             'controller_name' => 'HrmsystemController',
             'employeeSetupCreates' => $employeeSetupCreates,
             'form' => $form->createView(),
@@ -203,6 +194,16 @@ class HrmsystemController extends AbstractController
             'controllername' => 'HrmsystemController',
             'form' => $form->createView(),
             'employeeSetupCreates' => $employeeSetupCreates,
+        ]);
+    }
+
+
+    #[Route('/hrmsystem/employee_setup/create/{id}', name: 'hrmsystem/employee_setup/create')]
+    public function employeeSetupCreate(Request $request, int $id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        return $this->render('hrmsystem/employeeSetupCreate.html.twig', [
+            'controller_name' => 'HrmsystemController',
         ]);
     }
 

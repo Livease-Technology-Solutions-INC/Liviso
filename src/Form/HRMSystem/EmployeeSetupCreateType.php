@@ -16,6 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
@@ -27,13 +28,15 @@ class EmployeesSetupCreateType extends AbstractType
             ->add('name',  TextType::class, [
                 'label' => 'Name',
                 'attr' => ['class' => 'form-control m-0',
-                'autocomplete' => 'off'],
+                'autocomplete' => 'off', 
+                'placeholder' => 'Enter Name'],
             ])
 
             ->add('phone', TelType::class, [
                 'label' => 'Phone',
                 'attr' => ['class' => 'form-control m-0',
-                'autocomplete' => 'off'],
+                'autocomplete' => 'off', 
+                'placeholder' => 'Enter Phone'],
                 'constraints' => [
                     new NotBlank(),
                     new Length(['max' => 255]),
@@ -44,21 +47,31 @@ class EmployeesSetupCreateType extends AbstractType
                 'label' => 'Date of Birth',
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
+                'attr' => ['class' => 'form-control m-0',
+                'autocomplete' => 'off'],
                 'constraints' => [
                     new NotBlank(),
                 ],
             ])
 
-            ->add('gender', TextType::class, [
+            ->add('gender', ChoiceType::class, [
                 'label' => 'Gender',
-                'constraints' => [
-                    new NotBlank(),
-                    new Length(['max' => 255]),
+                'choices' => [
+                    'Male' => 'male',
+                    'Female' => 'female',
                 ],
+                'expanded' => true,
+                'multiple' => false,
+                'choice_attr' => function($choice, $key, $value) {
+                    return ['class' => 'btn btn-outline-primary'];
+                },
             ])
 
             ->add('email', EmailType::class, [
                 'label' => 'Email',
+                'attr' => ['class' => 'form-control m-0',
+                'autocomplete' => 'off', 
+                'placeholder' => 'Enter Email'],
                 'constraints' => [
                     new NotBlank(),
                     new Length(['max' => 255]),
@@ -68,6 +81,8 @@ class EmployeesSetupCreateType extends AbstractType
 
             ->add('password', PasswordType::class, [
                 'label' => 'Password',
+                'attr' => ['class' => 'form-control m-0',
+                'autocomplete' => 'off'],
                 'constraints' => [
                     new NotBlank(),
                     new Length(['min' => 6]),
@@ -76,38 +91,70 @@ class EmployeesSetupCreateType extends AbstractType
 
             ->add('address', TextType::class, [
                 'label' => 'Address',
+                'attr' => ['class' => 'form-control m-0',
+                'autocomplete' => 'off', 
+                'placeholder' => 'Enter Address'],
                 'constraints' => [
                     new NotBlank(),
                     new Length(['max' => 255]),
                 ],
             ])
 
-            ->add('branch', TextType::class, [
+            ->add('branch', ChoiceType::class, [
                 'label' => 'Branch',
-                'constraints' => [
-                    new NotBlank(),
-                    new Length(['max' => 255]),
+                'choices' => [
+                    'All Branch' => 'All Branch',
+                    'China' => 'China',
+                    'India' => 'India',
+                    'Canada' => 'Canada',
+                    'Greece' => 'Greece',
+                    'Italy' => 'Italy',
+                    'Japan' => 'Japan',
+                    'Malaysia' => 'Malaysia',
+                    'France' => 'France',
+                    'Netherland' => 'Netherland',
+                    'Europe' => 'Europe',
+                    'USA' => 'USA',
+                    'Canada' => 'Canada',
+                ],
+                'attr' => [
+                    'class' => 'form-control m-0',
+                    'autocomplete' => 'off'
                 ],
             ])
 
-            ->add('department', TextType::class, [
+            ->add('department', ChoiceType::class, [
                 'label' => 'Department',
-                'constraints' => [
-                    new NotBlank(),
-                    new Length(['max' => 255]),
+                'choices' => [
+                    'All Department' => 'All Department',
+                    'Dept 1' => 'Dept 1',
+                    'Financials' => 'Financials',
+                    'Industrials' => 'Industrials',
+                    'Health Care' => 'Health Care',
+                    'Technology' => 'Technology',
+                    'Telecommunications' => 'Telecommunications',
+                ],
+                'attr' => [
+                    'class' => 'form-control m-0',
+                    'autocomplete' => 'off'
                 ],
             ])
 
-            ->add('designation', TextType::class, [
+            ->add('designation', ChoiceType::class, [
                 'label' => 'Designation',
-                'constraints' => [
-                    new NotBlank(),
-                    new Length(['max' => 255]),
+                'choices' => [
+                    'All Designation' => 'All Designation',
+                    'CEO' => 'CEO',
+                    'Charted' => 'Charted',
+                    'Developers' => 'Developers',
+                    'Manager' => 'Manager',
                 ],
+                'attr' => ['class' => 'form-control m-0',
+                'autocomplete' => 'off'],
             ])
 
             ->add('companyDateOfJoining', DateType::class, [
-                'label' => 'Purchase Date',
+                'label' => 'Company Date Of Joining',
                 'html5' => true,
                 'widget' => 'single_text',
                 'attr' => [
@@ -129,11 +176,9 @@ class EmployeesSetupCreateType extends AbstractType
 
             ->add('accountName', TextType::class, [
                 'label' => 'Account Name',
-                'constraints' => [
-                    new NotBlank(),
-                    new Length(['max' => 255]),
-                    new Regex(['pattern' => '/^\d+$/']),
-                ],
+                'attr' => ['class' => 'form-control m-0',
+                'autocomplete' => 'off', 
+                'placeholder' => 'Enter Account Name'],
             ])
 
             ->add('accountNumber', TextType::class, [
@@ -148,44 +193,37 @@ class EmployeesSetupCreateType extends AbstractType
                 'attr' => [
                     'class' => 'form-control m-0',
                     'autocomplete' => 'off',
-                    'placeholder' => 'Account Number'
+                    'placeholder' => 'Enter Account Number'
                 ],
             ])
 
             ->add('bankName', TextType::class, [
                 'label' => 'Bank Name',
-                'constraints' => [
-                    new NotBlank(),
-                    new Length(['max' => 255]),
-                    new Regex(['pattern' => '/^\d+$/']),
-                ],
+                'attr' => ['class' => 'form-control m-0',
+                'autocomplete' => 'off', 
+                'placeholder' => 'Enter Bank Name'],
             ])
 
             ->add('bankIdentifierCode', TextType::class, [
                 'label' => 'Bank Identifier Code',
-                'constraints' => [
-                    new NotBlank(),
-                    new Length(['max' => 255]),
-                    new Regex(['pattern' => '/^\d+$/']),
-                ],
+                'attr' => ['class' => 'form-control m-0',
+                'autocomplete' => 'off', 
+                'placeholder' => 'Enter BankIdentifierCode'],
             ])
 
             ->add('branchLocation', TextType::class, [
                 'label' => 'Branch Location',
-                'constraints' => [
-                    new NotBlank(),
-                    new Length(['max' => 255]),
-                    new Regex(['pattern' => '/^\d+$/']),
-                ],
+                'attr' => ['class' => 'form-control m-0',
+                'autocomplete' => 'off', 
+                'placeholder' => 'Enter branchLocation'],
+                
             ])
 
             ->add('taxPayerId', TextType::class, [
                 'label' => 'Tax PayerId',
-                'constraints' => [
-                    new NotBlank(),
-                    new Length(['max' => 255]),
-                    new Regex(['pattern' => '/^\d+$/']),
-                ],
+                'attr' => ['class' => 'form-control m-0',
+                'autocomplete' => 'off', 
+                'placeholder' => 'Enter taxPayerId'],
             ]);
         }
 
