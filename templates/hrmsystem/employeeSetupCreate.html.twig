@@ -24,206 +24,121 @@
 {% endblock %}
 
 {% block body %}
-	<form method="post" action="">
-		<div class="row">
-			<div class="col-md-6">
-				<div class="card em-card">
-					<div class="card-header">
-						<h5>Personal Detail</h5>
+	{# Daniel write here #}
+	{{form_start(form)}}
+	<div class="row">
+		<div class="col-md-6">
+			<div class="card em-card">
+				<div class="card-header">
+					<h5>Personal Detail</h5>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="form-group col-md-6">
+						    {{form_row(form.name)}}
+						</div>
+						<div class="form-group col-md-6">
+							{{form_row(form.phone)}}
+						</div>
+						<div class="col-md-6">
+								<div class="form-group">
+									{{form_row(form.dateOfBirth)}}
+								</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								{{form_row(form.gender)}}
+							</div>
+						</div>
+						<div class="form-group col-md-6">
+							{{form_row(form.email)}}
+						</div>
+						<div class="form-group col-md-6">
+							{{form_row(form.password)}}
+						</div>
 					</div>
-					<div class="card-body">
-						<div class="row">
-							<div class="form-group col-md-6">
-								<label for="name" class="form-label">Name</label>
-								<span class="text-danger pl-1">*</span>
-								<input class="form-control" required="required" placeholder="Enter employee name" name="name" type="text" id="name">
-							</div>
-							<div class="form-group col-md-6">
-								<label for="phone" class="form-label">Phone</label>
-								<span class="text-danger pl-1">*</span>
-								<input class="form-control" placeholder="Enter employee phone" name="phone" type="text" id="phone">
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="dob" class="form-label">Date of Birth</label>
-									<span class="text-danger pl-1">*</span>
-									<input class="form-control " required="required" autocomplete="off" placeholder="Select Date of Birth" name="dob" type="date" id="dob">
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="gender" class="form-label">Gender</label>
-									<span class="text-danger pl-1">*</span>
-									<div class="d-flex radio-check">
-										<div class="custom-control custom-radio custom-control-inline">
-											<input type="radio" id="g_male" value="Male" name="gender" class="form-check-input" checked="">
-											<label class="form-check-label " for="g_male">Male</label>
-										</div>
-										<div class="custom-control custom-radio ms-1 custom-control-inline">
-											<input type="radio" id="g_female" value="Female" name="gender" class="form-check-input">
-											<label class="form-check-label " for="g_female">Female</label>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="form-group col-md-6">
-								<label for="email" class="form-label">Email</label>
-								<span class="text-danger pl-1">*</span>
-								<input class="form-control" required="required" placeholder="Enter employee email" name="email" type="email" id="email">
-							</div>
-							<div class="form-group col-md-6">
-								<label for="password" class="form-label">Password</label>
-								<span class="text-danger pl-1">*</span>
-								<input class="form-control" required="required" placeholder="Enter employee new password" name="password" type="password" value="" id="password">
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="address" class="form-label">Address</label>
-							<span class="text-danger pl-1">*</span>
-							<textarea class="form-control" required="required" rows="2" placeholder="Enter employee address" name="address" cols="50" id="address"></textarea>
-						</div>
+					<div class="form-group">
+						{{form_row(form.address)}}
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6">
-				<div class="card em-card">
-					<div class="card-header">
-						<h5>Company Detail</h5>
+		</div>
+		<div class="col-md-6">
+			<div class="card em-card">
+				<div class="card-header">
+					<h5>Company Detail</h5>
+				</div>
+				<div class="card-body employee-detail-create-body">
+					<div class="row">
+						<input type="hidden" name="_token" value="fQVCzmvnml8O5nNtzcHmFVKaIwqpSDyEUTBShBfJ" autocomplete="off">
+						<div class="form-group col-md-6">
+							{{form_row(form.branch)}}
+						</div>
+
+						<div class="form-group col-md-6">
+							{{form_row(form.department)}}
+						</div>
+
+						<div class="form-group ">
+							{{form_row(form.designation)}}
+						</div>
+						<div class="form-group  ">
+							{{form_row(form.companyDateOfJoining)}}
+						</div>
+
 					</div>
-					<div class="card-body employee-detail-create-body">
-						<div class="row">
-							<input type="hidden" name="_token" value="fQVCzmvnml8O5nNtzcHmFVKaIwqpSDyEUTBShBfJ" autocomplete="off">
-							<div class="form-group ">
-								<label for="employee_id" class="form-label">Employee ID</label>
-								<input class="form-control" disabled="disabled" name="employee_id" type="text" value="#EMP0000020" id="employee_id">
-							</div>
-
-							<div class="form-group col-md-6">
-								<label for="branch_id" class="form-label">Select Branch*</label>
-								<div class="row">
-									<div
-										class="col-md-12 mb-1">{# {{ form_row(form.leaveType) }} #}
-									</div>
-								</div>
-							</div>
-
-							<div class="form-group col-md-6">
-								<label for="department_id" class="form-label">Select Department*</label>
-								<div class="row">
-									<div
-										class="col-md-12 mb-1">{# {{ form_row(form.leaveType) }} #}
-									</div>
-								</div>
-							</div>
-
-							<div class="form-group ">
-								<label for="designation_id" class="form-label">Select Designation</label>
-
-								<div class="form-icon-user">
-
-									<div class="row">
-										<div
-											class="col-md-12 mb-1">{# {{ form_row(form.leaveType) }} #}
-										</div>
-									</div>
-
-								</div>
-							</div>
-							<div class="form-group  ">
-								<label for="company_doj" class="  form-label">Company Date Of Joining</label>
-								<input class="form-control " required="required" autocomplete="off" placeholder="Select company date of joining" name="company_doj" type="date" id="company_doj">
-							</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6 ">
+			<div class="card em-card">
+				<div class="card-header">
+					<h5>Document</h5>
+				</div>
+				<div class="card-body employee-detail-create-body">
+					<div class="row">
+					    <div class="form-group col-12 d-flex">
+						{{form_row(form.certificate)}}
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="form-group col-12 d-flex">
+							{{form_row(form.photo)}}
 
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-md-6 ">
-				<div class="card em-card">
-					<div class="card-header">
-						<h5>Document</h5>
-					</div>
-					<div class="card-body employee-detail-create-body">
-						<div class="row">
-							<div class="form-group col-12 d-flex">
-								<div class="float-left col-4">
-									<label for="document" class="float-left pt-1 form-label">Certificate
-										<span class="text-danger"></span>
-									</label>
-								</div>
-								<div class="float-right col-8">
-									<input type="hidden" name="emp_doc_id[1]" id="" value="1">
-									<div class="choose-files">
-										<label for="document[1]">
-											<input type="file" class="form-control" name="document[1]" id="document[1]" data-filename="1_filename" onchange="document.getElementById('blah0').src = window.URL.createObjectURL(this.files[0])">
-										</label>
-										<img id="blah0" src="" width="50%">
-
-									</div>
-
-								</div>
-
-							</div>
-						</div>
-						<br>
-						<div class="row">
-							<div class="form-group col-12 d-flex">
-								<div class="float-left col-4">
-									<label for="document" class="float-left pt-1 form-label">Photo
-									</label>
-								</div>
-								<div class="float-right col-8">
-									<input type="hidden" name="emp_doc_id[2]" id="" value="2">
-									<div class="choose-files">
-										<label for="document[2]">
-											<input type="file" class="form-control" name="document[2]" id="document[2]" data-filename="2_filename" onchange="document.getElementById('blah1').src = window.URL.createObjectURL(this.files[0])">
-										</label>
-										<img id="blah1" src="" width="50%">
-
-									</div>
-
-								</div>
-
-							</div>
-						</div>
-					</div>
+		<div class="col-md-6 ">
+			<div class="card em-card">
+				<div class="card-header">
+					<h5>Bank Account Detail</h5>
 				</div>
-			</div>
-			<div class="col-md-6 ">
-				<div class="card em-card">
-					<div class="card-header">
-						<h5>Bank Account Detail</h5>
-					</div>
-					<div class="card-body employee-detail-create-body">
-						<div class="row">
+				<div class="card-body employee-detail-create-body">
+					<div class="row">
 							<div class="form-group col-md-6">
-								<label for="account_holder_name" class="form-label">Account Holder Name</label>
-								<input class="form-control" placeholder="Enter account holder name" name="account_holder_name" type="text" id="account_holder_name">
+								{{form_row(form.accountName)}}
 
 							</div>
 							<div class="form-group col-md-6">
-								<label for="account_number" class="form-label">Account Number</label>
-								<input class="form-control" placeholder="Enter account number" name="account_number" type="number" id="account_number">
+								{{form_row(form.accountNumber)}}
 
 							</div>
-							<div class="form-group col-md-6">
-								<label for="bank_name" class="form-label">Bank Name</label>
-								<input class="form-control" placeholder="Enter bank name" name="bank_name" type="text" id="bank_name">
-
+						    <div class="form-group col-md-6">
+								{{form_row(form.bankName)}}
 							</div>
 							<div class="form-group col-md-6">
-								<label for="bank_identifier_code" class="form-label">Bank Identifier Code</label>
-								<input class="form-control" placeholder="Enter bank identifier code" name="bank_identifier_code" type="text" id="bank_identifier_code">
+								{{form_row(form.bankIdentifierCode)}}
 							</div>
 							<div class="form-group col-md-6">
-								<label for="branch_location" class="form-label">Branch Location</label>
-								<input class="form-control" placeholder="Enter branch location" name="branch_location" type="text" id="branch_location">
+								{{form_row(form.branchLocation)}}
 							</div>
 							<div class="form-group col-md-6">
-								<label for="tax_payer_id" class="form-label">Tax Payer Id</label>
-								<input class="form-control" placeholder="Enter tax payer id" name="tax_payer_id" type="text" id="tax_payer_id">
+								{{form_row(form.taxPayerId)}}
 							</div>
 						</div>
 					</div>
@@ -235,7 +150,7 @@
 			<button type="submit" id="createButton" class="btn btn-primary rounded-2">Create</button>
 			<button type="button" id="saveButton" class="btn btn-primary rounded-2" style="display: none;">Save</button>
 		</div>
-	</form>
+	{{form_end(form)}}
 	this is a sample
 {% endblock %}
 {% block javascript %}
@@ -254,7 +169,7 @@
 
 	<!-- Datatable Demo Aapp js -->
 	<script src="/js/pages/demo.datatable-init.js"></script>
-	<!-- Table Export js -->
+	<!-- Table Export js -->s
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
 	<script src="/js/pages/demo.tableexport.js"></script>
 {% endblock %}

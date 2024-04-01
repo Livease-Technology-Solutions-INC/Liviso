@@ -11,6 +11,7 @@ use App\Entity\Account\UserImage;
 use App\Entity\HRMSystem\Meeting;
 use App\Entity\HRMSystem\Trainer;
 use App\Entity\HRMSystem\Warning;
+use App\Entity\CRMSystem\Contract;
 use App\Entity\HRMSystem\Holidays;
 use App\Entity\HRMSystem\Transfer;
 use App\Entity\POSSystem\Purchase;
@@ -19,22 +20,23 @@ use App\Entity\Account\UserProfile;
 use App\Entity\HRMSystem\Promotion;
 use App\Entity\POSSystem\WareHouse;
 use App\Entity\HRMSystem\Complaints;
+use App\Entity\CRMSystem\FormBuilder;
 use App\Entity\HRMSystem\Resignation;
 use App\Entity\HRMSystem\Termination;
 use App\Entity\HRMSystem\Announcement;
+use App\Entity\AccountingSystem\Customer;
 use App\Entity\HRMSystem\CustomQuestions;
 use Doctrine\Common\Collections\Collection;
 use App\Entity\HRMSystem\EmployeesAssetSetup;
-use App\Entity\AccountingSystem\Banking\Account;
-use App\Entity\AccountingSystem\Expense\Payment;
-use App\Entity\AccountingSystem\Income\Revenue;
-use App\Entity\AccountingSystem\Customer;
+use App\Entity\HRMSystem\EmployeeSetupCreate;
 use App\Entity\AccountingSystem\FinancialGoal;
-use App\Entity\CRMSystem\Contract;
-use App\Entity\CRMSystem\FormBuilder;
+use App\Entity\ProductsSystem\ProductServices;
+use App\Entity\AccountingSystem\Income\Revenue;
 use App\Entity\HRMSystem\HRM_System_Setup\Goal;
 use App\Entity\HRMSystem\HRM_System_Setup\Loan;
 use App\Entity\HRMSystem\Performance\Indicator;
+use App\Entity\AccountingSystem\Banking\Account;
+use App\Entity\AccountingSystem\Expense\Payment;
 use App\Entity\HRMSystem\Performance\Appraisals;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\HRMSystem\HRM_System_Setup\Branch;
@@ -44,8 +46,10 @@ use App\Entity\HRMSystem\HRM_System_Setup\Document;
 use App\Entity\HRMSystem\HRM_System_Setup\JobStage;
 use App\Entity\HRMSystem\HRM_System_Setup\Training;
 use App\Entity\HRMSystem\Performance\GoalTrackings;
+use App\Entity\WorkFlowSystem\Sales\CustomerCreate;
 use App\Entity\HRMSystem\HRM_System_Setup\Allowance;
 use App\Entity\HRMSystem\HRM_System_Setup\Deduction;
+use App\Entity\WorkFlowSystem\Sales\EnquiryCreation;
 use App\Entity\HRMSystem\HRM_System_Setup\Department;
 use App\Entity\HRMSystem\HRM_System_Setup\Designation;
 use App\Entity\HRMSystem\HRM_System_Setup\JobCategory;
@@ -55,9 +59,6 @@ use App\Entity\HRMSystem\HRM_System_Setup\Competencies;
 use Symfony\Component\Security\Core\User\UserInterface;
 use App\Entity\HRMSystem\HRM_System_Setup\TerminationHRM;
 use App\Entity\HRMSystem\LeaveManagementSetup\ManageLeave;
-use App\Entity\ProductsSystem\ProductServices;
-use App\Entity\WorkFlowSystem\Sales\CustomerCreate;
-use App\Entity\WorkFlowSystem\Sales\EnquiryCreation;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
@@ -270,6 +271,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: EnquiryCreation::class, mappedBy: "user")]
     private Collection $enquiryCreation;
 
+    #[ORM\OneToMany(targetEntity: EmployeeSetupCreate::class, mappedBy: "user")]
+    private Collection $employeeSetupCreate;
+
 
 
     public function __construct()
@@ -330,6 +334,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->productServices = new ArrayCollection();
         $this->customerCreate = new ArrayCollection();
         $this->enquiryCreation = new ArrayCollection();
+        $this->employeeSetupCreate = new ArrayCollection();
     }
 
     public function __toString()
@@ -2083,6 +2088,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($enquiryCreation->getUser() === $this) {
                 $enquiryCreation->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EmployeeSetupCreate>
+     */
+    public function getEmployeeSetupCreate(): Collection
+    {
+        return $this->employeeSetupCreate;
+    }
+
+    public function addEmployeeSetupCreate(EmployeeSetupCreate $employeeSetupCreate): static
+    {
+        if (!$this->employeeSetupCreate->contains($employeeSetupCreate)) {
+            $this->employeeSetupCreate->add($employeeSetupCreate);
+            $employeeSetupCreate->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEmployeeSetupCreate(EmployeeSetupCreate $employeeSetupCreate): static
+    {
+        if ($this->employeeSetupCreate->removeElement($employeeSetupCreate)) {
+            // set the owning side to null (unless already changed)
+            if ($employeeSetupCreate->getUser() === $this) {
+                $employeeSetupCreate->setUser(null);
             }
         }
 
