@@ -101,10 +101,31 @@ class HrmsystemController extends AbstractController
         $employeeSetupCreate = new EmployeeSetupCreate();
         $user = $this->entityManager->getRepository(User::class)->find($id);
         $employeeSetupCreate->setUser($user);
+
+        $repository = $this->entityManager->getRepository(EmployeeSetupCreate::class);
+        $employeeSetupCreates = $repository->findBy(['user' => $currentUser]);
+
+        return $this->render('hrmsystem/employeeSetup.html.twig', [
+            'controller_name' => 'HrmsystemController',
+            'employeeSetupCreates' => $employeeSetupCreates,
+        ]);
+    }
+
+
+    #[Route('/hrmsystem/employee_setup/create/{id}', name: 'hrmsystem/employee_setup/create')]
+    public function employeeSetupCreate(Request $request, int $id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $employeeSetupCreate = new EmployeeSetupCreate();
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $employeeSetupCreate->setUser($user);
         $form = $this->createForm(EmployeesSetupCreateType::class, $employeeSetupCreate, ['current_user' => $this->getUser()]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $uploadedFiles = $request->files->get('employeeSetup_Create');
+            $uploadedFiles = $request->files->get('employees_setup_create');
         
             foreach (['certificate', 'photo'] as $field) {
                 $file = $uploadedFiles[$field] ?? null;
@@ -130,12 +151,12 @@ class HrmsystemController extends AbstractController
             $this->entityManager->flush();
 
             // Redirect after successful form submission
-            return $this->redirectToRoute('hrmsystem/employee_setup/create',  ['id' => $id]);
+            return $this->redirectToRoute('hrmsystem/employee_setup',  ['id' => $id]);
         }
         $repository = $this->entityManager->getRepository(EmployeeSetupCreate::class);
         $employeeSetupCreates = $repository->findBy(['user' => $currentUser]);
 
-        return $this->render('hrmsystem/employeeSetup.html.twig', [
+        return $this->render('hrmsystem/employeeSetupCreate.html.twig', [
             'controller_name' => 'HrmsystemController',
             'employeeSetupCreates' => $employeeSetupCreates,
             'form' => $form->createView(),
@@ -197,15 +218,6 @@ class HrmsystemController extends AbstractController
         ]);
     }
 
-
-    #[Route('/hrmsystem/employee_setup/create/{id}', name: 'hrmsystem/employee_setup/create')]
-    public function employeeSetupCreate(Request $request, int $id): Response
-    {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        return $this->render('hrmsystem/employeeSetupCreate.html.twig', [
-            'controller_name' => 'HrmsystemController',
-        ]);
-    }
 
     #[Route('/hrmsystem/set_salary', name: 'hrmsystem/set_salary')]
     public function setSalary(): Response
