@@ -6,6 +6,7 @@ use App\Entity\Zoom;
 use App\Entity\SupportSystem;
 use App\Entity\HRMSystem\Trip;
 use App\Entity\HRMSystem\Award;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Account\UserImage;
 use App\Entity\HRMSystem\Meeting;
@@ -100,6 +101,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(nullable: true)]
     private ?string $location = null;
+
+    #[ORM\Column(type: "datetime", nullable: true)]
+    private ?\DateTimeInterface $lastLogin = null;
 
     // ...
 
@@ -2120,6 +2124,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $employeeSetupCreate->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLastLogin(): ?\DateTimeInterface
+    {
+        return $this->lastLogin;
+    }
+
+    public function setLastLogin(?\DateTimeInterface $lastLogin): static
+    {
+        $this->lastLogin = $lastLogin;
 
         return $this;
     }
