@@ -17,6 +17,8 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
@@ -28,7 +30,7 @@ class EmployeesSetupCreateType extends AbstractType
             ->add('name',  TextType::class, [
                 'label' => 'Name',
                 'label_attr' => [
-                    'class' => 'text-dark', 
+                    'class' => 'text-dark',
                 ],
                 'attr' => [
                     'class' => 'form-control m-0 text-dark',
@@ -40,7 +42,7 @@ class EmployeesSetupCreateType extends AbstractType
             ->add('phone', TelType::class, [
                 'label' => 'Phone',
                 'label_attr' => [
-                    'class' => 'text-dark', 
+                    'class' => 'text-dark',
                 ],
                 'attr' => [
                     'class' => 'form-control m-0 text-dark',
@@ -56,7 +58,7 @@ class EmployeesSetupCreateType extends AbstractType
             ->add('dateOfBirth', BirthdayType::class, [
                 'label' => 'Date of Birth',
                 'label_attr' => [
-                    'class' => 'text-dark mt-2 text-dark', 
+                    'class' => 'text-dark mt-2 text-dark',
                 ],
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
@@ -72,7 +74,7 @@ class EmployeesSetupCreateType extends AbstractType
             ->add('gender', ChoiceType::class, [
                 'label' => 'Gender',
                 'label_attr' => [
-                    'class' => 'text-dark mt-2', 
+                    'class' => 'text-dark mt-2 mb-2',
                 ],
                 'choices' => [
                     'Male' => 'male',
@@ -92,7 +94,7 @@ class EmployeesSetupCreateType extends AbstractType
             ->add('email', EmailType::class, [
                 'label' => 'Email',
                 'label_attr' => [
-                    'class' => 'text-dark mt-2', 
+                    'class' => 'text-dark mt-2',
                 ],
                 'attr' => [
                     'class' => 'form-control m-0 text-dark',
@@ -109,7 +111,7 @@ class EmployeesSetupCreateType extends AbstractType
             ->add('password', PasswordType::class, [
                 'label' => 'Password',
                 'label_attr' => [
-                    'class' => 'text-dark mt-2', 
+                    'class' => 'text-dark mt-2',
                 ],
                 'attr' => [
                     'class' => 'form-control m-0 text-dark',
@@ -124,7 +126,7 @@ class EmployeesSetupCreateType extends AbstractType
             ->add('address', TextType::class, [
                 'label' => 'Address',
                 'label_attr' => [
-                    'class' => 'text-dark mt-2', 
+                    'class' => 'text-dark mt-2',
                 ],
                 'attr' => [
                     'class' => 'form-control m-0 text-dark',
@@ -140,7 +142,7 @@ class EmployeesSetupCreateType extends AbstractType
             ->add('branch', ChoiceType::class, [
                 'label' => 'Branch',
                 'label_attr' => [
-                    'class' => 'text-dark', 
+                    'class' => 'text-dark',
                 ],
                 'choices' => [
                     'All Branch' => 'All Branch',
@@ -166,7 +168,7 @@ class EmployeesSetupCreateType extends AbstractType
             ->add('department', ChoiceType::class, [
                 'label' => 'Department',
                 'label_attr' => [
-                    'class' => 'text-dark', 
+                    'class' => 'text-dark',
                 ],
                 'choices' => [
                     'All Department' => 'All Department',
@@ -186,7 +188,7 @@ class EmployeesSetupCreateType extends AbstractType
             ->add('designation', ChoiceType::class, [
                 'label' => 'Designation',
                 'label_attr' => [
-                    'class' => 'text-dark mt-2', 
+                    'class' => 'text-dark mt-2',
                 ],
                 'choices' => [
                     'All Designation' => 'All Designation',
@@ -206,7 +208,7 @@ class EmployeesSetupCreateType extends AbstractType
                 'html5' => true,
                 'widget' => 'single_text',
                 'label_attr' => [
-                    'class' => 'text-dark mt-2', 
+                    'class' => 'text-dark mt-2',
                 ],
                 'attr' => [
                     'class' => 'form-control m-0 text-dark',
@@ -219,7 +221,7 @@ class EmployeesSetupCreateType extends AbstractType
                 'mapped' => False,
                 'attr' => ['class' => 'form-control m-0 text-dark'],
                 'label_attr' => [
-                    'class' => 'text-dark', 
+                    'class' => 'text-dark',
                 ],
             ])
 
@@ -227,7 +229,7 @@ class EmployeesSetupCreateType extends AbstractType
                 'mapped' => False,
                 'attr' => ['class' => 'form-control m-0 text-dark'],
                 'label_attr' => [
-                    'class' => 'text-dark mt-2', 
+                    'class' => 'text-dark mt-2',
                 ],
             ])
 
@@ -240,7 +242,7 @@ class EmployeesSetupCreateType extends AbstractType
                 ],
             ])
 
-            ->add('accountNumber', TextType::class, [
+            ->add('accountNumber', IntegerType::class, [
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Regex([
@@ -250,7 +252,7 @@ class EmployeesSetupCreateType extends AbstractType
                 ],
                 'label' => 'Account Number',
                 'label_attr' => [
-                    'class' => 'text-dark', 
+                    'class' => 'text-dark',
                 ],
                 'attr' => [
                     'class' => 'form-control m-0 text-dark',
@@ -262,7 +264,7 @@ class EmployeesSetupCreateType extends AbstractType
             ->add('bankName', TextType::class, [
                 'label' => 'Bank Name',
                 'label_attr' => [
-                    'class' => 'text-dark mt-2', 
+                    'class' => 'text-dark mt-2',
                 ],
                 'attr' => [
                     'class' => 'form-control m-0 text-dark',
@@ -271,10 +273,10 @@ class EmployeesSetupCreateType extends AbstractType
                 ],
             ])
 
-            ->add('bankIdentifierCode', TextType::class, [
+            ->add('bankIdentifierCode', IntegerType::class, [
                 'label' => 'Bank Identifier Code',
                 'label_attr' => [
-                    'class' => 'text-dark mt-2', 
+                    'class' => 'text-dark mt-2',
                 ],
                 'attr' => [
                     'class' => 'form-control m-0 text-dark',
@@ -286,7 +288,7 @@ class EmployeesSetupCreateType extends AbstractType
             ->add('branchLocation', TextType::class, [
                 'label' => 'Branch Location',
                 'label_attr' => [
-                    'class' => 'text-dark mt-2', 
+                    'class' => 'text-dark mt-2',
                 ],
                 'attr' => [
                     'class' => 'form-control m-0 text-dark',
@@ -296,10 +298,10 @@ class EmployeesSetupCreateType extends AbstractType
 
             ])
 
-            ->add('taxPayerId', TextType::class, [
+            ->add('taxPayerId', IntegerType::class, [
                 'label' => 'Tax PayerId',
                 'label_attr' => [
-                    'class' => 'text-dark mt-2', 
+                    'class' => 'text-dark mt-2',
                 ],
                 'attr' => [
                     'class' => 'form-control m-0 text-dark',

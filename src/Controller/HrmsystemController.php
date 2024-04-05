@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\UserType;
 use App\Entity\HRMSystem\Trip;
 use App\Entity\HRMSystem\Award;
 use App\Form\HRMSystem\TripType;
@@ -82,6 +83,7 @@ use App\Entity\HRMSystem\LeaveManagementSetup\ManageLeave;
 use App\Form\HRMSystem\HRM_System_Setup\TerminationHRMType;
 use App\Form\HRMSystem\LeaveManagementSetup\ManageLeaveType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class HrmsystemController extends AbstractController
 {
@@ -113,7 +115,7 @@ class HrmsystemController extends AbstractController
 
 
     #[Route('/hrmsystem/employee_setup/create/{id}', name: 'hrmsystem/employee_setup/create')]
-    public function employeeSetupCreate(Request $request, int $id): Response
+    public function employeeSetupCreate(Request $request, int $id, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
@@ -125,11 +127,20 @@ class HrmsystemController extends AbstractController
         $form = $this->createForm(EmployeesSetupCreateType::class, $employeeSetupCreate, ['current_user' => $this->getUser()]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $newUserEmployee = new User();
+            // $user->getCompanyName();
+            // $newUserEmployee = $form->getData();
+            $newUserEmployee->setCompanyName($user->getCompanyName());
+            $newUserEmployee->setParentUser($user);
+            $hashedPassword = $userPasswordHasher->hashPassword($newUserEmployee, $employeeSetupCreate->getPassword());
+            $newUserEmployee->setPassword($hashedPassword);
+            $newUserEmployee->setEmail($employeeSetupCreate->getEmail());
+            $newUserEmployee->setFullName($employeeSetupCreate->getName());
             $uploadedFiles = $request->files->get('employees_setup_create');
-        
+
             foreach (['certificate', 'photo'] as $field) {
                 $file = $uploadedFiles[$field] ?? null;
-        
+
                 if ($file instanceof UploadedFile) {
                     $fileName = md5(uniqid()) . '.' . $file->guessExtension();
                     try {
@@ -146,7 +157,7 @@ class HrmsystemController extends AbstractController
                     $employeeSetupCreate->$setter($fileName);
                 }
             }
-                  
+            $this->entityManager->persist($newUserEmployee);
             $this->entityManager->persist($employeeSetupCreate);
             $this->entityManager->flush();
 
