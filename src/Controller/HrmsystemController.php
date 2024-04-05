@@ -42,7 +42,7 @@ use App\Form\HRMSystem\EmployeesAssetSetupType;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\HRMSystem\HRM_System_Setup\Leave;
 use App\Entity\HRMSystem\Performance\Appraisals;
-use App\Form\HRMSystem\EmployeesSetupCreateType;
+use App\Form\HRMSystem\EmployeeSetupCreateType;
 use App\Entity\HRMSystem\HRM_System_Setup\Branch;
 use App\Form\HRMSystem\HRM_System_Setup\GoalType;
 use App\Form\HRMSystem\HRM_System_Setup\LoanType;
@@ -124,7 +124,7 @@ class HrmsystemController extends AbstractController
         $employeeSetupCreate = new EmployeeSetupCreate();
         $user = $this->entityManager->getRepository(User::class)->find($id);
         $employeeSetupCreate->setUser($user);
-        $form = $this->createForm(EmployeesSetupCreateType::class, $employeeSetupCreate, ['current_user' => $this->getUser()]);
+        $form = $this->createForm(EmployeeSetupCreateType::class, $employeeSetupCreate, ['current_user' => $this->getUser()]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $newUserEmployee = new User();
@@ -202,7 +202,7 @@ class HrmsystemController extends AbstractController
             throw $this->createNotFoundException('employee setup create not found');
         }
 
-        $form = $this->createForm(EmployeesSetupCreateType::class, $employeeSetupCreate,  ['current_user' => $this->getUser()]);
+        $form = $this->createForm(EmployeeSetupCreateType::class, $employeeSetupCreate,  ['current_user' => $this->getUser()]);
         try {
             $form->handleRequest($request);
 
