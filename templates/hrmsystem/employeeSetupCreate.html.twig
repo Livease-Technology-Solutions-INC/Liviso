@@ -5,13 +5,13 @@
 
 {% block css %}
 	<!-- Datatables css -->
-	<link href="/vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
-	<link href="/vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
-	<link href="/vendor/datatables.net-fixedcolumns-bs5/css/fixedColumns.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
-	<link href="/vendor/datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
-	<link href="/vendor/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
-	<link href="/vendor/datatables.net-select-bs5/css/select.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
-{% endblock %}
+	{# <link href="/vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+		<link href="/vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+		<link href="/vendor/datatables.net-fixedcolumns-bs5/css/fixedColumns.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+		<link href="/vendor/datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+		<link href="/vendor/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+		<link href="/vendor/datatables.net-select-bs5/css/select.bootstrap5.min.css" rel="stylesheet" type="text/css"/> #}
+<link href="/css/app.min.css" rel="stylesheet" type="text/css" id="app-style"/> {% endblock %}
 {% block pagetitle %}
 	<div class"row align-items-center d-flex">
 		<div class="col mt-2">
@@ -30,23 +30,23 @@
 		<div class="col-md-6">
 			<div class="card em-card">
 				<div class="card-header">
-					<h5>Personal Detail</h5>
+					<h5 class="text-dark">Personal Detail</h5>
 				</div>
 				<div class="card-body">
 					<div class="row">
 						<div class="form-group col-md-6">
-						    {{form_row(form.name)}}
+							{{form_row(form.name)}}
 						</div>
 						<div class="form-group col-md-6">
 							{{form_row(form.phone)}}
 						</div>
 						<div class="col-md-6">
-								<div class="form-group">
-									{{form_row(form.dateOfBirth)}}
-								</div>
+							<div class="form-group">
+								{{form_row(form.dateOfBirth)}}
+							</div>
 						</div>
 						<div class="col-md-6">
-							<div class="form-group">
+							<div class="form-group flex">
 								{{form_row(form.gender)}}
 							</div>
 						</div>
@@ -63,26 +63,26 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-6 max-height-500px">
 			<div class="card em-card">
 				<div class="card-header">
-					<h5>Company Detail</h5>
+					<h5 class="text-dark">Company Detail</h5>
 				</div>
 				<div class="card-body employee-detail-create-body">
 					<div class="row">
 						<input type="hidden" name="_token" value="fQVCzmvnml8O5nNtzcHmFVKaIwqpSDyEUTBShBfJ" autocomplete="off">
-						<div class="form-group col-md-6">
+						<div class="form-group">
 							{{form_row(form.branch)}}
 						</div>
 
-						<div class="form-group col-md-6">
+						<div class="form-group">
 							{{form_row(form.department)}}
 						</div>
 
-						<div class="form-group ">
+						<div class="form-group">
 							{{form_row(form.designation)}}
 						</div>
-						<div class="form-group  ">
+						<div class="form-group">
 							{{form_row(form.companyDateOfJoining)}}
 						</div>
 
@@ -95,12 +95,12 @@
 		<div class="col-md-6 ">
 			<div class="card em-card">
 				<div class="card-header">
-					<h5>Document</h5>
+					<h5 class="text-dark">Document</h5>
 				</div>
 				<div class="card-body employee-detail-create-body">
 					<div class="row">
-					    <div class="form-group col-12 d-flex">
-						{{form_row(form.certificate)}}
+						<div class="form-group col-12 d-flex">
+							{{form_row(form.certificate)}}
 						</div>
 					</div>
 					<br>
@@ -116,42 +116,41 @@
 		<div class="col-md-6 ">
 			<div class="card em-card">
 				<div class="card-header">
-					<h5>Bank Account Detail</h5>
+					<h5 class="text-dark">Bank Account Detail</h5>
 				</div>
 				<div class="card-body employee-detail-create-body">
 					<div class="row">
-							<div class="form-group col-md-6">
-								{{form_row(form.accountName)}}
+						<div class="form-group col-md-6">
+							{{form_row(form.accountName)}}
 
-							</div>
-							<div class="form-group col-md-6">
-								{{form_row(form.accountNumber)}}
+						</div>
+						<div class="form-group col-md-6">
+							{{form_row(form.accountNumber)}}
 
-							</div>
-						    <div class="form-group col-md-6">
-								{{form_row(form.bankName)}}
-							</div>
-							<div class="form-group col-md-6">
-								{{form_row(form.bankIdentifierCode)}}
-							</div>
-							<div class="form-group col-md-6">
-								{{form_row(form.branchLocation)}}
-							</div>
-							<div class="form-group col-md-6">
-								{{form_row(form.taxPayerId)}}
-							</div>
+						</div>
+						<div class="form-group col-md-6">
+							{{form_row(form.bankName)}}
+						</div>
+						<div class="form-group col-md-6">
+							{{form_row(form.bankIdentifierCode)}}
+						</div>
+						<div class="form-group col-md-6">
+							{{form_row(form.branchLocation)}}
+						</div>
+						<div class="form-group col-md-6">
+							{{form_row(form.taxPayerId)}}
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<br>
-		<div class="modal-footer">
-			<button type="submit" id="createButton" class="btn btn-primary rounded-2">Create</button>
-			<button type="button" id="saveButton" class="btn btn-primary rounded-2" style="display: none;">Save</button>
-		</div>
+	</div>
+	<br>
+	<div class="modal-footer">
+		<button type="submit" id="createButton" class="btn btn-primary rounded-2 button">Create</button>
+		<button type="button" id="saveButton" class="btn btn-primary rounded-2" style="display: none;">Save</button>
+	</div>
 	{{form_end(form)}}
-	this is a sample
 {% endblock %}
 {% block javascript %}
 	<!-- Datatables js -->
@@ -169,7 +168,8 @@
 
 	<!-- Datatable Demo Aapp js -->
 	<script src="/js/pages/demo.datatable-init.js"></script>
-	<!-- Table Export js -->s
+	<!-- Table Export js -->
+	s
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
 	<script src="/js/pages/demo.tableexport.js"></script>
 {% endblock %}

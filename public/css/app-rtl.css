@@ -18669,6 +18669,10 @@ html[data-bs-theme=dark] .auth-brand .logo-dark {
   text-align: right !important;
 }
 
+.male-radio {
+  margin-right: 10px;
+}
+
 .rating-css input {
   display: none;
 }
