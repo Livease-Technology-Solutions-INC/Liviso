@@ -186,7 +186,7 @@ class HrmsystemController extends AbstractController
         $this->entityManager->remove($employeeSetupCreate);
         $this->entityManager->flush();
 
-        return $this->redirectToRoute('hrmsystem/employee_setup/create', ['id' => $user_id]);
+        return $this->redirectToRoute('hrmsystem/employee_setup', ['id' => $user_id]);
     }
 
     #[Route("/hrmsystem/employee_setup/{id}/edit/{user_id}", name: "employee_setup_edit", methods: ["GET", "PUT", "POST"])]
