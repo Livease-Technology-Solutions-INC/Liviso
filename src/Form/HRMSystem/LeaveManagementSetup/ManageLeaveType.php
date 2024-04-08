@@ -27,7 +27,10 @@ class ManageLeaveType extends AbstractType
         $builder
             ->add('employee',  ChoiceType::class, [
                 'choices' => $this->getUserChoices(),
-                'attr' => ['class' => 'form-select m-0'],
+                'attr' => ['class' => 'form-select m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('leaveType',  ChoiceType::class, [
                 'choices' => [
@@ -42,15 +45,21 @@ class ManageLeaveType extends AbstractType
                     'Sabbatical Leave' => 'Sabbatical Leave',
                     'Holidays' => 'Holidays',
                 ],
-                'attr' => ['class' => 'form-select m-0'],
+                'attr' => ['class' => 'form-select m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('startDate', DateType::class, [
                 'label' => 'Start Date',
                 'html5' => true,
                 'widget' => 'single_text',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'required' => 'required',
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
             ->add('endDate', DateType::class, [
@@ -58,25 +67,34 @@ class ManageLeaveType extends AbstractType
                 'html5' => true,
                 'widget' => 'single_text',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'required' => 'required',
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
             ->add('leaveReason', TextareaType::class, [
                 'label' => 'Leave Reason',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'rows' => 5,
                     'placeholder' => 'Enter your description',
-                ]
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('remark', TextareaType::class, [
                 'label' => 'Remark',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'rows' => 5,
                     'placeholder' => 'Enter your description',
-                ]
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ]);
     }
 

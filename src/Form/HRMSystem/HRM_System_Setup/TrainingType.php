@@ -29,8 +29,11 @@ class TrainingType extends AbstractType
             ->add('training', TextType::class, [
                 'label' => 'Training',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Enter Training Name'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ]);
     }

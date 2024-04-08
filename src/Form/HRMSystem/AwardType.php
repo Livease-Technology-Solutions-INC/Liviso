@@ -29,7 +29,10 @@ class AwardType extends AbstractType
             ->add('employee', ChoiceType::class, [
                 'label' => 'Employee',
                 'choices' => $this->getUserChoices(),
-                'attr' => ['class' => 'form-select m-0'],
+                'attr' => ['class' => 'form-select m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('awardType',  ChoiceType::class, [
                 'label' => 'Award Type',
@@ -38,31 +41,43 @@ class AwardType extends AbstractType
                     'Gift' => 'Gift',
                     'Medal' => 'Medal'
                 ],
-                'attr' => ['class' => 'form-select m-0'],
+                'attr' => ['class' => 'form-select m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('date', DateType::class, [
                 'label' => 'Date',
                 'html5' => true,
                 'widget' => 'single_text',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Select Date/Time',
                     'required' => 'required',
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
             ->add('gift', TextType::class, [
                 'label' => 'Gift',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Gift',
-                ]
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('description', TextareaType::class, [
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'rows' => 5,
                     'placeholder' => 'Enter your description here...',
-                ]
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ]);
     }
     private function getUserChoices()

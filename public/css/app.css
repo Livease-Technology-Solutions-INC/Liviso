@@ -18706,6 +18706,16 @@ html[data-bs-theme=dark] .auth-brand .logo-dark {
   text-align: left !important;
 }
 
+.male-radio {
+  margin-left: 10px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .rating-css input {
   display: none;
 }

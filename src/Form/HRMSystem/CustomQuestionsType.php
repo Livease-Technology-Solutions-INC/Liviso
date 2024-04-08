@@ -20,6 +20,9 @@ class CustomQuestionsType extends AbstractType
                 'label' => 'Question',
                 'attr' => ['class' => 'form-control m-0',
                 'autocomplete' => 'off'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('isRequired',  ChoiceType::class, [
                 'label' => 'is Required',
@@ -28,6 +31,9 @@ class CustomQuestionsType extends AbstractType
                     'No' => 'No',
                 ],
                 'attr' => ['class' => 'form-select m-0'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ]);
     }
 

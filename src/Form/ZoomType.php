@@ -33,31 +33,44 @@ class ZoomType extends AbstractType
                 'choices' => [
                     'Automatic' => 'Automatic',
                 ],
-                'attr' => ['class' => 'form-select m-0'],
+                'attr' => ['class' => 'form-select m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('user', ChoiceType::class, [
                 'data' => $id,
                 'data_class' => null,
                 'mapped' => false,
                 'choices' => $this->getUserChoices(),
-                'attr' => ['class' => 'form-select m-0'],
+                'attr' => ['class' => 'form-select m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('meetingTime', DateTimeType::class, [
                 'label' => 'Meeting Time',
                 'html5' => true,
                 'widget' => 'single_text',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Select Date/Time',
                     'required' => 'required',
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
             ->add('duration')
             ->add('meetingURL', TextType::class, [
-                'label' => 'Meeting URL', 
-                'attr' => ['class' => 'form-control m-0', 
-                'autocomplete' => 'off',
-            ],
+                'label' => 'Meeting URL',
+                'attr' => [
+                    'class' => 'form-control m-0 text-dark',
+                    'autocomplete' => 'off',
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('status', ChoiceType::class, [
                 'choices' => [
@@ -65,7 +78,10 @@ class ZoomType extends AbstractType
                     'Live' => 'Live',
                     'Ended' => 'Ended',
                 ],
-                'attr' => ['class' => 'form-select m-0'],
+                'attr' => ['class' => 'form-select m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ]);
         $builder->get('user')->addModelTransformer($this->userToIdTransformer);
     }

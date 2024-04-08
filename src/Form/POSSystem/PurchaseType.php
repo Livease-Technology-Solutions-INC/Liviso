@@ -29,22 +29,28 @@ class PurchaseType extends AbstractType
             ->add('purchase', TextType::class, [
                 'label' => 'Purchase',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Enter your purchase',
-                ]
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('vendor',  TextType::class, [
                 'label' => 'Vendor',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Enter your vendor',
                 ],
             ])
             ->add('category',  TextType::class, [
                 'label' => 'Category',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Enter your category',
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
             ->add('purchaseDate', DateType::class, [
@@ -52,18 +58,24 @@ class PurchaseType extends AbstractType
                 'html5' => true,
                 'widget' => 'single_text',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Select Date/Time',
                     'required' => 'required',
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
             ->add('status', TextType::class, [
                 'label' => 'Status',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Enter your status',
-                ]
-                ]);
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
+            ]);
     }
     // private function getUserChoices()
     // {

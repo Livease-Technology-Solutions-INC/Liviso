@@ -29,8 +29,11 @@ class PerformanceType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => 'performance',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Enter performance Name'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ]);
     }

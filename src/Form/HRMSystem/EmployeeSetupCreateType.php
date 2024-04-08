@@ -17,26 +17,38 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
-class EmployeesSetupCreateType extends AbstractType
+class EmployeeSetupCreateType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('name',  TextType::class, [
                 'label' => 'Name',
-                'attr' => ['class' => 'form-control m-0',
-                'autocomplete' => 'off', 
-                'placeholder' => 'Enter Name'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
+                'attr' => [
+                    'class' => 'form-control m-0 text-dark',
+                    'autocomplete' => 'off',
+                    'placeholder' => 'Enter Name'
+                ],
             ])
 
             ->add('phone', TelType::class, [
                 'label' => 'Phone',
-                'attr' => ['class' => 'form-control m-0',
-                'autocomplete' => 'off', 
-                'placeholder' => 'Enter Phone'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
+                'attr' => [
+                    'class' => 'form-control m-0 text-dark',
+                    'autocomplete' => 'off',
+                    'placeholder' => 'Enter Phone'
+                ],
                 'constraints' => [
                     new NotBlank(),
                     new Length(['max' => 255]),
@@ -45,10 +57,15 @@ class EmployeesSetupCreateType extends AbstractType
 
             ->add('dateOfBirth', BirthdayType::class, [
                 'label' => 'Date of Birth',
+                'label_attr' => [
+                    'class' => 'text-dark mt-2 text-dark',
+                ],
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
-                'attr' => ['class' => 'form-control m-0',
-                'autocomplete' => 'off'],
+                'attr' => [
+                    'class' => 'form-control m-0 text-dark',
+                    'autocomplete' => 'off'
+                ],
                 'constraints' => [
                     new NotBlank(),
                 ],
@@ -56,22 +73,34 @@ class EmployeesSetupCreateType extends AbstractType
 
             ->add('gender', ChoiceType::class, [
                 'label' => 'Gender',
+                'label_attr' => [
+                    'class' => 'text-dark mt-2 mb-2',
+                ],
                 'choices' => [
                     'Male' => 'male',
                     'Female' => 'female',
                 ],
                 'expanded' => true,
                 'multiple' => false,
-                'choice_attr' => function($choice, $key, $value) {
-                    return ['class' => 'btn btn-outline-primary'];
-                },
+                'attr' => ['class' => 'gender-choice text-dark'],
+                // 'choice_attr' => function($choice, $key, $value) {
+                //     return ['class' => 'btn btn-outline-primary'];
+                // },
+                'choice_attr' => [
+                    'Female' => ['class' => 'male-radio'],
+                ],
             ])
 
             ->add('email', EmailType::class, [
                 'label' => 'Email',
-                'attr' => ['class' => 'form-control m-0',
-                'autocomplete' => 'off', 
-                'placeholder' => 'Enter Email'],
+                'label_attr' => [
+                    'class' => 'text-dark mt-2',
+                ],
+                'attr' => [
+                    'class' => 'form-control m-0 text-dark',
+                    'autocomplete' => 'off',
+                    'placeholder' => 'Enter Email'
+                ],
                 'constraints' => [
                     new NotBlank(),
                     new Length(['max' => 255]),
@@ -81,8 +110,13 @@ class EmployeesSetupCreateType extends AbstractType
 
             ->add('password', PasswordType::class, [
                 'label' => 'Password',
-                'attr' => ['class' => 'form-control m-0',
-                'autocomplete' => 'off'],
+                'label_attr' => [
+                    'class' => 'text-dark mt-2',
+                ],
+                'attr' => [
+                    'class' => 'form-control m-0 text-dark',
+                    'autocomplete' => 'off'
+                ],
                 'constraints' => [
                     new NotBlank(),
                     new Length(['min' => 6]),
@@ -91,9 +125,14 @@ class EmployeesSetupCreateType extends AbstractType
 
             ->add('address', TextType::class, [
                 'label' => 'Address',
-                'attr' => ['class' => 'form-control m-0',
-                'autocomplete' => 'off', 
-                'placeholder' => 'Enter Address'],
+                'label_attr' => [
+                    'class' => 'text-dark mt-2',
+                ],
+                'attr' => [
+                    'class' => 'form-control m-0 text-dark',
+                    'autocomplete' => 'off',
+                    'placeholder' => 'Enter Address'
+                ],
                 'constraints' => [
                     new NotBlank(),
                     new Length(['max' => 255]),
@@ -102,6 +141,9 @@ class EmployeesSetupCreateType extends AbstractType
 
             ->add('branch', ChoiceType::class, [
                 'label' => 'Branch',
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
                 'choices' => [
                     'All Branch' => 'All Branch',
                     'China' => 'China',
@@ -118,13 +160,16 @@ class EmployeesSetupCreateType extends AbstractType
                     'Canada' => 'Canada',
                 ],
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-select m-0 text-dark',
                     'autocomplete' => 'off'
                 ],
             ])
 
             ->add('department', ChoiceType::class, [
                 'label' => 'Department',
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
                 'choices' => [
                     'All Department' => 'All Department',
                     'Dept 1' => 'Dept 1',
@@ -135,13 +180,16 @@ class EmployeesSetupCreateType extends AbstractType
                     'Telecommunications' => 'Telecommunications',
                 ],
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-select m-0 text-dark',
                     'autocomplete' => 'off'
                 ],
             ])
 
             ->add('designation', ChoiceType::class, [
                 'label' => 'Designation',
+                'label_attr' => [
+                    'class' => 'text-dark mt-2',
+                ],
                 'choices' => [
                     'All Designation' => 'All Designation',
                     'CEO' => 'CEO',
@@ -149,16 +197,21 @@ class EmployeesSetupCreateType extends AbstractType
                     'Developers' => 'Developers',
                     'Manager' => 'Manager',
                 ],
-                'attr' => ['class' => 'form-control m-0',
-                'autocomplete' => 'off'],
+                'attr' => [
+                    'class' => 'form-select m-0 text-dark',
+                    'autocomplete' => 'off'
+                ],
             ])
 
             ->add('companyDateOfJoining', DateType::class, [
                 'label' => 'Company Date Of Joining',
                 'html5' => true,
                 'widget' => 'single_text',
+                'label_attr' => [
+                    'class' => 'text-dark mt-2',
+                ],
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Select Date/Time',
                     'required' => 'required',
                 ],
@@ -166,22 +219,30 @@ class EmployeesSetupCreateType extends AbstractType
 
             ->add('certificate', FileType::class, [
                 'mapped' => False,
-                'attr' => ['class' => 'form-control m-0'],
+                'attr' => ['class' => 'form-control m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
 
             ->add('photo', FileType::class, [
                 'mapped' => False,
-                'attr' => ['class' => 'form-control m-0'],
+                'attr' => ['class' => 'form-control m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark mt-2',
+                ],
             ])
 
             ->add('accountName', TextType::class, [
                 'label' => 'Account Name',
-                'attr' => ['class' => 'form-control m-0',
-                'autocomplete' => 'off', 
-                'placeholder' => 'Enter Account Name'],
+                'attr' => [
+                    'class' => 'form-control m-0 text-dark',
+                    'autocomplete' => 'off',
+                    'placeholder' => 'Enter Account Name'
+                ],
             ])
 
-            ->add('accountNumber', TextType::class, [
+            ->add('accountNumber', IntegerType::class, [
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Regex([
@@ -190,8 +251,11 @@ class EmployeesSetupCreateType extends AbstractType
                     ]),
                 ],
                 'label' => 'Account Number',
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off',
                     'placeholder' => 'Enter Account Number'
                 ],
@@ -199,33 +263,53 @@ class EmployeesSetupCreateType extends AbstractType
 
             ->add('bankName', TextType::class, [
                 'label' => 'Bank Name',
-                'attr' => ['class' => 'form-control m-0',
-                'autocomplete' => 'off', 
-                'placeholder' => 'Enter Bank Name'],
+                'label_attr' => [
+                    'class' => 'text-dark mt-2',
+                ],
+                'attr' => [
+                    'class' => 'form-control m-0 text-dark',
+                    'autocomplete' => 'off',
+                    'placeholder' => 'Enter Bank Name'
+                ],
             ])
 
-            ->add('bankIdentifierCode', TextType::class, [
+            ->add('bankIdentifierCode', IntegerType::class, [
                 'label' => 'Bank Identifier Code',
-                'attr' => ['class' => 'form-control m-0',
-                'autocomplete' => 'off', 
-                'placeholder' => 'Enter BankIdentifierCode'],
+                'label_attr' => [
+                    'class' => 'text-dark mt-2',
+                ],
+                'attr' => [
+                    'class' => 'form-control m-0 text-dark',
+                    'autocomplete' => 'off',
+                    'placeholder' => 'Enter BankIdentifierCode'
+                ],
             ])
 
             ->add('branchLocation', TextType::class, [
                 'label' => 'Branch Location',
-                'attr' => ['class' => 'form-control m-0',
-                'autocomplete' => 'off', 
-                'placeholder' => 'Enter branchLocation'],
-                
+                'label_attr' => [
+                    'class' => 'text-dark mt-2',
+                ],
+                'attr' => [
+                    'class' => 'form-control m-0 text-dark',
+                    'autocomplete' => 'off',
+                    'placeholder' => 'Enter branchLocation'
+                ],
+
             ])
 
-            ->add('taxPayerId', TextType::class, [
+            ->add('taxPayerId', IntegerType::class, [
                 'label' => 'Tax PayerId',
-                'attr' => ['class' => 'form-control m-0',
-                'autocomplete' => 'off', 
-                'placeholder' => 'Enter taxPayerId'],
+                'label_attr' => [
+                    'class' => 'text-dark mt-2',
+                ],
+                'attr' => [
+                    'class' => 'form-control m-0 text-dark',
+                    'autocomplete' => 'off',
+                    'placeholder' => 'Enter taxPayerId'
+                ],
             ]);
-        }
+    }
 
     public function configureOptions(OptionsResolver $resolver): void
     {

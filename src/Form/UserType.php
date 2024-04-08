@@ -18,38 +18,49 @@ class UserType extends AbstractType
         $builder
             ->add('fullName', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Full Name',
                     'required' => 'required',
-                ]
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('email', EmailType::class, [
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Email',
                     'required' => 'required',
-                ]
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => [
                     'label' => 'Password',
                     'attr' => [
-                        'class' => 'form-control m-0',
+                        'class' => 'form-control m-0 text-dark',
                         'placeholder' => 'Password',
                         'required' => 'required',
+                    ],
+                    'label_attr' => [
+                        'class' => 'text-dark',
                     ],
                 ],
                 'second_options' => [
                     'label' => 'Repeat Password',
                     'attr' => [
-                        'class' => 'form-control m-0',
+                        'class' => 'form-control m-0 text-dark',
                         'placeholder' => 'Repeat Password',
                         'required' => 'required',
                     ],
+                    'label_attr' => [
+                        'class' => 'text-dark',
+                    ],
                 ],
             ]);
-            
     }
 
     public function configureOptions(OptionsResolver $resolver)

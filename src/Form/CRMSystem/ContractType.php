@@ -10,6 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;;
+
 use App\Form\AccountingSystem\DataTransformer\UserToIdTransformer;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
@@ -25,31 +26,40 @@ class ContractType extends AbstractType
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
-    
+
     {
         $builder
 
             ->add('subject', TextType::class, [
                 'label' => 'Subject',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off',
                     'placeholder' => 'Subject'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
 
             ->add('client', ChoiceType::class, [
                 'label' => 'Client',
                 'choices' => $this->getUserChoices(),
-                'attr' => ['class' => 'form-select m-0'],
+                'attr' => ['class' => 'form-select m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
 
             ->add('project', TextType::class, [
                 'label' => 'Project',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off',
                     'placeholder' => 'Project'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
 
@@ -60,28 +70,37 @@ class ContractType extends AbstractType
                     'Planning' => 'Planning',
                 ],
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
 
             ->add('contractValue', IntegerType::class, [
                 'label' => 'Contract Value',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off',
                     'placeholder' => 'Contract Value'
                 ],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
-            
+
             ->add('startDate', DateType::class, [
                 'label' => 'Start Date',
                 'html5' => true,
                 'widget' => 'single_text',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Select Date/Time',
                     'required' => 'required',
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
 
@@ -90,14 +109,15 @@ class ContractType extends AbstractType
                 'html5' => true,
                 'widget' => 'single_text',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Select Date/Time',
                     'required' => 'required',
                 ],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ]);
-
-
-        }
+    }
 
     private function getUserChoices()
     {
@@ -112,11 +132,11 @@ class ContractType extends AbstractType
         return $choices;
     }
 
-        public function configureOptions(OptionsResolver $resolver): void
-        {
-            $resolver->setDefaults([
-                'data_class' => Contract::class,
-                'current_user' => null,
-            ]);
-        }
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => Contract::class,
+            'current_user' => null,
+        ]);
     }
+}

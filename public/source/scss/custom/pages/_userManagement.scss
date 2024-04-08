@@ -1,9 +1,20 @@
-.buttonLink{
-    outline: none;
-    background: none;
-    border: none;
-    width: 100%;
-    padding: none;
-    margin: none;
-    text-align: left !important;
+.buttonLink {
+	outline: none;
+	background: none;
+	border: none;
+	width: 100%;
+	padding: none;
+	margin: none;
+	text-align: left !important;
+}
+.male-radio{
+    margin-left: 10px;
+}
+// .gender-choice{
+//     margin-bottom: 5px;
+// }
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }

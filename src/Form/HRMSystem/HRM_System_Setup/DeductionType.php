@@ -29,8 +29,11 @@ class DeductionType extends AbstractType
             ->add('deduction', TextType::class, [
                 'label' => 'Deduction',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Enter Deduction Name'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ]);
     }

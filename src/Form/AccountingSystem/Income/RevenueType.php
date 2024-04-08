@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Form\AccountingSystem\Income;
+
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use phpDocumentor\Reflection\Types\Integer;
@@ -30,25 +31,31 @@ class RevenueType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            
+
             ->add('date', DateType::class, [
                 'label' => 'Date',
                 'html5' => true,
                 'widget' => 'single_text',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Select Date/Time',
                     'required' => 'required',
                 ],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
 
-            
+
             ->add('amount', IntegerType::class, [
                 'label' => 'amount',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off',
                     'placeholder' => 'amount'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
 
@@ -64,18 +71,24 @@ class RevenueType extends AbstractType
 
                 'label' => 'Account',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off',
                     'placeholder' => 'Account'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
 
             ->add('customers', TextType::class, [
                 'label' => 'Customers',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off',
                     'placeholder' => 'Customers'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
 
@@ -87,15 +100,18 @@ class RevenueType extends AbstractType
                     'Product Sales' => 'Product Sales',
                 ],
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
 
             ->add('reference', TextType::class, [
                 'label' => 'Reference',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off',
                     'placeholder' => 'Reference'
                 ],
@@ -104,24 +120,30 @@ class RevenueType extends AbstractType
             ->add('description', TextareaType::class, [
                 'label' => 'Description',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off',
                     'rows' => 5,
                     'placeholder' => 'Description'
                 ],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
-            
+
             ->add('paymentReceipt', FileType::class, [
                 'mapped' => False,
-                'attr' => ['class' => 'form-control m-0'],
+                'attr' => ['class' => 'form-control m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ]);
-        }
-
-        public function configureOptions(OptionsResolver $resolver): void
-        {
-            $resolver->setDefaults([
-                'data_class' => Revenue::class,
-                'current_user' => null,
-            ]);
-        }
     }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => Revenue::class,
+            'current_user' => null,
+        ]);
+    }
+}

@@ -16,17 +16,25 @@ class HolidaysType extends AbstractType
         $builder
             ->add('occasion', TextType::class, [
                 'label' => 'Occasion',
-                'attr' => ['class' => 'form-control m-0',
-                'autocomplete' => 'off'],
+                'attr' => [
+                    'class' => 'form-control m-0 text-dark',
+                    'autocomplete' => 'off'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('startDate', DateType::class, [
                 'label' => 'Start Date',
                 'html5' => true,
                 'widget' => 'single_text',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Select Date/Time',
                     'required' => 'required',
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
             ->add('endDate', DateType::class, [
@@ -34,9 +42,12 @@ class HolidaysType extends AbstractType
                 'html5' => true,
                 'widget' => 'single_text',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Select Date/Time',
                     'required' => 'required',
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ]);
     }

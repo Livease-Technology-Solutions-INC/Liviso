@@ -9,6 +9,7 @@ use App\Entity\WorkFlowSystem\Sales\EnquiryCreation;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;;
+
 use App\Form\AccountingSystem\DataTransformer\UserToIdTransformer;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
@@ -24,7 +25,7 @@ class EnquiryCreateType extends AbstractType
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
-    
+
     {
         $builder
 
@@ -35,17 +36,23 @@ class EnquiryCreateType extends AbstractType
                     'Auto' => 'Auto',
                 ],
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
 
             ->add('productQty', IntegerType::class, [
                 'label' => 'Product Qty',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off',
                     'placeholder' => 'Product Qty'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
 
@@ -55,8 +62,11 @@ class EnquiryCreateType extends AbstractType
                     'Auto' => 'Auto',
                 ],
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
 
@@ -68,8 +78,11 @@ class EnquiryCreateType extends AbstractType
                     'Forecast' => 'Forecast',
                 ],
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
 
@@ -79,8 +92,11 @@ class EnquiryCreateType extends AbstractType
                     'Auto' => 'Auto',
                 ],
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
 
@@ -90,37 +106,42 @@ class EnquiryCreateType extends AbstractType
                     'Auto' => 'Auto',
                 ],
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
 
             ->add('orderFor', ChoiceType::class, [
                 'label' => 'Order For',
                 'choices' => $this->getUserChoices(),
-                'attr' => ['class' => 'form-select m-0'],
+                'attr' => ['class' => 'form-select m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
 
             ->add('requiredPrice', NumberType::class, [
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off',
                     'placeholder' => 'Required Price'
                 ],
             ]);
-
-        }
+    }
 
     private function getUserChoices()
     {
         $userRepository = $this->entityManager->getRepository('App\Entity\User');
         $users = $userRepository->findAll();
-    
+
         $choices = [];
         foreach ($users as $user) {
             $choices[$user->getfullName()] = $user;
         }
-    
+
         return $choices;
     }
 

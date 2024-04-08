@@ -29,8 +29,11 @@ class LoanType extends AbstractType
             ->add('loan', TextType::class, [
                 'label' => 'Loan',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Enter Loan Name'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ]);
     }

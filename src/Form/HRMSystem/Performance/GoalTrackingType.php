@@ -46,8 +46,11 @@ class GoalTrackingType extends AbstractType
                     'Canada' => 'Canada',
                 ],
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
             ->add('goalType', ChoiceType::class, [
@@ -56,16 +59,22 @@ class GoalTrackingType extends AbstractType
                     'Long Term Goal' => 'Long Term Goal',
                     'Short Term Goal' => 'Long Term Goal',
                 ],
-                'attr' => ['class' => 'form-select m-0'],
+                'attr' => ['class' => 'form-select m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('startDate', DateType::class, [
                 'label' => 'Start Date',
                 'html5' => true,
                 'widget' => 'single_text',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Select Date/Time',
                     'required' => 'required',
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
             ->add('endDate', DateType::class, [
@@ -73,23 +82,32 @@ class GoalTrackingType extends AbstractType
                 'html5' => true,
                 'widget' => 'single_text',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Select Date/Time',
                     'required' => 'required',
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
             ->add('subject',  TextType::class, [
                 'label' => 'Subject',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
             ->add('targetAchievement',  TextType::class, [
                 'label' => 'Target Acheivement',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
             
@@ -105,8 +123,11 @@ class GoalTrackingType extends AbstractType
                     'Completed' => 'Completed',
                 ],
                 'attr' => [
-                    'class' => 'form-select m-0',
-                ]
+                    'class' => 'form-select m-0 text-dark',
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ]);
     }
 

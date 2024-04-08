@@ -29,8 +29,11 @@ class DocumentType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => 'Document Type',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Enter Document Name'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
             ->add('required', ChoiceType::class, [
@@ -38,7 +41,10 @@ class DocumentType extends AbstractType
                 'is Required' => 'is Required'],
                 'label' => 'Days Per Year',
                 'attr' => [
-                    'class' => 'form-select m-0',
+                    'class' => 'form-select m-0 text-dark',
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ]);
     }

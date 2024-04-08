@@ -29,8 +29,11 @@ class GoalType extends AbstractType
             ->add('goal', TextType::class, [
                 'label' => 'Goal',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Enter Goal Name'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ]);
     }

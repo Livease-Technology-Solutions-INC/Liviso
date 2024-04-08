@@ -29,18 +29,24 @@ class AccountType extends AbstractType
             ->add('accountName', TextType::class, [
                 'label' => 'Account Name',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off',
                     'placeholder' => 'Account Name'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
 
             ->add('bankName', TextType::class, [
                 'label' => 'Bank Name',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off',
                     'placeholder' => 'Bank Name'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
 
@@ -55,18 +61,24 @@ class AccountType extends AbstractType
 
                 'label' => 'Account Number',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off',
                     'placeholder' => 'Account Number'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
 
             ->add('currentBalance', NumberType::class, [
                 'label' => 'Current Balance',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off',
                     'placeholder' => 'Current Balance'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
 
@@ -81,18 +93,24 @@ class AccountType extends AbstractType
 
                 'label' => 'Contact Number',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off',
                     'placeholder' => 'Contact Number'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
 
             ->add('bankBranch', TextType::class, [
                 'label' => 'Bank Branch',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off',
                     'placeholder' => 'Bank Branch'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ]);
         }

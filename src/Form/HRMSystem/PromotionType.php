@@ -29,7 +29,10 @@ class PromotionType extends AbstractType
             ->add('employee', ChoiceType::class, [
                 'label' => 'Employee Name',
                 'choices' => $this->getUserChoices(),
-                'attr' => ['class' => 'form-select m-0'],
+                'attr' => ['class' => 'form-select m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('designation', ChoiceType::class, [
                 'label' => 'Designation',
@@ -40,28 +43,37 @@ class PromotionType extends AbstractType
                     'Developers' => 'Developers',
                     'Manager' => 'Manager'
                 ],
-                'attr' => ['class' => 'form-select m-0'],
+                'attr' => ['class' => 'form-select m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('promotionTitle', TextType::class, [
                 'label' => 'Promotion Title',
-                'attr' => ['class' => 'form-control m-0'],
+                'attr' => ['class' => 'form-control m-0 text-dark'],
             ])
             ->add('promotionDate', DateType::class, [
                 'label' => 'Promotion Date',
                 'html5' => true,
                 'widget' => 'single_text',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Select Date/Time',
                     'required' => 'required',
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
             ->add('description', TextareaType::class, [
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'rows' => 5,
                     'placeholder' => 'Enter your description',
-                ]
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ]);
     }
 

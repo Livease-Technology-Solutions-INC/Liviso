@@ -28,13 +28,19 @@ class SupportSystemType extends AbstractType
     {
         $builder
             ->add('subject', TextType::class, [
-                'attr' => ['class' => 'form-control m-0', 
-                'autocomplete' => 'off']
+                'attr' => ['class' => 'form-control m-0 text-dark', 
+                'autocomplete' => 'off'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('supportForUser',  ChoiceType::class, [
                 'label' => 'Support For User',
                 'choices' => $this->getUserChoices(),
-                'attr' => ['class' => 'form-select m-0'],
+                'attr' => ['class' => 'form-select m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('priority',  ChoiceType::class, [
                 'label' => 'Priority',
@@ -44,7 +50,10 @@ class SupportSystemType extends AbstractType
                     'High' => 'High',
                     'Critical' => 'Critical',
                 ],
-                'attr' => ['class' => 'form-select m-0'],
+                'attr' => ['class' => 'form-select m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('status',  ChoiceType::class, [
                 'label' => 'Status',
@@ -54,16 +63,22 @@ class SupportSystemType extends AbstractType
                     'On Hold' => 'On Hold',
                     'Critical' => 'Critical',
                 ],
-                'attr' => ['class' => 'form-select m-0'],
+                'attr' => ['class' => 'form-select m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('endDate', DateType::class, [
                 'label' => 'End Date',
                 'html5' => true,
                 'widget' => 'single_text',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Select Date',
                     'required' => 'required',
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
             ->add('description', TextareaType::class, [
@@ -73,11 +88,17 @@ class SupportSystemType extends AbstractType
                     'cols' => 32,
                     'class' => 'form-control',
                     'placeholder' => 'Enter your description',
-                ]
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('image', FileType::class, [
                 'mapped' => False,
-                'attr' => ['class' => 'form-control m-0'],
+                'attr' => ['class' => 'form-control m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ]);
     }
 

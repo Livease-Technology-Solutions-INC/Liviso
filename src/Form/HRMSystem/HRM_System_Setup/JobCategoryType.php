@@ -29,8 +29,11 @@ class JobCategoryType extends AbstractType
             ->add('category', TextType::class, [
                 'label' => 'Job Category',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Enter JobCategory Name'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ]);
     }

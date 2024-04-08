@@ -29,8 +29,11 @@ class AwardHRMType extends AbstractType
             ->add('award', TextType::class, [
                 'label' => 'AwardHRM',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Enter Award Name'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ]);
     }

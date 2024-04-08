@@ -39,15 +39,21 @@ class WebhookType extends AbstractType
                     "New revenue" => "New revenue",
                     "New invoice payment" => "New invoice payment",
                 ],
-                'attr' => ['class' => 'form-select m-0'],
+                'attr' => ['class' => 'form-select m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('URL',  TextType::class, [
                 'label' => 'URL',
                 'required' => 'required',
                 'attr' => [
-                    'class' => 'form-control m-0',
-                    'placeholder' => 'Enter URL', 
+                    'class' => 'form-control m-0 text-dark',
+                    'placeholder' => 'Enter URL',
                     'autocomplete' => 'off',
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
             ->add('method',  ChoiceType::class, [
@@ -55,7 +61,10 @@ class WebhookType extends AbstractType
                     'GET' => 'GET',
                     'POST' => 'POST'
                 ],
-                'attr' => ['class' => 'form-select m-0'],
+                'attr' => ['class' => 'form-select m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ]);
     }
 
