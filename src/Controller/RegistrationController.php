@@ -12,13 +12,37 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use GeoIp2\Database\Reader;
+use GeoIp2\Exception\AddressNotFoundException;
+
 
 class RegistrationController extends AbstractController
 {
+    private $geoIpReader;
+
+    public function __construct(Reader $geoIpReader)
+    {
+        $this->geoIpReader = $geoIpReader;
+    }
+
     #[Route('/register', name: 'register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, SessionInterface $session): Response
     {
         $user = new User();
+
+        $ipAddress = $request->getClientIp();
+        $countryName = '';
+         // Use GeoIP2 to get the user's country
+         try {
+            $record = $this->geoIpReader->country($ipAddress);
+            $countryName = $record->country->name;
+
+        } catch (AddressNotFoundException $e) {
+           
+        } catch (\Exception $e) {
+        }
+        $user->setLocation($countryName);
+
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
@@ -35,6 +59,7 @@ class RegistrationController extends AbstractController
             // Set the full name for the user
             $user->setFullName($fullName);
 
+
             // encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
@@ -42,6 +67,7 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->get('first')->getData()
                 )
             );
+            
             $userRepository = $entityManager->getRepository(User::class);
             $userFromDB = $userRepository->findOneBy(['email' => $user->getEmail()]);
 
