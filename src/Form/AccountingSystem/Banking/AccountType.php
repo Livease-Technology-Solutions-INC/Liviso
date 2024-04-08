@@ -75,7 +75,7 @@ class AccountType extends AbstractType
                 'attr' => [
                     'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off',
-                    'placeholder' => 'Current Balance'
+                    'placeholder' => "$",
                 ],
                 'label_attr' => [
                     'class' => 'text-dark',
@@ -113,13 +113,13 @@ class AccountType extends AbstractType
                     'class' => 'text-dark',
                 ],
             ]);
-        }
-
-        public function configureOptions(OptionsResolver $resolver): void
-        {
-            $resolver->setDefaults([
-                'data_class' => Account::class,
-                'current_user' => null,
-            ]);
-        }
     }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => Account::class,
+            'current_user' => null,
+        ]);
+    }
+}

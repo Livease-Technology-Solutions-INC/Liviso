@@ -49,9 +49,9 @@ class EmployeesAssetSetupType extends AbstractType
                 'label' => 'Amount',
                 'attr' => [
                     'class' => 'form-control m-0 text-dark',
-                    'data-append' => '$'
+                    'placeholder' => "$",
                 ],
-                'label_attr' => ['class' => 'font-weight-bold']
+                'label_attr' => ['class' => 'font-weight-bold'],
             ])
             ->add('purchaseDate', DateType::class, [
                 'label' => 'Purchase Date',

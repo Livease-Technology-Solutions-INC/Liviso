@@ -137,7 +137,7 @@ class AccountingsystemController extends AbstractController
             'controller_name' => 'AccountingsystemController',
         ]);
     }
-    #[Route('/accountingsystem/account{id}', name: 'accountingsystem/account')]
+    #[Route('/accountingsystem/account/{id}', name: 'accountingsystem/account')]
     public function account(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');

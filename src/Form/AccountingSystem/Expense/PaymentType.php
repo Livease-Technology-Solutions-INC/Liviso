@@ -52,7 +52,7 @@ class PaymentType extends AbstractType
                 'attr' => [
                     'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off',
-                    'placeholder' => 'amount'
+                    'placeholder' => "$",
                 ],
                 'label_attr' => [
                     'class' => 'text-dark',
