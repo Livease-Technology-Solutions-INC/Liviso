@@ -37,15 +37,21 @@ class EmployeesAssetSetupType extends AbstractType
             ])
             ->add('employeeName',  TextType::class, [
                 'label' => 'Name',
-                'attr' => ['class' => 'form-control m-0 text-dark',
-                'autocomplete' => 'off'],
+                'attr' => [
+                    'class' => 'form-control m-0 text-dark',
+                    'autocomplete' => 'off'
+                ],
                 'label_attr' => [
                     'class' => 'text-dark',
                 ],
             ])
             ->add('amount',  IntegerType::class, [
                 'label' => 'Amount',
-                'attr' => ['class' => 'form-control m-0 text-dark'],
+                'attr' => [
+                    'class' => 'form-control m-0 text-dark',
+                    'data-append' => '$'
+                ],
+                'label_attr' => ['class' => 'font-weight-bold']
             ])
             ->add('purchaseDate', DateType::class, [
                 'label' => 'Purchase Date',
