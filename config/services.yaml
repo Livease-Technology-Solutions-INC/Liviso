@@ -39,3 +39,8 @@ services:
             $urlGenerator: '@router'
         tags:
             - { name: 'kernel.event_listener', event: 'kernel.exception' }
+
+    GeoIp2\Database\Reader:
+        class: GeoIp2\Database\Reader
+        arguments:
+            $filename: '%kernel.project_dir%/GeoLite2-Country_20240402/GeoLite2-Country.mmdb'
