@@ -28,16 +28,22 @@ class AnnouncementType extends AbstractType
         $builder
             ->add('title', TextType::class, [
                 'label' => 'Title',
-                'attr' => ['class' => 'form-control m-0'],
+                'attr' => ['class' => 'form-control m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('startDate', DateType::class, [
                 'label' => 'Start Date',
                 'html5' => true,
                 'widget' => 'single_text',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Select Date/Time',
                     'required' => 'required',
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
             ->add('endDate', DateType::class, [
@@ -45,17 +51,23 @@ class AnnouncementType extends AbstractType
                 'html5' => true,
                 'widget' => 'single_text',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Select Date/Time',
                     'required' => 'required',
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
             ->add('description', TextareaType::class, [
                 'attr' => [
-                    'class' => 'form-control m-0',
-                    'rows' => 5, 
+                    'class' => 'form-control m-0 text-dark',
+                    'rows' => 5,
                     'placeholder' => 'Enter your description',
-                ]
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ]);
     }
 

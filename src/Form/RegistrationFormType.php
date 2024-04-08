@@ -28,7 +28,10 @@ class RegistrationFormType extends AbstractType
                 'choice_label' => function ($value) {
                     return $value;
                 },
-                'attr' => ['class' => 'form-select m-0'],
+                'attr' => ['class' => 'form-select m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
@@ -45,9 +48,15 @@ class RegistrationFormType extends AbstractType
                     'label' => 'Password',
                     'attr' => ['autocomplete' => 'new-password'],
                 ],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
                 'second_options' => [
                     'label' => 'Repeat Password',
                     'attr' => ['autocomplete' => 'new-password'],
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
                 'constraints' => [
                     new NotBlank([

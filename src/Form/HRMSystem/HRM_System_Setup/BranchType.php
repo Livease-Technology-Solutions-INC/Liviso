@@ -29,8 +29,11 @@ class BranchType extends AbstractType
             ->add('branch', TextType::class, [
                 'label' => 'Name',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Enter Branch Name'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ]);
     }

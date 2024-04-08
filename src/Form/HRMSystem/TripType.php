@@ -29,16 +29,22 @@ class TripType extends AbstractType
             ->add('employee', ChoiceType::class, [
                 'label' => 'Employee',
                 'choices' => $this->getUserChoices(),
-                'attr' => ['class' => 'form-select m-0'],
+                'attr' => ['class' => 'form-select m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('startDate', DateType::class, [
                 'label' => 'Start Date',
                 'html5' => true,
                 'widget' => 'single_text',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Select Date/Time',
                     'required' => 'required',
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
             ->add('endDate', DateType::class, [
@@ -46,28 +52,41 @@ class TripType extends AbstractType
                 'html5' => true,
                 'widget' => 'single_text',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Select Date/Time',
                     'required' => 'required',
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
             ->add('purposeOfTrip',  TextType::class, [
                 'label' => 'Purpose Of Trip',
-                'attr' => ['class' => 'form-control m-0',
-                'autocomplete' => 'off'],
+                'attr' => [
+                    'class' => 'form-control m-0 text-dark',
+                    'autocomplete' => 'off'
+                ],
             ])
             ->add('country',  TextType::class, [
                 'label' => 'Country',
-                'attr' => ['class' => 'form-control m-0',
-                'autocomplete' => 'off'],
+                'attr' => [
+                    'class' => 'form-control m-0 text-dark',
+                    'autocomplete' => 'off'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
-        
+
             ->add('description', TextareaType::class, [
                 'attr' => [
-                    'class' => 'form-control m-0',
-                    'rows' => 5, 
+                    'class' => 'form-control m-0 text-dark',
+                    'rows' => 5,
                     'placeholder' => 'Enter your description',
-                ]
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ]);
     }
 

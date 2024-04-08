@@ -29,8 +29,11 @@ class AllowanceType extends AbstractType
             ->add('allowance', TextType::class, [
                 'label' => 'Allowance',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Enter Allowance Name'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ]);
     }

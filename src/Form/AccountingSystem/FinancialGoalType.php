@@ -22,9 +22,12 @@ class FinancialGoalType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => 'Name',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off',
                     'placeholder' => 'Name'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
 
@@ -38,8 +41,11 @@ class FinancialGoalType extends AbstractType
                     'Payment' => 'Payment',
                 ],
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
             
@@ -48,9 +54,12 @@ class FinancialGoalType extends AbstractType
                 'html5' => true,
                 'widget' => 'single_text',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Select Date/Time',
                     'required' => 'required',
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
 
@@ -59,9 +68,12 @@ class FinancialGoalType extends AbstractType
                 'html5' => true,
                 'widget' => 'single_text',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Select Date/Time',
                     'required' => 'required',
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
 
@@ -69,9 +81,12 @@ class FinancialGoalType extends AbstractType
             ->add('amount', IntegerType::class, [
                 'label' => 'amount',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off',
                     'placeholder' => 'amount'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
 
@@ -81,6 +96,9 @@ class FinancialGoalType extends AbstractType
                 'required' => false,
                 'attr' => [
                     'class' => 'form-check-input',
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ]);
 

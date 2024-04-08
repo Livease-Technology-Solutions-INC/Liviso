@@ -44,8 +44,11 @@ class AppraisalType extends AbstractType
                     'Canada' => 'Canada',
                 ],
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
             ->add('department', ChoiceType::class, [
@@ -59,24 +62,33 @@ class AppraisalType extends AbstractType
                     'Technology' => 'Technology',
                 ],
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
 
             ->add('designation', TextType::class, [
                 'label' => 'Designation',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off',
                     'placeholder' => 'Enter Designation'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
 
             ->add('employee', ChoiceType::class, [
                 'label' => 'Employee',
                 'choices' => $this->getUserChoices(),
-                'attr' => ['class' => 'form-select m-0'],
+                'attr' => ['class' => 'form-select m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
 
             ->add('targetRating', HiddenType::class, [

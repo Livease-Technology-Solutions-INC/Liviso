@@ -18,9 +18,12 @@ class FormBuilderType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => 'Name',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off',
                     'placeholder' => 'Name'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
 

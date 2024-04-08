@@ -30,14 +30,20 @@ class DesignationType extends AbstractType
                 'label' => 'Department',
                 'choices' => $this->getUserChoices(),
                 'attr' => [
-                    'class' => 'form-select m-0',
+                    'class' => 'form-select m-0 text-dark',
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
             ->add('designation', TextType::class, [
                 'label' => 'Designation',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Enter Department Name'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ]);
     }

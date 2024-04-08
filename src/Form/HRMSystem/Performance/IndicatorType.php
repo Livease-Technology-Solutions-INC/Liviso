@@ -52,8 +52,11 @@ class IndicatorType extends AbstractType
                     'Canada' => 'Canada',
                 ],
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
             ->add('department', ChoiceType::class, [
@@ -67,17 +70,23 @@ class IndicatorType extends AbstractType
                     'Technology' => 'Technology',
                 ],
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
 
             ->add('designation', TextType::class, [
                 'label' => 'Designation',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'autocomplete' => 'off',
                     'placeholder' => 'Enter Designation'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
 

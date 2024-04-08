@@ -29,15 +29,21 @@ class LeaveType extends AbstractType
             ->add('leaveType', TextType::class, [
                 'label' => 'Leave Type',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Enter Leave Type Name'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
             ->add('daysPerYear', TextType::class, [
                 'label' => 'Days Per Year',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Enter Days / Year'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ]);
     }

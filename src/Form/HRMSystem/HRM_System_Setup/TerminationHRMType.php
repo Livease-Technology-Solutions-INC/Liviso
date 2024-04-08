@@ -29,8 +29,11 @@ class TerminationHRMType extends AbstractType
             ->add('termination', TextType::class, [
                 'label' => 'Termination',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Enter Termination Name'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ]);
     }

@@ -5,6 +5,7 @@ namespace App\Form\Account;
 use App\Entity\User;
 use App\Entity\Account\UserProfile;
 use Symfony\Component\Form\AbstractType;
+use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -12,6 +13,7 @@ use App\Form\Account\DataTransformer\UserToIdTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class UserProfileType extends AbstractType
@@ -30,12 +32,18 @@ class UserProfileType extends AbstractType
             ->add('bio', TextareaType::class, [
                 'required' => false,
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
-            ->add('mobileNumber', NumberType::class, [
+            ->add('mobileNumber', IntegerType::class, [
                 'required' => false,
-                'attr' => ['class' => 'form-control m-0'],
+                'attr' => ['class' => 'form-control m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('country', ChoiceType::class, [
                 'choices' => $this->getCountryList(),
@@ -43,40 +51,67 @@ class UserProfileType extends AbstractType
                     return $value;
                 },
                 'required' => false,
-                'attr' => ['class' => 'form-select m-0'],
+                'attr' => ['class' => 'form-select m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('companyName', TextType::class, [
                 'required' => false,
-                'attr' => ['class' => 'form-control m-0'],
+                'attr' => ['class' => 'form-control m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('companyWebsite', TextType::class, [
                 'required' => false,
-                'attr' => ['class' => 'form-control m-0'],
+                'attr' => ['class' => 'form-control m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('facebook', TextType::class, [
                 'required' => false,
-                'attr' => ['class' => 'form-control m-0'],
+                'attr' => ['class' => 'form-control m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('twitter', TextType::class, [
                 'required' => false,
-                'attr' => ['class' => 'form-control m-0'],
+                'attr' => ['class' => 'form-control m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('instagram', TextType::class, [
                 'required' => false,
-                'attr' => ['class' => 'form-control m-0'],
+                'attr' => ['class' => 'form-control m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('linkedin', TextType::class, [
                 'required' => false,
-                'attr' => ['class' => 'form-control m-0'],
+                'attr' => ['class' => 'form-control m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('skype', TextType::class, [
                 'required' => false,
-                'attr' => ['class' => 'form-control m-0'],
+                'attr' => ['class' => 'form-control m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('github', TextType::class, [
                 'required' => false,
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ]);
         $builder->get('user')->addModelTransformer($this->userToIdTransformer);

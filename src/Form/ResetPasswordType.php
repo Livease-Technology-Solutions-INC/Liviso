@@ -17,28 +17,34 @@ class ResetPasswordType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('email', HiddenType::class, [
-            'mapped' => false
-        ])
-        ->add('password', RepeatedType::class, [
-            'type' => PasswordType::class,
-            'first_options' => [
-                'label' => 'Password',
-                'attr' => [
-                    'class' => 'form-control m-0',
-                    'placeholder' => 'Password',
-                    'required' => 'required',
+            ->add('email', HiddenType::class, [
+                'mapped' => false
+            ])
+            ->add('password', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'first_options' => [
+                    'label' => 'Password',
+                    'attr' => [
+                        'class' => 'form-control m-0 text-dark',
+                        'placeholder' => 'Password',
+                        'required' => 'required',
+                    ],
+                    'label_attr' => [
+                        'class' => 'text-dark',
+                    ],
                 ],
-            ],
-            'second_options' => [
-                'label' => 'Repeat Password',
-                'attr' => [
-                    'class' => 'form-control m-0',
-                    'placeholder' => 'Repeat Password',
-                    'required' => 'required',
+                'second_options' => [
+                    'label' => 'Repeat Password',
+                    'attr' => [
+                        'class' => 'form-control m-0 text-dark',
+                        'placeholder' => 'Repeat Password',
+                        'required' => 'required',
+                    ],
+                    'label_attr' => [
+                        'class' => 'text-dark',
+                    ],
                 ],
-            ],
-        ]);
+            ]);
     }
     public function configureOptions(OptionsResolver $resolver)
     {

@@ -29,8 +29,10 @@ class JobStageType extends AbstractType
             ->add('title', TextType::class, [
                 'label' => 'Name',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'placeholder' => 'Enter jobStage Name'
+                ], 'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ]);
     }

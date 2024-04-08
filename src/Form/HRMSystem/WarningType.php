@@ -29,33 +29,53 @@ class WarningType extends AbstractType
             ->add('warningBy', ChoiceType::class, [
                 'label' => 'Warning By',
                 'choices' => $this->getUserChoices(),
-                'attr' => ['class' => 'form-select m-0'],
+                'attr' => ['class' => 'form-select m-0 text-dark
+                '],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('warningTo',  ChoiceType::class, [
                 'label' => 'Warning To',
                 'choices' => $this->getUserChoices(),
-                'attr' => ['class' => 'form-select m-0'],
+                'attr' => ['class' => 'form-select m-0 text-dark
+                '],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('subject',  TextType::class, [
                 'label' => 'Subject',
-                'attr' => ['class' => 'form-select m-0'],
+                'attr' => ['class' => 'form-select m-0 text-dark
+                '],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('warningDate', DateType::class, [
                 'label' => 'Warning Date',
                 'html5' => true,
                 'widget' => 'single_text',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark
+                    ',
                     'placeholder' => 'Select Date/Time',
                     'required' => 'required',
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
             ->add('description', TextareaType::class, [
                 'attr' => [
-                    'class' => 'form-control m-0',
-                    'rows' => 5, 
+                    'class' => 'form-control m-0 text-dark
+                    ',
+                    'rows' => 5,
                     'placeholder' => 'Enter your description',
-                ]
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ]);
     }
 

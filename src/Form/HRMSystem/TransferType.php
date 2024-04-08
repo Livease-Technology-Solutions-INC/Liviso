@@ -30,7 +30,10 @@ class TransferType extends AbstractType
             ->add('employee', ChoiceType::class, [
                 'label' => 'Employee',
                 'choices' => $this->getUserChoices(),
-                'attr' => ['class' => 'form-select m-0'],
+                'attr' => ['class' => 'form-select m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('branch', ChoiceType::class, [
                 'label' => 'Branch',
@@ -38,7 +41,10 @@ class TransferType extends AbstractType
                     'China' => 'China',
                     'India' => 'India',
                 ],
-                'attr' => ['class' => 'form-select m-0'],
+                'attr' => ['class' => 'form-select m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('department', ChoiceType::class, [
                 'label' => 'Department',
@@ -50,23 +56,32 @@ class TransferType extends AbstractType
                     'Technology' => 'Technology',
                     'Dept 1' => 'Dept',
                 ],
-                'attr' => ['class' => 'form-select m-0'],
+                'attr' => ['class' => 'form-select m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('transferDate', DateType::class, [
                 'label' => 'Transfer Date',
                 'html5' => true,
                 'widget' => 'single_text',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'required' => 'required',
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'Description',
                 'attr' => [
-                    'class' => 'form-control m-0',
+                    'class' => 'form-control m-0 text-dark',
                     'rows' => 5,
                     'placeholder' => 'Enter the description'
+                ],
+                'label_attr' => [
+                    'class' => 'text-dark',
                 ],
             ]);
     }

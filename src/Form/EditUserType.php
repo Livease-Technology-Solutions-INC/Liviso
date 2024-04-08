@@ -15,11 +15,17 @@ class EditUserType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => 'Enter FullName',
-                'attr' => ['class' => 'form-control m-0']
+                'attr' => ['class' => 'form-control m-0 text-dark'],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ])
             ->add('userId', HiddenType::class, [
                 'label' => 'User ID',
                 'attr' => ['readonly' => true],
+                'label_attr' => [
+                    'class' => 'text-dark',
+                ],
             ]);
     }
 
