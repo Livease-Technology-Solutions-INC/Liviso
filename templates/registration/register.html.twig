@@ -79,9 +79,15 @@
 							{{ form_label(registrationForm.companyName, 'Company Name', {'label_attr': {'for': 'companyName', 'class': 'form-label'}}) }}
 							{{ form_widget(registrationForm.companyName, { 'attr': {'class': 'form-control', 'placeholder': 'Enter your Company Name', 'id': 'companyName', 'required': 'required'} }) }}
 						</div>
+
 						<div class="mb-3">
-							{{ form_label(registrationForm.location, null, {'label_attr': {'for': 'email', 'class': 'form-label'}}) }}
-							{{ form_widget(registrationForm.location, { 'attr': {'class': 'form-select', 'placeholder': 'Enter your location', 'id': 'location', 'required': 'required'} }) }}
+							{{ form_label(registrationForm.location, null, {'label_attr': {'for': 'location', 'class': 'form-label'}}) }}
+							<div class="d-flex align-items-center">
+								{% if countryFlag %}
+									<img src="{{ countryFlag }}" alt="{{ countryName }} Flag" class="me-2">
+								{% endif %}
+								{{ form_widget(registrationForm.location, { 'attr': {'class': 'form-select', 'placeholder': 'Enter your location', 'id': 'location', 'required': 'required'} }) }}
+							</div>
 						</div>
 
 						<div class="mb-3">

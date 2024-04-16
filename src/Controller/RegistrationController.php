@@ -32,10 +32,14 @@ class RegistrationController extends AbstractController
 
         $ipAddress = $request->getClientIp();
         $countryName = '';
+        $countryFlag = '';
          // Use GeoIP2 to get the user's country
          try {
             $record = $this->geoIpReader->country($ipAddress);
             $countryName = $record->country->name;
+            $countryCode = strtolower($record->country->isoCode);
+
+            $countryFlag = 'https://flagcdn.com/24x18/' . $countryCode . '.png';
 
         } catch (AddressNotFoundException $e) {
            
@@ -81,6 +85,8 @@ class RegistrationController extends AbstractController
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
+            'countryFlag' => $countryFlag,
+            'countryName' => $countryName,
         ]);
     }
 }
