@@ -4,7 +4,7 @@
 	{{ include('partials/title-meta.html.twig', {title: 'Register'}) }}
 
 	{{ include('partials/head-css.html.twig') }}
-	
+
 </head>
 
 <body class="authentication-bg">
@@ -161,7 +161,11 @@
 
 	{{ include('partials/footer-scripts.html.twig') }}
 	<script>
-		const countryNameToCodeMapping = {
+
+		const ipAddress = "{{ ipAddress }}";
+console.log(ipAddress);
+
+const countryNameToCodeMapping = {
 'Afghanistan': 'AF',
 'Albania': 'AL',
 'Algeria': 'DZ',

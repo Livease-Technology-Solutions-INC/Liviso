@@ -85,6 +85,7 @@ class RegistrationController extends AbstractController
             'registrationForm' => $form->createView(),
             'countryFlag' => $countryFlag,
             'countryName' => $countryName,
+            'ipAddress' => $ipAddress
         ]);
     }
 }
