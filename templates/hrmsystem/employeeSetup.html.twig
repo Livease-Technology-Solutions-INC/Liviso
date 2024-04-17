@@ -102,55 +102,33 @@
 							<tr>
 
 								<td>
-									<div class="cust">#EMP000000{{employeeSetupCreate.id}}
-										<td>{{employeeSetupCreate.name}}</td>
-										<td>{{employeeSetupCreate.email}}</td>
-										<td>{{employeeSetupCreate.branch}}</td>
-										<td>{{employeeSetupCreate.department}}</td>
-										<td>{{employeeSetupCreate.designation}}</td>
-										<td>{{employeeSetupCreate.companyDateOfJoining.format('Y-m-d')}}</td>
-										<td class="">
-											<div class="d-flex justify-content-center align-items-center gap-2">
-												<button type="button" class="p-0 m-0 border-0 open-edit-modal">
-													<a href="{{ path('employee_setup_edit', {'id': employeeSetupCreate.id, 'user_id': app.user.id}) }}" data-bs-toggle="tooltip" title="" class="p-1 rounded-3 bg-info text-white border-0" data-bs-original-title="Edit">
-														<i class="bi bi-pen"></i>
-													</a>
-												</button>
-												<a href="{{ path('employee_setup_delete', {'id': employeeSetupCreate.id, 'user_id': app.user.id}) }}" class="p-1 rounded-3 bg-danger text-white border-0">
-													<i class="bi bi-trash"></i>
-												</a>
-											</div>
-										</td>
-									</tr>
-								{% endfor %}
+									<div class="cust text-success border border-success rounded-3 p-1 text-center">#EMP000000{{employeeSetupCreate.id}}</div>
+								</td>
+								<td class="p-3">{{employeeSetupCreate.name}}</td>
+								<td class="p-3">{{employeeSetupCreate.email}}</td>
+								<td class="p-3">{{employeeSetupCreate.branch}}</td>
+								<td class="p-3">{{employeeSetupCreate.department}}</td>
+								<td class="p-3">{{employeeSetupCreate.designation}}</td>
+								<td class="p-3">{{employeeSetupCreate.companyDateOfJoining.format('Y-m-d')}}</td>
+								<td class="p-3">
+									<div class="d-flex justify-content-center align-items-center gap-2">
+										<button type="button" class="p-0 m-0 border-0 open-edit-modal">
+											<a href="{{ path('employee_setup_edit', {'id': employeeSetupCreate.id, 'user_id': app.user.id}) }}" data-bs-toggle="tooltip" title="" class="p-1 rounded-3 bg-info text-white border-0" data-bs-original-title="Edit">
+												<i class="bi bi-pen"></i>
+											</a>
+										</button>
+										<a href="{{ path('employee_setup_delete', {'id': employeeSetupCreate.id, 'user_id': app.user.id}) }}" class="p-1 rounded-3 bg-danger text-white border-0">
+											<i class="bi bi-trash"></i>
+										</a>
+									</td>
+								</td>
 							</tr>
-						</tbody>
+						{% endfor %}
 					</tbody>
-				</table>
+				</tr>
+			</tbody>
+		</tbody>
+	</table>
 
-			</div>
-			<!-- end card body-->
-		</div>
-		<!-- end card -->
-	</div>
-	<!-- end col-->
 </div>
-<!-- end row-->{% endblock %}{% block javascript %}
-<!-- Datatables js -->
-<script src="/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="/vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
-<script src="/vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-<script src="/vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
-<script src="/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-<script src="/vendor/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js"></script>
-<script src="/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
-<script src="/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
-<script src="/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
-<script src="/vendor/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-<script src="/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
-
-<!-- Datatable Demo Aapp js -->
-<script src="/js/pages/demo.datatable-init.js"></script>
-<!-- Table Export js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
-<script src="/js/pages/demo.tableexport.js"></script>{% endblock %}
+<!-- end card body--></div><!-- end card --></div><!-- end col--></div><!-- end row-->{% endblock %}{% block javascript %}<!-- Datatables js --><script src="/vendor/datatables.net/js/jquery.dataTables.min.js"></script><script src="/vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script><script src="/vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script><script src="/vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script><script src="/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script><script src="/vendor/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js"></script><script src="/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script><script src="/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script><script src="/vendor/datatables.net-buttons/js/buttons.print.min.js"></script><script src="/vendor/datatables.net-keytable/js/dataTables.keyTable.min.js"></script><script src="/vendor/datatables.net-select/js/dataTables.select.min.js"></script><!-- Datatable Demo Aapp js --><script src="/js/pages/demo.datatable-init.js"></script><!-- Table Export js --><script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script><script src="/js/pages/demo.tableexport.js"></script>{% endblock %}

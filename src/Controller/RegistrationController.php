@@ -33,16 +33,14 @@ class RegistrationController extends AbstractController
         $ipAddress = $request->getClientIp();
         $countryName = '';
         $countryFlag = '';
-         // Use GeoIP2 to get the user's country
-         try {
+        // Use GeoIP2 to get the user's country
+        try {
             $record = $this->geoIpReader->country($ipAddress);
             $countryName = $record->country->name;
             $countryCode = strtolower($record->country->isoCode);
 
             $countryFlag = 'https://flagcdn.com/24x18/' . $countryCode . '.png';
-
         } catch (AddressNotFoundException $e) {
-           
         } catch (\Exception $e) {
         }
         $user->setLocation($countryName);
@@ -71,7 +69,7 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->get('first')->getData()
                 )
             );
-            
+
             $userRepository = $entityManager->getRepository(User::class);
             $userFromDB = $userRepository->findOneBy(['email' => $user->getEmail()]);
 
