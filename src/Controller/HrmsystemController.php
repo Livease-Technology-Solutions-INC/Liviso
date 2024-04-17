@@ -80,6 +80,7 @@ use App\Form\HRMSystem\HRM_System_Setup\PerformanceType;
 use App\Entity\HRMSystem\HRM_System_Setup\TerminationHRM;
 use App\Form\HRMSystem\HRM_System_Setup\CompetenciesType;
 use App\Entity\HRMSystem\LeaveManagementSetup\ManageLeave;
+use App\Entity\HRMSystem\PayrollSetup\Salary;
 use App\Form\HRMSystem\HRM_System_Setup\TerminationHRMType;
 use App\Form\HRMSystem\LeaveManagementSetup\ManageLeaveType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -230,14 +231,76 @@ class HrmsystemController extends AbstractController
     }
 
 
-    #[Route('/hrmsystem/set_salary', name: 'hrmsystem/set_salary')]
-    public function setSalary(): Response
+    #[Route('/hrmsystem/set_salary/{id}', name: 'hrmsystem/set_salary')]
+    public function setSalary(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $salary = new Salary();
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $salary->setUser($user);
+
+        $salary->setName('Default Name');
+        $salary->setPayrollType('Monthly');
+        $salary->setSalary(5000.00); 
+        $salary->setNetSalary(5500.00);
+
+        $this->entityManager->persist($salary);
+        $this->entityManager->flush();
+
+        $repository = $this->entityManager->getRepository(Salary::class);
+        $setSalarys = $repository->findBy(['user' => $currentUser]);
+
         return $this->render('hrmsystem/setSalary.html.twig', [
             'controller_name' => 'HrmsystemController',
+            'setsalarys' => $setSalarys,
         ]);
     }
+
+    //delete appraisal
+    #[Route('/hrmsystem/set_salary/{id}/delete/{user_id}', name: 'set_salary_delete', methods: ["GET", "POST"])]
+    public function setSalaryDelete(Salary $salary, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        if (!$salary) {
+            throw $this->createNotFoundException('set salary not found');
+        }
+
+        $this->entityManager->remove($salary);
+        $this->entityManager->flush();
+
+        return $this->redirectToRoute('hrmsystem/set_salary', ['id' => $user_id]);
+    }
+
+    // edit appraisal
+    #[Route("/hrmsystem/set_salary/{id}/edit/{user_id}", name: "set_salary_edit", methods: ["GET", "PUT", "POST"])]
+    public function setSalaryEdit(Request $request, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $repository = $this->entityManager->getRepository(Salary::class);
+        $setSalary = $repository->find($id);
+
+        if (!$setSalary) {
+            throw $this->createNotFoundException('set salary not found');
+        }
+            
+        $this->entityManager->persist($setSalary);
+        $this->entityManager->flush();
+
+        $repository = $this->entityManager->getRepository(Salary::class);
+        $setSalarys = $repository->findBy(['user' => $currentUser]);
+
+        return $this->redirectToRoute('hrmsystem/appraisal', ['id' => $user_id]);
+
+        return $this->render('hrmsystem/edit/appraisal.html.twig', [
+            'controllername' => 'HrmsystemController',
+            'setSalarys' => $setSalarys,
+        ]);
+    }
+
     #[Route('/hrmsystem/payslip', name: 'hrmsystem/payslip')]
     public function payslip(): Response
     {
