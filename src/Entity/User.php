@@ -60,6 +60,7 @@ use App\Entity\HRMSystem\HRM_System_Setup\Competencies;
 use Symfony\Component\Security\Core\User\UserInterface;
 use App\Entity\HRMSystem\HRM_System_Setup\TerminationHRM;
 use App\Entity\HRMSystem\LeaveManagementSetup\ManageLeave;
+use App\Entity\HRMSystem\PayrollSetup\Salary;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
@@ -278,6 +279,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: EmployeeSetupCreate::class, mappedBy: "user")]
     private Collection $employeeSetupCreate;
 
+    #[ORM\OneToMany(targetEntity: Salary::class, mappedBy: "user")]
+    private Collection $setSalary;
+
 
 
     public function __construct()
@@ -339,6 +343,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->customerCreate = new ArrayCollection();
         $this->enquiryCreation = new ArrayCollection();
         $this->employeeSetupCreate = new ArrayCollection();
+        $this->setSalary = new ArrayCollection();
     }
 
     public function __toString()
@@ -2136,6 +2141,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastLogin(?\DateTimeInterface $lastLogin): static
     {
         $this->lastLogin = $lastLogin;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Salary>
+     */
+    public function getSetSalary(): Collection
+    {
+        return $this->setSalary;
+    }
+
+    public function addSetSalary(Salary $setSalary): static
+    {
+        if (!$this->setSalary->contains($setSalary)) {
+            $this->setSalary->add($setSalary);
+            $setSalary->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSetSalary(Salary $setSalary): static
+    {
+        if ($this->setSalary->removeElement($setSalary)) {
+            // set the owning side to null (unless already changed)
+            if ($setSalary->getUser() === $this) {
+                $setSalary->setUser(null);
+            }
+        }
 
         return $this;
     }
