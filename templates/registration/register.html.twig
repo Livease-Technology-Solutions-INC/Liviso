@@ -163,7 +163,7 @@
 	<script>
 
 		const ipAddress = "{{ ipAddress }}";
-console.log(ipAddress);
+{# console.log(ipAddress); #}
 
 const countryNameToCodeMapping = {
 'Afghanistan': 'AF',
@@ -434,14 +434,14 @@ const countryNameToCodeMapping = {
 
 };
 
-// Get the location form field and the flag image
+
 const locationField = document.getElementById('registration_form_location');
 const countryFlagImg = document.getElementById('countryFlag');
 
 
 function updateFlag() {
 const selectedCountryName = locationField.value;
-console.log(locationField.value)
+{# console.log(locationField.value) #}
 
 const selectedCountryCode = countryNameToCodeMapping[selectedCountryName];
 
