@@ -240,6 +240,18 @@ class HrmsystemController extends AbstractController
         $currentUser = $this->getUser();
         assert($currentUser instanceof User);
 
+        // Check if salary records already exist for the current user
+        $existingSalaryRecords = $this->entityManager->getRepository(Salary::class)->findBy(['user' => $currentUser]);
+
+        // If salary records exist, return without creating new records
+        if (!empty($existingSalaryRecords)) {
+            return $this->render('hrmsystem/setSalary.html.twig', [
+                'controller_name' => 'HrmsystemController',
+                'setsalarys' => $existingSalaryRecords,
+            ]);
+        }
+
+
         // Retrieve the EmployeeSetupCreate entity associated with the current user
         $employeeSetup = $this->entityManager->getRepository(EmployeeSetupCreate::class)->findOneBy(['user' => $currentUser]);
 
