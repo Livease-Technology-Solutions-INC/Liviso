@@ -3,7 +3,10 @@
 {% block title %}
 	Pricing
 {% endblock %}
-
+{% block css %}
+	<link href="/css/app.min.css" rel="stylesheet" type="text/css" id="app-style"/>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap">
+{% endblock %}
 {% block pagetitle %}
 	{{ include('partials/page-title.html.twig', { sub_title: 'Pages', page_title: 'Pricing' }) }}
 {% endblock %}
@@ -14,15 +17,23 @@
 			class="col-xxl-10">
 
 			<!-- Pricing Title-->
-			<div class="text-center">
-				<h3 class="mb-2">
+			<div class="text-center d-flex justify-center align-center flex-column">
+				<h3 class="mb-2 subscription-title">
 					<b>Blue</b>
 				</h3>
-				<p class="text-muted">
+				<p class="subscription-p">
 					We have plans and prices that fit your business perfectly. Make your
 					<br>
 					business a success with our products.
 				</p>
+				<div class='d-flex justify-content-center'>
+					<p class="subscription-period p-1">Bill Monthly</p>
+					<label class="switch">
+						<input type="checkbox">
+						<span class="slider round"></span>
+					</label>
+					<p class="subscription-period p-1">Bill Annually</p>
+				</div>
 			</div>
 
 			<div
@@ -30,103 +41,107 @@
 
 				<!--Pricing Column-->
 				<article class="pricing-column col-xl-3 col-md-6">
-					<div class="card">
-						<div class="card-body">
-							<div class="p-3 text-center">
-								<h3 class="text-primary text-uppercase fw-normal fs-16 mb-3">Small</h3>
-								<h2 class="display-6 text-dark fw-normal mb-2">$49</h2>
-								<div class="text-muted fs-13">Per Month</div>
-							</div>
-							<ul class="d-flex flex-column gap-3 list-unstyled text-center p-3 mb-3">
-								<li>1 - 5 Emplooyees</li>
-								<li>HRM</li>
-								<li>CRM</li>
-								<li>Account System</li>
-								<li>Project Management</li>
-								<li>Workflow System</li>
-							</ul>
-
-							<form action="{{path("small")}}" class="text-center mb-3">
-								<button type="submit" class="btn btn-success btn-bordered-success rounded-pill waves-effect waves-light">Checkout</button>
-							</form>
+					<div class="subscription-body">
+						<h3 class="text-primary text-uppercase fw-normal fs-16 mb-3 pricing-title">Small</h3>
+						<ul class="d-flex flex-column gap-3 list-unstyled text-center p-3 mb-3 pricing-para">
+							<li>1 - 5 Employees</li>
+							<li>HRM</li>
+							<li>CRM</li>
+							<li>Account System</li>
+							<li>Project Management</li>
+							<li>Workflow System</li>
+						</ul>
+						<div class="text-center d-flex align-items-center justify-content-center">
+							<h2 class="display-6 text-dark fw-normal">
+								<span class="pricing-currency">$</span>
+								<span class="pricing-amount">49</span>
+							</h2>
+							<span class="pricing-period">/Month</span>
 						</div>
+						<form action="{{path("small")}}" class="text-center mb-3">
+							<button type="submit" id='choose-small' class="choose">choose</button>
+						</form>
 					</div>
 				</article>
 
 				<!--Pricing Column-->
 				<article class="pricing-column col-xl-3 col-md-6">
-					<div class="card">
-						<div class="card-body">
-							<div class="p-3 text-center">
-								<h3 class="text-primary text-uppercase fw-normal fs-16 mb-3">Medium</h3>
-								<h2 class="display-6 text-dark fw-normal mb-2">$99</h2>
-								<div class="text-muted fs-13">Per Month</div>
-							</div>
-							<ul class="d-flex flex-column gap-3 list-unstyled text-center p-3 mb-3">
-								<li>6 - 25 Employees</li>
-								<li>HRM</li>
-								<li>CRM</li>
-								<li>Account System</li>
-								<li>Project Management</li>
-								<li>Workflow System</li>
-							</ul>
-
-							<form action="{{path("medium")}}" class="text-center mb-3">
-								<button type="submit" class="btn btn-success btn-bordered-success rounded-pill waves-effect waves-light">Checkout</button>
-							</form>
+					<div class="subscription-body">
+						<h3 class="text-primary text-uppercase fw-normal fs-16 mb-3 pricing-title">Medium</h3>
+						<ul class="d-flex flex-column gap-3 list-unstyled text-center p-3 mb-3 pricing-para">
+							<li>6 - 25 Employees</li>
+							<li>HRM</li>
+							<li>CRM</li>
+							<li>Account System</li>
+							<li>Project Management</li>
+							<li>Workflow System</li>
+						</ul>
+						<div class="text-center d-flex align-items-center justify-content-center">
+							<h2 class="display-6 text-dark fw-normal">
+								<span class="pricing-currency">$</span>
+								<span class="pricing-amount">99</span>
+							</h2>
+							<span class="pricing-period">/Month</span>
 						</div>
+						<form action="{{path("medium")}}" class="text-center mb-3">
+							<button type="submit" class="choose">choose</button>
+						</form>
 					</div>
 				</article>
 
 
 				<!--Pricing Column-->
 				<article class="pricing-column col-xl-3 col-md-6">
-					<div class="card">
-						<div class="card-body">
-							<div class="p-3 text-center">
-								<h3 class="text-primary text-uppercase fw-normal fs-16 mb-3">Enterprice</h3>
-								<h2 class="display-6 text-dark fw-normal mb-2">$199</h2>
-								<div class="text-muted fs-13">Per Month</div>
-							</div>
-							<ul class="d-flex flex-column gap-3 list-unstyled text-center p-3 mb-3">
-								<li>26 - 50 Employees</li>
-								<li>HRM</li>
-								<li>CRM</li>
-								<li>Account System</li>
-								<li>Project Management</li>
-								<li>Workflow System</li>
-							</ul>
-
-							<form action="{{path("enterprice")}}" class="text-center mb-3">
-								<button type="submit" class="btn btn-success btn-bordered-success rounded-pill waves-effect waves-light">Checkout</button>
-							</form>
+					<div class="subscription-body">
+						<h3 class="text-primary text-uppercase fw-normal fs-16 mb-3 pricing-title">Enterprice</h3>
+						<ul class="d-flex flex-column gap-3 list-unstyled text-center p-3 mb-3 pricing-para">
+							<li>26 - 50 Employees</li>
+							<li>HRM</li>
+							<li>CRM</li>
+							<li>Account System</li>
+							<li>Project Management</li>
+							<li>Workflow System</li>
+						</ul>
+						<div class="text-center d-flex align-items-center justify-content-center">
+							<h2 class="display-6 text-dark fw-normal">
+								<span class="pricing-currency">$</span>
+								<span class="pricing-amount">199</span>
+							</h2>
+							<span class="pricing-period">/Month</span>
 						</div>
+
+						<form action="{{path("enterprice")}}" class="text-center mb-3">
+							<button type="submit" class="choose">choose</button>
+						</form>
 					</div>
 				</article>
 
 				<!--Pricing Column-->
 				<article class="pricing-column col-xl-3 col-md-6">
-					<div class="card">
-						<div class="card-body">
-							<div class="p-3 text-center">
-								<h3 class="text-primary text-uppercase fw-normal fs-16 mb-3">Ultra</h3>
-								<h2 class="display-6 text-dark fw-normal mb-2">$299</h2>
-								<div class="text-muted fs-13">Per Month</div>
-							</div>
-							<ul class="d-flex flex-column gap-3 list-unstyled text-center p-3 mb-3">
-								<li>Unlimited employees</li>
-								<li>HRM</li>
-								<li>CRM</li>
-								<li>Account System</li>
-								<li>Project Management</li>
-								<li>Workflow System</li>
-							</ul>
 
-							<form action="https://buy.stripe.com/4gw9BbadKdYx0EgcMS" class="text-center mb-3">
-								<button type="submit" class="btn btn-success btn-bordered-success rounded-pill waves-effect waves-light">Checkout</button>
-							</form>
+					<div class="subscription-body">
+						<h3 class="text-primary text-uppercase fw-normal fs-16 mb-3 pricing-title">Ultra</h3>
+						<ul class="d-flex flex-column gap-3 list-unstyled text-center p-3 mb-3 pricing-para">
+							<li>Unlimited employees</li>
+							<li>HRM</li>
+							<li>CRM</li>
+							<li>Account System</li>
+							<li>Project Management</li>
+							<li>Workflow System</li>
+						</ul>
+						<div class="text-center d-flex align-items-center justify-content-center">
+							<h2 class="display-6 text-dark fw-normal">
+								<span class="pricing-currency">$</span>
+								<span class="pricing-amount">299</span>
+							</h2>
+							<span class="pricing-period">/Month</span>
 						</div>
+
+						<form action="https://buy.stripe.com/4gw9BbadKdYx0EgcMS" class="text-center mb-3">
+							<button type="submit" class="choose">choose</button>
+						</form>
 					</div>
+
 				</article>
 
 			</div>
@@ -141,35 +156,31 @@
 
 			<!-- Pricing Title-->
 			<div class="text-center">
-				<h3 class="mb-2">
+				<h3 class="mb-2 subscription-title">
 					<b>Red</b>
 				</h3>
-				<p class="text-muted">
+				<p class="subscription-p">
 					We have plans and prices that fit your business perfectly. Make your
 					<br>
 					business a success with our products.
 				</p>
 			</div>
 			<div class="container mt-4">
-				<div
-					class="row justify-content-center align-items-center">
-					<!-- Pricing Column 1 -->
+				<div class="row justify-content-center align-items-center">
 					<div class="col-xl-3 col-md-6">
 						<article class="pricing-column">
-							<div class="card">
-								<div class="card-body">
-									<div class="p-3 text-center">
-										<h2 class="display-8 text-dark fw-normal">
-											Per Month</h2>
-									</div>
-									<ul class="d-flex flex-column gap-3 list-unstyled text-center p-3 mb-3">
-										<li>1 - 5 Employees</li>
-										<li>HRM</li>
-										<li>CRM</li>
-										<li>Account System</li>
-										<li>Project Management</li>
-										<li>Workflow System</li>
-									</ul>
+							<div class="subscription-body">
+								<ul class="d-flex flex-column gap-3 list-unstyled text-center p-3 mb-3 pricing-para">
+									<li>1 - 5 Employees</li>
+									<li>HRM</li>
+									<li>CRM</li>
+									<li>Account System</li>
+									<li>Project Management</li>
+									<li>Workflow System</li>
+								</ul>
+								<div class="p-3 text-center">
+									<h2 class="display-8 text-dark fw-normal">
+										Monthly</h2>
 								</div>
 							</div>
 						</article>
@@ -179,7 +190,7 @@
 					<div class="col-xl-3 col-md-6 text-center">
 						<div>
 							<form action="{{path("red_contact")}}" class="mb-3">
-								<button type="submit" class="btn btn-warning btn-bordered-success rounded waves-effect waves-light" style="font-size: 23px;">Contact Us</button>
+								<button type="submit" class="choose">Contact Us</button>
 							</form>
 						</div>
 					</div>
@@ -198,10 +209,10 @@
 
 			<!-- Pricing Title-->
 			<div class="text-center">
-				<h3 class="mb-2">
+				<h3 class="mb-2 subscription-title">
 					<b>Purple</b>
 				</h3>
-				<p class="text-muted">
+				<p class="subscription-p">
 					We have plans and prices that fit your business perfectly. Make your
 					<br>
 					business a success with our products.
@@ -213,20 +224,18 @@
 					<!-- Pricing Column 1 -->
 					<div class="col-xl-3 col-md-6">
 						<article class="pricing-column">
-							<div class="card">
-								<div class="card-body">
-									<div class="p-3 text-center">
-										<h2 class="display-8 text-dark fw-normal">
-											Per Month</h2>
-									</div>
-									<ul class="d-flex flex-column gap-3 list-unstyled text-center p-3 mb-3">
-										<li>1 - 5 Employees</li>
-										<li>HRM</li>
-										<li>CRM</li>
-										<li>Account System</li>
-										<li>Project Management</li>
-										<li>Workflow System</li>
-									</ul>
+							<div class="subscription-body">
+								<ul class="d-flex flex-column gap-3 list-unstyled text-center p-3 mb-3">
+									<li>1 - 5 Employees</li>
+									<li>HRM</li>
+									<li>CRM</li>
+									<li>Account System</li>
+									<li>Project Management</li>
+									<li>Workflow System</li>
+								</ul>
+								<div class="p-3 text-center">
+									<h2 class="display-8 text-dark fw-normal">
+										Monthly</h2>
 								</div>
 							</div>
 						</article>
@@ -237,7 +246,7 @@
 						<div>
 
 							<form action="{{path("purple_contact")}}" class="mb-3">
-								<button type="submit" class="btn btn-warning btn-bordered-success rounded waves-effect waves-light" style="font-size: 23px;">Contact Us</button>
+								<button type="submit" class="choose">Contact Us</button>
 							</form>
 						</div>
 					</div>

@@ -1,0 +1,152 @@
+.subscription-title {
+	font-family: 'Inter', sans-serif;
+	line-height: 1.5;
+	font-weight: 700;
+	color: #181059;
+	font-size: 32px;
+	line-height: 38.73px;
+}
+.subscription-p {
+	font-family: Inter;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 19.36px;
+	text-align: center;
+}
+.subscription-period {
+	font-family: Inter;
+	font-size: 16px;
+	font-weight: 700;
+	line-height: 19.36px;
+	color: #181059;
+}
+.switch {
+	position: relative;
+	display: inline-block;
+	width: 40px;
+	height: 24px;
+}
+
+.switch input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+.slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #181059;
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
+}
+
+.slider:before {
+	position: absolute;
+	content: '';
+	height: 16px;
+	width: 16px;
+	left: 4px;
+	bottom: 4px;
+	background-color: #ffc107;
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
+}
+
+input:checked + .slider {
+	background-color: #181059;
+}
+
+input:focus + .slider {
+	box-shadow: 0 0 1px #ffc107;
+}
+
+input:checked + .slider:before {
+	-webkit-transform: translateX(16px);
+	-ms-transform: translateX(16px);
+	transform: translateX(16px);
+}
+.slider.round {
+	border-radius: 24px;
+}
+
+.slider.round:before {
+	border-radius: 50%;
+}
+.subscription-body {
+	max-width: 280px;
+	width: 95%;
+	height: 500px;
+	top: 285px;
+	left: 24px;
+	gap: 0px;
+	border-radius: 16px 0px 0px 0px;
+	background-color: #ffffff;
+	text-align: center;
+	padding: 30px 0;
+	border-radius: 16px;
+	box-shadow: 0px 0px 10px 2px rgba(136, 136, 136, 0.5);
+	.pricing-title {
+		font-family: Inter;
+		font-size: 24px !important;
+		font-weight: 600 !important;
+		line-height: 29.05px;
+		text-align: center;
+		color: #181059;
+	}
+}
+.pricing-para {
+	font-family: Inter;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 19.36px;
+	text-align: left;
+	color: #9590c2;
+}
+.pricing-currency {
+	font-family: Inter;
+	font-size: 32px;
+	font-weight: 400;
+	line-height: 38.73px;
+	color: #181059;
+	padding: 0;
+	margin: 0;
+}
+.pricing-amount {
+	font-family: Inter;
+	font-size: 48px;
+	font-weight: 700;
+	line-height: 58.09px;
+	color: #181059;
+	padding: 0;
+	margin: 0;
+}
+.pricing-period {
+	font-family: Inter;
+	font-size: 20px;
+	font-weight: 400;
+	line-height: 24.2px;
+	color: #9590c2;
+	padding: 0;
+	margin: 0;
+}
+.choose {
+	width: 212px;
+	height: 40px;
+	top: 718px;
+	left: 80px;
+	gap: 0px;
+	border-radius: 8px;
+	border: none;
+	background-color: hsla(152, 69%, 31%, 0.15);
+	font-family: Inter;
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 19.36px;
+	color: hsla(152, 69%, 31%, 1);
+
+}
