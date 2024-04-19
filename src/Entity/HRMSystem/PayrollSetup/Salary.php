@@ -15,16 +15,16 @@ class Salary
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable:true)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable:true)]
     private ?string $payrollType = null;
 
-    #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 2, nullable:true)]
     private ?float $salary = null;
 
-    #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 2, nullable:true)]
     private ?float $netSalary = null;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "set salary")]

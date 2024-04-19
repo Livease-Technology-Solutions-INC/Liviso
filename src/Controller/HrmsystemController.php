@@ -164,6 +164,18 @@ class HrmsystemController extends AbstractController
             $this->entityManager->persist($employeeSetupCreate);
             $this->entityManager->flush();
 
+
+            $salary = new Salary();
+            $user = $this->entityManager->getRepository(User::class)->find($id);
+            $salary->setUser($user);
+            $salary->setName($employeeSetupCreate->getName());
+            $salary->setPayrollType('Monthly');
+            $salary->setSalary(00.00); 
+            $salary->setNetSalary(00.00);
+
+            $this->entityManager->persist($salary);
+            $this->entityManager->flush();
+
             // Redirect after successful form submission
             return $this->redirectToRoute('hrmsystem/employee_setup',  ['id' => $id]);
         }
@@ -240,45 +252,15 @@ class HrmsystemController extends AbstractController
         $currentUser = $this->getUser();
         assert($currentUser instanceof User);
 
-        // Check if salary records already exist for the current user
-        $existingSalaryRecords = $this->entityManager->getRepository(Salary::class)->findBy(['user' => $currentUser]);
-
-        // If salary records exist, return without creating new records
-        if (!empty($existingSalaryRecords)) {
-            return $this->render('hrmsystem/setSalary.html.twig', [
-                'controller_name' => 'HrmsystemController',
-                'setsalarys' => $existingSalaryRecords,
-            ]);
-        }
-
-
-        // Retrieve the EmployeeSetupCreate entity associated with the current user
-        $employeeSetup = $this->entityManager->getRepository(EmployeeSetupCreate::class)->findOneBy(['user' => $currentUser]);
-
-        // Get the name from the EmployeeSetupCreate entity, or use a default name if null
-        $name = $employeeSetup ? $employeeSetup->getName() : 'Default Name';
-
-        $salary = new Salary();
-        $user = $this->entityManager->getRepository(User::class)->find($id);
-        $salary->setUser($user);
-        $salary->setName($name);
-        $salary->setPayrollType('Monthly');
-        $salary->setSalary(00.00); 
-        $salary->setNetSalary(00.00);
-
-        $this->entityManager->persist($salary);
-        $this->entityManager->flush();
-
-        $repository = $this->entityManager->getRepository(Salary::class);
-        $setSalarys = $repository->findBy(['user' => $currentUser]);
+        $setSalarys = $this->entityManager->getRepository(Salary::class)->findBy(['user' => $currentUser]);
 
         return $this->render('hrmsystem/setSalary.html.twig', [
             'controller_name' => 'HrmsystemController',
-            'setsalarys' => $setSalarys,
+            'Setsalarys' => $setSalarys,
         ]);
     }
 
-    //delete appraisal
+    //delete salary
     #[Route('/hrmsystem/set_salary/{id}/delete/{user_id}', name: 'set_salary_delete', methods: ["GET", "POST"])]
     public function setSalaryDelete(Salary $salary, int $id, int $user_id): Response
     {
