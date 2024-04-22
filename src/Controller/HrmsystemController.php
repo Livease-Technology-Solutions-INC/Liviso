@@ -80,6 +80,7 @@ use App\Form\HRMSystem\HRM_System_Setup\PerformanceType;
 use App\Entity\HRMSystem\HRM_System_Setup\TerminationHRM;
 use App\Form\HRMSystem\HRM_System_Setup\CompetenciesType;
 use App\Entity\HRMSystem\LeaveManagementSetup\ManageLeave;
+use App\Entity\HRMSystem\PayrollSetup\PaySlips;
 use App\Entity\HRMSystem\PayrollSetup\Salary;
 use App\Form\HRMSystem\HRM_System_Setup\TerminationHRMType;
 use App\Form\HRMSystem\LeaveManagementSetup\ManageLeaveType;
@@ -174,6 +175,18 @@ class HrmsystemController extends AbstractController
             $salary->setNetSalary(00.00);
 
             $this->entityManager->persist($salary);
+            $this->entityManager->flush();
+
+            $payslip = new PaySlips();
+            $user = $this->entityManager->getRepository(User::class)->find($id);
+            $payslip->setUser($user);
+            $payslip->setName($employeeSetupCreate->getName());
+            $payslip->setPayrollType('Monthly');
+            $payslip->setSalary(00.00); 
+            $payslip->setNetSalary(00.00);
+            $payslip->setStatus('paid/unpaid');
+
+            $this->entityManager->persist($payslip);
             $this->entityManager->flush();
 
             // Redirect after successful form submission
@@ -275,7 +288,7 @@ class HrmsystemController extends AbstractController
         return $this->redirectToRoute('hrmsystem/set_salary', ['id' => $user_id]);
     }
 
-    // edit appraisal
+    // edit salary
     #[Route("/hrmsystem/set_salary/{id}/edit/{user_id}", name: "set_salary_edit", methods: ["GET", "PUT", "POST"])]
     public function setSalaryEdit(Request $request, int $id, int $user_id): Response
     {
@@ -295,22 +308,72 @@ class HrmsystemController extends AbstractController
         $repository = $this->entityManager->getRepository(Salary::class);
         $setSalarys = $repository->findBy(['user' => $currentUser]);
 
-        return $this->redirectToRoute('hrmsystem/appraisal', ['id' => $user_id]);
+        return $this->redirectToRoute('hrmsystem/set_salary', ['id' => $user_id]);
 
-        return $this->render('hrmsystem/edit/appraisal.html.twig', [
+        return $this->render('hrmsystem/edit/set_salary.html.twig', [
             'controllername' => 'HrmsystemController',
             'setSalarys' => $setSalarys,
         ]);
     }
 
-    #[Route('/hrmsystem/payslip', name: 'hrmsystem/payslip')]
-    public function payslip(): Response
+    #[Route('/hrmsystem/payslip/{id}', name: 'hrmsystem/payslip')]
+    public function payslip(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+
+        $paySlips = $this->entityManager->getRepository(PaySlips::class)->findBy(['user' => $currentUser]);
+
         return $this->render('hrmsystem/payslip.html.twig', [
             'controller_name' => 'HrmsystemController',
+            'paySlips' => $paySlips,
         ]);
     }
+
+    //delete paySlips
+    #[Route('/hrmsystem/payslip/{id}/delete/{user_id}', name: 'payslip_delete', methods: ["GET", "POST"])]
+    public function payslipDelete(Payslips $payslip, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        if (!$payslip) {
+            throw $this->createNotFoundException('payslip not found');
+        }
+
+        $this->entityManager->remove($payslip);
+        $this->entityManager->flush();
+
+        return $this->redirectToRoute('hrmsystem/payslip', ['id' => $user_id]);
+    }
+
+    // edit salary
+    #[Route("/hrmsystem/payslip/{id}/edit/{user_id}", name: "payslip_edit", methods: ["GET", "PUT", "POST"])]
+    public function payslipEdit(Request $request, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $repository = $this->entityManager->getRepository(PaySlips::class);
+        $paySlip = $repository->find($id);
+
+        if (!$paySlip) {
+            throw $this->createNotFoundException('payslip not found');
+        }
+            
+        $this->entityManager->persist($paySlip);
+        $this->entityManager->flush();
+
+        $repository = $this->entityManager->getRepository(PaySlips::class);
+        $paySlips = $repository->findBy(['user' => $currentUser]);
+
+        return $this->redirectToRoute('hrmsystem/payslip', ['id' => $user_id]);
+
+        return $this->render('hrmsystem/edit/payslip.html.twig', [
+            'controllername' => 'HrmsystemController',
+            'paySlips' => $paySlips,
+        ]);
+    }
+
     #[Route('/hrmsystem/manage_leave/{id}', name: 'hrmsystem/manage_leave')]
     public function manageLeave(Request $request, int $id): Response
     {
