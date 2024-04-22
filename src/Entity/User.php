@@ -60,7 +60,9 @@ use App\Entity\HRMSystem\HRM_System_Setup\Competencies;
 use Symfony\Component\Security\Core\User\UserInterface;
 use App\Entity\HRMSystem\HRM_System_Setup\TerminationHRM;
 use App\Entity\HRMSystem\LeaveManagementSetup\ManageLeave;
+use App\Entity\HRMSystem\PayrollSetup\PaySlip as PayrollSetupPaySlip;
 use App\Entity\HRMSystem\PayrollSetup\Salary;
+use App\Entity\HRMSystem\PayrollSetup\PaySlips;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
@@ -282,6 +284,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Salary::class, mappedBy: "user")]
     private Collection $setSalary;
 
+    #[ORM\OneToMany(targetEntity: PaySlips::class, mappedBy: "user")]
+    private Collection $payslips;
+
 
 
     public function __construct()
@@ -344,6 +349,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->enquiryCreation = new ArrayCollection();
         $this->employeeSetupCreate = new ArrayCollection();
         $this->setSalary = new ArrayCollection();
+        $this->payslips = new ArrayCollection();
     }
 
     public function __toString()
@@ -2173,5 +2179,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, PaySlips>
+     */
+    public function getPayslips(): Collection
+    {
+        return $this->payslips;
     }
 }
