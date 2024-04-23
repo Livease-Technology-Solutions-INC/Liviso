@@ -59,6 +59,7 @@ use App\Entity\HRMSystem\HRM_System_Setup\Performance;
 use App\Entity\HRMSystem\HRM_System_Setup\Competencies;
 use Symfony\Component\Security\Core\User\UserInterface;
 use App\Entity\HRMSystem\HRM_System_Setup\TerminationHRM;
+use App\Entity\HRMSystem\LeaveManagementSetup\Attendance\BulkAttendance;
 use App\Entity\HRMSystem\LeaveManagementSetup\ManageLeave;
 use App\Entity\HRMSystem\PayrollSetup\PaySlip as PayrollSetupPaySlip;
 use App\Entity\HRMSystem\PayrollSetup\Salary;
@@ -287,6 +288,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: PaySlips::class, mappedBy: "user")]
     private Collection $payslips;
 
+    #[ORM\OneToMany(targetEntity: BulkAttendance::class, mappedBy: "user")]
+    private Collection $bulkAttendance;
+
 
 
     public function __construct()
@@ -350,6 +354,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->employeeSetupCreate = new ArrayCollection();
         $this->setSalary = new ArrayCollection();
         $this->payslips = new ArrayCollection();
+        $this->bulkAttendance = new ArrayCollection();
     }
 
     public function __toString()
@@ -2187,5 +2192,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getPayslips(): Collection
     {
         return $this->payslips;
+    }
+
+    /**
+     * @return Collection<int, BulkAttendance>
+     */
+    public function getBulkAttendance(): Collection
+    {
+        return $this->bulkAttendance;
+    }
+
+    public function addBulkAttendance(BulkAttendance $bulkAttendance): static
+    {
+        if (!$this->bulkAttendance->contains($bulkAttendance)) {
+            $this->bulkAttendance->add($bulkAttendance);
+            $bulkAttendance->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBulkAttendance(BulkAttendance $bulkAttendance): static
+    {
+        if ($this->bulkAttendance->removeElement($bulkAttendance)) {
+            // set the owning side to null (unless already changed)
+            if ($bulkAttendance->getUser() === $this) {
+                $bulkAttendance->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }
