@@ -78,6 +78,7 @@ use App\Form\HRMSystem\HRM_System_Setup\DesignationType;
 use App\Form\HRMSystem\HRM_System_Setup\JobCategoryType;
 use App\Form\HRMSystem\HRM_System_Setup\PerformanceType;
 use App\Entity\HRMSystem\HRM_System_Setup\TerminationHRM;
+use App\Entity\HRMSystem\LeaveManagementSetup\Attendance\BulkAttendance;
 use App\Form\HRMSystem\HRM_System_Setup\CompetenciesType;
 use App\Entity\HRMSystem\LeaveManagementSetup\ManageLeave;
 use App\Entity\HRMSystem\PayrollSetup\PaySlips;
@@ -187,6 +188,16 @@ class HrmsystemController extends AbstractController
             $payslip->setStatus('paid/unpaid');
 
             $this->entityManager->persist($payslip);
+            $this->entityManager->flush();
+
+            $bulkAttendance = new BulkAttendance();
+            $user = $this->entityManager->getRepository(User::class)->find($id);
+            $bulkAttendance->setUser($user);
+            $bulkAttendance->setEmployee($employeeSetupCreate->getName());
+            $bulkAttendance->setBranch('china'); 
+            $bulkAttendance->setDepartment('financial');
+
+            $this->entityManager->persist($bulkAttendance);
             $this->entityManager->flush();
 
             // Redirect after successful form submission
@@ -452,14 +463,65 @@ class HrmsystemController extends AbstractController
         return $this->redirectToRoute('hrmsystem/manage_leave', ['id' => $user_id]);
     }
 
-    #[Route('/hrmsystem/bulk_attendance', name: 'hrmsystem/bulk_attendance')]
-    public function bulkAttendance(): Response
+    #[Route('/hrmsystem/bulk_attendance/{id}', name: 'hrmsystem/bulk_attendance')]
+    public function bulkAttendance(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+
+        $bulkAttendance = $this->entityManager->getRepository(BulkAttendance::class)->findBy(['user' => $currentUser]);
+
         return $this->render('hrmsystem/bulkAttendance.html.twig', [
             'controller_name' => 'HrmsystemController',
+            'bulkAttendances' => $bulkAttendance,
         ]);
     }
+
+    //delete bulkAttendance
+    #[Route('/hrmsystem/bulk_attendance/{id}/delete/{user_id}', name: 'bulkattendance_delete', methods: ["GET", "POST"])]
+    public function bulkAttendanceDelete(BulkAttendance $bulkAttendance, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        if (!$bulkAttendance) {
+            throw $this->createNotFoundException('bulk attendance not found');
+        }
+
+        $this->entityManager->remove($bulkAttendance);
+        $this->entityManager->flush();
+
+        return $this->redirectToRoute('hrmsystem/bulk_attendance', ['id' => $user_id]);
+    }
+
+    // edit bulkAttendance
+    #[Route("/hrmsystem/bulk_attendance/{id}/edit/{user_id}", name: "bulkattendance_edit", methods: ["GET", "PUT", "POST"])]
+    public function bulkAttendanceEdit(Request $request, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $repository = $this->entityManager->getRepository(BulkAttendance::class);
+        $bulkAttendance = $repository->find($id);
+
+        if (!$bulkAttendance) {
+            throw $this->createNotFoundException('bulk attendance not found');
+        }
+            
+        $this->entityManager->persist($bulkAttendance);
+        $this->entityManager->flush();
+
+        $repository = $this->entityManager->getRepository(BulkAttendance::class);
+        $bulkAttendance = $repository->findBy(['user' => $currentUser]);
+
+        return $this->redirectToRoute('hrmsystem/payslip', ['id' => $user_id]);
+
+        return $this->render('hrmsystem/edit/bulkattendance.html.twig', [
+            'controllername' => 'HrmsystemController',
+            'bulkAttendance' => $bulkAttendance,
+        ]);
+    }
+
+
     #[Route('/hrmsystem/mark_attendance', name: 'hrmsystem/mark_attendance')]
     public function markAttendance(): Response
     {
