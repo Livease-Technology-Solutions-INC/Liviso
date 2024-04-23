@@ -18716,6 +18716,13 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0;
 }
 
+.flag-border {
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  height: 100%;
+  padding: 8px;
+}
+
 .rating-css input {
   display: none;
 }
