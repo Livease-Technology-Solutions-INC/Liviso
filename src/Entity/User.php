@@ -38,6 +38,7 @@ use App\Entity\HRMSystem\HRM_System_Setup\Loan;
 use App\Entity\HRMSystem\Performance\Indicator;
 use App\Entity\AccountingSystem\Banking\Account;
 use App\Entity\AccountingSystem\Expense\Payment;
+use App\Entity\HRMSystem\DocumentSetup;
 use App\Entity\HRMSystem\Performance\Appraisals;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\HRMSystem\HRM_System_Setup\Branch;
@@ -290,6 +291,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(targetEntity: BulkAttendance::class, mappedBy: "user")]
     private Collection $bulkAttendance;
+
+    #[ORM\OneToMany(targetEntity: DocumentSetup::class, mappedBy: "user")]
+    private Collection $documentSetup;
 
 
 
