@@ -5,6 +5,7 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     support_dir: '%kernel.project_dir%/public/user/support/'
+    document_dir: '%kernel.project_dir%/public/user/document/'
     profileImage_dir: '%kernel.project_dir%/public/user/profileImage/'
 
 services:
