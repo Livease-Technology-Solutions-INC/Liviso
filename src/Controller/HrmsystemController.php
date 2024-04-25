@@ -30,6 +30,7 @@ use App\Form\HRMSystem\TerminationType;
 use App\Form\HRMSystem\AnnouncementType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\HRMSystem\CustomQuestions;
+use App\Entity\HRMSystem\DocumentSetup;
 use App\Form\HRMSystem\CustomQuestionsType;
 use App\Entity\HRMSystem\EmployeesAssetSetup;
 use App\Entity\HRMSystem\EmployeeSetupCreate;
@@ -83,6 +84,7 @@ use App\Form\HRMSystem\HRM_System_Setup\CompetenciesType;
 use App\Entity\HRMSystem\LeaveManagementSetup\ManageLeave;
 use App\Entity\HRMSystem\PayrollSetup\PaySlips;
 use App\Entity\HRMSystem\PayrollSetup\Salary;
+use App\Form\HRMSystem\DocumentSetupType;
 use App\Form\HRMSystem\HRM_System_Setup\TerminationHRMType;
 use App\Form\HRMSystem\LeaveManagementSetup\ManageLeaveType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -1953,14 +1955,107 @@ class HrmsystemController extends AbstractController
             'employeesAssetSetups' => $employeesAssetSetups,
         ]);
     }
-    #[Route('/hrmsystem/document_setup', name: 'hrmsystem/document_setup')]
-    public function documentSetup(): Response
+    #[Route('/hrmsystem/document_setup/{id}', name: 'hrmsystem/document_setup')]
+    public function documentSetup(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $documentSetup = new DocumentSetup();
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $documentSetup->setUser($user);
+        $form = $this->createForm(DocumentSetupType::class, $documentSetup, ['current_user' => $this->getUser()]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $file = $request->files->get(key: 'document_setup')['document']?? null;
+            if ($file) {
+                $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+                try {
+                    $file->move(
+                        $this->getParameter('document_dir'),
+                        $fileName
+                    );
+                } catch (\Exception $e) {
+                    $this->addFlash('error', 'There was an issue with the upload');
+                    return $this->redirectToRoute('document_setup');
+                }
+                $documentSetup->setDocument($fileName);
+            }
+            $this->entityManager->persist($documentSetup);
+            $this->entityManager->flush();
+
+            // Redirect after successful form submission
+            return $this->redirectToRoute('hrmsystem/document_setup',  ['id' => $id]);
+        }
+
+        $repository = $this->entityManager->getRepository(DocumentSetup::class);
+        $documentSetups = $repository->findBy(['user' => $currentUser]);
+
         return $this->render('hrmsystem/documentSetup.html.twig', [
             'controller_name' => 'HrmsystemController',
+            'documentSetups' => $documentSetups,
+            'form' => $form->createView(),
         ]);
     }
+
+    //delete document setup
+    #[Route('/hrmsystem/document_setup/{id}/delete/{user_id}', name: 'document_setup_delete', methods: ["GET", "POST"])]
+    public function documentSetupDelete(DocumentSetup $documentSetup, int $id, int $user_id, EntityManagerInterface $entityManager): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        if (!$documentSetup) {
+            throw $this->createNotFoundException('documentsetup not found');
+        }
+
+        $entityManager->remove($documentSetup);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('hrmsystem/document_setup', ['id' => $user_id]);
+    }
+
+    // edit document setup
+    #[Route("/hrmsystem/document_setup/{id}/edit/{user_id}", name: "document_setup_edit", methods: ["GET", "PUT", "POST"])]
+    public function documentSetupEdit(Request $request, int $id, int $user_id): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $repository = $this->entityManager->getRepository(DocumentSetup::class);
+        $documentSetup = $repository->find($id);
+
+        if (!$documentSetup) {
+            throw $this->createNotFoundException('documentsetup not found');
+        }
+
+        $form = $this->createForm(DocumentSetupType::class, $documentSetup,  ['current_user' => $this->getUser()]);
+        try {
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Persist the entity only if the form is submitted and valid
+                $documentSetup = $form->getData();
+                $this->entityManager->persist($documentSetup);
+                $this->entityManager->flush();
+
+                // Redirect after successful form submission (optional)
+                return $this->redirectToRoute('hrmsystem/document_setup', ['id' => $user_id]);
+            }
+        } catch (\Exception $error) {
+            $this->addFlash('danger', 'An error occurred while processing the form.');
+            throw $error;
+        }
+        $repository = $this->entityManager->getRepository(DocumentSetup::class);
+        $documentSetups = $repository->findBy(['user' => $currentUser]);
+
+        return $this->render('hrmsystem/edit/documentSetup.html.twig', [
+            'controllername' => 'HrmsystemController',
+            'form' => $form->createView(),
+            'documentSetup' => $documentSetups,
+        ]);
+    }
+
     #[Route('/hrmsystem/company_policy', name: 'hrmsystem/company_policy')]
     public function companyPolicy(): Response
     {

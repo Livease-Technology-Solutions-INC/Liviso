@@ -38,6 +38,7 @@ use App\Entity\HRMSystem\HRM_System_Setup\Loan;
 use App\Entity\HRMSystem\Performance\Indicator;
 use App\Entity\AccountingSystem\Banking\Account;
 use App\Entity\AccountingSystem\Expense\Payment;
+use App\Entity\HRMSystem\DocumentSetup;
 use App\Entity\HRMSystem\Performance\Appraisals;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\HRMSystem\HRM_System_Setup\Branch;
@@ -291,6 +292,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: BulkAttendance::class, mappedBy: "user")]
     private Collection $bulkAttendance;
 
+    #[ORM\OneToMany(targetEntity: DocumentSetup::class, mappedBy: "user")]
+    private Collection $documentSetup;
+
 
 
     public function __construct()
@@ -355,6 +359,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->setSalary = new ArrayCollection();
         $this->payslips = new ArrayCollection();
         $this->bulkAttendance = new ArrayCollection();
+        $this->documentSetup = new ArrayCollection();
     }
 
     public function __toString()
@@ -2218,6 +2223,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($bulkAttendance->getUser() === $this) {
                 $bulkAttendance->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, DocumentSetup>
+     */
+    public function getDocumentSetup(): Collection
+    {
+        return $this->documentSetup;
+    }
+
+    public function addDocumentSetup(DocumentSetup $documentSetup): static
+    {
+        if (!$this->documentSetup->contains($documentSetup)) {
+            $this->documentSetup->add($documentSetup);
+            $documentSetup->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDocumentSetup(DocumentSetup $documentSetup): static
+    {
+        if ($this->documentSetup->removeElement($documentSetup)) {
+            // set the owning side to null (unless already changed)
+            if ($documentSetup->getUser() === $this) {
+                $documentSetup->setUser(null);
             }
         }
 
