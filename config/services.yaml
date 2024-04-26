@@ -6,6 +6,7 @@
 parameters:
     support_dir: '%kernel.project_dir%/public/user/support/'
     document_dir: '%kernel.project_dir%/public/user/document/'
+    attachment_dir: '%kernel.project_dir%/public/user/attachment/'
     profileImage_dir: '%kernel.project_dir%/public/user/profileImage/'
 
 services:
