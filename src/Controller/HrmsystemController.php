@@ -24,6 +24,7 @@ use App\Entity\HRMSystem\Resignation;
 use App\Entity\HRMSystem\Termination;
 use App\Form\HRMSystem\PromotionType;
 use App\Entity\HRMSystem\Announcement;
+use App\Entity\HRMSystem\CompanyPolicy;
 use App\Form\HRMSystem\ComplaintsType;
 use App\Form\HRMSystem\ResignationType;
 use App\Form\HRMSystem\TerminationType;
@@ -84,6 +85,7 @@ use App\Form\HRMSystem\HRM_System_Setup\CompetenciesType;
 use App\Entity\HRMSystem\LeaveManagementSetup\ManageLeave;
 use App\Entity\HRMSystem\PayrollSetup\PaySlips;
 use App\Entity\HRMSystem\PayrollSetup\Salary;
+use App\Form\HRMSystem\CompanyPolicyType;
 use App\Form\HRMSystem\DocumentSetupType;
 use App\Form\HRMSystem\HRM_System_Setup\TerminationHRMType;
 use App\Form\HRMSystem\LeaveManagementSetup\ManageLeaveType;
@@ -2056,14 +2058,107 @@ class HrmsystemController extends AbstractController
         ]);
     }
 
-    #[Route('/hrmsystem/company_policy', name: 'hrmsystem/company_policy')]
-    public function companyPolicy(): Response
+    #[Route('/hrmsystem/company_policy/{id}', name: 'hrmsystem/company_policy')]
+    public function companyPolicy(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $currentUser = $this->getUser();
+        assert($currentUser instanceof User);
+        $companyPolicy = new CompanyPolicy();
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $companyPolicy->setUser($user);
+        $form = $this->createForm(CompanyPolicyType::class, $companyPolicy, ['current_user' => $this->getUser()]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $file = $request->files->get(key: 'company_policy')['attachment']?? null;
+            if ($file) {
+                $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+                try {
+                    $file->move(
+                        $this->getParameter('attachment_dir'),
+                        $fileName
+                    );
+                } catch (\Exception $e) {
+                    $this->addFlash('error', 'There was an issue with the upload');
+                    return $this->redirectToRoute('company_policy');
+                }
+                $companyPolicy->setAttachment($fileName);
+            }
+            $this->entityManager->persist($companyPolicy);
+            $this->entityManager->flush();
+
+            // Redirect after successful form submission
+            return $this->redirectToRoute('hrmsystem/company_policy',  ['id' => $id]);
+        }
+
+        $repository = $this->entityManager->getRepository(CompanyPolicy::class);
+        $companyPolicys = $repository->findBy(['user' => $currentUser]);
+
         return $this->render('hrmsystem/companyPolicy.html.twig', [
             'controller_name' => 'HrmsystemController',
+            'companyPolicys' => $companyPolicys,
+            'form' => $form->createView(),
         ]);
     }
+
+        //delete company policy
+        #[Route('/hrmsystem/company_policy/{id}/delete/{user_id}', name: 'company_policy_delete', methods: ["GET", "POST"])]
+        public function companyPolicypDelete(CompanyPolicy $companyPolicy, int $id, int $user_id, EntityManagerInterface $entityManager): Response
+        {
+            $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+    
+            if (!$companyPolicy) {
+                throw $this->createNotFoundException('company policy not found');
+            }
+    
+            $entityManager->remove($companyPolicy);
+            $entityManager->flush();
+    
+            return $this->redirectToRoute('hrmsystem/company_policy', ['id' => $user_id]);
+        }
+    
+        // edit company policy
+        #[Route("/hrmsystem/company_policy/{id}/edit/{user_id}", name: "company_policy_edit", methods: ["GET", "PUT", "POST"])]
+        public function companyPolicyEdit(Request $request, int $id, int $user_id): Response
+        {
+            $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+            $currentUser = $this->getUser();
+            assert($currentUser instanceof User);
+            $repository = $this->entityManager->getRepository(CompanyPolicy::class);
+            $companyPolicy = $repository->find($id);
+    
+            if (!$companyPolicy) {
+                throw $this->createNotFoundException('company policy not found');
+            }
+    
+            $form = $this->createForm(CompanyPolicyType::class, $companyPolicy,  ['current_user' => $this->getUser()]);
+            try {
+                $form->handleRequest($request);
+    
+                if ($form->isSubmitted() && $form->isValid()) {
+                    // Persist the entity only if the form is submitted and valid
+                    $companyPolicy = $form->getData();
+                    $this->entityManager->persist($companyPolicy);
+                    $this->entityManager->flush();
+    
+                    // Redirect after successful form submission (optional)
+                    return $this->redirectToRoute('hrmsystem/company_policy', ['id' => $user_id]);
+                }
+            } catch (\Exception $error) {
+                $this->addFlash('danger', 'An error occurred while processing the form.');
+                throw $error;
+            }
+            $repository = $this->entityManager->getRepository(CompanyPolicy::class);
+            $companyPolicys = $repository->findBy(['user' => $currentUser]);
+    
+            return $this->render('hrmsystem/edit/documentSetup.html.twig', [
+                'controllername' => 'HrmsystemController',
+                'form' => $form->createView(),
+                'companyPolicys' => $companyPolicys,
+            ]);
+        }
+    
 
     #[Route('/hrmsystem/hrm_system_setup/branch/{id}', name: 'hrmsystem/hrm_system_setup/branch')]
     public function hrmSystemSetupBranch(Request $request, int $id): Response
