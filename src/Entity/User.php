@@ -38,6 +38,7 @@ use App\Entity\HRMSystem\HRM_System_Setup\Loan;
 use App\Entity\HRMSystem\Performance\Indicator;
 use App\Entity\AccountingSystem\Banking\Account;
 use App\Entity\AccountingSystem\Expense\Payment;
+use App\Entity\HRMSystem\CompanyPolicy;
 use App\Entity\HRMSystem\DocumentSetup;
 use App\Entity\HRMSystem\Performance\Appraisals;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -295,6 +296,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: DocumentSetup::class, mappedBy: "user")]
     private Collection $documentSetup;
 
+    #[ORM\OneToMany(targetEntity: CompanyPolicy::class, mappedBy: "user")]
+    private Collection $companyPolicy;
+
+
 
 
     public function __construct()
@@ -360,6 +365,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->payslips = new ArrayCollection();
         $this->bulkAttendance = new ArrayCollection();
         $this->documentSetup = new ArrayCollection();
+        $this->companyPolicy = new ArrayCollection();
     }
 
     public function __toString()
@@ -2253,6 +2259,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($documentSetup->getUser() === $this) {
                 $documentSetup->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CompanyPolicy>
+     */
+    public function getCompanyPolicy(): Collection
+    {
+        return $this->companyPolicy;
+    }
+
+    public function addCompanyPolicy(CompanyPolicy $companyPolicy): static
+    {
+        if (!$this->companyPolicy->contains($companyPolicy)) {
+            $this->companyPolicy->add($companyPolicy);
+            $companyPolicy->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompanyPolicy(CompanyPolicy $companyPolicy): static
+    {
+        if ($this->companyPolicy->removeElement($companyPolicy)) {
+            // set the owning side to null (unless already changed)
+            if ($companyPolicy->getUser() === $this) {
+                $companyPolicy->setUser(null);
             }
         }
 
