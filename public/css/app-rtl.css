@@ -18651,14 +18651,36 @@ html[data-bs-theme=dark] .auth-brand .logo-dark {
 }
 
 .plan .title {
-  position: fixed;
-  right: 0;
-  top: 0;
-  margin: 10px;
+  position: absolute;
+  top: 5%;
+  right: 50%;
+  -webkit-transform: translate(50%, -50%);
+          transform: translate(50%, -50%);
+  font-family: Inter;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 38.73px;
+  text-align: left;
 }
 .plan .container {
   margin-top: 100px;
+  width: 666px;
+  height: 834px;
+  gap: 0px;
+  border-radius: 16px;
+  background-color: white;
+  padding: 30px;
 }
+.plan .container .row .card-body .changer {
+  border-radius: 8px;
+}
+.plan .container .row .card-body .changer .change-plan {
+  width: 153px;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px;
+}
+
 .buttonLink {
   outline: none;
   background: none;
@@ -18814,7 +18836,7 @@ input:checked + .slider:before {
   line-height: 38.73px;
   color: #181059;
   padding: 0;
-  margin: 0;
+  margin: -5px;
 }
 
 .pricing-amount {
