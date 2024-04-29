@@ -18662,6 +18662,12 @@ html[data-bs-theme=dark] .auth-brand .logo-dark {
   line-height: 38.73px;
   text-align: left;
 }
+.plan .title .product-title {
+  font-family: Inter;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 29.05px;
+}
 .plan .container {
   margin-top: 100px;
   width: 666px;
@@ -18670,6 +18676,17 @@ html[data-bs-theme=dark] .auth-brand .logo-dark {
   border-radius: 16px;
   background-color: white;
   padding: 30px;
+}
+.plan .container .row .card-body #inputGroupSelect04 {
+  font-family: Inter;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24.2px;
+  text-align: right;
+  max-width: 520px;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px 0px 0px 0px;
 }
 .plan .container .row .card-body .changer {
   border-radius: 8px;
@@ -18836,7 +18853,7 @@ input:checked + .slider:before {
   line-height: 38.73px;
   color: #181059;
   padding: 0;
-  margin: -5px;
+  margin: -10px;
 }
 
 .pricing-amount {

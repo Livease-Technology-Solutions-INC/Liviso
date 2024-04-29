@@ -24,27 +24,31 @@ use App\Entity\HRMSystem\Resignation;
 use App\Entity\HRMSystem\Termination;
 use App\Form\HRMSystem\PromotionType;
 use App\Entity\HRMSystem\Announcement;
-use App\Entity\HRMSystem\CompanyPolicy;
 use App\Form\HRMSystem\ComplaintsType;
+use App\Entity\HRMSystem\CompanyPolicy;
+use App\Entity\HRMSystem\DocumentSetup;
 use App\Form\HRMSystem\ResignationType;
 use App\Form\HRMSystem\TerminationType;
 use App\Form\HRMSystem\AnnouncementType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\HRMSystem\CustomQuestions;
-use App\Entity\HRMSystem\DocumentSetup;
+use App\Form\HRMSystem\CompanyPolicyType;
+use App\Form\HRMSystem\DocumentSetupType;
 use App\Form\HRMSystem\CustomQuestionsType;
 use App\Entity\HRMSystem\EmployeesAssetSetup;
 use App\Entity\HRMSystem\EmployeeSetupCreate;
+use App\Entity\HRMSystem\PayrollSetup\Salary;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\HRMSystem\HRM_System_Setup\Goal;
 use App\Entity\HRMSystem\HRM_System_Setup\Loan;
+use App\Entity\HRMSystem\PayrollSetup\PaySlips;
 use App\Entity\HRMSystem\Performance\Indicator;
 use App\Form\HRMSystem\EmployeesAssetSetupType;
+use App\Form\HRMSystem\EmployeeSetupCreateType;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\HRMSystem\HRM_System_Setup\Leave;
 use App\Entity\HRMSystem\Performance\Appraisals;
-use App\Form\HRMSystem\EmployeeSetupCreateType;
 use App\Entity\HRMSystem\HRM_System_Setup\Branch;
 use App\Form\HRMSystem\HRM_System_Setup\GoalType;
 use App\Form\HRMSystem\HRM_System_Setup\LoanType;
@@ -80,16 +84,12 @@ use App\Form\HRMSystem\HRM_System_Setup\DesignationType;
 use App\Form\HRMSystem\HRM_System_Setup\JobCategoryType;
 use App\Form\HRMSystem\HRM_System_Setup\PerformanceType;
 use App\Entity\HRMSystem\HRM_System_Setup\TerminationHRM;
-use App\Entity\HRMSystem\LeaveManagementSetup\Attendance\BulkAttendance;
 use App\Form\HRMSystem\HRM_System_Setup\CompetenciesType;
 use App\Entity\HRMSystem\LeaveManagementSetup\ManageLeave;
-use App\Entity\HRMSystem\PayrollSetup\PaySlips;
-use App\Entity\HRMSystem\PayrollSetup\Salary;
-use App\Form\HRMSystem\CompanyPolicyType;
-use App\Form\HRMSystem\DocumentSetupType;
 use App\Form\HRMSystem\HRM_System_Setup\TerminationHRMType;
 use App\Form\HRMSystem\LeaveManagementSetup\ManageLeaveType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\HRMSystem\LeaveManagementSetup\Attendance\BulkAttendance;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class HrmsystemController extends AbstractController
@@ -858,16 +858,16 @@ class HrmsystemController extends AbstractController
             'trainers' => $trainers,
         ]);
     }
-    #[Route('/hrmsystem/jobs', name: 'hrmsystem/jobs')]
-    public function jobs(): Response
+    #[Route('/hrmsystem/jobs/{id}', name: 'hrmsystem/jobs')]
+    public function jobs(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         return $this->render('hrmsystem/jobs.html.twig', [
             'controller_name' => 'HrmsystemController',
         ]);
     }
-    #[Route('/hrmsystem/job_create', name: 'hrmsystem/job_create')]
-    public function jobCreate(): Response
+    #[Route('/hrmsystem/job_create/{id}', name: 'hrmsystem/job_create')]
+    public function jobCreate(Request $request, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         return $this->render('hrmsystem/jobCreate.html.twig', [

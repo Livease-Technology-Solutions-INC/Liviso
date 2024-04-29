@@ -388,10 +388,10 @@
 							<div class="collapse" id="sidebarhrmrecruitmentsetup">
 								<ul class="side-nav-third-level">
 									<li>
-										<a href="{{path("hrmsystem/jobs")}}">Jobs</a>
+										<a href="{{path("hrmsystem/jobs", {id:app.user.id})}}">Jobs</a>
 									</li>
 									<li>
-										<a href="{{path("hrmsystem/job_create")}}">Job Create</a>
+										<a href="{{path("hrmsystem/job_create", {id:app.user.id})}}">Job Create</a>
 									</li>
 									<li>
 										<a href="{{path("hrmsystem/job_application")}}">Job Application</a>
